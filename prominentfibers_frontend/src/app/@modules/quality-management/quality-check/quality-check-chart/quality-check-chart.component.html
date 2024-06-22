@@ -1,0 +1,125 @@
+<section class="section">
+    <div class="row">
+        <div class="employee_top my-1">
+            Quality Management
+            <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #989aa0"></i>
+                Quality Check Chart</span>
+        </div>
+    </div>  
+    <mat-card>
+        <div class="form_head">
+            <h3>Quality Check Chart</h3>
+            <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+        </div>
+        <div class="form_basic p-3">
+            <form class="form_set"  [formGroup]="QualityChartform" >
+                <div class="row mt-2">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12 pt-3">
+                        <mat-label style="font-weight:bold;" >Product Name</mat-label>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group"> 
+                            <mat-form-field appearance="outline" class="mt-1">
+                                <mat-label>Product Name</mat-label>
+                                 <input type="text" matInput formControlName="product_name">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12 pt-3">
+                        <mat-label style="font-weight:bold;" >Product Variant</mat-label>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" class="mt-1">
+                                <mat-label>Product Variant</mat-label>
+                                <input type="text" matInput formControlName="product_variant">
+
+                                <!-- <mat-error *ngIf="form.get('wokflowcategory')?.hasError('required')">
+                                    This field is required!
+                                </mat-error> -->
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="card-body"  >
+                    <canvas #pieChart></canvas>
+                  </div> 
+                  <hr class="mt-2">
+
+                  <div class="row mt-5"> 
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group"> 
+                            <mat-form-field appearance="outline" class="mt-1">
+                                <mat-label>Total Production</mat-label>
+                                 <input type="text" matInput formControlName="total_qty">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group"> 
+                            <mat-form-field appearance="outline" class="mt-1">
+                                <mat-label>Quality Pass</mat-label>
+                                 <input type="text" matInput formControlName="qualityPass">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group"> 
+                            <mat-form-field appearance="outline" class="mt-1">
+                                <mat-label>NG</mat-label>
+                                 <input type="text" matInput formControlName="NG">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row mt-2">
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group"> 
+                                <mat-form-field appearance="outline" class="mt-1">
+                                    <mat-label>Select Shift</mat-label>
+                                    <mat-select   formControlName="shift_id" multiple>
+                                        <mat-option  *ngFor="let data of getAllShift" 
+                                         [value]="data.shift_id" >{{data.shift.shift_name}}</mat-option>
+                                        
+                                    </mat-select>
+                                    <!-- <mat-error *ngIf="qualityCheck.get('shift_id')?.hasError('required')">
+                                        This field is required!
+                                   </mat-error>  -->
+                                </mat-form-field>
+                            </div>
+                        </div> 
+                    </div>
+                    <hr>
+                    <div class="row mt-3"> 
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group"> 
+                                <mat-form-field appearance="outline" class="mt-1">
+                                    <mat-label>Total Production</mat-label>
+                                     <input type="text" matInput  >
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group"> 
+                                <mat-form-field appearance="outline" class="mt-1">
+                                    <mat-label>Quality Pass</mat-label>
+                                     <input type="text" matInput  >
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group"> 
+                                <mat-form-field appearance="outline" class="mt-1">
+                                    <mat-label>NG</mat-label>
+                                     <input type="text" matInput  >
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        </div>
+                   
+            </form>
+        </div>
+    </mat-card>
+</section>

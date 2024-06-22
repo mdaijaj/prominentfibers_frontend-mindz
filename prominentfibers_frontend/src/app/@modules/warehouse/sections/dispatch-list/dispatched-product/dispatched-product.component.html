@@ -1,0 +1,21 @@
+<div fxflex="100%">
+  <div class="row">
+    <div class="tab_menu">
+      <div class="tab-item">
+        <button class="main-button dispatch_list" (click)='redirect1()'>Dispatch List</button>
+        <button class="main-button dispatch_product active_button"  >Dispatch Product</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ag_grid">
+  <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:426px;"
+    [rowData]="rowData" [columnDefs]="columnDefs"
+  >
+  </ag-grid-angular>
+</div>
+
+
+
+

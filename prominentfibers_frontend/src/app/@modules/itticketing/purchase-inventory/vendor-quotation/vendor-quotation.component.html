@@ -1,0 +1,20 @@
+<div class="section">
+    <section class="tab-bar">
+        <div fxflex="100%">
+            <div class="row">
+                <div class="tab_menu">
+                    <div class="tab-item">
+                        <button class="main-button" color="primary" [routerLink]="['pending-approval']"
+                            routerLinkActive="active"> Pending Approval </button>
+                        <button class="main-button" color="primary" [routerLink]="['approved-cost']"
+                            routerLinkActive="active">Approved Cost
+                        </button>
+                        <button class="main-button" color="primary" [routerLink]="['rejected']"
+                            routerLinkActive="active">Rejected</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<router-outlet></router-outlet>

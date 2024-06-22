@@ -1,0 +1,91 @@
+<h2 mat-dialog-title>Create Revenue</h2>
+<mat-dialog-content class="mat-typography">
+
+    <div class="section">
+        <form action="" [formGroup]="revenueCreate">
+            <!-- dropdown list starts  -->
+            <div class="row">            
+                <div class="col-md-8">
+                    <p class="heading">Select Type of Bill&nbsp;</p>
+                     <mat-form-field appearance="outline">
+                            <mat-select (selectionChange)="dd_value($event)">
+                             <mat-option value="null" disabled>Choose your Bill Type</mat-option>
+                            <mat-option *ngIf="!hidepre_program" value="pre_program">Pre Program</mat-option>
+                            <mat-option  *ngIf="hide_other" value="actual_bill">Actual (As per Bill)</mat-option>
+                            <mat-option *ngIf="hide_other" value="overshot">Overshot</mat-option>
+                    </mat-select>
+                         
+                 </mat-form-field>
+                </div>                
+                <div class="col-md-6">                 
+                </div>       
+            
+            </div>
+            <!-- dropdown list ends  -->
+
+        <div class="row">
+            
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Trainer Cost</mat-label>
+                    <input matInput type="text" formControlName="Trainer_Cost" />
+                </mat-form-field>
+            </div>
+            
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Flight/Bus/Train Travel Cost</mat-label>
+                    <input matInput type="text" formControlName="travel_Cost" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Trainer Stay Charges</mat-label>
+                    <input matInput type="text" formControlName="trainer_Stay_Charges" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Trainer Local Travel</mat-label>
+                    <input matInput type="text" formControlName="trainer_Local_Travel" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>BDE Local Travel</mat-label>
+                    <input matInput type="text" formControlName="BDE_Local_Travel" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Hall Charges</mat-label>
+                    <input matInput type="text" formControlName="hall_Charges" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Projector Charges</mat-label>
+                    <input matInput type="text" formControlName="projector_Charges" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Participant Kit (Material/Notepad/Pens)</mat-label>
+                    <input matInput type="text" formControlName="participant_Kit" />
+                </mat-form-field>
+            </div>
+        
+        </div>
+    </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close>Cancel</button>
+    <button (click)="submitForm()" mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

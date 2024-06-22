@@ -1,0 +1,381 @@
+<div class="section">
+  <div>
+    <mat-card>
+      <form class="form_set" [formGroup]="createPrForm">
+
+        <!-- Pr details -->
+        <div class="row form_head">
+          <h3>PR Details</h3>
+        </div>
+        <!-- <div class="row">
+        <div  class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">PR no</th>
+                <th scope="col">Created By</th>
+                <th scope="col">Department</th>
+                <th scope="col">Type/Capex||OPEX</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Start date </th>
+                <th scope="col">End date </th>
+                <th *ngIf="!id" scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody  formArrayName="alldata" *ngFor="let control of CF_1.alldata['controls']; index as i">
+              <tr *ngIf="CF_1.alldata.length !=0" style="text-align: center;" [formGroup]="control">
+                <td>
+                  <div class="form-group">
+                    <img
+                      [src]="control.value?.product_image"
+                      width="150"
+                      height="150" 
+                    />
+                  </div>
+                </td>
+                <td class="inpBox">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" style="width: 10vw">
+                      <input matInput formControlName="item_name" readonly/>
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="inpBox">
+                  <div class="form-group ">
+                    <mat-form-field appearance="outline" style="width: 10vw">
+                      <input matInput formControlName="item_code" readonly/>
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="inpBox">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" style="width: 10vw">
+                      <input type="number" matInput formControlName="unit" min="1"/>
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="inpBox">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" style="width: 10vw">
+                      <mat-select formControlName="priority">
+                        <mat-option value="HIGH">HIGH</mat-option>
+                        <mat-option value="MEDIUM">MEDIUM</mat-option>
+                        <mat-option value="LOW">LOW</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </td>
+                <td class="inpBox">
+                  <mat-form-field appearance="outline" style="width: 10vw">
+                    <input matInput formControlName="mvp" readonly/>
+                  </mat-form-field>
+                </td>
+                <td class="inpBox" *ngIf="!id">
+                  <mat-icon (click)="deleteRow(i)">delete</mat-icon>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="CF_1.alldata.length == 0">
+              <tr>
+                <td colspan="7" style="text-align: center;color: #8e8e8e">
+                  Product Not Selcted
+                </td>
+              </tr> 
+            </tbody>
+          </table>
+        </div>
+      </div> -->
+        <div class="row details">
+          <div class="col-md-6">
+            <table id="customers">
+
+              <tr>
+                <td class="head_task">PR no</td>
+                <td class="tasklinks" class="tasklink" matTooltip="Task Order File(Pdf Generate)">
+                  {{details_pr?.procurement_id|| "-"}}
+                </td>
+              </tr>
+              <tr>
+                <td class="head_task">Department</td>
+                <td>{{details_pr?.department || "-"}}</td>
+              </tr>
+              <tr>
+                <td class="head_task">Created Date</td>
+                <td>{{details_pr?.createdAt | date: 'dd-MM-yyyy' || "-"}}</td>
+              </tr>
+              <tr>
+                <td class="head_task">Start date</td>
+                <td>
+
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+
+                      <input matInput [matDatepicker]="dp5" (click)="dp5.open()" formControlName="start_date_pr"
+                        [max]="maxDate" [min]="minDate" />
+                      <mat-datepicker-toggle matSuffix [for]="dp5"></mat-datepicker-toggle>
+                      <mat-datepicker #dp5></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+
+                </td>
+              </tr>
+
+
+            </table>
+          </div>
+
+          <div class="col-md-6">
+            <table id="customers">
+              <tr>
+                <td class="head_task">Created By</td>
+                <td>{{Pr_create_name || "-"}}</td>
+              </tr>
+              <tr>
+                <td class="head_task">Type/Capex||OPEX</td>
+                <td>opex</td>
+              </tr>
+              <tr>
+                <td class="head_task">Created Date</td>
+                <td>{{details_pr?.procurement_id || "-"}}</td>
+              </tr>
+              <tr>
+                <td class="head_task">End date</td>
+                <td>
+
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+
+                      <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="end_date_pr"
+                        [min]="minEndDate" />
+                      <mat-datepicker-toggle matSuffix [for]="dp6"></mat-datepicker-toggle>
+                      <mat-datepicker #dp6></mat-datepicker>
+                      <mat-error *ngIf="
+                      createPrForm.controls['end_date_pr'].hasError('required')
+                  ">
+                        This field is required!
+                      </mat-error>
+                    </mat-form-field>
+
+                  </div>
+
+
+                </td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+        <div class="row form_head">
+          <h3>Item Details</h3>
+        </div>
+        <div class="form_basic">
+          <div class="row">
+            <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Product Image</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Item Code</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">MVP</th>
+                    <th scope="col">Supplier Name</th>
+
+                    <th *ngIf="!id" scope="col">Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let items of procurement_requests; index as i">
+                    <td>
+                      <img [src]="items?.item_document" style="width: 100px;">
+                    </td>
+                    <td>{{items?.product_name || items?.item_name || "-"}}</td>
+                    <td>{{items?.item_code || "-"}}</td>
+                    <td>{{items?.product_quantity || "-"}}</td>
+                    <td>{{items?.priority || "-"}}</td>
+
+                    <td>{{items?.mvp_product || items?.mvp || "-"}}</td>
+                    <td>
+                      <div class="form-group custom_field">
+                        <mat-form-field appearance="outline">
+                          <mat-select multiple formControlName="vendors" placeholder="Select vendor"
+                            (selectionChange)="onVendorChange($event,i,items)">
+                            <mat-option *ngFor="let vendor of items?.vendor_list"
+                              [value]="vendor">{{vendor?.vendor_name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </td>
+
+                  </tr>
+                </tbody>
+                <!-- <tbody  formArrayName="alldata" *ngFor="let control of CF_1.alldata['controls']; index as i">
+                    <tr *ngIf="CF_1.alldata.length !=0" style="text-align: center;" [formGroup]="control">
+                      <td>
+                        <div class="form-group">
+                          <img
+                            [src]="control.value?.product_image"
+                            width="150"
+                            height="150" 
+                          />
+                        </div>
+                      </td>
+                      <td class="inpBox">
+                        <div class="form-group">
+                          <mat-form-field appearance="outline" style="width: 10vw">
+                            <input matInput formControlName="item_name" readonly/>
+                          </mat-form-field>
+                        </div>
+                      </td>
+                      <td class="inpBox">
+                        <div class="form-group ">
+                          <mat-form-field appearance="outline" style="width: 10vw">
+                            <input matInput formControlName="item_code" readonly/>
+                          </mat-form-field>
+                        </div>
+                      </td>
+                      <td class="inpBox">
+                        <div class="form-group">
+                          <mat-form-field appearance="outline" style="width: 10vw">
+                            <input type="number" matInput formControlName="unit" min="1"/>
+                          </mat-form-field>
+                        </div>
+                      </td>
+                      <td class="inpBox">
+                        <div class="form-group">
+                          <mat-form-field appearance="outline" style="width: 10vw">
+                            <mat-select formControlName="priority">
+                              <mat-option value="HIGH">HIGH</mat-option>
+                              <mat-option value="MEDIUM">MEDIUM</mat-option>
+                              <mat-option value="LOW">LOW</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </td>
+                      <td class="inpBox">
+                        <mat-form-field appearance="outline" style="width: 10vw">
+                          <input matInput formControlName="mvp" readonly/>
+                        </mat-form-field>
+                      </td>
+                      <td class="inpBox" *ngIf="!id">
+                        <mat-icon (click)="deleteRow(i)">delete</mat-icon>
+                      </td>
+                    </tr>
+                  </tbody> -->
+                <!-- <tbody *ngIf="CF_1.alldata.length == 0">
+                    <tr>
+                      <td colspan="7" style="text-align: center;color: #8e8e8e">
+                        Product Not Seslcted
+                      </td>
+                    </tr> 
+                  </tbody> -->
+              </table>
+            </div>
+          </div>
+          <br />
+
+          <p style="font-weight: bold">DEIVERY ADDRESS :</p>
+          <div class="row">
+            <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>LOCATION (Branch)</mat-label>
+                  <input matInput type="text" formControlName="location" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>DELIVERY ADDRESS</mat-label>
+                  <input matInput type="text" formControlName="delivery_address" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            
+          </div>
+          <div class="row">
+            <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>End Date</mat-label>
+                  <input matInput [matDatepicker]="dp4" (click)="dp4.open()" formControlName="end_date" />
+                  <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                  <mat-datepicker #dp4></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div> -->
+            <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>PIN</mat-label>
+                  <input matInput type="number" formControlName="pin" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <input class="form-control" type="file" style="padding-right: 19%" title="UPLOAD DOCUMENT"
+                  (change)="onChange($event)" formControlName="file" />
+                <!-- <img [src]="imagePath?imagePath:this.singlePrData?.file" *ngIf="imagePath || this.singlePrData?.file"
+                    class="imgEmp" (click)="seePreview(this.singlePrData?.file, imagePath)" /> -->
+              </div>
+              <a href="{{fileBind}}" download target="_blank">
+                <mat-icon class="imgEmp" *ngIf="this.fileBind">
+
+                  folder_open</mat-icon>
+              </a>
+
+              <!-- 
+                <div *ngIf="createPrForm.controls['file']" class="invalid-feedback">
+                  file is required
+               </div> -->
+            </div>
+          </div>
+          <div class="row">
+            <!-- <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">
+                            
+                        <div class="vendor_label">
+                            Invite Vendor
+                        </div>
+                    </th>
+                        <td scope="col" class="custom_field">
+                                <div class="form-group">
+                                    <mat-form-field appearance="outline" >
+                                      <input matInput type="number" formControlName="invite_no_vendor" placeholder="Vendor Count" readonly/>
+                                    </mat-form-field>
+                            </div>
+                        </td>
+                        <td scope="col">  <div class="form-group custom_field">
+                            <mat-form-field appearance="outline">
+                              <mat-select multiple formControlName="vendors" placeholder="Select vendor" >
+                                <mat-option *ngFor="let vendor of vendorData" [value]="vendor.vendor_management_id">{{vendor.vendor_name}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div></td>
+                      </tr>
+                    </thead>  
+                    </table> -->
+          </div>
+
+          <div class="mt-3" align="end">
+            <button mat-raised-button color="primary" class="mx-3" (click)="sendRfpLink()">
+              SEND RFP LINK
+            </button>
+            <button mat-raised-button color="warn" routerLink="/master/itticket/purchase-inventory/rfp/initiate-rfp">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </mat-card>
+  </div>
+</div>

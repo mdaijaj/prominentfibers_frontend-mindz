@@ -1,0 +1,106 @@
+<form>
+  <!-- Static form start -->
+  <div class="row m-3">
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+          <mat-label>Plant Name</mat-label>
+          
+            <!-- <mat-option *ngFor="let item of masterList"
+            [value]="item.id">{{item.plant_name}}</mat-option> -->
+            <mat-select 
+             [(ngModel)]="newPlantName" name="newPlantName" 
+             (selectionChange)="onSelectedPlantName($event)">
+              <mat-option *ngFor="let item of plantData"
+                [value]="item.id">{{item.plant_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+            <!-- <mat-option>value1 </mat-option>
+            <mat-option>value2 </mat-option>
+            <mat-option>value3 </mat-option>
+
+          </mat-select> -->
+        </div>     
+      </div>
+    </div>
+
+
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+          <mat-label>Warehouse Name</mat-label>
+          <mat-select  [(value)]="selectedWarehouseName"
+          [(ngModel)]="newWarehouseName" name="newWarehouseName" 
+          (selectionChange)="onSelectedWarehouseName($event)">
+            <mat-option *ngFor="let item of warehouseData"
+              [value]="item.id">{{item.name}}</mat-option>
+          </mat-select>
+          <!-- <mat-select> -->
+          <!-- <mat-option *ngFor="let item of masterList"
+            [value]="item.id">{{item.plant_name}}</mat-option> -->
+            <!-- <mat-option>value1 </mat-option>
+            <mat-option>value2 </mat-option>
+            <mat-option>value3 </mat-option>
+
+          </mat-select> -->
+          </mat-form-field>
+        </div>     
+      </div>
+    </div>
+
+
+<div fxflex="100%">
+  <div class="row">
+    <div class="tab_menu">
+      <div class="tab-item">
+        <button class="main-button navigate active_button" id="button1" (click)='redirect1()'>Block</button>
+        <button class="main-button navigate"  id="button2" (click)='redirect2()'>Bay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+  <div class="form-group">
+    <mat-form-field appearance="outline">
+    <mat-select [(ngModel)]="newBlockCount" name="newBlockCount" (selectionChange)="onSelectedBlocks($event)">
+    <mat-option *ngFor="let item of dataSource"
+      [value]="item">{{item}}</mat-option>
+    </mat-select>
+    </mat-form-field>
+  </div>     
+</div>
+
+<div class="common_button_sub text-right w-50 p-0"  style="margin-top: -67px;margin-left: 480px;">
+  <button class="mx-3 " (click)='add()'>
+    Add
+  </button>
+</div>
+
+<div class="ag_grid">
+  <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:426px;"
+    [rowData]="rowData" [columnDefs]="columnDefs"
+  >
+  </ag-grid-angular>
+</div>
+
+  <div class="common_button_sub text-right w-50 p-0">
+  </div>
+
+  <div class="common_button_sub text-right w-50 p-0"  style="margin-top: 40px;">
+    <button class="mx-3 " (click)="saveButton()">
+      Save
+    </button>
+    <button class="mx-3 ">
+      Cancel
+    </button>
+  </div>
+
+</div>
+</form>

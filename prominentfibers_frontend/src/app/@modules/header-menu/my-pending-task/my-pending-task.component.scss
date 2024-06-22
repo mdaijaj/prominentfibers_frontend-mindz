@@ -1,0 +1,64 @@
+// .ag_grid1 {
+//     margin: 2%;
+// }
+// .header-head {
+//     font-weight: 600;
+//     letter-spacing: 1.0px;
+// }
+// **********************************************************************
+mat-card {
+    width: 100%;
+    // padding: 20px;
+    background: rgb(243, 243, 243) 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 25px #b0bac93d;
+    border: 1px solid #2e5bff14;
+    border-radius: 5px;
+  }
+  
+  .ag-theme-alpine {
+    --ag-header-foreground-color: #e2e2e2;
+    --ag-header-background-color: #8b8b8b;
+  
+  }
+  
+  .ag-header-cell-label {
+    justify-content: center;
+  }
+  
+  .form_head {
+    border-radius: 5px 5px 0 0;
+    background: #8B817D;
+  }
+  
+  ::ng-deep.mat-form-field.mat-focused .mat-form-field-ripple{
+    background-color: black;
+  }
+  .form_head h3, .form_head .h3 {
+    margin: 0;
+    font-size: 15px;
+  }
+  .loginpage {
+    width: 100%;
+    height: 100%;
+    background-color:#efe7e7;
+    // padding: 7px;
+    box-shadow: 0 0 7px 1px #e1dede;
+    border-radius: 10px;
+  }
+  .course
+  {
+    margin:10px 0px!important;
+  }
+  .ag_grid
+  {
+  margin: 0;}
+  ::ng-deep .section
+  {
+    overflow: hidden;
+  }
+  
+  
+  
+  
+  
+  

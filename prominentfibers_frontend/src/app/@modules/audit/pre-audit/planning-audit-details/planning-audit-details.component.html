@@ -1,0 +1,111 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <ng-container *ngIf="singleLeadData?.certificate_type_name == 'Cert' ; else other">
+        <ng-container *ngIf="matchedData && matchedData.length>0 ; else noData">
+          <table class="table table-bordered border border-dark text-center">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <!-- <th colspan="2">Year 1</th>
+                <th>Year 2</th>
+                <th>Year 3</th>
+                <th>Year 4</th> -->
+                <ng-container *ngFor="let stage of getStages(matchedData); let stageIndex = index">
+                  <ng-container *ngIf="(stage === 'S1' || stage === 'S2'); else showOtherAccreditation">
+                    <th *ngIf="stageIndex === 0" colspan="2">{{ 'Year ' + (getYearForStage(stage)) }}</th>
+                  </ng-container>
+                  <ng-template #showOtherAccreditation>
+                    <th>{{ 'Year ' + (getYearForStage(stage)) }}</th>
+                  </ng-template>
+                </ng-container>
+      
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td width="15%" class="fw-bolder">{{ 'Stages' }}</td>
+                <ng-container *ngFor="let stage of getStages(matchedData); let stageIndex = index">
+                  <td class="fw-bolder">{{ stage || '' }}</td>
+                </ng-container>
+              </tr>
+              <ng-container *ngFor="let location of getLocations(matchedData); let locationIndex = index">
+                <tr>
+                  <td width="15%" class="fw-bolder">{{ 'Location' + (locationIndex + 1) + ': - ' + (location || '') }}</td>
+                  <ng-container *ngFor="let stage of getStages(matchedData); let stageIndex = index">
+                    <td>{{ getStageData(matchedData,location, stage)?.noOfMandays || '' }}</td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+              <tr>
+                <td width="15%" class="fw-bolder">{{ 'Assessment Fee' }}</td>
+                <td *ngFor="let stage of getStages(matchedData)">
+                  {{ getAssessmentFee(matchedData, stage) || '' }}
+                </td>
+              </tr>
+              <tr>
+                <td width="15%" class="fw-bolder">{{ 'Accreditation/Logo Fee' }}</td>
+                <ng-container *ngFor="let stage of getStages(matchedData); let stageIndex = index">
+                  <ng-container *ngIf="(stage === 'S1' || stage === 'S2'); else showOtherAccreditation">
+                    <td *ngIf="stageIndex === 0" colspan="2">
+                      {{ getAccreditationLogoFee(matchedData, 'S1') + getAccreditationLogoFee(matchedData, 'S2') || 0 }}
+                    </td>
+                  </ng-container>
+                  <ng-template #showOtherAccreditation>
+                    <td>{{ getAccreditationLogoFee(matchedData, stage) || '' }}</td>
+                  </ng-template>
+                </ng-container>
+                
+              </tr>
+              
+              
+              
+              
+              
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #noData>
+          <p class="text-center">No data available</p>
+        </ng-template>
+      </ng-container>
+      <!-- {
+        "noncert_price_mapping_id": 5,
+        "product_master_id": 23,
+        "product_master_name": "QM15",
+        "type": "Special Assessment",
+        "price": 19000,
+        "segment_id": 1,
+        "segment_name": "MSA",
+        "isChecked": true,
+        "status": "ACTIVE",
+        "createdAt": "2023-10-10T11:03:44.000Z",
+        "updatedAt": "2023-10-17T12:57:24.000Z"
+    } -->
+      <ng-template #other>
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">Product Name</th>
+              <th scope="col">No. Of Mandays</th>
+              <th scope="col">Mandays cost</th>
+              <th scope="col">Total Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pricedata of data; let i=index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{pricedata?.product_master_name}}</td>
+              <td>{{singleLeadData?.in_house_mandays}}</td>
+              <td>{{pricedata?.price}}</td>
+              <td>{{pricedata?.price * singleLeadData?.in_house_mandays}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+
+      
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,26 @@
+.add_mat
+{
+    text-align: center;
+    margin: 10px;
+}
+.add_mat i{
+    background-color: #8B817D;
+    border: 1px solid #8B817D;
+    border-radius: 45%;
+    padding:6px;
+    color: #fff; 
+}
+.heading {
+    cursor: pointer;
+    color: blue;
+  }
+
+  .container {
+    height: 1000px; /* Adjust the height as needed */
+    overflow-y: scroll; /* Add scrollbars if the content overflows */
+  }
+  
+  .section {
+    height: 800px; /* Adjust the height as needed */
+  }
+  

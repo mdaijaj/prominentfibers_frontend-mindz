@@ -1,0 +1,48 @@
+<mat-card class="m-card">
+    <div class="section">
+        <div class="row head">
+            <!-- <p>HRMS</p> -->
+        </div>
+       
+        
+    
+        <div class="employ_sube">
+            <div class="employee_top" matTooltip="Back" (click)="backClick()"><p>My Expenses</p>
+
+                
+            </div>
+            
+            <div class="employee_2" align="end">
+                <label>Search: </label>
+                <input type="text" id="filter-text-box" (input)="onFilterTextBoxChanged()" />
+              </div>
+        </div>
+    
+        
+        <!-- <div class="apply-btn">
+            <button (click)="openCreate()" type="button" class="btn_add">Create Open House Training</button>
+        </div> -->
+        <div class="employ_sube">
+            <!-- <div class="apply-btn">
+                <button (click)="openCreate()" type="button" class="btn_add">Create Travel Request</button>
+            </div> -->
+            <div class="updatetitle">Travel Request</div>
+            <div class="profile-count">
+                <p style="margin: 20px 5px;">Total Requests &nbsp;<span class="text" style="padding:5px 15px;">{{rowData?.length>0?rowData?.length:2}}</span></p>
+              </div>
+        </div>
+    
+        <mat-card>
+            <div class="row form_head">
+                <h3>Travel Request maneger</h3>
+            </div>
+            <div class="ag_grid">
+                <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                    [rowData]="rowData" [columnDefs]="columnDefs" (cellClicked)='onCellClicked($event)' [pagination]=true [paginationPageSize]=10
+                    (gridReady)="onGridReady($event)">
+                </ag-grid-angular>
+            </div>
+        </mat-card>
+    
+    </div>
+</mat-card>

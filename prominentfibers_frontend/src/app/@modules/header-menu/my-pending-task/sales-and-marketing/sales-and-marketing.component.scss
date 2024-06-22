@@ -1,0 +1,161 @@
+.tableContainer{
+    width: 100%;
+    // min-height: 294px;
+    max-height: 100%;
+    display: flex;
+    flex-flow: column;
+    position: relative;
+};
+.tableHeader{
+    gap: 5px;
+    width: 100%;
+    height: 33px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    background: #6b8fcb;
+    padding: 10px;
+}
+.tableHeader span{
+    color: white;
+    white-space: nowrap;
+    width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.bodyContainer{
+    width: 100%;
+    height: 270px;
+    overflow-y: scroll;
+}
+.tableBody{
+    gap: 5px;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+.tableBody span{
+    white-space: nowrap;
+    width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tableBody:nth-child(2n+1){
+    background: rgb(183 211 255 / 23%);
+}
+.tableBody:hover{
+    background: rgb(164 199 255 / 80%);
+}
+.tableBody:active{
+    background-color: rgb(183 211 255 / 23%);
+}
+
+.notFound{
+    color: #cbc8c8;
+    position: absolute;
+    left: 40%;
+    /* right: 50%; */
+    top: 50%;
+}
+
+:host::ng-deep .spiner .mat-mdc-progress-spinner svg {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+:host::ng-deep .mat-mdc-progress-spinner circle,
+.mat-mdc-spinner circle {
+    stroke: #cbc8c8 !important;
+};
+
+:host::ng-deep .I-center .mat-mdc-progress-spinner svg {
+    width: 50px !important;
+    height: 50px !important;
+};
+
+.tableContainer .mat-mdc-progress-spinner {
+    display: block !important;
+    overflow: hidden !important;
+    position: absolute;
+    left: 44%;
+    top: 46%;
+};
+.form_head {
+    border-radius: 5px 5px 0 0;
+    background: #8B817D;
+    display: flex;
+    flex-flow: row;
+  }
+  
+  .form_head h3, .form_head .h3 {
+    margin: 0;
+    font-size: 15px;
+    width: 56%;
+  };
+
+  .searchContainer{
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+  };
+  .searchIcon{
+    position: absolute;
+    color: white;
+    font-size: 19px;
+    padding-top: 3px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .searchField{
+    outline: none;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 10px;
+    color: white;
+    padding-left: 5px;
+    font-size: 11px;
+    padding-right: 20px;
+    height: 28px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .searchField::placeholder{
+    color: white;
+    font-size: 11px;
+  }
+
+  .showSearchBox{
+    width: 87%;
+    padding-right: 23px;
+    transition: all 0.2s ease-in-out;
+  }
+  .old_notification{
+    text-align: right;
+    color: aliceblue;
+    padding-top: 5px;
+    text-align: right;color: aliceblue;
+    cursor: pointer;
+  }
+  .old_notification:hover{
+    text-align: right;
+    color: aliceblue;
+    padding-top: 5px;
+    text-align: right;color: rgb(216, 238, 197);
+    cursor: pointer;
+  
+  }
+//   @media(min-width:280px) and (max-width:1024px)
+// {
+//     ::ng-deep .tableHeader{
+//     font-size: 10px!important;
+// }
+// }

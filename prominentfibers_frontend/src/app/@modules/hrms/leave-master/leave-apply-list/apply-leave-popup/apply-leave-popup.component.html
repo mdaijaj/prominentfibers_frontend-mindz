@@ -1,0 +1,38 @@
+<h3 mat-dialog-title class="popHead">Applied Leave</h3>
+
+<mat-dialog-content class="mat-typography">
+    <div class="cotain">
+        <div class="emp_key">
+            <p>Applier Name:</p>
+            <p>Leave Type:</p>
+            <p>Total Days:</p>
+            <p>Start Date:</p>
+            <p>End Date:</p>
+            <p>Total Leave Days:</p>
+            <p>Reason:</p>
+            <p>Document:</p>
+            <p>Leave Status:</p>
+            <p *ngIf="leaveDetails.reason_of_reject">Reason of Reject:</p>
+        </div>
+
+        <div class="emp_value">
+            <p>{{leaveDetails.applier_name}}</p>
+            <p>{{leaveDetails.leave_type}}</p>
+
+            <p>{{leaveDetails.total_days}} ( for {{leaveDetails.leave_type}} )</p>
+            <P>{{leaveDetails.start_date | date: 'dd-MM-yyyy'}}</P>
+            <p>{{leaveDetails.end_date | date: 'dd-MM-yyyy'}}</p>
+            <p>{{leaveDetails.leave_count}}</p>
+            <p>{{leaveDetails.reason}}</p>
+            <p><a [href]="leaveDetails.leave_doc" target="_blank"> See leave Doc</a></p>
+            <p [style]="fontColor()">{{leaveDetails.leave_apply_status}}</p>
+            <p *ngIf="leaveDetails.reason_of_reject">{{leaveDetails.reason_of_reject}}</p>
+
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close mat-raised-button color="primary">Close</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

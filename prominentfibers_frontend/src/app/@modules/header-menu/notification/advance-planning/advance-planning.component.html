@@ -1,0 +1,37 @@
+<div class="row form_head" *ngIf="show!=='data'">
+    <h3>Advance Planning Notification</h3>
+    <div class="searchContainer">
+        <!-- <input type="text" placeholder="Search by Trainer/Auther" [(ngModel)]="searchVal" class="searchField" #searchBox
+            [disabled]="disabledSearchBox">
+        <mat-icon class="searchIcon" (click)="showSearchBox(searchBox)">search</mat-icon> -->
+    </div>
+</div>
+<div class="tableContainer">
+    <div class="tableHeader">
+        <span>Sr.</span>
+        <span>Company Name</span>
+        <span>BR Number</span>
+        <span>Stage</span>
+    </div>
+    <span class="notFound" *ngIf="rowData?.length === 0 || (rowData)?.length === 0">Record not found</span>
+    <mat-spinner *ngIf="showLoader" style="width: 50px; height:50px;"></mat-spinner>
+    <div class="bodyContainer">
+        <ng-container *ngFor="let data of rowData; index as i">
+            <div class="tableBody" (click)="getCellValue(data)">
+                <span>{{i+1}}</span>
+                <span>{{data?.associated_company}}</span>
+                <span>{{data?.br_number}}</span>
+                <span>{{data?.stage}}</span>
+
+                <mat-icon matTooltip="Open" [ngStyle]="{'color':'green'}"
+                    (click)="openDialog(data,$event)">fast_forward</mat-icon>
+                <!-- <mat-icon matTooltip="Reject" [ngStyle]="{'color':'red'}"
+                    (click)="rejectBtn(data,$event)">cancel</mat-icon> -->
+            </div>
+        </ng-container>
+    </div>
+</div>
+<!-- ************************(dialog)For Approval Block ****************************** -->
+<div *ngIf="show=='data'">
+<h1>ok</h1>
+</div>

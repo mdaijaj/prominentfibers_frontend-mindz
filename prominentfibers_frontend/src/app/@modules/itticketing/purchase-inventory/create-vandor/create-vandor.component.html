@@ -1,0 +1,18 @@
+
+<div class="section">
+    <section class="tab-bar" >
+        <div fxflex="100%">
+          <div class="row">
+            <div class="tab_menu">
+              <div class="tab-item">
+                <button class="main-button" color="primary"  [routerLink]="['basic-details']" routerLinkActive="active" (click)="goToBasicDetails('basic-details')"   >BASIC DETAILS</button>
+                <button class="main-button" color="primary"  [routerLink]="['bank-details']" routerLinkActive="active" (click)="goToBankDetails('bank-details')"  >BANK DETAILS</button>
+                <button class="main-button" color="primary"  [routerLink]="['documents']" (click)="goToDocumentDetails('documents')" routerLinkActive="active">DOCUMENTS</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <router-outlet></router-outlet>
+  

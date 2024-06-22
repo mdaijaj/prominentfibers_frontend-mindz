@@ -1,0 +1,135 @@
+<div class="section">
+  <div class="row">
+    <div class="col-md-7">
+      <table>
+        <tr>
+          <th>Head</th>
+          <th>Pre Program Estimate</th>
+          <th>
+            Actual <br />
+            (As per Bill)
+          </th>
+          <th>Overshot</th>
+        </tr>
+        <tr>
+          <td>Trainer Cost</td>
+          <td>{{revenue_Data?.Trainer_Cost? revenue_Data?.Trainer_Cost : '0'}}</td>
+          <td>{{revenue_Data?.Trainer_Cost? revenue_Data?.ABTrainer_Cost : '0'}}</td>
+          <td>{{revenue_Data?.Trainer_Cost? revenue_Data?.SOTrainer_Cost : '0'}}</td>
+        </tr>
+        <tr>
+          <td>Flight/Bus/Train Travel Cost</td>
+          <td>{{revenue_Data?.travel_Cost? revenue_Data?.travel_Cost : '0'}}</td>
+          <td>{{revenue_Data?.travel_Cost? revenue_Data?.ABBDE_Local_Travel : '0'}}</td>
+          <td>{{revenue_Data?.travel_Cost? revenue_Data?.SOBDE_Local_Travel : '0'}}</td>
+        </tr>
+
+        <tr>
+          <td>Trainer Stay Charges</td>
+          <td>{{revenue_Data?.trainer_Stay_Charges? revenue_Data?.trainer_Stay_Charges : '0'}}</td>
+          <td>{{revenue_Data?.trainer_Stay_Charges? revenue_Data?.ABtrainer_Stay_Charges : '0'}}</td>
+          <td>{{revenue_Data?.trainer_Stay_Charges? revenue_Data?.SOtrainer_Stay_Charges : '0'}}</td>
+        </tr>
+        <tr>
+          <td>Trainerr Local Travel</td>
+          <td>{{revenue_Data?.trainer_Local_Travel? revenue_Data?.trainer_Local_Travel : '0'}}</td>
+          <td>{{revenue_Data?.trainer_Local_Travel? revenue_Data?.ABtrainer_Local_Travel : '0'}}</td>
+          <td>{{revenue_Data?.trainer_Local_Travel? revenue_Data?.SOtrainer_Local_Travel : '0'}}</td>
+        </tr>
+
+        <tr>
+          <td>BDE Local Travel</td>
+          <td>{{revenue_Data?.BDE_Local_Travel? revenue_Data?.BDE_Local_Travel : '0' }}</td>
+          <td>{{revenue_Data?.BDE_Local_Travel? revenue_Data?.ABBDE_Local_Travel : '0' }}</td>
+          <td>{{revenue_Data?.BDE_Local_Travel? revenue_Data?.SOBDE_Local_Travel : '0' }}</td>
+        </tr>
+
+        <tr>
+          <td>Hall Charges</td>
+          <td>{{revenue_Data?.hall_Charges? revenue_Data?.hall_Charges : '0'}}</td>
+          <td>{{revenue_Data?.hall_Charges? revenue_Data?.ABhall_Charges : '0'}}</td>
+          <td>{{revenue_Data?.hall_Charges? revenue_Data?.SOhall_Charges : '0'}}</td>
+        </tr>
+
+        <tr>
+          <td>Projector Charges</td>
+          <td>{{revenue_Data?.projector_Charges? revenue_Data?.projector_Charges : '0'}}</td>
+          <td>{{revenue_Data?.projector_Charges? revenue_Data?.ABprojector_Charges : '0'}}</td>
+          <td>{{revenue_Data?.projector_Charges? revenue_Data?.SOprojector_Charges : '0'}}</td>
+        </tr>
+        <tr>
+          <td>Participant Kit (Material/Notepad/Pens)</td>
+          <td>{{revenue_Data?.participant_Kit? revenue_Data?.participant_Kit : '0'}}</td>
+          <td>{{revenue_Data?.participant_Kit? revenue_Data?.ABparticipant_Kit : '0'}}</td>
+          <td>{{revenue_Data?.participant_Kit? revenue_Data?.SOparticipant_Kit : '0'}}</td>
+        </tr>
+
+        <tr>
+          <td>Total</td>
+          <td>{{revenue_Data?.total_Cost? revenue_Data?.total_Cost : '0'}}</td>
+          <td>{{revenue_Data?.total_Cost? revenue_Data?.ABtotal_Cost : '0'}}</td>
+          <td>{{revenue_Data?.total_Cost? revenue_Data?.SOtotal_Cost : '0'}}</td>
+        </tr>
+        <tr>
+          <button
+            (click)="openDialog()"
+            mat-mini-fab
+            color="primary"
+            aria-label="Example icon button with a menu icon"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-5">
+      <table>
+        <tr>
+          <th>Assumptions</th>
+          <th>Remarks</th>
+        </tr>
+
+        <tr>
+          <td>Trainer Fee/Day</td>
+          <td>{{revenue_Data?.AssTrainer_Fee? revenue_Data?.AssTrainer_Fee : '0'}}</td>
+        </tr>
+
+        <tr>
+          <td>Price/Kit</td>
+          <td>{{revenue_Data?.AssTrainer_Fee? revenue_Data?.AssTrainer_Fee : '0'}}</td>
+        </tr>
+
+        <tr>
+          <td>Hall charges/day/participant</td>
+          <td>{{revenue_Data?.AssHall_charges? revenue_Data?.AssHall_charges : '0'}}</td>
+        </tr>
+
+        <tr>
+          <td>Projector Cost/Day</td>
+          <td>{{revenue_Data?.AssProjector_Cost? revenue_Data?.AssProjector_Cost : '0'}}</td>          
+        </tr>
+
+        <tr>
+          <td>TrainerStay/Day</td>
+          <td>{{revenue_Data?.AssTrainerStay? revenue_Data?.AssTrainerStay : '0'}}</td>
+        </tr>
+
+        <tr>
+          <td>Additional People for Hall charges</td>
+          <td>{{revenue_Data?.AssHall_charges? revenue_Data?.AssHall_charges : '0'}}</td>
+        </tr>
+        <tr>
+             <button style="margin-left:63%"
+              (click)="open_assumption_dialog()"
+              mat-mini-fab
+              color="primary"
+              aria-label="Example icon button with a menu icon"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+        
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<!-- ******************************Header Start***************************************** -->
+<div class="section">
+    <div class="head">
+        <p>Employee</p>
+    </div>
+    <div class="employ_sube">
+        <div class="employee_top">Dashboard
+            <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+                </i>Document Master System</span>
+        </div>
+    </div>
+<!-- ******************************Card Start***************************************** -->
+    <mat-card>
+        <div class="form_head">
+            <h3>Document Library</h3>
+        </div>
+    </mat-card>
+<!-- ******************************Form Start***************************************** -->
+
+    <form [formGroup]="myForm" (ngSubmit)="updateForm(myForm)">
+        <div class="center">
+<!-- ******************************Add Folder Name***************************************** -->
+            <div class="row" *ngIf="getbyIDdata">
+                <div class="col-md-3"></div>
+                <div class="col-md-3 name">Add Folder Name</div>
+                <div class="col-md-3">
+                    <input formControlName="name" id="name" type="text" class="form-control"
+                        value="{{getbyIDdata.folder_name}}">
+                    <div *ngIf="myForm.controls['name'].touched && !myForm.controls['name'].valid">
+                        <span *ngIf="myForm.controls['name'].hasError('required')" style="color: red;">
+                            Folder Name is Required.
+                        </span>
+                        <div *ngIf="f.name.touched && f.name.invalid" class="message">
+                            <span *ngIf="f['name'].hasError('minlength')">Minimum 3 characters are required.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- ******************************Selete File for Update**************************************** -->
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3 name">Selete File for Update </div>
+                <div class="col-md-3" *ngIf="getbyIDdata">
+                    <mat-select id="name" class="form-control" formControlName="file"
+                        (selectionChange)="fileChangeInUpdateTime($event)">
+                        <mat-option [value]="data" *ngFor="let data of getbyIDdata.file_name">
+                            <p>
+                                {{data}}
+                            </p>
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+<!-- ******************************Choose File for Update**************************************** -->
+            <div class="row" *ngIf="showFileInput">
+                <div class="col-md-3"></div>
+                <div class="col-md-3 name">Choose File for Update</div>
+                <div class="col-md-3">
+                    <input formControlName="selectFile" id="name" type="file" class="form-control"
+                        (change)="fileChange($event)">Replaced file-{{selectedFile}}
+                </div>
+            </div>
+<!-- ******************************Choose File for Update**************************************** -->
+            <div class="row" *ngIf="getbyIDdata">
+                <div class="col-md-3"></div>
+                <div class="col-md-3 name">File Description</div>
+                <div class="col-md-3">
+                    <input formControlName="fileDes" id="name" type="text" class="form-control">
+                    <div *ngIf="myForm.controls['fileDes'].touched && !myForm.controls['fileDes'].valid">
+                        <span *ngIf="myForm.controls['fileDes'].hasError('required')" style="color: red;">
+                            File Description is Required.
+                        </span>
+                        <div *ngIf="f.fileDes.touched && f.fileDes.invalid" class="message">
+                            <span *ngIf="f['fileDes'].hasError('minlength')">Minimum 5 characters are required.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- ******************************Choose File for Update**************************************** -->
+        </div>
+<!-- ******************************Bottom Buttton**************************************** -->
+
+        <div align="center">
+            <button mat-raised-button id="save" color="primary" type="submit" [disabled]="myForm.invalid"
+                class="m-3">Update</button>
+            <button mat-raised-button color="warn" class="ml-3" (click)="back()">Cancel</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,275 @@
+<div class="form_head">
+    <h3>Advance Planning RA/TRA Update details</h3>
+</div>
+
+<div class="form_basic">
+
+    <form class="form_set" [formGroup]="update_form">
+        <div class="row">
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Associated Company</mat-label>
+                        <input matInput type="text" formControlName="associatedCompany" />
+                        <mat-error *ngIf="update_form.controls['associatedCompany'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Business Relation Id</mat-label>
+                        <input matInput type="text" formControlName="brNo" />
+                        <mat-error *ngIf="update_form.controls['brNo'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Segment</mat-label>
+                        <input matInput type="text" formControlName="segment" />
+                        <mat-error *ngIf="update_form.controls['segment'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Certificate Type</mat-label>
+                    <input matInput type="text" formControlName="certificateType" />
+                    <!-- <mat-select formControlName="certificateType">
+                      <mat-option value="10:00">Reason</mat-option>
+                      <mat-option value="11:00">Reason1</mat-option>
+                    </mat-select> -->
+                    <!-- <mat-error *ngIf="basicForm.controls['status'].hasError('required')">
+                      This field is required!
+                    </mat-error> -->
+                  </mat-form-field>
+                </div>
+            </div>
+
+               
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Customer Sales Executive</mat-label>
+                        <input matInput type="text" formControlName="customerSalesExecutive" />
+                        <mat-error *ngIf="update_form.controls['customerSalesExecutive'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Assign Opportunity to</mat-label>
+                        <input matInput type="text" formControlName="assignOpportunityto" />
+                        <mat-error *ngIf="update_form.controls['assignOpportunityto'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Opportunity Type</mat-label>
+                        <input matInput type="text" formControlName="opportunityType" />
+                        <mat-error *ngIf="update_form.controls['opportunityType'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+     
+
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Opportunity Ref. No.</mat-label>
+                        <input matInput type="text" formControlName="opportunityRefNo" />
+                        <mat-error *ngIf="update_form.controls['opportunityRefNo'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Stage</mat-label>
+                        <input matInput type="text" formControlName="stage" />
+                        <mat-error *ngIf="update_form.controls['stage'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Product Requested</mat-label>
+                        <input matInput type="text" formControlName="productRequested" />
+                        <mat-error *ngIf="update_form.controls['productRequested'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+      
+
+        <!-- <div align="end">
+            <button mat-raised-button color="primary" class="mx-3" (click)="productSaves(update_form)">Notification to Planning team</button>
+            <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+        </div> -->
+    </form>
+</div>
+<div class="row" *ngIf="types=='RA-TRA200'">
+    <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+        <mat-dialog-content class="mat-typography" style="width:500px;">
+          <mat-accordion>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header style="background-color: rgb(229 214 193);">
+                <mat-panel-title>
+                 All Heigher Authority Comments
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <!-- <p *ngFor="let data of RequestAuditorList">Auditor Name:{{data.name}}</p> -->
+              <!-- status 1 -->
+        
+            
+            </mat-expansion-panel>
+          </mat-accordion>
+
+        </mat-dialog-content>
+      </div>
+</div>
+
+<!-- ********************************* -->
+<app-updated-adv-plainng-list></app-updated-adv-plainng-list>
+
+<div class="add_mat" *ngIf="check!=='false'">
+    <i class="fa fa-plus" aria-hidden="true" (click)="onFactoryButtonClick($event,section1)" style="cursor: pointer;"></i>
+  </div>
+<!-- ****************************************** -->
+<div *ngIf="show">
+    <!-- <div class="form_head">
+        <h3>Advance Planning RA/TRA Update details</h3>
+    </div> -->
+    
+    <div class="form_basic">
+    
+        <form class="form_set" [formGroup]="update_adv">
+            <div class="row" id="section1">
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" >
+                        <mat-form-field appearance="outline">
+                            <mat-label >Intimation Date</mat-label>
+                            <input matInput [matDatepicker]="dp" (click)="dp.open()"
+                                formControlName="intimationDate" 
+                                (dateChange)="intimationDate($event)" />
+                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                            <mat-datepicker #dp></mat-datepicker>
+                            <!-- <mat-error
+                            *ngIf="
+                            createSchedule.controls['scheduleDate'].hasError(
+                                'required'
+                              )
+                            "
+                          >
+                            This field is Required.
+                          </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                </div> 
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Follow Up Date</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="followUpDate"
+                                  (dateChange)="followDate($event)">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                   
+                </div> 
+          
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline">
+                                <mat-label>CIF Received Date</mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="cifReceivedDate"
+                                 (dateChange)="cifDate($event)">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                </div> 
+    
+          </div>
+          <div class="row">
+    
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Status</mat-label>
+                          <mat-select formControlName="status">
+                            <mat-option value="CIF Not Received">CIF not received</mat-option>
+                            <mat-option value="CIF Received">CIF Received</mat-option>
+                            <!-- <mat-error *ngIf="update_adv.controls['status'].hasError('required')">
+                                This field is required!
+                            </mat-error> -->
+                          </mat-select>
+                          <!-- <mat-error *ngIf="basicForm.controls['status'].hasError('required')">
+                            This field is required!
+                          </mat-error> -->
+                        </mat-form-field>
+                      </div>
+                    <!-- <div class="form-group"> -->
+        
+                    </div>
+          
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Comments</mat-label>
+                            <input matInput type="text" formControlName="remarks" />
+                            <mat-error *ngIf="update_adv.controls['remarks'].hasError('required')">
+                                This field is required!
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div align="end">
+                <button mat-raised-button color="primary" class="mx-3" (click)="update(update_adv)">Update</button>
+                <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+

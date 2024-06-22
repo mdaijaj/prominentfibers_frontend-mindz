@@ -1,0 +1,67 @@
+<h3 mat-dialog-title class="popHead">Add Item  </h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+  <div class="cotain">
+    <div class="row">
+      <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Asset Category</mat-label>
+            <mat-select (selectionChange)="selectCateGory($event)">
+              <mat-option *ngFor="let data of getCat_data" [value]="data.id">{{data?.asset_category_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Item Name</th>
+            <th scope="col">Specification</th>
+            <th scope="col">MVP</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Select</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="filteredData?.length !=0">
+          <tr *ngFor="let data of filteredData ; let i = index" >
+            <td>{{data.item_name}}</td>
+            <td>{{data.itemSpecifications[0].specificationDetails}}</td>
+            <td>{{data.MVP}}</td>
+            <td><input type="number" min="1" placeholder="Quantity"
+                [name]="'quantity' + i" [id]="'quantity' + i"  [(ngModel)]="data.quantity"></td>
+            <td><input type="checkbox" (change)="checkboxClicked($event,data)"></td>
+          </tr>
+          
+        </tbody>
+        <tbody *ngIf="filteredData?.length ==0">
+          <tr>
+            <td colspan=5>
+              <div  style="text-align: center; color: #8e8e8e;
+              font-size: 12px;">
+                <span>No Record Found</span> 
+               </div>
+
+            </td>
+          </tr>
+        </tbody>
+       
+      </table>
+    </div>
+
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-raised-button color="primary" class="mx-3"
+  (click)="closeDialog()"
+  >
+    Add Item
+  </button>
+  <button mat-button mat-dialog-close mat-raised-button color="warn">
+    Close
+  </button>
+</mat-dialog-actions>

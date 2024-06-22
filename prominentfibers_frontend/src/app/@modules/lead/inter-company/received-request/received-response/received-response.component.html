@@ -1,0 +1,459 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee"></div>
+      <div class="msater-nav">
+        <a href="">InterCompany<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Response by answering office</a>
+      </div>
+      <h1 style="text-align: center">
+        <b>Response by answering office</b>
+      </h1>
+      <form class="form_set" [formGroup]="leadForm">
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Response by answering office</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <!-- 123 -->
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Leading DQS office:</h3>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="Leading_DQS_office"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Answering DQS office:</h3>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="Answering_DQS_office"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <h3>Ref. No.</h3>
+                  </div>
+                </div>
+
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <mat-form-field appearance="outline" readonly>
+                      <input matInput type="text" formControlName="Ref_No" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <h3>Standard(s):</h3>
+                  </div>
+                </div>
+
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+                      <input matInput type="text" formControlName="Standards" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary">
+                        <p style="font-weight: bold;">Hereby we confirm your request , dated</p>
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+                      <input
+                        matInput
+                        [matDatepicker]="dp4"
+                        (click)="dp4.open()"
+                        formControlName="Req_Date"
+                      />
+
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="dp4"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #dp4></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+           
+              <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" style="font-weight: bold;">
+                        <p style="font-weight: bold;"> Hereby we confirm your request for the complete audit
+                        cycle (3 years*), dated</p>
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+                      <input
+                        matInput
+                        [matDatepicker]="dp5"
+                        (click)="dp5.open()"
+                        formControlName="Req_Date_audit"
+                      />
+
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="dp5"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #dp5></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </div>
+ 
+              <div class="row">
+                <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" style="font-weight: bold;"> <p style="font-weight: bold;"> Auditor(s): </p></mat-checkbox>
+
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        class="mx-3"
+                        (click)="addRow()"
+                      >
+                        + Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <ng-container
+                  formArrayName="Auditor"
+                  *ngFor="let control of CF_1.Auditor['controls']; index as i"
+                >
+                  <div class="row" [formGroup]="control">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <mat-form-field appearance="outline" readonly>
+                          <mat-label>Name</mat-label>
+                          <input matInput type="text" formControlName="name" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <mat-form-field appearance="outline" readonly>
+                          <mat-label>Auditor number</mat-label>
+                          <input
+                            matInput
+                            type="text"
+                            formControlName="audit_no"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <mat-form-field appearance="outline" readonly>
+                          <mat-label>Auditor role</mat-label>
+                          <input
+                            matInput
+                            type="text"
+                            formControlName="audit_roll"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              
+              <div class="row">
+                <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" style="font-weight: bold;">
+                        <p style="font-weight: bold;"> Agreed and confirmed date with customer (if answering
+                          office is requested for scheduling):</p>
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+                      <mat-label>Blocked</mat-label>
+                      <input matInput type="text" formControlName="Blocked" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+                      <mat-label>Lead Shreepad</mat-label>
+                      <input
+                        matInput
+                        type="text"
+                        formControlName="Lead_Shreepad"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+                      <mat-label>Co-auditor</mat-label>
+                      <input
+                        matInput
+                        type="text"
+                        formControlName="Co_auditor"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <div class="form-group check_set" style="font-weight: bold;">
+                      <mat-checkbox color="primary"><p style="font-weight: bold;"> Remark</p></mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+                      <mat-label>Remark</mat-label>
+                      <input matInput type="text" formControlName="Remakrs" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <div class="form-group check_set" >
+                      <mat-checkbox
+                        color="primary"
+                        formControlName="No_audito_avialble"
+                        style="font-weight: bold;"
+                      >
+                      <p style="font-weight: bold;">No auditor available in the timeframe requested</p>                        
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+          
+              <div class="row">
+                <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <div class="form-group check_set">
+                      <mat-checkbox
+                        color="primary"
+                        formControlName="No_audito_avialable_with_req"
+                        style="font-weight: bold;"
+                      >
+                      <p style="font-weight: bold;">No auditor available with the requested standard/scope/accreditation</p>
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="form-group" *ngIf="!cutomerType">
+                    <div class="form-group check_set">
+                      <mat-checkbox
+                        color="primary"
+                        formControlName="Auditor_timeframe"   
+                      >
+                       <p style="font-weight: bold;">Auditor available in the following timeframe:</p> 
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <div class="form-group check_set">
+                        <p style="font-weight: bold;">Signature :</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <br />
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <div class="form-group check_set">
+                        <input matInput type="text" formControlName="Sign" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <div class="form-group check_set">
+                        <p style="font-weight: bold;">Date :</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <div class="form-group check_set">
+                        <input
+                          matInput
+                          type="date"
+                          formControlName="Ans_Date"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    After you have confirmed this request, your office will
+                    receive the written purchase order consisting of the order
+                    number and further details about the customer and
+                    assessment. This office request becomes binding after you
+                    have confirmed it.
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                   <p style="font-weight: bold;">Description*:</p>
+                    Office Request binding for the complete audit cycle (3
+                    years)*: please confirm and book the auditor for the
+                    complete 3 year audit cycle. The office will then be
+                    responsible for supplying a suitable auditor and agreeing on
+                    a potential audit date with the customer. (For example
+                    during the onsite audit one year in advance). The leading
+                    office is responsible for communicating the audit days each
+                    year. Exceptions may occur when a different arrangement is
+                    made, or when the customer cancelled the audit e.g. site
+                    closed etc.
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <p style="font-weight: bold;">Currency*:</p>
+                    The exchange rate at the time of invoicing will be used to
+                    invoice the leading office for lending an auditor at a rate
+                    equivalent to the agreed rate in the office request. If the
+                    local currency of the answering office is not being used in
+                    the customers contract, the amount of the invoice shall be
+                    adjusted at the time of invoicing to the equivalent value in
+                    the local currency (date of invoice ) such that the
+                    answering office does not receive a lower converted amount
+                    due to currency fluctuation. If a currency clause is already
+                    part of a customer’s contract, the clause of the respective
+                    contract will be applied.
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <div class="mt-3">
+          <button
+            mat-raised-button
+            (click)="submitForm()"
+            color="primary"
+            class="mx-3"
+          >
+            SUBMIT
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-card>

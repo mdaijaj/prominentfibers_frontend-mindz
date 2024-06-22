@@ -1,0 +1,15 @@
+<div class="section">
+<mat-card>
+    <div class="form_head">
+        <h3>PAYROLL REPORTS</h3>
+        <button class="backBtn" routerLink="../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+      </div>
+</mat-card>
+<div class="row pt-2">
+    <div class="col-3 pt-2" *ngFor="let a of data" (click)=" reportGenerate('master/hrms/payroll/payroll-master/report-generate') ">
+      <img src={{a.img}} alt="Snow" style="width:100%">
+      <div class="centered"><h2>{{a.title}}</h2></div>
+      <div style="color: #ffab40; font-weight: bold; text-align: center;">GENERATE</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,223 @@
+// .userLogin {
+//     width: auto;
+//     height: 100vh;
+//     box-sizing: border-box;
+//     display: flex;
+//     align-items: center;
+//     // justify-content: center;
+//     /* background: linear-gradient(5deg, #003b4dd9, #03722fe3) !important; */
+//     // background-color: #174502;
+//     // background-image: url("/assets/bgimg.jpg");
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     background-blend-mode: overlay;
+//     /* animation: changeBG 0.3s infinite; */
+// }
+.img_dqs {
+    img {
+        width: 95%;
+        margin-top: 40px;
+    }
+}
+
+.userLogin {
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.row_dqs {
+    width: 100%;
+    // margin: 50px 0px 100px 0px;
+    padding: 20px;
+}
+
+.dqs_log img {
+    width: 163px;
+}
+.logo_admin{ width: 100%; float: left; text-align: center; padding-bottom: 35px;}
+.logo_admin img{width: 132px;}
+.form-main h1 {
+    text-align: center;
+    color: #8B817D;
+    font-weight: 500;
+    font-size: 27px;
+}
+
+.form-main {
+    width: 100%;
+    // padding: 40px 70px 50px 70px;
+}
+
+.form-main .form-group {
+    padding: 5px;
+}
+
+.form-main .form-group input {
+    height: 48px;
+    padding: 0px 0px 0px 35px
+}
+
+.loginIn button {
+    background: linear-gradient(45deg, #964B00, #8B817D);
+    color: white;
+    width: 100%;
+    font-weight: 500;
+    padding: 10px 0px 10px 0px;
+    border: none;
+    border-radius: 6px;
+}
+
+.loginIn {
+    padding: 0px 22px 15px 23px;
+}
+.userloginForm .mat-mdc-form-field-error {
+    font-size: 11px;
+}
+
+.fx_set {
+    width: 100%;
+    padding: 20px 0px 10px 26px;
+}
+
+.fx_set2 span {
+    padding: 0px 0px 0px 10px;
+    color: #959292;
+}
+
+.fx_set3 a {
+    padding: 0px 0px 0px 100px;
+    color: #959292;
+    text-decoration: none;
+}
+
+.loginpage {
+    width: 100%;
+    float: left;
+    height: 100vh;
+    background-color: #8B817D;
+    background: linear-gradient(90deg, #8B817D 0 50%, #964B00 50% 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.loginbody {
+    width: 70%;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    height: auto;
+    padding: 25px;
+}
+
+.userbtn {
+    border: none;
+    position: absolute;
+    left: 8px;
+
+    color: #becefe;
+    width: 22px;
+
+    top: 12px;
+
+
+
+}
+
+.passBtn {
+    border: none;
+    position: absolute;
+    left: 8px;
+
+    color: #becefe;
+    width: 22px;
+
+    top: 12px;
+}
+
+.iconAdd {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    position: relative;
+}
+
+.sign_ip {
+    text-align: center;
+    color: #a09492;
+}
+
+.sign_ip a {
+    text-decoration: none;
+    color: #8B817D;
+}
+
+.fx_set2 input {
+    border-color: #959492
+}
+
+.iconAdd input {
+    padding-left: 35px;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    // top: 50%;
+    // left: 50%;
+    width: 20px;
+    height: 20px;
+    // margin-top: -10px;
+    // margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #8B817D;
+    animation: spinner .8s linear infinite;
+    margin: 0px 0px 0px 8px
+}
+
+.error {
+    margin-top: 16px !important;
+    font-weight: 500;
+
+
+}
+
+
+
+:host::ng-deep .spiner .mat-mdc-progress-spinner svg {
+    width: 80px !important;
+    height: 80px !important;
+}
+
+:host::ng-deep .mat-mdc-progress-spinner circle,
+.mat-mdc-spinner circle {
+    stroke: #ffffff !important;
+};
+
+:host::ng-deep .I-center .mat-mdc-progress-spinner svg {
+    width: 18px !important;
+    height: 18px !important;
+};
+
+.loginIn .mat-mdc-progress-spinner {
+    display: block !important;
+    position: relative !important;
+    overflow: hidden !important;
+    // left: 22px !important;
+    top: 0px !important;
+};

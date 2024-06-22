@@ -1,0 +1,96 @@
+<div class="row">
+  
+  <ng-container *ngFor="let module of subModules">
+    <div class="service-box">
+      <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+        <img [src]="module.menuIcon" alt="" />
+      </div>
+      <div class="card-title">
+        <p>{{module.menuName}}</p>
+      </div>
+    </div>
+  </ng-container>
+
+
+   <!-- <div class="service-box" routerLink="payment_varification">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/payment-verification.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Payment Verification</p>
+      </div>
+    </div>
+    <div class="service-box" routerLink="rbh_verification">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/rbh-varification.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>RBH Verification</p>
+      </div>
+    </div> -->
+  
+
+    <!-- <div class="service-box" routerLink="completeness-check">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/audit.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Completeness Check</p>
+      </div>
+    </div> -->
+
+  
+   <!--<div class="service-box" routerLink="manage-dates">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/managedate.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Manage Dates</p>
+      </div>
+    </div>-->
+
+   <!-- <div class="service-box" routerLink="upload-docs">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/upc1.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Upload Certificates</p>
+      </div>
+    </div>-->
+
+   <!-- <div class="service-box" routerLink="upload-docs-list">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/diploma.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Upload Certificates List</p>
+      </div>
+    </div>-->
+
+   <!-- <div class="service-box" routerLink="verified-dqs-data">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/servers.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Verified DQS Data</p>
+      </div>
+    </div>-->
+    <!-- <div class="service-box" routerLink="generate-invoice">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/invoice.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Generate Invoice</p>
+      </div>
+    </div> -->
+    <!-- <div class="service-box" routerLink="auditor-score-card">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/score.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Auditor Score Card</p>
+      </div>
+    </div> -->
+</div>
+  
+  

@@ -1,0 +1,1179 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee">
+        <!-- <p>HRMS</p> -->
+      </div>
+      <div class="msater-nav">
+        <a href=""
+          >Post Audit Module<mat-icon>keyboard_arrow_right</mat-icon></a
+        >
+        <a routerLink="../">Manage Dates</a>
+      </div>
+
+      <div class="updatetitle">{{leadUpdate==='updateManageDates'? 'Update Manage Dates':'Manage Dates'}}</div>
+
+      <div class="employ_sube">
+        <div class="add_btn">
+          <button type="button" class="btn_add" (click)="openDialog()">
+            File Upload
+            <img
+              src="/assets/icons/exc3.png"
+              alt=""
+              height="20px"
+              width="25px"
+            />
+          </button>
+        </div>
+      </div>
+      <form class="form_set" [formGroup]="leadForm">
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Customer Details</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Associated Company</p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="associated_company"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>First Name</p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="first_name"
+                        />
+                        <!-- <mat-error *ngIf="leadForm.controls['first_name'].hasError('required')">
+                        This field is required!
+                      </mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>BR No.</p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <input
+                          matInput
+                          type="text"
+                          #br_number
+                          formControlName="br_number"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Street Address</p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Job Role</mat-label> -->
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="street_address"
+                        />
+                        <!-- <mat-error *ngIf="leadForm.controls['street_address'].hasError('required')">
+                        This field is required!
+                      </mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Address Line 2</p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Application Date</mat-label> -->
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="address2"
+                        />.
+                        <!-- <mat-error *ngIf="leadForm.controls['address2'].hasError('required')">
+                          This field is required!
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Country&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="country" (selectionChange)="getCountryID($event)">
+                          <mat-option
+                            *ngFor="let item of countryList"
+                            [value]="item.countryss_id"
+                            >{{ item.countryss_name }}</mat-option> 
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>State&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="state" (selectionChange)="getStateID($event)">
+                          <mat-option
+                            *ngFor="let item of stateList"
+                            [value]="item.states_id"
+                            >{{ item.states_name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>City&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="city" (selectionChange)="getPinCode($event)">
+                          <mat-option
+                            *ngFor="let item of cityList"
+                            [value]="item.city_id"
+                            >{{ item.city_name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Postal Code</p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="postal_code"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>SIC & Accredition Logo Details</h3>
+              </div>
+
+              <div class="form_basic">
+                <form class="form_set" [formGroup]="leadForm">
+                  <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Assessment Period</p>
+                        <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                          <mat-select formControlName="assessment_period">
+                            <mat-option value="Annual">Annual</mat-option>
+                            <mat-option value="Semi-Annual"
+                              >Semi-Annual</mat-option
+                            >
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>EA Code</p>
+                        <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                          <input
+                            matInput
+                            type="text"
+                            formControlName="ea_code"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Accredition Logo Details</p>
+                        <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                          <input
+                            matInput
+                            type="text"
+                            formControlName="accredition_logo_details"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div
+                      class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+                    ></div>
+                    <div
+                      class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+                    ></div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Additional Certificates Copies</p>
+                        <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                          <input
+                            matInput
+                            type="text"
+                            formControlName="add_cert_copy"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <!-- Audit Planning Details -->
+        <div class="form_audit">
+          <div class="form_head">
+            <h3>Audit Planning Details</h3>
+          </div>
+
+          <div class="form_basic form_set">
+            <div class="row">
+              <table class="table">
+                <thead style="text-align: center;">
+                  <tr>
+                    <th>Audit Start Date</th>
+                    <th>Audit End Date</th>
+                    <th>Audit Duration</th>
+                    <th>Planning Status</th>
+                    <th>Locked Status</th>
+                    <th>Audit Confirmed Date</th>
+                    <th>Remarks</th>
+                  </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                  <tr>
+                    <td>{{ singleLeadData?.training_start_date }}</td>
+                    <td>{{ singleLeadData?.training_end_date }}</td>
+                    <td>{{ singleLeadData?.training_start_date }}</td>
+                    <td>{{ singleLeadData?.planning_status }}</td>
+                    <td>{{ singleLeadData?.locked_status }}</td>
+                    <td>{{ singleLeadData?.training_confirm_date }}</td>
+                    <td>{{ singleLeadData?.training_remarks }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Manage Dates</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Audit Completion Date *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='ManageDates' ? 'readonly-wrapper' : ''">
+                        <input
+                          matInput
+                          [matDatepicker]="dp"
+                          (click)="dp.open()"
+                          formControlName="lead_created_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'lead_created_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>  
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Report Received Date *  &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp1"
+                          (click)="dp1.open()"
+                          formControlName="lead_created_date2"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'lead_created_date2'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp1></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Report Sent for review before AR closure *  &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp2"
+                          (click)="dp2.open()"
+                          formControlName="report_sent_date"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'report_sent_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp2"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp2></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Ara Due Date *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp3"
+                          (click)="dp3.open()"
+                          formControlName="are_due_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'are_due_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp3"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp3></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Ara Closure Date *  &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp4"
+                          (click)="dp4.open()"
+                          formControlName="ara_closure_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'ara_closure_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp4"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp4></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Ara Report Received Date *  &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp5"
+                          (click)="dp5.open()"
+                          formControlName="ara_report_received_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'ara_report_received_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp5"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp5></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Ara Details Sent Date To Reviewer * &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp6"
+                          (click)="dp6.open()"
+                          formControlName="ara_details_sent_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'ara_details_sent_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp6"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp6></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Report Sent For Review Level 1 *  &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp7"
+                          (click)="dp7.open()"
+                          formControlName="report_sent_review_date"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'report_sent_review_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp7"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp7></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Report Sent For Review Level 2 *  &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp8"
+                          (click)="dp8.open()"
+                          formControlName="review_level2_date"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'review_level2_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp8"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp8></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Reviewer Checklist Signed Off Date *  &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp9"
+                          (click)="dp9.open()"
+                          formControlName="reviewer_checklist_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'reviewer_checklist_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp9"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp9></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Certifcate Sent For Final Approval On * &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp10"
+                          (click)="dp10.open()"
+                          formControlName="certificate_sent_approval_date"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'certificate_sent_approval_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp10"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp10></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Certificate Approved On * &nbsp; &nbsp; <span class="span_text"> Data input from CDB</span></p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp11"
+                          (click)="dp11.open()"
+                          formControlName="certicate_approved_on_date"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'certicate_approved_on_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp11"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp11></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Sent For Finance Clearance Date *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp12"
+                          (click)="dp12.open()"
+                          formControlName="sent_for_finace_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'sent_for_finace_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp12"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp12></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Regional Head Apporval For Despatch On *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp13"
+                          (click)="dp13.open()"
+                          formControlName="regional_head_apporvalDate"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'regional_head_apporvalDate'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp13"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp13></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Finance Approval Date *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp14"
+                          (click)="dp14.open()"
+                          formControlName="finace_approval_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'finace_approval_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp14"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp14></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Certificate Dispatch Date *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp15"
+                          (click)="dp15.open()"
+                          formControlName="certificate_dispatch_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'certificate_dispatch_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp15"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp15></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Certificate Expiry Date *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp16"
+                          (click)="dp16.open()"
+                          formControlName="certificate_expiry_date"
+                          required
+                          [max]="maxDate" [min]="minDate"
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'certificate_expiry_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp16"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp16></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Report Sent To Customer On *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp17"
+                          (click)="dp17.open()"
+                          formControlName="report_sent_to_customer_date"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'report_sent_to_customer_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp17"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp17></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Certification Status *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp18"
+                          (click)="dp18.open()"
+                          formControlName="certificate_status_date"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'certificate_status_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp18"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp18></mat-datepicker>
+                         <mat-select formControlName="state">
+                          <mat-option value="Delhi">Delhi</mat-option>
+                          <mat-option value="Maharastra">Maharastra</mat-option>
+                        </mat-select> -->
+                      <!-- </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Certification Type *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp19"
+                          (click)="dp19.open()"
+                          formControlName="certification_type_date"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'certification_type_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp19"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp19></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>  -->
+                <!-- <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p>Current Status *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          [matDatepicker]="dp20"
+                          (click)="dp20.open()"
+                          formControlName="current_status_date"
+                          required
+                        />
+                        <mat-error
+                        *ngIf="
+                        leadForm.controls[
+                            'current_status_date'
+                          ].hasError('required')
+                        "
+                      >
+                       Required*
+                      </mat-error>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dp20"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dp20></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="form_basic">
+                <form class="form_set" [formGroup]="leadForm">
+                  <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Certification Status *</p>
+                        <mat-form-field appearance="outline" readonly>
+                          <mat-select formControlName="certificate_status" required>
+                            <mat-option value="Draft">Draft</mat-option>
+                            <mat-option value="Active">Active</mat-option>
+                            <mat-option value="Suspended">Suspended</mat-option>
+                            <mat-option value="Withdrown">Withdrown</mat-option>
+                            <mat-option value="Cancelled">Cancelled</mat-option>
+                            <mat-option value="Expired">Expired</mat-option>
+                            <mat-option value="Replaced">Replaced</mat-option>
+                            <mat-option value="Transferred"
+                              >Transferred</mat-option
+                            >
+                          </mat-select>
+                          <mat-error
+                          *ngIf="
+                          leadForm.controls[
+                              'certificate_status'
+                            ].hasError('required')
+                          "
+                        >
+                         Required*
+                        </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Certification Type *</p>
+                        <mat-form-field appearance="outline" readonly>
+                          <mat-select formControlName="certificate_type2" required>
+                            <mat-option value="Not Specified"
+                              >Not Specified</mat-option
+                            >
+                            <mat-option value="Confirmation"
+                              >Confirmation</mat-option
+                            >
+                            <mat-option value="Acknowledgement"
+                              >Acknowledgement</mat-option
+                            >
+                            <mat-option value="Certificate"
+                              >Certificate</mat-option
+                            >
+                            <mat-option value="Document">Document</mat-option>
+                            <mat-option value="Supplement"
+                              >Supplement</mat-option
+                            >
+                            <mat-option value="Delaration of Confermity"
+                              >Delaration of Confermity</mat-option
+                            >
+                            <mat-option value="Report">Report</mat-option>
+                            <mat-option value="Combination"
+                              >Combination</mat-option
+                            >
+                          </mat-select>
+                          <mat-error
+                          *ngIf="
+                          leadForm.controls[
+                              'certificate_type2'
+                            ].hasError('required')
+                          "
+                        >
+                         Required*
+                        </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Current Status *</p>
+                        <mat-form-field appearance="outline" readonly>
+                          <!-- <mat-label>Candidate Name</mat-label> -->
+                          <mat-select formControlName="current_status" required>
+                            <mat-option value="Report Awaited"
+                              >Report Awaited</mat-option
+                            >
+                            <mat-option value="ARA Awaited"
+                              >ARA Awaited</mat-option
+                            >
+                            <mat-option value="Under initial Review"
+                              >Under initial Review</mat-option
+                            >
+                            <mat-option value="Initial review Completed"
+                              >Initial review Completed</mat-option
+                            >
+                            <mat-option value="Under Final Review"
+                              >Under Final Review</mat-option
+                            >
+                            <mat-option value="Final Review Completed"
+                              >Final Review Completed</mat-option
+                            >
+                            <mat-option value="Certificate Under Process"
+                              >Certificate Under Process</mat-option
+                            >
+                            <mat-option value="Certificate Sent For Approval"
+                              >Certificate Sent For Approval</mat-option
+                            >
+                            <mat-option value="Under Finace Clearnace"
+                              >Under Finace Clearnace</mat-option
+                            >
+                            <mat-option value="Certificate Dispatched"
+                              >Certificate Dispatched</mat-option
+                            >
+                            <mat-option
+                              value="Stage 1 report recived and closed"
+                              >Stage 1 report recived and closed</mat-option
+                            >
+                            <mat-option value="Under Processing By VG Team"
+                              >Under Processing By VG Team</mat-option
+                            >
+                            <mat-option value="Report Not sent On Sampling"
+                              >Report Not sent On Sampling</mat-option
+                            >
+                          </mat-select>
+                          <mat-error
+                          *ngIf="
+                          leadForm.controls[
+                              'current_status'
+                            ].hasError('required')
+                          "
+                        >
+                         Required*
+                        </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <div class="upload-btn">
+          <button *ngIf="leadUpdate==='ManageDates'" class="iploadBtn" (click)="submitForm()">Save</button>
+          <button *ngIf="leadUpdate==='updateManageDates'" class="iploadBtn" (click)="updateForm()">Update Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-card>

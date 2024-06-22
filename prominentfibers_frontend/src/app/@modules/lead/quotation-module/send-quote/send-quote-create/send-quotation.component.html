@@ -1,0 +1,2932 @@
+<mat-card>
+ <div class="section">
+    <div class="main">
+      <div class="employee">
+        <!-- <p>HRMS</p> -->
+      </div>
+      <div class="msater-nav">
+        <a href="">Quotation<mat-icon>keyboard_arrow_right</mat-icon></a>
+      </div>
+
+      <div class="updatetitle">{{leadUpdate==='updatesendquote'? 'Update Send Quotation to Customer':'Send Quotation to Customer'}}</div>
+
+      <div class="apply-btn">
+        <!-- <a routerLink="../interview-status-list">List</a> -->
+      </div>
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Customer Details test</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                Customer Type
+                <input formControlName="customer_type" (click)="customerTypeNew()" checked="checked" type="radio"
+                  name="customer_type" value="New User" id="red" style="margin: 0 5px 0 4%;">New
+                <input formControlName="customer_type" (click)="customerType()" type="radio" name="customer_type"
+                  value="Existing User" id="blue" style="margin: 0 5px 4% 4%;">Existing Customer
+                <span style="margin-left: 10%;">Multiple Site Audit</span>
+                <input formControlName="site_audit" (click)="siteAuditNew()" checked="checked" type="radio"
+                  name="site_audit" value="Yes" id="red" style="margin: 0 5px 0 4%;">Yes
+                <input formControlName="site_audit" (click)="siteAudit()" type="radio" name="site_audit" value="No"
+                  id="blue" style="margin: 0 5px 4% 4%;">No
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="cutomerType">
+                      <p>Associated Company</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="associated_company">
+                          <mat-option [disabled]="true" value="Elite Mindz Technology">Elite Mindz Technology</mat-option>
+                          <mat-option [disabled]="true" value="DQS Pvt Ltd">DQS Pvt Ltd</mat-option>
+                        </mat-select>
+
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <p>Associated Company</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="associated_company" />
+                        <mat-error *ngIf="
+                          leadForm.controls['associated_company'].hasError(
+                            'required'
+                          )
+                        ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Segment</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="segment">
+                          <!-- <mat-option value="MSA">MSA</mat-option>
+                          <mat-option [disabled]="true" value="MED">MED</mat-option> -->
+                          <mat-option [disabled]="true" *ngFor="let item of segmentList" [value]="item.segment_id">{{ item.segment_name
+                            }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['segment'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Certificate Type</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="certificate_type">
+                          <mat-option [disabled]="true" *ngFor="let item of certificateList" [value]="item.certificate_type_id">{{
+                            item.certificate_type_name }}</mat-option>
+
+                        </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['certificate_type'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="cutomerType">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>BR No.</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input tabindex="-1" matInput type="text" formControlName="br_number" />
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="cutomerType">
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      Do you want to Create New Location/Site - {{this.singleLeadData.br_number}}
+                      <input formControlName="br_number" checked="checked" type="radio" name="br_number" value="yes"
+                        id="red" style="margin: 0 5px 0 4%;">Yes
+                      <input formControlName="br_number" type="radio" name="br_number" value="no" id="blue"
+                        style="margin: 0 5px 4% 4%;">No
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>First Name</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input tabindex="-1" matInput type="text" formControlName="first_name" />
+                        <mat-error *ngIf="
+                      leadForm.controls['first_name'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Last Name</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Email ID</mat-label> -->
+                        <input tabindex="-1" matInput type="text" formControlName="last_name" />
+                        <mat-error *ngIf="
+                      leadForm.controls['last_name'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Email ID</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Mobile Number</mat-label> -->
+                        <input tabindex="-1" matInput type="email" formControlName="email" />
+                        <mat-error *ngIf="
+                      leadForm.controls['email'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                        <mat-error *ngIf="leadForm.controls['email'].errors?.['pattern']">Please
+                          enter valid email</mat-error>
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Job Title</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Job Title</mat-label> -->
+                        <input tabindex="-1" matInput type="text" formControlName="job_title" />
+                        <mat-error *ngIf="
+                      leadForm.controls['job_title'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Street Address</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Job Role</mat-label> -->
+                        <input tabindex="-1" matInput type="text" formControlName="street_address" />
+                        <mat-error *ngIf="
+                      leadForm.controls['street_address'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Address Line 2</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Application Date</mat-label> -->
+                        <input tabindex="-1" matInput type="text" formControlName="address2" />
+                        <mat-error *ngIf="
+                      leadForm.controls['address2'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Country</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput readonly type="text" formControlName="country" />
+                        <mat-error *ngIf="
+                        leadForm.controls['country'].hasError('required')
+                      ">
+                          This is a require field*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>State</p>
+                      <mat-form-field appearance="outline">
+                        <input tabindex="-1" matInput readonly type="text" formControlName="state" />
+                        <mat-error *ngIf="
+                        leadForm.controls['state'].hasError('required')
+                      ">
+                          This is a require field*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>City</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input tabindex="-1" matInput readonly type="text" formControlName="city" />
+                        <mat-error *ngIf="leadForm.controls['city'].hasError('required')">
+                          This is a require field*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div> -->
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Country&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="country" (selectionChange)="getCountryID($event)">
+                          <mat-option  [disabled]="true" *ngFor="let item of countryList" [value]="item.countryss_id">{{
+                            item.countryss_name }}</mat-option>
+                          <!-- <mat-option value="India">India</mat-option>
+                          <mat-option value="USA">USA</mat-option> -->
+                        </mat-select>
+                        <mat-error *ngIf="
+                            leadForm.controls['country'].hasError('required')
+                          ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>State&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                         <mat-select formControlName="state" (selectionChange)="getStateID($event)">
+                          <mat-option [disabled]="true" *ngFor="let item of stateList" [value]="item.states_id">{{ item.states_name
+                            }}</mat-option>
+                          <!-- <mat-option value="Delhi">Delhi</mat-option>
+                          <mat-option [disabled]="true" value="Maharastra">Maharastra</mat-option> -->
+                        </mat-select>
+                        <mat-error *ngIf="
+                            leadForm.controls['state'].hasError('required')
+                          ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>City&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        
+                        <mat-select formControlName="city" >
+                          <mat-option [disabled]="true" *ngFor="let item of cityList" [value]="item.city_id">{{ item.city_name
+                            }}</mat-option>
+                          
+                          <mat-option  [disabled]="true" value="Mumbai">Mumbai</mat-option> -->
+                        </mat-select>
+                        <mat-error *ngIf="leadForm.controls['city'].hasError('required')">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Postal Code</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput readonly type="text" formControlName="postal_code" />
+                        <mat-error *ngIf="
+                      leadForm.controls['postal_code'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!pinCodeTrue">
+                      <p>Postal Code</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="postal_code">
+                          <mat-option [disabled]="true" *ngFor="let item of pinCodeList" [value]="item.pincode_name">{{ item.pincode_name
+                            }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                            leadForm.controls['postal_code'].hasError(
+                              'pattern'
+                            )
+                          ">
+                          Postal Code must be 6 digit*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group" *ngIf="pinCodeTrue">
+                      <p>Postal Code</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="postal_code" />
+                        <mat-error *ngIf="
+                            leadForm.controls['postal_code'].hasError(
+                              'pattern'
+                            )
+                          ">
+                          Postal Code must be 5-6 digits..*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Region</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input tabindex="-1" matInput readonly type="text" formControlName="region" />
+                        <mat-error *ngIf="
+                      leadForm.controls['region'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Region&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="region">
+                          <mat-option [disabled]="true" *ngFor="let item of regionSList" [value]="item.new_region_id">{{
+                            item.new_region_name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                            leadForm.controls['region'].hasError('required')
+                          ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Regional Business Head&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="regional_bussiness_lead">
+                          <mat-option [disabled]="true" *ngFor="let item of regionalbheadList"
+                            [value]="item.new_regional_business_head_id">{{ item.first_name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                            leadForm.controls[
+                              'regional_bussiness_lead'
+                            ].hasError('required')
+                          ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Global Managing Director</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="global_managing_director" />
+                        <mat-error *ngIf="
+                      leadForm.controls['global_managing_director'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Global Manager Sales&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="global_manager_sales">
+                          <mat-option [disabled]="true" *ngFor="let item of globalMsalesList"
+                            [value]="item.new_global_manager_sales_id">{{ item.first_name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                            leadForm.controls['global_manager_sales'].hasError(
+                              'required'
+                            )
+                          ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Website URL</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input tabindex="-1" matInput type="text" formControlName="website_url" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group">
+                      <p>Code</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="number" min="1" tabindex="-1"  formControlName="phone_code" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Phone Number</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Department</mat-label> -->
+                        <input tabindex="-1" matInput type="text" formControlName="phone_number" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                    <div class="form-group">
+                      <p>Code</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" min="1" tabindex="-1" readonly formControlName="mobile_code" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Mobile Number</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input matInput type="text" formControlName="mobile_number" />
+                        <mat-error *ngIf="
+                      leadForm.controls['mobile_number'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                        <mat-error *ngIf="  leadForm.controls['mobile_number'].errors?.['pattern']">Mobile
+                          number is not 10 digit</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                  </div>
+                </div>
+
+                <!-- <div class="mt-3">
+              <button mat-raised-button (click)="submitForm()" color="primary" class="mx-3">
+                Save
+              </button>
+            </div> -->
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav" *ngIf="singleLeadData?.create_prospect == 'false'">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Lead Source Details</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>DQS Contact Source</p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="dqs_contact_source">
+                          <mat-option [disabled]="true" [value]="data.contact_source_id" *ngFor="let data of contact_list">{{data.contact_source_name}}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Lead Created By</p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input  tabindex="-1" matInput  type="text"
+                          formControlName="lead_created_by_name" />
+                        <mat-error *ngIf="
+                        leadForm.controls['lead_created_by_name'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Lead Created Date</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="lead_created_date"
+                          [max]="maxDate" [min]="minDate" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                        <mat-datepicker #dp></mat-datepicker>
+                        <mat-error *ngIf="
+                      leadForm.controls['lead_created_date'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Requirement Details</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row"> 
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!medvalue">
+                    <div class="form-group">
+                      <p>Categories</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="categories">
+                          <mat-option [disabled]="true" *ngFor="let item of CategorySList" [value]="item.new_category_master_id">{{
+                            item.new_category_master_name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['categories'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Standard Program Assesment</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                      
+                        <mat-select formControlName="standard_program_assement">
+                          <mat-option [disabled]="true"
+                            *ngFor="let item of assesmentList"
+                            [value]="item.product_master_id"
+                            >{{ item.product_master_name }}</mat-option>
+                            </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['standard_program_assement'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="remarks" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav" *ngIf="singleLeadData?.create_prospect == 'false'">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Lead Validation</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="lead_validate_remarks" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Validated By</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="validated_by">
+                          <mat-option [disabled]="true" *ngFor="let item of allAchievement"
+                            [value]="item.first_name">{{item.first_name}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['validated_by'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Lead Validated Date</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput [matDatepicker]="dp2" (click)="dp2.open()" formControlName="lead_validated_date"
+                          [max]="maxDate" [min]="minDate" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                        <mat-datepicker #dp2></mat-datepicker>
+                        <mat-error *ngIf="
+                        leadForm.controls['lead_validated_date'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Company Additional Details</h3>
+            </div>
+
+            <div class="form_basic">
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Industry Sector</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="industry_sector" />
+                        <mat-error *ngIf="
+                        leadForm.controls['industry_sector'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Customer Category</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="customer_category">
+                          <mat-option  [disabled]="true" value="Pvt Ltd">Pvt Ltd</mat-option>
+                          <mat-option [disabled]="true" value="Public Ltd">Public Ltd</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['customer_category'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="nonCertTrue">
+                    <div class="form-group">
+                      <p>Employee Count</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput min="1" type="text" formControlName="employee_count" />
+                        <mat-error *ngIf="
+                        leadForm.controls['employee_count'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Customer Sales Executive</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="customer_sales_executive" />
+                        <mat-error *ngIf="
+                        leadForm.controls['customer_sales_executive'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Assign Opportunity to</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="assigned_to" />
+                        <mat-error *ngIf="
+                      leadForm.controls['assigned_to'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="nonCertt">
+                      <p>Non-Cert Type</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="non_cert_type">
+                          <mat-option [disabled]="true"  value="Open House">Open House</mat-option>
+                          <mat-option [disabled]="true" value="In House">In House</mat-option>
+                        </mat-select>
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Opportunity Type</p>
+                      <mat-form-field appearance="outline" [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="opportunity_type" required>
+                          <mat-option  [disabled]="true" value="Certification - New Audit (RA)">Certification - New Audit (RA)</mat-option>
+                          <mat-option [disabled]="true" value="Certification - Audit (TRA)">Certification - Audit (TRA)</mat-option>
+                          <mat-option [disabled]="true" value="KSC - Facilitation">KSC - Facilitation</mat-option>
+                          <mat-option [disabled]="true" value="KSC - GAP Assessment">KSC - GAP Assessment</mat-option>
+                          <mat-option [disabled]="true" value="KSC - Special Assessment">KSC - Special Assessment</mat-option>
+                          <mat-option [disabled]="true" value="KSC - Training">KSC - Training</mat-option>
+                          <mat-option [disabled]="true" value="Certification - Inter Company">Certification - Inter Company</mat-option>
+                          <mat-option [disabled]="true" value="Existing Opportunity - Migration">Existing Opportunity -
+                            Migration</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Opportunity Ref No</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="opportunity_ref" />
+                        <mat-error *ngIf="
+                        leadForm.controls['opportunity_ref'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Product Request</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="product_request" />
+                        <mat-error *ngIf="
+                        leadForm.controls['product_request'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>GST Applicable</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="gst_applicable" />
+                        <mat-error *ngIf="
+                        leadForm.controls['gst_applicable'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="unreg">
+                    <div class="form-group">
+                      <p>URD Number</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input tabindex="-1" matInput maxlength="15" type="text" formControlName="urd_number"
+                          oninput="this.value = this.value.toUpperCase()" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="(gstreg&&gstvalidation)">
+                    <div class="form-group">
+                      <p>GST Number</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="gst_number" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+
+
+      <section class="job-nav" *ngIf="hidemsacert">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>SIC & Accredition Logo Details</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Assessment Period</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="assessment_period">
+                          <mat-option [disabled]="true" value="Annual">Annual</mat-option>
+                          <mat-option [disabled]="true" value="Semi-Annual">Semi-Annual</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['assessment_period'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>EA Code</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="ea_code" />
+
+                        <!-- <mat-select formControlName="ea_code">
+                      <mat-option [disabled]="true" value="EAC 11">EAC 11</mat-option>
+                      <mat-option [disabled]="true" value="EAC 12">EAC 12</mat-option>
+                      <mat-option [disabled]="true" value="EAC 13">EAC 13</mat-option>
+                      <mat-option [disabled]="true" value="EAC 14">EAC 14</mat-option>
+                      <mat-option [disabled]="true" value="EAC 15">EAC 15</mat-option>
+                    </mat-select> -->
+                        <mat-error *ngIf="
+                        leadForm.controls['ea_code'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Accredition Logo Details</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input tabindex="-1" matInput type="text" formControlName="accredition_logo_details" />
+                        <!-- <mat-select formControlName="accredition_logo_details">
+                        <mat-option [disabled]="true" value="DAKKS">DAKKS</mat-option>
+                        <mat-option value="NABCB">NABCB</mat-option>
+                        <mat-option value="UKAS">UKAS</mat-option>
+                        <mat-option value="APMG">APMG</mat-option>
+                        <mat-option value="IATF">IATF</mat-option>
+                        <mat-option value="IAQG">IAQG</mat-option>
+                        <mat-option value="UNIFE">UNIFE</mat-option>
+                        <mat-option value="JAB">JAB</mat-option>
+                        <mat-option value="ESDA">ESDA</mat-option>
+                        <mat-option value="SEDEX">SEDEX</mat-option>
+                      </mat-select> -->
+                        <mat-error *ngIf="
+                        leadForm.controls['accredition_logo_details'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>               
+
+                  <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                  </div> -->
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Additional Certificates Copies</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input tabindex="-1" matInput type="text" formControlName="add_cert_copy" />
+                        <mat-error *ngIf="
+                      leadForm.controls['add_cert_copy'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav" *ngIf="!showaccredetion">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Additional Site Details</h3>
+              
+            </div>
+
+            <div class="form_basic">
+              <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <!-- new code for child data  starts-->
+                    <div *ngFor="let data of stageData1 ">
+                      <span class="fw-bolder sitefont">
+                      {{data.br_number}}/{{data.emp_count || singleLeadData.employee_count}}/{{data.standard_program_name || singleLeadData.standard_program_assement_name}}/{{data.child_scope}}/{{data.ea_code}}/{{data.singleData.associated_company ? data.singleData.associated_company : data.singleData.first_name + " - "}}/{{data.singleData.state_name}}/{{data.singleData.region_name}}
+                      </span>
+                      <div class="row">
+                        <!---stage and Mandays table start-->
+                        <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                          <div class="form-group stage-table">
+                            <div class="d-flex justify-content-between  p-1 rounded fw-bolder text-white"
+                              style="background-color: #8B817D;">
+                              <h4 class="p-0 m-0"> Stage </h4>
+                              <h4 class="p-0 m-0"> No of Mandays </h4>
+                            </div>
+                            <div *ngFor="let item of data.stage" class="data_right_all">
+                              <div style="display: flex;justify-content: space-between; align-items: center;">
+                                <span class="row-val">
+                                  {{ item.stage }}
+                                </span>
+                                <span class="row-val">
+                                  <span style="margin-right: 12px;">{{ item.noOfMandays }}</span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!---stage and Mandays table end-->
+                      </div>
+                    </div>
+                    <!-- new code for child data  starts-->
+              
+                  </div>
+              
+              
+              
+                </div>
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              
+                  <p class="sitefont fw-bolder">Billing Site</p>
+                  <label for="billing_site_two" class="bill-sit billing_site_ui"
+                    *ngFor="let item of singleLeadData?.billing_site_copy index as i">
+                    {{i+1}} {{')'}} {{ item}}/
+                    {{this.singleLeadData?.associated_company +" - " +this.singleLeadData?.customer_category }}/{{item?.city_name }}/
+                    {{item?.region_name}}/{{item?.first_name}}
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Documents Required</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">      
+                      <p class="file-tag">Contact Review Form</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="contact_review_form" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChange($event)" />
+                    </div>
+
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group" *ngIf="this.singleLeadData?.contact_review_form">
+                      <button class="view-doc" (click)="viewDocReview()">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadContact($event)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{singleLeadData?.contactFile_count}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">GST File</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="gst_file" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChangeOne($event)" />
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <button class="view-doc" (click)="viewDocGST()">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadGst($event)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{singleLeadData?.gstFile_count}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Company Logo File</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="company_logo" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChangeTwo($event)" />
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <button class="view-doc" (click)="viewDocLogo()">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadLogo($event)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{singleLeadData?.companyFile_count}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Basic Form</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="basic_form" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChangeThree($event)" />
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <button class="view-doc" (click)="viewDocBasic()">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadBasic($event)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{singleLeadData?.basicFile_count}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div *ngFor="let data of otherDocumentData; let i = index" class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Others</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="other_file" id="file" type="file" multiple class="form-control"
+                      (change)="onChange($event, i)" />
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <button class="view-doc" (click)="viewDocOther(i)">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadOther(i)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{i+1}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Remarks</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="document_remark" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav" *ngIf="singleLeadData?.budgetaryQuote == 'FALSE'">
+        <div class="section" *ngIf="hidemsacert">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Opportunity Verification</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>L1 Verifier Name</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="opp_verifier_name_level1" />
+                        <mat-error *ngIf="
+                      leadForm.controls['opp_verifier_name_level1'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>L1 Verified Date</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input matInput [matDatepicker]="dp3" (click)="dp3.open()"
+                          formControlName="opp_verified_date_level1" [max]="maxDate" [min]="minDate" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker #dp3></mat-datepicker>
+                        <mat-error *ngIf="
+                      leadForm.controls['opp_verifier_name_level1'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="opp_verified_remarks_level1" />
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>L2 Verifier Name</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="opp_verifier_name_level2" />
+                        <mat-error *ngIf="
+                      leadForm.controls['opp_verifier_name_level2'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>L2 Verified Date</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput [matDatepicker]="dp4" (click)="dp4.open()"
+                          formControlName="opp_verified_date_level2" [max]="maxDate" [min]="minDate" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                        <mat-datepicker #dp4></mat-datepicker>
+                        <mat-error *ngIf="
+                      leadForm.controls['opp_verified_date_level2'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="opp_verified_remarks_level2" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Quotation Details</h3>
+            </div>
+
+            <div class="form_basic">
+              <div class="row">
+                <div class="col-xxl-10 col-lg-10 col-md-10 col-sm-10 col-12"></div>
+                <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                  <button mat-button tappable class="table-btn" (click)="showPriceTable()">View Price Details</button>
+                </div>
+              </div>
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Quotation Currency</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="quotation_currency">
+                        <mat-option value="ANAB">ANAB</mat-option>
+                        <mat-option  *ngFor="let item of currencyList"
+                            [value]="item.Currency_Convert_id">{{item.Currency_Type}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['quotation_currency'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Slab Quote</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input tabindex="-1" matInput type="text" formControlName="slab_quote" />
+                        <mat-error *ngIf="
+                        leadForm.controls['slab_quote'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Expense Category
+                      <p>
+                        <mat-form-field appearance="outline"
+                          [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                          <!-- <mat-label>Candidate Name</mat-label> -->
+                          <mat-select formControlName="expense_category">
+                           <mat-option [disabled]="true" value="ANAB">ANAB</mat-option>
+                            <mat-option   [disabled]="true" value="Billable">Billable</mat-option>
+                            <mat-option  [disabled]="true" value="Non-Billable">Non-Billable</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="
+                        leadForm.controls['expense_category'].hasError(
+                          'required'
+                        )
+                      ">
+                            This field is required!
+                          </mat-error>
+                        </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!showaccredetion">
+                    <div class="form-group">
+                      <p>Accredition Logo Cost</p>
+                      <mat-form-field appearance="outline">
+                        <input tabindex="-1" matInput type="text" formControlName="logo_cost" />
+                        <mat-error *ngIf="
+                      leadForm.controls['logo_cost'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Total Amount (in {{currencyType}})</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" readonly formControlName="totalAmount_inInr" />
+                        <mat-error *ngIf="leadForm.controls['totalAmount_inInr'].hasError('required')">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    Company Logo Required
+                    <input tabindex="-1" formControlName="company_logo_req" (click)="logoReqNew()" checked="checked" type="radio"
+                      name="company_logo_req" value="Yes" id="red" style="margin: 5% 5px 0 4%;">Yes
+                    <input formControlName="company_logo_req" (click)="logoReq()" type="radio" name="company_logo_req"
+                      value="No" id="blue" style="margin: 0 5px 4% 4%;">No
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="logoCost">
+                      <p>Company Logo Cost</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="company_logo_cost">
+                        <mat-error *ngIf="
+                      leadForm.controls['company_logo_cost'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Quote Prepared</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="quote_prepared" />
+                        <mat-error *ngIf="
+                      leadForm.controls['quote_prepared'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Quote Prepared Date</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='sendquote' ? 'readonly-wrapper' : ''">
+                        <input matInput [matDatepicker]="dp5" (click)="dp5.open()" formControlName="quote_prepared_date"
+                          [max]="maxDate" [min]="minDate" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp5"></mat-datepicker-toggle>
+                        <mat-datepicker #dp5></mat-datepicker>
+                        <mat-error *ngIf="
+                      leadForm.controls['quote_prepared_date'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+
+        </div>
+      </section>
+
+      <div class="upload-btn">
+        <button class="cancel-btn" (click)="cancel()">Cancel</button>
+        <button class="iploadBtn" (click)="submitForm()">Send Quote</button>
+        <button *ngIf="leadUpdate==='updatesendquote'" class="iploadBtn" (click)="updateForm()">Update Send
+          Quote</button>
+        <button *ngIf="leadUpdate==='sendquote'" class="iploadBtn" (click)="printDiv('printableArea')">Preview
+          Quote</button>
+      </div>
+      <div *ngIf=showTable>
+         <app-planning-audit-details [data]="priceItem"></app-planning-audit-details>
+      </div>
+
+    </div>
+  </div>
+</mat-card>
+<div class="pdf-content">
+  <div class="container" id="printableArea">
+    <!-- Page start 1 -->
+    <div class="my-5">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12"></div>
+
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12">
+          <img src="../../../assets/icons/DQS_logo.png" height="180px" width="180px">
+        </div>
+      </div>
+      <div class="bc_first_image">
+        <img src="../../../../../../assets/icons/bc.png" class="mx-auto d-block" height="800px">
+        <div class="background_bc_image">
+          <h1>DQS<br>Your partner for<br>Certification and audits<br>because standards matter</h1>
+          <h1 class="background_bc_image_next">QUOTATION FOR<br>{{singleLeadData?.associated_company}}<br>{{singleLeadData?.br_number}}</h1><br>
+        </div>
+      </div>
+
+    </div>
+    <!-- Page end 1 -->
+    <!-- Page start 2 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+        <h6 class="deutsch"><strong>DQS Group: Global Presence – Local Experience</strong></h6>
+      </div>
+      <div class="row py-5">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-12 experience">
+          <img src="../../../assets/icons/experience.jpg">
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+          <div class="global_dqs">
+            <p>The global DQS team brings local certification expertise to all major economic centers around the world.
+            </p>
+
+            <p>85 DQS offices in 60 countries worldwide provide trusted local expertise on industry best practices,
+              regulatory requirements, and market knowledge. Being close to their customers, our international
+              management
+              team can focus on what excites our customers worldwide. Local customer service personnel provide
+              trustworthy
+              service close to home.</p>
+
+            <p>As the preferred certification and assessment partner of large international companies in the world, DQS
+              has extensive experience and a very strong reputation</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="text-blue">
+
+      <div class="row py-5">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+          <div class="about_dqs">
+            <h4 class="text-about">About DQS</h4>
+            <p>DQS is one of the leading Management System Certification, Assessment & Training organization globally.
+              DQS
+              India is the Indian subsidiary of DQS Holding GmbH.</p>
+
+            <p>Major shareholders of DQS Holding include Underwriters Laboratories (UL) Inc., one of the world’s largest
+              product safety certification body, German Institute for Standardization (DIN), a standard making body, and
+              German Association for Quality (DGQ).</p>
+
+            <p>DQS is one of the founding members of IQNet, the largest international network of certification bodies
+              that
+              have issued approximately one-third of all management systems certificates in the world.</p>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-6 col-12 numbers">
+          <img src="../../../assets/icons/numbers.png">
+        </div>
+      </div>
+
+      <hr class="text-black">
+
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!--2 Page end 2 -->
+    <!-- Page start 3 -->
+    <div class="page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+        <h6 class="deutsch"><strong>Our Services</strong></h6>
+        <p>Today, the service portfolio of DQS India comprises of Certifications, Assessments & Training to more than
+          200+
+          <br>standards, and unique company specific requirements.
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-12 portfolio">
+          <img src="../../../assets/icons/certification.png">
+        </div>
+      </div>
+
+      <hr class="text-black">
+      <div class="row">
+        <h4 class="text-about">Industries We Serve</h4>
+        <div class="col-sm-12 col-md-12 col-lg-12 col-12 we_serve">
+          <img src="../../../assets/icons/aerospace.png">
+        </div>
+      </div>
+
+      <hr class="text-black">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!-- Page end 3 -->
+    <!-- page start 4 -->
+    <div class="page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+      <h4 class="text-about"><b>Welcome to Quality 4.0! - Transition to New Normal with DQS-NXT</b></h4>
+
+      <div class="digital">
+        <p>• Digital Shift is need of the hour and DQS India makes this digital transition to the new normal easy and
+          reliable with our SaaS based solutions- <b>DQS-NXT</b>. It is a suite of enterprise grade
+          Software-as-a-Service
+          (SaaS) solutions that provides the control, process automation and reporting visibility to achieve quality
+          management system objective.</p>
+        <p>1) <b>DQS-NXT- Audit Organizer 4.0</b> - Enterprise grade Audit Management System. (Subscribe if your
+          organization: Finds Internal Audits are challenging as they are managed in Spreadsheets and Emails, struggling
+          to manage multiple audit standards, Qualifying and managing internal auditors is a taxing process)</p>
+        <p>2) <b>DQS-NXT- Doc Organizer 4.0</b> - Enterprise grade Document Control and Management system. (Subscribe if
+          your organization: Finds difficulty in finding Right document at Right time by Right person, not able to track
+          document revisions and iterations, cannot define access/ workflow for documents, is struggling for data back
+          up
+          and data protection)</p>
+        <p>3) <b>DQS-NXT- Supplier Assessment Management Tool 4.0</b> - Effective and Efficient solution for 2nd and 3rd
+          Party Audits. (Subscribe if your organization: Manages Supplier Audits in outdated Excel files, has lack of
+          Audit Expertise, data driven Analysis for decision making)</p>
+        <br>
+        <p>For further information on product details and pricing, please visit,</p>
+        <p class="web_page">1. https://dqs-nxt.com/dqs-nxt-audit-organiser.html</p>
+        <p class="web_page">2. https://dqs-nxt.com/dqs-nxt-audit-organiser.html</p>
+        <p class="web_page">3. https://dqs-nxt.com/dqs-nxt-supplier-audit-management.html</p>
+        <br>
+        <p class="text-center"><b>58,000+ customer sites in 130 countries carry a DQS certified mark</b></p>
+        <p class="text-center"><b>Clients We Have Partnered With</b></p>
+      </div>
+      <div class="row my-5">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-12 clientpartner">
+          <img src="../../../assets/icons/certifiedmark.png">
+        </div>
+      </div>
+
+      <hr class="text-black">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!-- page end 4 -->
+    <!-- page start 5 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+
+      <h4 class="text-about text-center my-4"><b>Quotation for the Certification of your Management System according to
+          <br>[{{singleLeadData?.product_request}}]</b></h4>
+
+      <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+          <p>Dear Mr. /Ms. /Mrs {{singleLeadData?.first_name}},</p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+          <p align="end">Date of Issue: [{{date_of_issue}}]</p>
+        </div>
+      </div>
+      <p>Thank you for your interest in our services. We are delighted that you are considering selecting DQS India as
+        your preferred partner for certification purposes. We are pleased to herewith propose our quotation for your
+        kind
+        consideration in the name and on behalf of the respective accredited/authorized DQS office.</p>
+      <p>Based on the data you submitted, we have prepared an individual audit program set out on the following pages.
+        Enclosed you will also find our “General Business Conditions”, our current “DQS Audit and Certification
+        Regulations” and the contents of which would define the contractual agreements between you and DQS. We have
+        prepared the estimated fees for audits and maintenance of the certification. All related charges i.e.
+        registration
+        fees, application fees, maintenance fees and auditing fees have been taken into consideration. We have also
+        included the fees for the second- and third-year surveillance audits for your evaluation.</p>
+      <p>To accept this quotation, please sign and return to below contact.</p>
+      <p>If you have any questions, please do not hesitate to contact us anytime. We are happy to answer all your
+        questions.</p>
+
+      <br>
+      <br>
+      <br>
+      <p>(Signature)</p>
+      <p>Name: {{singleLeadData?.first_name}} {{singleLeadData?.last_name}}</p>
+      <p>Designation: {{singleLeadData?.job_title}}</p>
+      <p>DQS India</p>
+
+      <p mt-5><b>To be signed____________</b></p>
+      <br>
+      <h5>Annex</h5>
+      <p>I. Additional Conditions</p>
+      <p>II. DQS Assessment and Certification Regulations</p>
+      <p>III. DQS General Business Conditions</p>
+      <p>IV. Certification Process</p>
+
+      <h3 class="web_page mt-5"><b>Quotation</b></h3>
+      <h3><b>{{singleLeadData?.contact_owner}}</b></h3>
+
+      <hr class="text-black">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!-- page end 5 -->
+    <!-- page start 6 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <table class="table table-bordered border border-dark">
+          <tbody>
+            <tr>
+              <td width="25%">Name</td>
+              <td width="25%">{{singleLeadData?.first_name +' '+ singleLeadData?.last_name}}</td>
+              <td width="25%">Quotation Reference No.</td>
+              <td width="25%">[{{singleLeadData?.OpportunityRef_no}}]</td>
+            </tr>
+            <tr>
+              <td width="25%">Tel.</td>
+              <td width="25%">{{singleLeadData?.mobile_number}}</td>
+              <td width="25%">DQS BR Reference No.</td>
+              <td width="25%">[{{singleLeadData?.br_number}}]
+                <p *ngFor="let data of singleLeadData?.newLocations">[{{data?.br_number}}]</p>
+
+              </td>
+            </tr>
+            <tr>
+              <td width="25%">Email</td>
+              <td width="25%">{{singleLeadData?.email}}</td>
+              <td width="25%">Quotation valid until </td>
+              <td width="25%">90 days from the Date of Issue</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-5">
+        <table border="1" cellpadding="10" cellspacing="0" width="100%" bgcolor="white">
+          <thead>
+            <tr>
+              <th class="text-center" colspan="2">Submitted Basic Data Sheet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Company Name</th>
+              <td>
+                <input type="text" size="100" placeholder="{{singleLeadData?.associated_company}}">
+              </td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td>
+                <input type="text" size="100" placeholder="{{singleLeadData?.street_address}}">
+                <br><br>
+                <input type="text" size="100" placeholder="{{singleLeadData?.address2}}">
+                <br><br>
+                <input type="text" size="100"
+                  placeholder="{{singleLeadData?.country_name}}, {{singleLeadData?.state_name}}, {{singleLeadData?.city_name}}, {{singleLeadData?.postal_code}}">
+              </td>
+            </tr>
+            <tr>
+              <th>No. of Additional sites involved</th>
+              <td>
+                <input type="text" size="100" placeholder="{{singlechildLeadData}}">
+              </td>
+            </tr>
+            <tr>
+              <th>Intended Certification Scope</th>
+              <td>
+                <input type="text" size="100" placeholder="Certification Scope">
+              </td>
+            </tr>
+            <tr>
+              <th>Standard(s)</th>
+               <td class="input_authorized">
+                <span  style='margin-left:-50px;' *ngFor="let item of dataset;let i = index">
+                  <span *ngIf="item?.checked">
+                    <i  class="fa fa-check-circle" style="color:#04AA6D; font-size:20px"></i>
+                  </span> 
+                 <b [ngStyle]="{'color': item?.checked ? '#04AA6D' : 'black' }">{{item?.data}}</b>
+                </span>                
+              </td>
+            </tr>
+            <tr>
+              <th>Respective authorized /accredited DQS office(s) & Accreditation(s)</th>
+              <td class="input_authorized">
+                <span  style='margin-left:-50px;' *ngFor="let item of respective_data;let i = index">
+                  <span *ngIf="item?.value == this.singleLeadData?.accredition_logo_details ||  item?.value == 'Other(s)'">
+                    <i  class="fa fa-check-circle" style="color:#04AA6D; font-size:20px"></i>
+                  </span>
+                 <b [ngStyle]="{'color': item?.value ==this.singleLeadData?.accredition_logo_details ||  item?.value == 'Other(s)' ? '#04AA6D' : 'black' }">{{item?.value}}</b>
+                </span>                
+              </td>
+            </tr>
+            <tr>
+              <th>Effective Headcount</th>
+              <td>
+                <input type="text" size="100" placeholder="{{singleLeadData?.employee_count}}">
+              </td>
+            </tr>
+            <tr>
+              <th>Basic Data Sheet </th>
+              <td><textarea class="form-control" placeholder="Enter Text" rows="5">Basic Data Sheet (CF146,RP1/S, RP1 MED, RP1 AS, 413_12e_MDSAP, 420_4e_CE) and its related annexes, 
+            Dated/as of: DD-MM-YYY  
+            
+            This quote is based on the submitted Basic Data provided by the organization. The basic data will be verified at the beginning of each audit. In case of relevant changes in the stated data, DQS may revise the certification program according to the applicable certification rules.This can lead to an adjustment of the audit scope, audit amount, number of audit days and to the certification fees.
+            </textarea></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3"><b>To be signed____________</b></p>
+      <hr class="text-black mt-5">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!-- page end 6 -->
+    <!-- page start 7 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+      <h4 class="text-about text-center mt-2"><b>Offered Audit Program with List of Sites and Pricing</b></h4>
+      <div class="mt-5">
+        <table class="table table-bordered border border-dark text-center">
+          <thead>
+            <tr>
+              <th>Sl.No.</th>
+              <th>Location & Address</th>
+              <th>Employee Count</th>
+              <th>Scope</th>
+              <th>EAC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td width="20%">{{singleLeadData?.lead_genration_id}}.</td>
+              <td width="20%">{{singleLeadData?.industry_sector}}</td>
+              <td width="20%">{{singleLeadData?.employee_count}}</td>
+              <td width="20%"></td>
+              <td width="20%"></td>
+            </tr>
+            <tr>
+              <td width="20%">{{singleLeadData?.lead_genration_id}}.</td>
+              <td width="20%">{{singleLeadData?.industry_sector}}</td>
+              <td width="20%">{{singleLeadData?.employee_count}}</td>
+              <td width="20%"></td>
+              <td width="20%"></td>
+            </tr>
+            <tr>
+              <td width="20%">{{singleLeadData?.lead_genration_id}}.</td>
+              <td width="20%">{{singleLeadData?.industry_sector}}</td>
+              <td width="20%">{{singleLeadData?.employee_count}}</td>
+              <td width="20%"></td>
+              <td width="20%"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-5" *ngIf="singleLeadData?.certificate_type_name =='Cert'">
+        <table class="table table-bordered border border-dark text-center">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th colspan="2">Year 1</th>
+              <th>Year 2</th>
+              <th>Year 3</th> 
+              <th>Year 4</th> 
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td width="15%"></td>
+              <td width="15%">RA – S1</td>
+              <td width="15%">RA – S2</td>
+              <td width="15%">CA1</td>
+              <td width="15%">CA2</td>
+              <td width="15%">TRA</td>
+            </tr>
+            <tr>
+              <td width="15%">Location1: Days</td>
+              <td width="15%" *ngFor="let item of location1">{{item?.noOfMandays}}</td>            
+             </tr>
+            <tr>
+              <td width="15%">Location2: Days</td>
+              <td width="15%" *ngFor="let item of location2">{{item?.noOfMandays}}</td>  
+            </tr>
+            <tr>
+              <td width="15%">Location3: Days</td>
+              <td width="15%" *ngFor="let item of location3">{{item?.noOfMandays}}</td>  
+            </tr>
+            <tr>
+              <td width="15%">Location4: Days</td>
+              <td width="15%" *ngFor="let item of location4">{{item?.noOfMandays}}</td> 
+            </tr>
+            <tr>
+              <td width="15%">Assessment Fee</td>
+              <td width="15%">{{singleLeadData?.slab_quote}}</td>
+              <td width="15%"></td>
+              <td width="15%"></td>
+              <td width="15%"></td>
+            </tr>
+            <tr>
+              <td width="15%">Accreditation/Logo Fee</td>
+              <td width="15%">{{singleLeadData?.logo_cost}}</td>
+              <td width="15%"></td>
+              <td width="15%"></td>
+              <td width="15%"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-5" *ngIf="singleLeadData?.certificate_type_name =='Non-Cert'">
+        <table class="table table-bordered border border-dark text-center">
+          <thead>
+            <tr>
+              <th width="25%">No. of Mandays</th>  
+              <th width="25%">Total Amount</th>            
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+             <td width="25%">{{singleLeadData?.in_house_mandays}}</td>   
+             <td width="25%">{{singleLeadData?.total_amount}}</td>            
+            </tr>         
+          </tbody>
+        </table>
+      </div>
+
+
+      <p class="mt-3">Note: Travelling and Accommodation expenses will be billed on actuals. Please refer ‘Annex I -
+        Additional Conditions’ for further details.</p>
+      <ul>
+        <li>The number of audit days are calculated based on IAF MD 5:2019 and/or (List document). Audit day adjustment
+          factors are based on information provided in the application and any previous DQS knowledge of your
+          organization. Further adjustment will be applied if other factors are determined or if there are significant
+          scope or employee count changes.</li>
+        <li>The specific increase factors applied to the audit days were: (XXXX or None)</li>
+        <li>The specific reduction factors applied to the audit days were: (XXXX or None)</li>
+      </ul>
+      <p class="mt-3">Travel and subsistence expenses (including applicable fees for travel, accommodation, food etc. or
+        fees for required Follow-up Audits in case of raised nonconformities) will be charged at cost according to Annex
+        I
+        of this quotation.</p>
+      <p class="mt-3">Services are invoiced according to our valid price list and are subject to periodic review and
+        changes without prior notice. The fees detailed within this proposal do not include GST, taxes, duties or other
+        charges for which the recipient of these services may be liable, as per Government of India Regulations. Goods
+        and
+        Services Tax (GST) which is currently at 18% or as applicable at the time final invoicing. GST is applicable on
+        the travel and living also, which shall be to customer's account.</p>
+      <p class="mt-3">This quotation is valid for 90 days from date of its issue. DQS India reserves the right to accept
+        or reject an “{{singleLeadData?.OpportunityRef_no}}” submitted outside of the quotation validity period. </p>
+      <p class="mt-3"><b>To be signed____________</b></p>
+      <hr class="text-black mt-5">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!--page end 7 -->
+    <!--page start 8 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+      <h6 class="deutsch"><strong>Acceptance of Quotation</strong></h6>
+      <h3><strong>Quotation Reference No. : </strong> [{{this.singleLeadData?.OpportunityRef_no}}]</h3>
+      <h3><strong>Date of Issue : [{{this.singleLeadData?.date_of_first_issue}}]</strong></h3>
+      <p class="mt-5">By signing, our organization confirms and accepts this quotation including the General Business
+        Conditions (see Annex III) and the DQS Assessment and Certification Regulations (CF10 – see Annex II; mandatory
+        content) in its current version as published on DQS India <span class="web_page"><u>Webpage.</u></span></p>
+      <p class="mt-3">Furthermore, we accept and understand that this acceptance also constitutes a legally binding
+        certification contract between our organization and the respective authorized/accredited DQS office (see page
+        3).
+        We confirm that the signing representative is internally authorized to accept the quotation</p>
+      <p class="mt-3">We understand that this quotation is based on the information provided by us to DQS and that our
+        basic data will be verified before each audit. Relevant changes of our data and of the underlying accreditation
+        rules and regulations may result in a change of the audit program and/or audit duration, which will have an
+        impact
+        on the fee agreed upon. </p>
+
+      <div class="mt-5">
+        <table border="1" cellpadding="10" cellspacing="0" width="100%" bgcolor="white">
+          <tbody>
+            <tr>
+              <th>Company Name</th>
+              <td>
+                <input type="text" size="100" placeholder="{{singleLeadData?.associated_company}}">
+              </td>
+            </tr>
+            <tr>
+              <th>Name and Function of authorized Representative:</th>
+              <td>
+                <input type="text" size="100" placeholder="Name and Function of authorized DQS India Representative:">
+              </td>
+            </tr>
+            <tr>
+              <th>Signature:</th>
+              <td>
+                <input type="text" size="100" placeholder="Signature:">
+              </td>
+            </tr>
+            <tr>
+              <th>Date (and stamp, if required according to local law):</th>
+              <td>
+                <input type="text" size="100" placeholder="{{singleLeadData?.quote_prepared_date}}">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-5">
+        <table border="1" cellpadding="10" cellspacing="0" width="100%" bgcolor="white">
+          <tbody>
+            <tr>
+              <th>Billing Address & contact (if different from Basic Data,see page 6):</th>
+              <td>
+                <input type="text" size="101" placeholder="Tentative S1 Date:">
+                <br><br>
+                <input type="text" size="101" placeholder="Tentative S2 Date:">
+              </td>
+            </tr>
+            <tr>
+              <th>Purchase Order No.:</th>
+              <td>
+                <input type="text" size="101" placeholder="GST Number: {{singleLeadData?.gst_number}}">
+                <br><br>
+                <input type="text" size="101" placeholder="Finance Department Contacts:">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr class="text-black">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!--page end 8 -->
+    <!--page start 9 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+      <h3><strong>Annex I - Additional Conditions</strong></h3>
+      <hr class="text-black">
+      <div class="Travelling_expense">
+        <div class="row">
+          <p><strong>1.Travelling and Accommodation expenses</strong> – While DQS India appreciates the customer to make
+            all the travel and living related bookings directly, in exceptional<br> cases DQS India can agree to make
+            the
+            bookings as per below mentioned details.
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>Travelling and accommodation expenses will be charged at cost after selection of the most expedient route
+              to the customer concerned. Travelling expenses will be normally charged starting at the auditor's place of
+              residence. Costs for the various means of transport and living will be charged as follows:</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>In INR</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>By Own car (toll charges at actual) *</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>Rs.11/km</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>By Taxi (with prior customer consent)</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>Actuals</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>By Train</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>At Actuals</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>By plane (Economy Class)</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>At Actuals</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>Accommodation Expenses Others (e.g.: Food, Public Transport, fee for parking, visa etc.)</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>At Actuals</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>* Subject to policy revision from time to time</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>At Actuals</p>
+          </div>
+        </div>
+        <hr class="text-black">
+        <div class="row">
+          <p><strong>2.Audits due to special circumstances (e.g. Follow-up, special or unannounced audits)</strong></p>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>On- or off-site time</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>On contextual Basis</p>
+          </div>
+        </div>
+        <hr class="text-black">
+        <div class="row">
+          <p><strong>3.Travel time</strong></p>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>Travel times (International) are agreed upon based on mutual agreement</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>Based on agreement</p>
+          </div>
+        </div>
+        <hr class="text-black">
+        <div class="row">
+          <p><strong>4.Overtime</strong></p>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>Hours worked in excess of the regular person-day (8 hours) are not charged for</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>No charge</p>
+          </div>
+        </div>
+        <hr class="text-black">
+        <div class="row">
+          <p><strong>5.Award of certificate in person</strong></p>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>by a DQS representative may be agreed</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>By agreement</p>
+          </div>
+        </div>
+        <hr class="text-black">
+        <div class="row">
+          <p><strong>6.DQS Certificates</strong></p>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>Changes in a certificate and issuance of excerpts (Per Certificate)</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>INR 5000</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>Certificate with imprint of your company logo (Per Certificate, for 3 Years)</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>INR 10000</p>
+          </div>
+        </div>
+        <div class="row">
+          <p><strong>7. Invoice for the service offered</strong></p>
+          <p>DQS will issue invoice as stipulated in Section 31 of the CGST Act, 2017. This invoice is authenticated
+            with
+            Digital Signature Certificate (DSC) by DQS India authorized signatory and is valid for availing input tax
+            credit and releasing payment to us. Customer’s requiring hard copies &/or physical copies of the final
+            invoice
+            raised by DQS India will be billed an additional cost + GST @ 18%, per invoice against specific request
+            being
+            sent to <span class="web_page"><u>'requestprint@dqs-india.in'</u></span></p>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>8. In case of any default in payment beyond 20 days or mutually agreed upon credit period, after the
+              resolution of all disputes relating to invoice, then the balance amount, if any, and amounts for the
+              succeeding continuous assessment shall be payable in advance. Any corrections in the invoice shall be
+              brought to the notice of DQS India within 5 working days, else the invoice will be deemed accepted.</p>
+          </div>
+          <div class="col-sm-2 col-md-2 col-lg-2 col-2">
+            <p>INR 1000</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>9.The project must be completed within accreditation timelines. Payments as agreed in the contract /
+              milestones and issuance of TDS certificates are not done on time, execution of upcoming assessment will be
+              stopped until payment terms are fulfilled, and pending TDS certificates are issued to DQS. Further, DQS
+              will
+              reconcile amount deducted as TDS and validate it with Form 26AS on the Income Tax portal. In case of short
+              amount in 26AS, then customer is liable to release payment within 7 days of </p>
+          </div>
+        </div>
+        <hr class="text-black">
+        <div class="row">
+          <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+            <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+            </p>
+            <p>Deutsch Quality Systems (India) Private Limited</p>
+            <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+            <p>Bengaluru – 560 017, Karnataka, India</p>
+            <p>Rev 12-May-2022</p>
+          </div>
+          <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+            <img src="../../../assets/icons/iqnet_dqs.png">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--page end 9 -->
+    <!--page start 10 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+      <div class="intimation_form">
+        <div class="row">
+          <p>{{singleLeadData?.quote_prepared}}, failing which an interest at the rate of 1.5% per month is payable by
+            Customer to DQS from the date of invoice and the said default amount shall be treated as accounts receivable
+            dues</p>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>10.DQS India endeavors to limit expenses towards Auditor travel and living by assigning local / nearby
+              auditors, wherever possible. However, the auditors sometimes may have to travel from other parts of
+              country
+              to meet assessment schedule/ accreditation body requirements. In addition, DQS will issue Invoice one
+              invoice for fees and travel and living together. Customer shall ensure wherever purchase orders are
+              released
+              to DQS with reference services referred under this proposal, must accordingly have term on travel and
+              living
+              at actual</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>11. Any changes in scope or in fees must be documented in an amendment signed by both parties and neither
+              party shall be obligated to implement any such change until such amendment is signed by both parties. </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>12. If DQS, at the request of or with notice to customer, performs work that is not covered by this
+              Statement of Work or that exceeds the scope of Services described in this Statement of Work, such work
+              shall
+              be deemed Services provided pursuant to this Statement of Work, for which customer shall compensate DQS at
+              the same rates as those described under Days Delivered and Professional Fee above or, in the case of a
+              fixed-fee engagement, at the rates used in calculating such fixed fee. </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>13. The costs shown for each Annual and or Bi-Annual Assessment are valid for this calendar year only.
+              They
+              may be revised from time to time to reflect current rates. You will receive prior written notice before
+              changes in pricing occur.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p><strong>14. The signed contract referred below shall be treated as</strong> evergreen contract, unless
+              intimated prior to the assessment of any price change(s), the prices applicable will be the same as shown
+              in
+              the above table related to Days Delivered and Professional Fee, in case there are additional man-days to
+              be
+              performed, the corresponding day rate can be ascertained in the table which will be eventually billed for
+              additional man-days. The three-year (one cycle) fee shall be calculated by determining the fee for the
+              RA/TRA fee along with annual / bi-annual continuous assessment fees.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>15. Similarly, if there is reduction in the man-days for the current year compared to the proposal
+              signed,
+              the corresponding day rate can be ascertained in the table which will be eventually reduced for those
+              man-days.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>16. Once the quotation is accepted by you, both the parties will be executing the legal contract
+              'Agreement
+              for Management System Assessment Services - L244' (Click <span class="web_page">here</span> for contract
+              template)</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>17. For all AS 91XX customers seeking certification shall sign legal contract of DQS Inc., L44. (Click
+              <span class="web_page">here</span> for contract template)
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-md-10 col-lg-10 col-12">
+            <p>18. For all services offered for Sedex, BRC, IFS, GMP, FSSC, Global G.A.P under the accreditation of DQS
+              CFS GmbH, the Specific Conditions for the Assessment of Management Systems and Product Certification apply
+              which is attached along with our proposal requested for these services.</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <h3>
+              <strong>Annex II - DQS Assessment and Certification Regulations</strong>
+            </h3>
+            <p>Please see the actual DQS Audit and Certification Regulations (CF10) and their special supplements in
+              your
+              respective language on the DQS Global Website: <span
+                class="web_page">https://www.dqsglobal.com/intl/about/accreditation-and-notification/dqs-group-auditing-and-certification-rules</span>.
+              These regulations become integral part of the contract with the local DQS office and (if applicable) the
+              respective accredited/authorized DQS office.</p>
+          </div>
+        </div>
+      </div>
+      <hr class="text-black">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!--page end 10 -->
+    <!--page start 11 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+      <h3><strong>Annex III - General Business Conditions of DQS India</strong></h3>
+      <div class="annex_general">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>1. General</strong></span>
+            <p>DQS performs certification, audit and assessment services on behalf of their client.
+              Notwithstanding individual agreements to the contrary, the client accepts the General Business Conditions
+              and prices of DQS, as well as the “DQS Auditing and Certification Regulations” in their current issue at
+              the
+              time of order placing. A client’s contrary or deviating business conditions shall only be binding in case
+              of
+              express written acceptance by DQS.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>2. Service delivery</strong></span>
+            <p>DQS certifies audits and assesses the management system of the client, or parts thereof, with the goal of
+              evaluating its conformity with specified or agreed requirements, including the effectiveness of the system
+              or parts thereof. The client receives a written expertise and/or a DQS certificate, respectively a
+              declaration of conformity or other attestation. As a matter of principle, assessments are performed at the
+              clients’ place of operations. DQS is independent, neutral, and objective in their audits. Performance of
+              services is subject to the provisions laid down in the cur- rent issue of the “DQS Auditing and
+              Certification Regulations”, www.dqs.de ,which are binding for both parties. Scope and extent of services
+              delivered by DQS are specified in writing at the time of order placing; partial delivery is permitted.
+              Parties agree on the exact dates of the proceeding separately. Where during proper performance of the
+              order,
+              changes and/or expansions to the original extent of the order are identified, these additions shall be
+              agreed upon in writing by both parties in advance. Insofar as changes or expansions make it unreasonable
+              for
+              the client to adhere to agreed provisions, they have the right to withdraw from the contract. In doing so,
+              however, the client is required to pay the fee agreed or, where there is no such agreement, a suitable
+              fee.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>3. Duties of the client</strong></span>
+            <p>The client shall make available to DQS all information and documents necessary for the contracted
+              services
+              to be delivered; completely, diligently, and in a timely manner. The client shall point out all procedures
+              and circumstances that may be significant to the delivery of contracted services, without prompting.
+              Unless
+              the above-mentioned items have been complied with, the delivery of services will take place at the sole
+              risk
+              of the client, provided there is no contributory negligence on the part of DQS.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>4. Confidentiality, copyright, data security</strong></span>
+            <p>DQS observes business confidentiality, taking precautions to ensure that written expertise or any other
+              facts or documents made available in the context of service delivery regarding the client and the subject
+              matter are not forwarded, exploited, or publicized without authorization. DQS may copy written documents,
+              which have been made available to it for review or during service provision, for its own records. Insofar
+              as
+              written expertise, evaluation results, etc. have been created in the context of the order, which are
+              subject
+              to copyright protection, DQS grants the client a non-exclusive, non-transferrable right of use, as far as
+              necessary in accord with the contractually prescribed purpose. No further rights are granted; in
+              particular,
+              the client is not authorized to modify written expertise, evaluation results, and the like.DQS also
+              processes and uses personal data for their own purposes within DQS Group only. To this end, DQS also
+              employs
+              automatic data processing systems. In order to comply with the data security requirements of Article 32 of
+              the General Data Protection Regulation (GDPR), DQS has implemented measures of a technical and
+              organizational nature designed to ensure the security of stored data and data processing. Employees
+              involved
+              in processing have committed themselves to the strict adherence to all applicable provision of the GDPR
+              and
+              all relevant data security regulations.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>5. Warranty</strong></span>
+            <p>The warranty of DQS covers only the services expressly stated in the order. In the case of certification
+              services, DQS is obliged to issue the certificate, provided the respective preconditions have been
+              fulfilled. Insofar as DQS provides general services, the parties agree that DQS owes only services, not
+              any
+              specified success. Any decisions based upon the services delivered are incumbent upon the client alone,
+              within their own sphere of risk and decision-making.
+            </p>
+          </div>
+        </div>
+      </div>
+      <hr class="text-black">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!--page end 11 -->
+    <!--page start 12 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+
+      <div class="liability_res">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>6. Liability</strong></span>
+            <p>Irrespective of legal basis, DQS, its vicarious agents and auxiliary persons, may be held liable for
+              damages only in case of intent or gross negligence, or in case of negligent breach of an essential
+              contractual duty (“material duty”). In case of a breach of essential contractual duties, the liability of
+              DQS is always limited to the extent of the foreseeable dam- age typical for the contract at the time of
+              its
+              closing. Liability for collateral damages, to include collateral damage typical for the contract, is
+              exempt.
+              Other- wise, the liability of DQS is limited to twice the value of the order value, with a maximum of EUR
+              100,000 per business transaction and EUR 250,000 per calendar year.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>7. Terms of payment</strong></span>
+            <p>For the calculation of services, the respective and currently valid prices of DQS apply, unless a fixed
+              fee
+              or other basis for calculation has been expressly agreed upon. Invoices will be issued following each
+              stage
+              of performance and are due for payment in full within twenty days from the date of the invoice, without
+              deduction. In case of delayed payment, DQS is entitled to charge interest at 12% per annum.
+              DQS reviews its prices on a regular basis. If rising overhead or procurement costs require an adaption of
+              current prices, the increase will be notified 4 months before it takes effect. Price increases or other
+              fees
+              by third parties like IATF, OASIS, reporting- and certification fees and other charges are excluded from
+              notice 4 months in advance. Existing prices will still apply to services that have already been confirmed
+              in
+              writing.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>8. Deadlines and due dates</strong></span>
+            <p>
+              DQS and the client schedule appointments for audit as far in advance as possible. Appointments are
+              confirmed
+              in writing. In case a confirmed appointment cannot be maintained by reason of the client, DQS may charge
+              the
+              client for expenditures actually incurred in preparing for this appointment.
+              If the client cancels less than eight weeks before the date of service provision, DQS shall bill the
+              client
+              80% of the contract’s value, including travel costs incurred and cancellation fees.
+              If the client cancels fewer than seven working days before the date of service provision, DQS shall bill
+              the
+              client 100% of the contract’s value, including travel costs incurred and cancellation fees.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>9. Duration and termination</strong></span>
+            <p>
+              The contract is concluded for an unlimited period of time on the date of order placing. The client may
+              issue
+              a written notice of termination a minimum of six weeks to the end of the quarter, without giving reasons.
+              In the case of termination by the client, DQS reserves the right to charge for services already provided.
+              If
+              the client terminates less than eight weeks before the date of service provision, DQS shall bill the
+              client
+              80% of the contract’s value, including travel costs incurred and cancellation fees.
+              If the client terminates fewer than seven working days before the date of service provision, DQS shall
+              bill
+              the client 100% of the contract’s value, including travel costs incurred and cancellation fees. DQS may
+              only
+              terminate upon good cause shown.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <span class="web_page"><strong>10. Final provisions</strong></span>
+            <p>
+              The court of jurisdiction is Bengaluru and Indian law applies in all respects. Should any individual
+              provision be or become void, the validity of the remaining provisions hereof shall not be affected. In
+              such
+              cases, the void provision shall be replaced by relative provisions coming as close as possible to the
+              business purpose of the contract and safeguarding the interests of each party as much as feasible.
+              In addition to the provisions stipulated above, individual certification services are subject to specific
+              requirements in their currently valid version, as well as their supplementary interpretations.
+              With this issue, all our previous general business conditions cease to be valid.
+            </p>
+          </div>
+        </div>
+      </div>
+      <hr class="text-black">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!--page end 12 -->
+    <!--page start 13 -->
+    <div class="my-5 page_breaks">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+        <p mt-5><b>To be signed____________</b></p>
+      </div>
+      <hr class="text-black">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+    </div>
+    <!--page start 13 -->
+    <!--page start 14 -->
+    <div class="my-5">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <h6 class="deutsch">DQS India<br>Deutsch Quality Systems (India) Private Limited</h6>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 dqs_india">
+          <img src="../../../assets/icons/DQS_logo.png">
+        </div>
+      </div>
+      <h3><strong>Annex IV - The Certification Process</strong></h3>
+      <p>The Certification Process generally includes the following steps:</p>
+
+      <div class="certification_image">
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+            <img src="../../../assets/icons/certification_process.png" height="800px">
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+            <p><span class="web_page"><b>2.1</b></span> The process starts with the client’s needs and expectations. DQS
+              wants to learn about the client’s organization, its management system, size and types of operation.
+              Together both parties will define objectives for the assessment and/or certification, including applicable
+              standards and specifications.</p>
+            <p class="detailed_initial"><span class="web_page"><b>2.2</b></span> DQS will provide a detailed offer for
+              assessment and certification services, tailored to individual client needs, based on the information
+              provided initially. A written contract will specify all relevant deliverables as well as applicable
+              assessment and certification criteria.</p>
+            <p class="detailed_initial"><span class="web_page"><b>2.3</b></span> A pre-audit can serve as initial
+              performance or gap analysis, identifying strengths and areas for improvement. For larger assessment and
+              certification projects, a project-planning meeting provides a valuable opportunity for the client to meet
+              the lead assessor and develop a customized assessment plan for all functions and locations involved. Both
+              services are optional.</p>
+            <p class="detailed_initial"><span class="web_page"><b>2.4</b></span> Stage 1 audit: The assessment procedure
+              itself begins with review and evaluation of system documentation, goals, results of management review and
+              internal audits. During this process, it will be determined whether the client’s management system is
+              sufficiently developed and ready for certification. The assessor will explain findings and coordinate any
+              required activities to prepare for the on-site system assessment.</p>
+            <p class="detailed_initial"><span class="web_page"><b>2.5</b></span> Stage 2 audit: The assigned auditor
+              team will audit the client’s management system at the place of production or service delivery. Applying
+              defined management system standards and specifications, the assessment team will evaluate the
+              effectiveness of all functional areas as well as all management system processes, based upon observations,
+              inspections, interviews, review of pertinent records, and other assessment techniques. The audit result,
+              including all findings will be presented to the client during the closing meeting. Required action plans
+              will be agreed upon as necessary.</p>
+            <p class="detailed_initial"><span class="web_page"><b>2.6</b></span> System Evaluation: The independent
+              certification function of DQS will evaluate the audit process and its results, and decide independently
+              about issuance of the certificate. The client receives an audit report, documenting the audit results.
+              When all applicable requirements are fulfilled, the client also receives the certificate.</p>
+          </div>
+        </div>
+        <div class="mt-5">
+          <p><span class="web_page"><b>2.7</b></span> Surveillance audits: Either semi-annually or at least once per
+            year, there will be an on-site audit of the critical components of the management system. Improvement
+            potential will be identified, with a focus on continual improvement and sustained effectiveness.</p>
+          <p><span class="web_page"><b>2.8</b></span> Re-Audit: A management system certificate is valid for a limited
+            period of time, frequently for a maximum of three years. At the end of this cycle, a re-audit will be
+            carried out to ensure the ongoing fulfillment of all applicable requirements. Subject to this fulfillment, a
+            new certificate will be issued.</p>
+          <p>For sector specific standards, the described certification process may differ.</p>
+        </div>
+      </div>
+      <hr class="text-black">
+      <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+          <p>Quotation Ref No.: {{singleLeadData?.OpportunityRef_no}} / DQS BR Ref. No.: {{singleLeadData?.br_number}}
+          </p>
+          <p>Deutsch Quality Systems (India) Private Limited</p>
+          <p>5th Floor Anjaneya Techno Park, 147, HAL Airport Road, Kodihalli,</p>
+          <p>Bengaluru – 560 017, Karnataka, India</p>
+          <p>Rev 12-May-2022</p>
+
+
+
+
+         
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12 iqnet">
+          <img src="../../../assets/icons/iqnet_dqs.png">
+        </div>
+      </div>
+      <div class="document_css">
+<div class="row">
+  <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3 col-12">
+      <img style="width: 50%;" class="hr-profile" [src]="getProfilrPhoto(imgpath)" alt="" /> 
+        <p style="padding: 10px 20px;">Document Sign</p>
+      </div>
+</div>
+
+        
+      
+      </div>
+    </div>
+    <!--page end 14 -->
+  </div>
+</div>

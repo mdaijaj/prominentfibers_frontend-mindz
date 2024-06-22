@@ -1,0 +1,32 @@
+<h3 mat-dialog-title class="popHead">ADVANCE-PAYMENT RECORD</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+    <div class="cotain">
+        <div class="emp_key">
+            <p>Employee Name:</p>
+            <p>Amount:</p>
+        </div>
+        <div class="emp_value">
+            <p>{{emp_ad_details?.employee_name}}</p>
+            <p>{{emp_ad_details?.advance_amount}}</p>
+        </div>
+    </div>
+    <div class="cotain">
+        <div class="emp_key">
+            <!-- <p style="color: rgb(182, 138, 224);" *ngFor="let data of emp_ad_details">Employee Name</p> -->
+            <p style="color: rgb(182, 138, 224);"  *ngFor="let data of installment_month">{{data?.month}}:</p>
+
+        </div>
+        <div class="emp_value">
+            <p style="color: rgb(182, 138, 224);" *ngFor="let data of installment_month">{{data?.installment}}</p>
+            <!-- <p>{{emp_ad_details?.description}}</p> -->
+
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close mat-raised-button color="primary">Close</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

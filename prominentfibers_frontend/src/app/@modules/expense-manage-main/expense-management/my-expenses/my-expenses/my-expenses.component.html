@@ -1,0 +1,583 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee">
+      </div>
+      <div class="msater-nav">
+        <a href="">Expenses Management<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">My Expenses</a>
+      </div>
+      <div class="updatetitle" *ngIf="!approveStatus && !makePaymentStatus && !makePaymentStatusApproved">
+        <h2><b>Create Expense</b></h2>
+      </div>
+      <!-- <div class="updatetitle" *ngIf="makePaymentStatus">
+        <h2><b>Approve Expense</b></h2>
+      </div>
+      <div class="updatetitle" *ngIf="makePaymentStatusApproved">
+        <h2><b>Expenses Accounts Payable</b></h2>
+      </div> -->
+      <section class="job-nav">
+        <div class="section">
+          <div class="hide_lead" *ngIf="this.task_id">
+            <div class="task_details" style="padding-bottom: 20px;">
+              <div class="row form_head">
+                <h3>Task Order Details</h3>
+              </div>
+
+              <div class="row details">
+                <div class="col-md-6">
+                  <table id="customers">
+                    <tr>
+                      <td class="head_task">Task No</td>
+                      <td class="tasklinks" class="tasklink" (click)="pdfGenerate()"
+                        matTooltip="Task Order File(Pdf Generate)">
+                        {{ singleLeadData?.taskOrder_no }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="head_task">Company Name</td>
+                      <td>{{ singleLeadData?.associated_company }}</td>
+                    </tr>
+                    <tr>
+                      <td class="head_task">Company Remark</td>
+                      <td>{{ singleLeadData?.company_remarks }}</td>
+                    </tr>
+                    <tr>
+                      <td class="head_task">Customer Category</td>
+                      <td>{{ singleLeadData?.customer_category }}</td>
+                    </tr>
+                    <tr>
+                      <td class="head_task">Email</td>
+                      <td>{{ singleLeadData?.email }}</td>
+                    </tr>
+                  
+                  </table>
+                </div>
+
+                <div class="col-md-6">
+                  <table id="customers">
+                    <tr>
+                      <td class="head_task">BR Number</td>
+                      <td>{{ singleLeadData?.br_number }}</td>
+                    </tr>
+                    <tr>
+                      <td class="head_task">Audit Start Date</td>
+                      <td>{{ singleLeadData?.training_start_date }}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="head_task">Audit End Date</td>
+                      <td>{{ singleLeadData?.training_end_date }}</td>
+                    </tr>
+                    
+                    <tr>
+                      <td class="head_task">Mobile Number</td>
+                      <td>{{ singleLeadData?.mobile_number }}</td>
+                    </tr>
+                   
+                    <tr>
+                      <td class="head_task">Opportunity Type</td>
+                      <td>{{ singleLeadData?.opportunity_type }}</td>
+                    </tr>
+                    
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <mat-card style="padding: 20px 0px;">
+            <div class="row form_head">
+              <h3>My Expenses</h3>
+            </div>
+            <div class="form_basic">
+              <form class="form_set" [formGroup]="expenceForm">
+                <div class="row">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <p>Expense Type</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly class="readonly-wrapper">
+                        <input matInput type="text" formControlName="expense_type" readonly />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <p>Expense Name</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly [ngClass]="expensName?'readonly-wrapper':''">
+                        <input matInput type="text" formControlName="expense_name" />
+
+                        <mat-error *ngIf="
+                           expenceForm.controls['expense_name'].hasError('required')
+                         ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="!nonBillable || billableStatus">
+                    <div class="form-group filed_hed">
+                      <p>Task Order</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!nonBillable || billableStatus">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" formControlName="task_order" readonly />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12"
+                    *ngIf="nonBillable && !billableStatus || task_order_nonBilable">
+                    <div class="form-group filed_hed">
+                      <p class="file-tag">Expense Approval</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+                    *ngIf="nonBillable && !billableStatus || task_order_nonBilable">
+                    <div class="form-group">
+                      <input formControlName="expenseApprovalfile" id=" expenseApprovalfile" type="file" multiple
+                        class="form-control" (change)="expenseApprovalFile($event)"
+                        [ngClass]="expenseApprovel?'readonly-wrapper':''" accept=".pdf" />
+                      <div class="file set_icon" *ngIf="fileicon">
+                        <img class="selctedImg" [src]="fileicon" *ngIf="fileDetails2 || singleLeadData.attach_bill">
+                      </div>
+                      <p style="font-size: 12px;
+                        color: brown;
+                        padding: 0 10px;">Only Pdf File Choose..</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <p>Expense Advance :</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly [ngClass]="expenseAdva?'readonly-wrapper':''">
+                        <input matInput type="number" formControlName="expense_advance" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <p>Expense Description</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                     
+                      <textarea appTextareaAutosize rows="2" class="text-input" style="width: 100%;"
+                        formControlName="expense_desc" [ngClass]="expenseDes?'readonly-wrapper':''"></textarea>
+                   
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <p>Travel Ticket</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <!-- <span style="margin: 0 50px 0 0;">Travel Ticket</span> -->
+                      <input formControlName="travel_ticket" type="radio" name="travel_ticket" value="Yes"
+                        (click)="yesTickets()" id="red" style="margin: 0 5px 0 0%"
+                        [ngClass]="expensetravelTic?'readonly-wrapper':''" />Yes
+                      <input formControlName="travel_ticket" type="radio" name="travel_ticket" checked="checked"
+                        value="No" (click)="noTickets()" id="blue" style="margin: 0 5px 4% 4%"
+                        [ngClass]="expensetravelTic?'readonly-wrapper':''" />No
+                    </div>
+                  </div>
+                 
+                </div>
+                <div class="row" *ngIf="nonBillable && !billableStatus || task_order_nonBilable">
+                  
+                </div>
+                
+                <div class="row" style="padding: 15px 0px;">
+                 <div class="col-lg-12" *ngIf="task_id && !onExpenseDetails">
+                    <button class="favorite styled saveStyle" (click)="submitForm()">Save</button>
+                  </div>
+                  <div class="col-lg-12" *ngIf="!task_id && !onExpenseDetails">
+                    <button class="favorite styled saveStyle" (click)="submitNonBilable(expenceForm)">save</button>
+                  </div>
+                </div>
+                <mat-card *ngIf="showTickets">
+                  <div class="row form_head">
+                    <h3>Travel Tickets</h3>
+                  </div>
+                  <div class="ag_grid">
+                    <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                      [rowData]="rowDataBookTiket" [columnDefs]="columnDefsConfirm"
+                      (cellClicked)='onCellClickedCopy($event)' [pagination]=true [paginationPageSize]=10
+                      (gridReady)="onGridReady($event)">
+                    </ag-grid-angular>
+                  </div>
+                </mat-card>
+                <br>
+
+                <div class="hide_table" *ngIf="onExpenseDetails && task_id">
+                  <div class="row form_head">
+                    <h3>Expense Details</h3>
+                  </div>
+                  <div class="ag_grid">
+                    <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                      [rowData]="rowExpenseCopy" [columnDefs]="columnDefs" (cellClicked)='onCellClicked($event)'
+                      [pagination]=true [paginationPageSize]=10 (gridReady)="onGridReady($event)">
+                    </ag-grid-angular>
+                  </div>
+                  <div class="form-group" *ngIf="!makePaymentStatusApproved && !makePaymentStatus">
+                    <mat-icon class="add-man" (click)="addBtn()">add_circle</mat-icon>
+                  </div>
+                </div>
+
+                <div class="hide_table" *ngIf="onExpenseDetails && !task_id">
+                  <div class="row form_head">
+                    <h3>Expense Details</h3>
+                  </div>
+                  <div class="ag_grid">
+                    <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                      [rowData]="rowExpenseCopy" [columnDefs]="columnDefsCopy" (cellClicked)='onCellClicked($event)'
+                      [pagination]=true [paginationPageSize]=10 (gridReady)="onGridReady($event)">
+                    </ag-grid-angular>
+                  </div>
+                  <div class="form-group" *ngIf="!makePaymentStatusApproved && !makePaymentStatus">
+                    <mat-icon class="add-man" (click)="addBtn()">add_circle</mat-icon>
+                  </div>
+                </div>
+
+
+                <div class="form_basic" *ngIf="addContact" style="padding: 20px 0;">
+                  
+                  <form class="form_sets" [formGroup]="expenceDetailsForm">
+
+                    <div class="row">
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p> Expense Date</p>
+                          <mat-form-field appearance="outline">
+                            <input matInput [matDatepicker]="dp2" (click)="dp2.open()" formControlName="exp_start_date"
+                              (dateChange)="dateChange($event)" />
+
+                            <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                            <mat-datepicker #dp2></mat-datepicker>
+
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Expense Location</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="expense_location" />
+                            <mat-error *ngIf="
+                          expenceDetailsForm.controls['expense_location'].hasError('required')
+                     ">
+                              This field is required!
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Expense For</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <!-- <input matInput type="text" formControlName="expenseforCopy"/> -->
+                            <mat-select formControlName="expenseforCopy">
+                              <mat-option *ngFor="let item of expenseForData"
+                                [value]="item.expenseforCopy_name">{{item.expenseforCopy_name}}</mat-option>
+                              <!-- <mat-option value="B">B</mat-option>
+                            <mat-option value="C">C</mat-option>
+                            <mat-option value="D">D</mat-option> -->
+
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Currency</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <mat-select formControlName="quotation_currency"
+                              (selectionChange)="selectCurrencyCopy($event)">
+                              <mat-option *ngFor="let item of currencyList"
+                                [value]="item.Currency_Convert_id">{{item.Currency_Type}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>EXR</p>
+                          <mat-form-field appearance="outline" class="readonly-wrapper">
+                            <input matInput type="text" formControlName="exr2" (keyup)="keyUpAmount()" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Bill Amount</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="number" formControlName="billAmount" (keyup)="keyUpAmount()" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                     <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                        <div class="form-group">
+                          <p>Quantity</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="number" formControlName="quantity" (keyup)="keyUpAmount()" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Final Amount</p>
+                          <mat-form-field appearance="outline" class="readonly-wrapper">
+                            <input matInput type="number" formControlName="finalAmount2" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="task_id">
+                        <section class="example-section" style="padding: 20px 0;">
+                          <mat-checkbox class="example-margin" (change)="changeExpense($event)">
+                            <span style="font-size: 17px;
+                            ">Add Billable Documents</span>
+                          </mat-checkbox>
+                        </section>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="preDefineExpense">
+                        <div class="form-group">
+                          <p>Attached Bill</p>
+                          <input class="form-control" type="file" (change)="fileInputChange($event)" id="attach_bill"
+                            name="attach_bill">
+
+                        </div>
+                      </div>
+
+                      <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12"></div>
+                      <div class="col-lg-12" *ngIf="!expenseDetailsId">
+                        <button class="favorite saveStyle saveCss" (click)="submitExpenseDetail()">ADD Expense
+                          Details</button>
+                      </div>
+                      <div class="col-lg-12" *ngIf="expenseDetailsId">
+                        <button class="favorite saveStyle saveCss" (click)="updateExpenseDetail()">Update Expense
+                          Details</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="form_basic" *ngIf="approveStatus">
+                  <form class="form_set" [formGroup]="expenceForm">
+                    <div class="row">
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Remarks</p>
+                        </div>
+                      </div>
+                      <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                        <div class="form-group">
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="travel_remarks" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="form_basic" *ngIf="onExpenseDetails">
+                  <form class="form_set" [formGroup]="expenceForm">
+                    <div class="row">
+                      <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                          <p>Remarks</p>
+                        </div>
+                      </div>
+                      <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="travel_remarks" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="upload-btn" *ngIf="onExpenseDetails">
+                  <button class="cancel-btn" (click)="cancel()">
+                    Cancel
+                  </button>
+
+                  <button class="iploadBtn" btn btn-primary [disabled]="!submitBtnOn" (click)="submitFormFinal()">Submit
+                    Expense</button>
+                  <!-- <button class="favorite styled" *ngIf=" makePaymentStatus" (click)="approveForm()">Approve</button>
+                <button class="favorite styled" *ngIf="makePaymentStatusApproved" (click)="paymentForm()">Make Payment</button> -->
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+    </div>
+  </div>
+</mat-card>
+
+<!-- pdf generete -->
+<div class=" pdf-content">
+  <div class="container" id="dashboard" #dashboard style="padding: 20px 35px;">
+    <div class="row">
+      <div class="invoice-title">
+        <h2></h2>
+        <h3 class="pull-right">
+          <img align="right" src="../../../../../../assets/icons/DQS_logo.png" alt="" width="15%">
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+      <p align="left" style="color: rgb(8, 8, 156);">DQS India | 5th Floor Anjaneya Techno Park 147 HAL Airport Road
+        Kodihalli Bengaluru -560017</p>
+    </div>
+
+    <div class="row" style="padding: 40px 0 0 0;">
+      <div class="col-md-12">
+        <p align="center" style="font-size: 16px; font-weight: 500;">Task Order Details</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <address>
+          <div class="to">
+            <strong>To:</strong>
+            <span>Ashutosh</span>
+          </div>
+          <div class="acc_no">
+            <strong>Vendor Acc No:</strong>
+            <span>0011202</span>
+          </div>
+        </address>
+      </div>
+      <div class="col-md-6">
+        <address align="right">
+          <div class="to">
+            <strong>Task Order No:</strong>
+            <span>Ashutosh</span>
+          </div>
+          <div class="acc_no">
+            <strong>Work Order No:</strong>
+            <span>0011202</span>
+          </div>
+        </address>
+      </div>
+    </div>
+
+    <div class="">
+      <strong>Note:</strong>
+      <span>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium
+        consequatur aut odio explicabo enim est soluta rem ratione eaque voluptatem excepturi nihil
+        maiores repellendus eligendi consequuntur, accusantium tenetur saepe
+        laborum. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Repudiandae at, deleniti expedita, dolore suscipit qui obcaecati
+        deserunt libero dolorum rem amet corrupti,
+        modi ipsum facilis quis facere eius? Quam, molestias.
+      </span>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p>BR Number:<span>{{expenseData?.br_number}}</span></p>
+        <p>Company Name:{{expenseData?.associated_company}}</p>
+        <p>Address:{{expenseData?.address2}}</p>
+        <p>City:{{expenseData?.city}}, State:{{expenseData?.state}}, Country:{{expenseData?.country}}</p>
+        <p>Pin Code:{{expenseData?.postal_code}}</p>
+        <p>Phone No:{{expenseData?.phone_number }}</p>
+      </div>
+      <div class="col-md-6">
+        <p>Contact person Details:<span>{{expenseData?.first_name}} {{expenseData?.last_name}}</span></p>
+        <p>Email:{{expenseData?.email}}</p>
+        <p>Phone Number:{{expenseData?.phone_number}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <p>Program Name:{{expenseData?.standard_program_assement}}</p>
+      <p>Audit Type:{{expenseData?.certificate_type}}</p>
+      <p>Audit Duration:21 feb 2023 To 22 feb 2034</p>
+    </div>?
+
+    <div class="row">
+      <p align="center" style="font-size: 15px; font-weight: 500;">Audit Spread</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Date Of Audit</th>
+            <th>Br Number</th>
+            <th>Location</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{expenseData?.first_name}}</td>
+            <td>{{expenseData?.job_title}}</td>
+            <td>{{expenseData?.training_start_date}}</td>
+            <td>{{expenseData?.br_number}}</td>
+            <td>{{expenseData?.city}},{{expenseData?.state}},{{expenseData?.country}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <p>Bililable/Non-Bililable:</p><span>{{expenseData?.expense_category}}</span>
+      <p>Special Instructions:</p><span>Onsite Audit</span>
+    </div>
+
+    <footer style="padding: 60px 0;">
+      <div class="row">
+        <div class="col-md-4">
+          <strong>DQS India</strong>
+          <p>{{expenseData?.associated_company}}</p>
+        </div>
+        <div class="col-md-4">
+          <p>{{expenseData?.address2}}</p>
+          <p>{{expenseData?.city}},{{expenseData?.state}},{{expenseData?.country}}</p>
+        </div>
+        <div class="col-md-4">
+          <p>Email:{{expenseData?.email}}</p>
+          <p>Phone Number:{{expenseData?.phone_number }}</p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</div>

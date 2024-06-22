@@ -1,0 +1,983 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee">
+      </div>
+      <div class="msater-nav">
+        <a href="">S & M<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a href="">Lead Management<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Assign Lead to Sales Person</a>
+      </div>
+
+
+      <div class="apply-btn">
+
+      </div>
+      <form class="form_set" [formGroup]="leadForm">
+         <h2 style="text-align: center;">{{leadUpdate==='edit'? 'Update Lead Assignment':'Lead Assignment'}}</h2>
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Customer Details</h3>
+              </div>
+
+              <div class="form_basic">
+                Customer Type
+                <input
+                  formControlName="customer_type"
+                  (click)="customerTypeNew()"
+                  checked="checked"
+                  type="radio"
+                  name="customer_type"
+                  value="New User"
+                  id="red"
+                  style="margin: 0 5px 0 4%"
+                />New
+                <input
+                  formControlName="customer_type"
+                  (click)="customerType()"
+                  type="radio"
+                  name="customer_type"
+                  value="Existing User"
+                  id="blue"
+                  style="margin: 0 5px 4% 4%"
+                />Existing Customer
+
+                <span style="margin-left: 10%">Multiple Site Audit</span>
+                <input
+                  formControlName="site_audit"
+                  (click)="siteAuditNew()"
+                  checked="checked"
+                  type="radio"
+                  name="site_audit"
+                  value="Yes"
+                  id="red"
+                  style="margin: 0 5px 0 4%"
+                />Yes
+                <input
+                  formControlName="site_audit"
+                  (click)="siteAudit()"
+                  type="radio"
+                  name="site_audit"
+                  value="No"
+                  id="blue"
+                  style="margin: 0 5px 4% 4%"
+                />No
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="cutomerType">
+                      <p>Associated Company</p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="associated_company">
+                          <mat-option value="Elite Mindz Technology">Elite Mindz Technology</mat-option
+                          >
+                          <mat-option value="DQS Pvt Ltd"
+                            >DQS Pvt Ltd</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <p>Associated Company</p>
+                      <mat-form-field appearance="outline"
+                      >
+                        <input tabindex="-1"
+                          matInput
+                          type="text"
+                          formControlName="associated_company"
+                        />
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['associated_company'].hasError(
+                              'required'
+                            )
+                          "
+                        >
+                          This is a require field*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Segment</p>
+                      <mat-form-field appearance="outline">
+                           <!-- <mat-option value="MSA">MSA</mat-option>
+                          <mat-option value="MED">MED</mat-option> -->
+                          <mat-select formControlName="segment" (selectionChange)="segmentChange($event)">
+                            <mat-option  (keydown)="$event.stopPropagation()"
+                            *ngFor="let item of segmentList"
+                            [value]="item.segment_id"
+                            >{{ item.segment_name }}</mat-option>
+                         </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['segment'].hasError('required')
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Certificate Type</p>
+                      <mat-form-field appearance="outline" >
+                        <mat-select formControlName="certificate_type" (selectionChange)="certificate($event)">
+                          <!-- <mat-option value="Cert">Cert</mat-option>
+                          <mat-option value="Non Cert">Non Cert</mat-option> -->
+                          <mat-option
+                          *ngFor="let item of certificateList"
+                          [value]="item.certificate_type_id"
+                          >{{ item.certificate_type_name }}</mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['certificate_type'].hasError(
+                              'required'
+                            )
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="cutomerType">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>BR No.</p>
+                      <mat-form-field appearance="outline" >
+                         <input
+                          matInput
+                          type="text"
+                          #br_number
+                          formControlName="br_number"
+                        />
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+                  ></div>
+                  <div
+                    class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+                  ></div>
+                </div>
+
+                <div class="row" *ngIf="cutomerType">
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      Do you want to Create New Location/Site :
+                      <input
+                        formControlName="new_location_site"
+                        checked="checked"
+                        type="radio"
+                        name="new_location_site"
+                        value="Yes"
+                        id="red"
+                        style="margin: 0 5px 0 4%"
+                      />Yes
+                      <input
+                        formControlName="new_location_site"
+                        type="radio"
+                        name="new_location_site"
+                        value="No"
+                        id="blue"
+                        style="margin: 0 5px 4% 4%"
+                      />No
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>First Name</p>
+                      <mat-form-field appearance="outline" >
+                         <input
+                          matInput tabindex="-1"
+                          type="text"
+                          formControlName="first_name"
+                        />
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['first_name'].hasError('required')
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Last Name</p>
+                      <mat-form-field appearance="outline" >
+                        <input tabindex="-1"
+                          matInput
+                          type="text"
+                          formControlName="last_name"
+                        />
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['last_name'].hasError('required')
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Email ID</p>
+                      <mat-form-field appearance="outline" >
+                        <!-- <mat-label>Mobile Number</mat-label> -->
+                        <input tabindex="-1"  matInput type="email" formControlName="email" />
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['email'].hasError('required')
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                        <mat-error
+                          *ngIf="leadForm.controls['email'].errors?.['pattern']">Please
+                          enter valid email</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Job Title</p>
+                      <mat-form-field appearance="outline" >
+                        <!-- <mat-label>Job Title</mat-label> -->
+                        <input
+                          matInput tabindex="-1"
+                          type="text"
+                          formControlName="job_title"
+                        />
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['job_title'].hasError('required')
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Street Address</p>
+                      <mat-form-field appearance="outline" >
+                        <!-- <mat-label>Job Role</mat-label> -->
+                        <input
+                          matInput tabindex="-1"
+                          type="text"
+                          formControlName="street_address"
+                        />
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['street_address'].hasError(
+                              'required'
+                            )
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Address Line 2</p>
+                      <mat-form-field appearance="outline">
+                        <!-- <mat-label>Application Date</mat-label> -->
+                        <input tabindex="-1"
+                          matInput readonly
+                          type="text"
+                          formControlName="address2"
+                        />
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['address2'].hasError('required')
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Country&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline" >
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="country" (selectionChange)="getCountryID($event)">
+                          <mat-option
+                            *ngFor="let item of countryList"
+                            [value]="item.countryss_id"
+                            >{{ item.countryss_name }}</mat-option>
+                          <!-- <mat-option value="India">India</mat-option>
+                          <mat-option value="USA">USA</mat-option> -->
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['country'].hasError('required')
+                          "
+                        >
+                         Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>State&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="state" (selectionChange)="getStateID($event)">
+                          <mat-option
+                            *ngFor="let item of stateList"
+                            [value]="item.states_id"
+                            >{{ item.states_name }}</mat-option>
+                          <!-- <mat-option value="Delhi">Delhi</mat-option>
+                          <mat-option value="Maharastra">Maharastra</mat-option> -->
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['state'].hasError('required')
+                          "
+                        >
+                         Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>City&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="city">
+                          <mat-option
+                            *ngFor="let item of cityList"
+                            [value]="item.city_id"
+                            >{{ item.city_name }}</mat-option>
+                          <!-- <mat-option value="New Delhi">New Delhi</mat-option>
+                          <mat-option value="Mumbai">Mumbai</mat-option> -->
+                        </mat-select>
+                        <mat-error
+                          *ngIf="leadForm.controls['city'].hasError('required')"
+                        >
+                         Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <!-- <div class="form-group" *ngIf="!pinCodeTrue">
+                      <p>Postal Code</p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="postal_code">
+                          <mat-option
+                            *ngFor="let item of pinCodeList"
+                            [value]="item.pincode_name"
+                            >{{ item.pincode_name }}</mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['postal_code'].hasError(
+                              'pattern'
+                            )
+                          "
+                        >
+                         Postal Code must be 6 digit*
+                        </mat-error>
+                      </mat-form-field>
+                    </div> -->
+                    <div class="form-group">
+                      <p>Postal Code</p>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput tabindex="-1"
+                          type="text"
+                          formControlName="postal_code"
+                        />
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['postal_code'].hasError(
+                              'pattern'
+                            )
+                          "
+                        >
+                         Postal Code must be 5-6 digits..*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Region</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput readonly type="text" formControlName="region"/>
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Region&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline" >
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <!-- <input matInput type="text" readonly formControlName="region"/> -->
+                        <!-- <mat-select formControlName="region">
+                          <mat-option
+                            *ngFor="let item of allDataOne"
+                            [value]="item.region_name"
+                            >{{ item.region_name }}</mat-option
+                          >
+
+                        </mat-select> -->
+                        <mat-select formControlName="region"  (selectionChange)="regionSelect($event)">
+                          <mat-option
+                              *ngFor="let item of regionSList"
+                              [value]="item.new_region_id"
+                              >{{ item.new_region_name }}</mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['region'].hasError('required')
+                          "
+                        >
+                         Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+
+                  <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Regional Business Head</p>
+                        <mat-form-field appearance="outline" readonly>
+                          <input matInput readonly type="text" formControlName="regional_bussiness_lead"/>
+                        </mat-form-field>
+                        </div>
+                  </div> -->
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Regional Business Head&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline" >
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="regional_bussiness_lead">
+                          <mat-option
+                          *ngFor="let item of regionalbheadList"
+                          [value]="item.new_regional_business_head_id"
+                          >{{ item.first_name }}</mat-option
+                        >
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls[
+                              'regional_bussiness_lead'
+                            ].hasError('required')
+                          "
+                        >
+                         Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Global Managing Director</p>
+                      <mat-form-field appearance="outline" >
+                        <input matInput readonly type="text" formControlName="global_managing_director" tabindex="-1" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Global Manager Sales</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput readonly type="text" formControlName="global_manager_sales"/>
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Global Manager Sales&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline" >
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="global_manager_sales">
+                          <mat-option
+                          *ngFor="let item of globalMsalesList"
+                          [value]="item.new_global_manager_sales_id"
+                          >{{ item.first_name }}</mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['global_manager_sales'].hasError(
+                              'required'
+                            )
+                          "
+                        >
+                         Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                </div>
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Website URL</p>
+                        <mat-form-field appearance="outline" >
+                          <input matInput type="text" formControlName="website_url" tabindex="-1" />
+                        </mat-form-field>
+                        </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group">
+                      <p>Code</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="number" min="1" tabindex="-1"  formControlName="phone_code" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Telephone Number</p>
+                      <mat-form-field appearance="outline" >
+                        <input
+                          matInput tabindex="-1"
+                          type="number" 
+                           min="0"
+                          formControlName="phone_number"
+                        />
+                        <!-- <mat-error
+                        *ngIf="
+                          leadForm.controls['phone_number'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                       Required*
+                      </mat-error> -->
+                     <!-- <mat-error
+                     *ngIf="leadForm.controls['phone_number'].errors?.['pattern']">
+                     Phone number should be 10 digit</mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                    <div class="form-group">
+                      <p>Code</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" min="1" tabindex="-1" readonly formControlName="mobile_code" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Mobile Number</p>
+                      <mat-form-field appearance="outline" >
+                        <input
+                          matInput tabindex="-1"
+                          type="text"
+                          formControlName="mobile_number"
+                        />
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['mobile_number'].hasError(
+                              'required'
+                            )
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                        <mat-error
+                        *ngIf="  leadForm.controls['mobile_number'].errors?.['pattern']">Mobile
+                        number is not 10 digit</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+                  ></div>
+                </div>
+
+                <!-- <div class="mt-3">
+                  <button mat-raised-button (click)="submitForm()" color="primary" class="mx-3">
+                    Save
+                  </button>
+                </div> -->
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Lead Source Details</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>DQS Contact Source</p>
+                      <mat-form-field appearance="outline">
+                          <mat-select formControlName="dqs_contact_source">
+                          <mat-option 
+                          [value]="data.contact_source_id" *ngFor="let data of contact_list">{{data.contact_source_name}}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Lead Created By</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput  tabindex="-1"  type="text" readOnly formControlName="lead_created_by_name" />
+                        <!-- <mat-select formControlName="lead_created_by_name">
+                          <mat-option *ngFor="let item of allAchievement"
+                            [value]="item.employee_id">{{item.first_name}}</mat-option>
+                        </mat-select> -->
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['lead_created_by_name'].hasError(
+                              'required'
+                            )
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <fieldset disabled>
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Lead Created Date</p>
+                      <mat-form-field appearance="outline">
+                        <input [readonly]="inputReadonly" matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="lead_created_date" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp" class="readonly-wrapper"></mat-datepicker-toggle>
+                        <mat-datepicker #dp></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </fieldset>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Requirement Details</h3>
+              </div>
+
+              <div class="form_basic">
+                <form class="form_set" [formGroup]="leadForm">
+                  <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!medvalue">
+                      <div class="form-group">
+                        <p>Categories</p>
+                        <mat-form-field appearance="outline" >
+                          <mat-select formControlName="categories">
+                            <mat-option
+                            *ngFor="let item of CategorySList"
+                            [value]="item.new_category_master_id"
+                            >{{ item.new_category_master_name }}</mat-option>
+                          </mat-select>
+                          <mat-error
+                            *ngIf="
+                              leadForm.controls['categories'].hasError(
+                                'required'
+                              )
+                            "
+                          >
+                            This field is required!
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Standard/Program/Assessment</p>
+                        <mat-form-field appearance="outline" >
+                          <!-- <mat-label>Candidate Name</mat-label> -->
+                          <!-- <input
+                          matInput
+                          type="text"
+                          formControlName="standard_program_assement"
+                        /> -->
+                        <mat-select formControlName="standard_program_assement">
+                          <mat-option
+                            *ngFor="let item of assesmentList"
+                            [value]="item.product_master_id"
+                            >{{ item.product_master_name }}</mat-option
+                          >
+                        </mat-select>
+
+                          <mat-error
+                            *ngIf="
+                              leadForm.controls[
+                                'standard_program_assement'
+                              ].hasError('required')
+                            "
+                          >
+                            This field is required!
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Remarks</p>
+                        <mat-form-field appearance="outline" >
+                          <input tabindex="-1"
+                            matInput
+                            type="text"
+                            formControlName="remarks"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Lead Validation</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline" >
+                        <input tabindex="-1"
+                          matInput
+                          type="text"
+                          formControlName="lead_validate_remarks"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Validated By</p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="validated_by">
+                          <mat-option
+                            *ngFor="let item of allAchievement"
+                            [value]="item.first_name"
+                            >{{ item.first_name }}</mat-option
+                          >
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['validated_by'].hasError(
+                              'required'
+                            )
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Lead Validated Date</p>
+                      <mat-form-field appearance="outline">
+                        <input [readonly]="inputReadonly" matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="lead_validated_date" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp" class="readonly-wrapper"></mat-datepicker-toggle>
+                        <mat-datepicker #dp></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="mt-3">
+              <button mat-raised-button (click)="submitForm()" color="primary" class="mx-3">
+                Save
+              </button>
+            </div> -->
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Assign Lead to Sales Persons</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Contact Owner&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="lead_assgn_contact_owner" (selectionChange)="getSP($event)">
+                          <mat-select-filter [array]="contactOwner" (filteredReturn)="contactFilter($event)"></mat-select-filter>
+                          <mat-option *ngFor="let item of allSalesPersonList" [value]="item.employee_id" (click)="wnerClick(item)">{{ item.first_name }} ({{item.employee_code}})</mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls[
+                              'lead_assgn_contact_owner'
+                            ].hasError('required')
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Assigned By</p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="assigned_by">
+                          <mat-option  *ngFor="let item of allAchievement" [value]="item.first_name" (click)="assignClick(item)">{{ item.first_name }}</mat-option>
+                        </mat-select>
+                       <mat-error
+                          *ngIf="
+                            leadForm.controls['assigned_by'].hasError(
+                              'required'
+                            )
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Assigned Date</p>
+                      <fieldset disabled>
+                      <mat-form-field appearance="outline">
+                        <input tabindex="-1" [readonly]="inputReadonly" matInput [matDatepicker]="dp3" (click)="dp3.open()"
+                          formControlName="assigned_date" [max]="maxDate" [min]="minDate" />
+                        <mat-datepicker-toggle class="readonly-wrapper" matSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker #dp3></mat-datepicker>
+                        <mat-error *ngIf="leadForm.controls['assigned_date'].hasError('required')">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Stage&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="stage">
+                          <mat-option value="Approved" (click)="rejectLeadTwo()">Approved</mat-option>
+                          <mat-option value="Reject" (click)="rejectLead()">Reject</mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="
+                            leadForm.controls['stage'].hasError('required')
+                          "
+                        >
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          type="text"
+                          formControlName="lead_assgn_remark"
+                        />
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+                  ></div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+
+      <div class="upload-btn">
+        <button  *ngIf="leadUpdate==='edit'" class="cancel-btn" (click)="back()">
+          Cancel
+        </button>
+        <button  *ngIf="leadUpdate==='assign'" class="cancel-btn" (click)="reject()">
+          Lead Lost
+        </button>
+        <button  *ngIf="leadUpdate==='edit'" class="favorite styled" (click)="updateLead()">Update</button>
+        <button *ngIf="!rejectTrue" class="favorite styled" (click)="submitForm()">Assign Lead</button>
+        <button  *ngIf="rejectTrue" class="cancel-btn red" (click)="rejectNew()">
+          Reject
+        </button>
+      </div>
+    </form>
+    </div>
+  </div>
+</mat-card>

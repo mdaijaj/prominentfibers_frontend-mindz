@@ -1,0 +1,18 @@
+<div>
+    <h3 mat-dialog-title class="popHead" style="padding-left: 20px;">Plateform Leaves Details</h3>
+    <mat-dialog-content class="mat-typography">
+        <div class="cotain">
+            <h3 class="notFond" *ngIf="screenOnOffList?.length === 0">Data Not Found</h3>
+            <div class="cotain">
+                <div class="detailsContainer" *ngFor="let data of screenOnOffList; index as i">
+                    <span class="count">{{i+1}}</span>
+                    <p ><span style="color: black;">Screen Off</span> &nbsp;:  <span style="margin-left: 10px;">{{data?.screen_off_date | date : 'mediumDate'}},  {{data?.screen_off_time}}</span> </p>
+                    <p ><span style="color: black;">Screen On </span> &nbsp;:   <span style="margin-left: 10px;">{{data?.screen_on_date | date: 'mediumDate'}},  {{data?.screen_on_time}}</span></p>
+                </div>
+            </div>
+        </div>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close mat-raised-button color="primary" style="float: right;">Close</button>
+        </mat-dialog-actions>
+    </div>

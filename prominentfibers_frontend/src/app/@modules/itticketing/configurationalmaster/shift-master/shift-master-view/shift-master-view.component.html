@@ -1,0 +1,102 @@
+<section class="section">
+    <div class="row head">
+        <p>Admin</p>
+    </div>
+    <div class="row py-1">
+        <div class="employee_top">Shift-Master
+            <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+                </i>
+                View </span>
+        </div>
+    </div>
+
+    <mat-card>
+        <div class="form_head">
+            <h3>Shift Master</h3>
+            <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+        </div>
+        <div class="form_basic">
+            <!-- shiftMasterForm -->
+            <form class="form_set" [formGroup]="shiftMasterForm">
+                <fieldset [disabled]="shiftId">
+                    <div class="row">
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Shift Name</mat-label>
+                                    <input matInput type="text" formControlName="shift_name" />
+                                    <mat-error *ngIf="shiftMasterForm.controls['shift_name'].hasError('required')">
+                                        Shift Name is Required.
+                                    </mat-error>
+                                    <mat-error *ngIf="shiftMasterForm.controls['shift_name'].hasError('minlength')">
+                                        This field accepted minimum 2 length.
+                                    </mat-error>
+                                    <mat-error *ngIf="shiftMasterForm.controls['shift_name'].hasError('maxlength')">
+                                        This field accepted maximum 150 length.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <mat-form-field appearance="outline">
+                                <input matInput name="selected_time_B" [format]=24 formControlName="shift_from_time"
+                                    [ngxMatTimepicker]="pickerA" readonly />
+                                <mat-icon matSuffix> watch_later </mat-icon>
+                                <mat-error *ngIf="shiftMasterForm.controls['shift_from_time'].hasError('required')">
+                                    *Required!
+                                </mat-error>
+                            </mat-form-field>
+                            <ngx-mat-timepicker color="accent" #pickerA></ngx-mat-timepicker>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <mat-form-field appearance="outline">
+                                <input matInput name="selected_time_B" [format]=24 formControlName="shift_to_time"
+                                    [ngxMatTimepicker]="pickerB" readonly />
+                                <mat-icon matSuffix> watch_later </mat-icon>
+                                <mat-error *ngIf="shiftMasterForm.controls['shift_to_time'].hasError('required')">
+                                    *Required!
+                                </mat-error>
+                            </mat-form-field>
+                            <ngx-mat-timepicker color="accent" #pickerB></ngx-mat-timepicker>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Working Hour</mat-label>
+                                    <input matInput type="text" formControlName="working_hour" />
+                                    <mat-error *ngIf="shiftMasterForm.controls['working_hour'].hasError('required')">
+                                        Working Hour is Required.
+                                    </mat-error>
+                                    <mat-error *ngIf="shiftMasterForm.controls['working_hour'].hasError('minlength')">
+                                        This field accepted minimum 2 length.
+                                    </mat-error>
+                                    <mat-error *ngIf="shiftMasterForm.controls['working_hour'].hasError('maxlength')">
+                                        This field accepted maximum 150 length.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Description</mat-label>
+                                    <input matInput type="text" formControlName="description" />
+                                    <mat-error *ngIf="shiftMasterForm.controls['description'].hasError('required')">
+                                        Working Hour is Required.
+                                    </mat-error>
+                                    <mat-error *ngIf="shiftMasterForm.controls['description'].hasError('minlength')">
+                                        This field accepted minimum 2 length.
+                                    </mat-error>
+                                    <mat-error *ngIf="shiftMasterForm.controls['description'].hasError('maxlength')">
+                                        This field accepted maximum 150 length.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </mat-card>
+</section>

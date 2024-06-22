@@ -1,0 +1,1044 @@
+
+  <div class="section">
+    <div class="main">
+      <div class="employee">
+      </div>
+      <div class="msater-nav">
+        <a href="">Expenses Managment<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Travel Request</a>
+      </div>
+      <div class="updatetitle" *ngIf="lead_id">
+        <h2><b>Update Travel Request</b></h2>
+      </div>
+      <div class="updatetitle" *ngIf="!enableConfirm && !lead_id">
+        <h2><b>Create Travel Request</b></h2>
+      </div>
+      <div class="updatetitle" *ngIf="enableConfirm && !lead_id">
+        <h2><b>Booked Tickets</b></h2>
+      </div>
+      <section class="job-nav">
+        <div class="section">
+<div class="hide_lead" *ngIf="!this.lead_id">
+  <div class="task_details"  *ngIf=" billableStatus || nonBillableStatusUp && taskNonBillable || expenseId_taskOrder && !removeTaskOrderFiled" style="padding-bottom: 20px;">
+    <div class="row form_head">
+      <h3>Task Order Details</h3>
+    </div>
+
+    <div class="row details">
+      <div class="col-md-6">
+        <table id="customers">
+          <tr>
+            <td class="head_task">Task No</td>
+            <td
+              class="tasklinks"
+              class="tasklink"  matTooltip="Task Order File(Pdf Generate)"
+            >
+              {{ singleLeadData?.taskOrder_no }}
+            </td>
+          </tr>
+          <tr>
+            <td class="head_task">Company Name</td>
+            <td>{{ singleLeadData?.associated_company }}</td>
+          </tr>
+          <tr>
+            <td class="head_task">Company Remark</td>
+            <td>{{ singleLeadData?.company_remarks }}</td>
+          </tr>
+          <tr>
+            <td class="head_task">Customer Category</td>
+            <td>{{ singleLeadData?.customer_category }}</td>
+          </tr>
+          <tr>
+            <td class="head_task">Email</td>
+            <td>{{ singleLeadData?.email }}</td>
+          </tr>
+          <tr>
+            <td class="head_task">GST No.</td>
+            <td>{{ singleLeadData?.gst_number }}</td>
+          </tr>
+          <tr>
+            <td class="head_task">PAN No.</td>
+            <td>{{ singleLeadData?.pan_number }}</td>
+          </tr>
+
+        
+<!-- 
+          <tr>
+            <td class="head_task">State Name</td>
+            <td>{{ singleLeadData?.state_name }}</td>
+          </tr> -->
+        </table>
+      </div>
+
+      <div class="col-md-6">
+        <table id="customers">
+          <tr>
+            <td class="head_task">BR Number</td>
+            <td>{{ singleLeadData?.br_number }}</td>
+          </tr>
+          <tr>
+            <td class="head_task">Audit Start Date</td>
+            <td>{{ singleLeadData?.training_start_date }}</td>
+          </tr>
+
+          <tr>
+            <td class="head_task">Audit End Date</td>
+            <td>{{ singleLeadData?.training_end_date }}</td>
+          </tr>
+          <!-- <tr>
+            <td class="head_task">Travler Type</td>
+            <td>{{ singleLeadData?.travel_type }}</td>
+          </tr> -->
+          <tr>
+            <td class="head_task">Mobile Number</td>
+            <td>{{ singleLeadData?.mobile_number }}</td>
+          </tr>
+          <tr>
+            <td class="head_task">TAN No.</td>
+            <td>{{ singleLeadData?.tan_number }}</td>
+          </tr>
+
+          <tr>
+            <td class="head_task">Opportunity Type</td>
+            <td>{{ singleLeadData?.opportunity_type }}</td>
+          </tr>
+
+          <!-- <tr>
+            <td class="head_task">Country Name</td>
+            <td>{{ singleLeadData?.country_name }}</td>
+          </tr>
+          <tr>
+            <td class="head_task">City Name</td>
+            <td>{{ singleLeadData?.city_name }}</td>
+          </tr> -->
+          <tr>
+            <td class="head_task">Company Logo Cost</td>
+            <td>{{ singleLeadData?.company_logo_cost }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+          
+
+
+          <mat-card pt-5>
+            <div class="row form_head"  *ngIf="!submitStatus">
+              <h3>Travel Details</h3>
+            </div>
+
+            <div class="form_basic">
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row" *ngIf="!submitStatus">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12" >
+                    <div class="form-group">
+                      <p>Task Order Expenses Category</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" >
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly class="readonly-wrapper">
+                        <!-- <mat-select formControlName="travel_type">
+                          <mat-option value="Billable">Billable</mat-option>
+                          <mat-option value="Non-Billable">Non-Billable</mat-option>
+                        </mat-select> -->
+                        <input matInput type="text" formControlName="travel_type" readonly/>
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12" 
+                    *ngIf=" billableStatus || nonBillableStatusUp && taskNonBillable || expenseId_taskOrder && !removeTaskOrderFiled ">
+                    <div class="form-group filed_hed">
+                      <p>Task Order</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" 
+                  *ngIf=" billableStatus || nonBillableStatusUp && taskNonBillable || expenseId_taskOrder && !removeTaskOrderFiled" >
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" readonly class="readonly-wrapper">
+                      <input matInput type="text" formControlName="task_order" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="!task_id && !billableStatus || task_order_nonBilable">
+                  <div class="form-group filed_hed" >
+                    <p class="file-tag">Expense Approval</p>
+                  </div>
+                </div>
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!task_id && !billableStatus || task_order_nonBilable">
+                  <div class="form-group">
+                    <input formControlName="expense_approval" id="file" type="file" multiple class="form-control"
+                      (change)="fileInputChange($event)" required accept=".pdf" [ngClass]="expensApprove?'readonly-wrapper':''" />
+                    <div class="file set_icon" *ngIf="lead_id">
+                      <img class="selctedImg" [src]="pdfFile" *ngIf="fileDetails2 || singleLeadData.attach_bill">
+                    </div>
+                    <p style="font-size: 12px;
+                    color: brown;
+                    padding: 0 10px;">Only Pdf File Choose..</p>
+                  </div>
+                </div>
+                </div>
+
+                <div class="row" style="padding: 10px 0 0 0;" *ngIf="!submitStatus">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group">
+                      <p  class="file-tag"> Travel Type</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="task_id || lead_id" >
+                      <div class="readonly-wrapper" [ngClass]="travelTicket?'readonly-wrapper':''">
+                      <input formControlName="travel_ticket" type="radio" name="travel_ticket" value="Domestic"
+                        (click)="yesTickets()" id="red" style="margin: 0 5px 0 0%" readonly />Domestic
+                      <input formControlName="travel_ticket" type="radio" name="travel_ticket" checked="checked"
+                        value="International" (click)="noTickets()" id="blue" style="margin: 0 5px 4% 4%" readonly/>International
+                    </div>
+                  </div>
+                  <div class="form-group" *ngIf="!task_id && !lead_id" >
+                    <div>
+                    <input formControlName="travel_ticket" type="radio" name="travel_ticket" value="Domestic"
+                      (click)="yesTickets()" id="red" style="margin: 0 5px 0 0%" readonly/>Domestic
+                    <input formControlName="travel_ticket" type="radio" name="travel_ticket" checked="checked"
+                      value="International" (click)="noTickets()" id="blue" style="margin: 0 5px 4% 4%" readonly/>International
+                  </div>
+                </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="this.task_id || nonBilTravelDetails">
+                    <div class="form-group filed_hed">
+                      <p>Select Agent</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="this.task_id || nonBilTravelDetails">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="select_agent">
+                          <mat-option *ngFor="let item of agentData" [value]="item.employee_id">{{item.first_name }} {{ item.last_name}}</mat-option>
+                          <!-- <mat-option value="Non-Billable">Chhotu</mat-option> -->
+                        </mat-select>
+
+                        <mat-error *ngIf="
+                        leadForm.controls['select_agent'].hasError('required')
+                         ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row" *ngIf="!lead_id">
+                  <!-- <div class="col-lg-12">
+                    <button class="add-btn" (click)="submitForm()">Save</button>
+                  </div> -->
+                  <div class="col-lg-12" *ngIf="!travelDetOpen">
+                    <button class="favorite styled saveStyle " (click)="submitForm()">Save</button>
+                  </div>
+                </div>
+
+                <div class="suggest" *ngIf="!enableSubmit ">
+                  <mat-card *ngIf="lead_id">
+                    <div class="row form_head">
+                      <h3>Travel Details</h3>
+                    </div>
+                    <div class="row" style="padding: 10px 0 0 15px;" *ngIf="submitStatus">
+                      <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                          <p  class="file-tag"> Travel Type</p>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group" *ngIf="task_id || lead_id" >
+                          <div class="readonly-wrapper" [ngClass]="travelTicket?'readonly-wrapper':''">
+                          <input formControlName="travel_ticket" type="radio" name="travel_ticket" value="Domestic"
+                            (click)="yesTickets()" id="red" style="margin: 0 5px 0 0%" readonly />Domestic
+                          <input formControlName="travel_ticket" type="radio" name="travel_ticket" checked="checked"
+                            value="International" (click)="noTickets()" id="blue" style="margin: 0 5px 4% 4%" readonly/>International
+                        </div>
+                      </div>
+                      <div class="form-group" *ngIf="!task_id && !lead_id" >
+                        <div>
+                        <input formControlName="travel_ticket" type="radio" name="travel_ticket" value="Domestic"
+                          (click)="yesTickets()" id="red" style="margin: 0 5px 0 0%" readonly/>Domestic
+                        <input formControlName="travel_ticket" type="radio" name="travel_ticket" checked="checked"
+                          value="International" (click)="noTickets()" id="blue" style="margin: 0 5px 4% 4%" readonly/>International
+                      </div>
+                    </div>
+                      </div>
+                      <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="this.task_id || nonBilTravelDetails">
+                        <div class="form-group filed_hed">
+                          <p>Select Agent</p>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="this.task_id || nonBilTravelDetails">
+                        <div class="form-group">
+                          <mat-form-field appearance="outline">
+                            <mat-select formControlName="select_agent">
+                              <mat-option *ngFor="let item of agentData" [value]="item.employee_id">{{item.first_name }} {{ item.last_name}}</mat-option>
+                              <!-- <mat-option value="Non-Billable">Chhotu</mat-option> -->
+                            </mat-select>
+    
+                            <mat-error *ngIf="
+                            leadForm.controls['select_agent'].hasError('required')
+                             ">
+                              This field is required!
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ag_grid">
+                      <p class="note_travel">Note:<span>Please Click Perticular Travel Details And Fill The Travel Tickets</span></p>
+                      <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:300px;"
+                        [rowData]="expenseIdData" [columnDefs]="columnTravelList" (cellClicked)='onCellClickedDtails($event)'
+                        [pagination]=true [paginationPageSize]=10 (gridReady)="onGridReady($event)">
+                      </ag-grid-angular>
+                    </div>
+                  </mat-card>
+                </div>
+
+
+                <!-- create travel request first time -->
+                <div class="suggest"  style="padding: 20px 0 0 0;" *ngIf="travelDetOpen">
+                  <mat-card *ngIf="this.task_id || nonBilTravelDetails">
+                    <div class="row form_head">
+                      <h3>Travel Details</h3>
+                    </div>
+                    <div class="ag_grid">
+                      <!-- <p class="note_travel">Note:<span>Please Click Perticular Travel Details And Fill The Travel Tickets</span></p> -->
+                      <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:300px;"
+                        [rowData]="expenseIdDataChiled" [columnDefs]="columnTravelChiledList"
+                        [pagination]=true [paginationPageSize]=10 (gridReady)="onGridReady($event)">
+                      </ag-grid-angular>
+                    </div>
+                  
+                  </mat-card>
+                  <div class="form-group" *ngIf="this.task_id || nonBilTravelDetails">
+                    <mat-icon class="add-man" (click)="addTravel()">add_circle</mat-icon>
+                  </div>
+                </div>
+
+
+
+
+
+                <div *ngIf="saveOpen">
+                  <div class="expense_details" *ngIf="!lead_id"  >
+                    <form [formGroup]="tarvelDetailsForm">
+                    <div class="row">
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Traveler Name</p>
+                          <mat-form-field appearance="outline">
+                            <input matInput type="text" formControlName="traveler_name" readonly/>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Booking Date</p>
+                          <mat-form-field appearance="outline" >
+                            <input matInput 
+                            [matDatepicker]="dp2" 
+                            (click)="dp2.open()" 
+                            formControlName="dateOf_travel"
+                            (click)="fromDate($event)"
+                            [min]="minDate"
+                            />
+                            <mat-error *ngIf="
+                            tarvelDetailsForm.controls['dateOf_travel'].hasError('required')
+                             ">
+                              This field is required!
+                            </mat-error>
+                            <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                            <mat-datepicker #dp2></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Mode of Travel</p>
+                          <mat-form-field appearance="outline">
+                            <mat-select formControlName="modeOf_travel">
+                              <mat-option (click)="trainSelect()" value="Train">Train</mat-option>
+                              <mat-option (click)="flightSelect()" value="Flight">Flight</mat-option>
+                            </mat-select>
+                            
+                            <mat-error *ngIf="
+                            tarvelDetailsForm.controls['modeOf_travel'].hasError('required')
+                             ">
+                              This field is required!
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Travel From</p>
+                          <mat-form-field appearance="outline">
+                            <input matInput type="text" formControlName="travel_form" />
+                            <mat-error *ngIf="
+                            tarvelDetailsForm.controls['travel_form'].hasError('required')
+                             ">
+                              This field is required!
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Travel to</p>
+                          <mat-form-field appearance="outline">
+                            <input matInput type="text" formControlName="travel_to" />
+                            <mat-error *ngIf="
+                            tarvelDetailsForm.controls['travel_to'].hasError('required')
+                             ">
+                              This field is required!
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Ticket Type</p>
+                          <mat-form-field appearance="outline">
+                            <mat-select formControlName="ticketType" (selectionChange)="returnSelect($event)">
+                              <mat-option value="One Way">One Way</mat-option>
+                              <mat-option value="Round Trip">Round Trip</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div> -->
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <p>Time From</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput name="selected_time_B" [format]=24 formControlName="time_travel"
+                            [ngxMatTimepicker]="pickerB" readonly />
+                            
+                          <mat-icon matSuffix (click)="pickerB.open()"> watch_later </mat-icon>
+                          <mat-error *ngIf="
+                          tarvelDetailsForm.controls['time_travel'].hasError('required')
+                           ">
+                            This field is required!
+                          </mat-error>
+                        </mat-form-field>
+                        <ngx-mat-timepicker color="accent" #pickerB></ngx-mat-timepicker>
+                        <!-- <ngx-mat-timepicker enableMeridian="true" formControlName="startTime"></ngx-mat-timepicker>
+                        <ngx-mat-timepicker formControlName="endTime"> </ngx-mat-timepicker> -->
+                      </div>
+                    </div>
+                    <div class="row">
+                    
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <p>  Time To</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput name="selected_time_B" [format]=24 formControlName="time_travel_To"
+                            [ngxMatTimepicker]="pickerc" readonly />
+                          <mat-icon matSuffix (click)="pickerc.open()"> watch_later </mat-icon>
+                          <mat-error *ngIf="
+                          tarvelDetailsForm.controls['time_travel_To'].hasError('required')
+                           ">
+                            This field is required!
+                          </mat-error>
+                        </mat-form-field>
+                        <ngx-mat-timepicker color="accent" #pickerc></ngx-mat-timepicker>
+                        <!-- <ngx-mat-timepicker enableMeridian="true" formControlName="startTime"></ngx-mat-timepicker>
+                        <ngx-mat-timepicker formControlName="endTime"> </ngx-mat-timepicker> -->
+                      </div>
+                      <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                        <div class="form-group">
+                          <p>Remarks</p>
+                          <mat-form-field appearance="outline">
+                            <input matInput type="text" formControlName="remarks" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Remarks</p>
+                          <mat-form-field appearance="outline">
+                            <input matInput type="text" formControlName="remarks" />
+                          </mat-form-field>
+                        </div>
+                      </div> -->
+                      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Ticket Type</p>
+                          <mat-form-field appearance="outline">
+                            <mat-select formControlName="ticketType" (selectionChange)="returnSelect($event)">
+                              <mat-option value="One Way">One Way</mat-option>
+                              <mat-option value="Round Trip">Round Trip</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div> -->
+                    </div>
+                    <div class="row" *ngIf="!lead_id">
+                      <!-- <div class="col-lg-12">
+                        <button class="add-btn" (click)="addTickt()">Savess</button>
+                      </div> -->
+                      <div class="col-lg-12">
+                        <button class="favorite  saveStyle saveCss"  (click)="addTickt()">ADD Travel Details</button>
+                      </div>
+                    </div>
+                  </form>
+                  </div>
+                  
+                </div>
+                <!-- suggested and one way  -->
+                <div class="suggest" *ngIf="!enableSubmit" >
+                  <div *ngIf="lead_id" style="padding: 20px 0;">
+                    <div class="row form_head">
+                      <h3>Travel Tickets Available Details</h3>
+                    </div>
+                    <!-- flight -->
+                    <div class="ag_grid" *ngIf="flightSelected">
+                      <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:300px;"
+                        [rowData]="rowDataSuggested" [columnDefs]="columnDefs" (cellClicked)='onCellClicked($event)'
+                        [pagination]=true [paginationPageSize]=10 (gridReady)="onGridReady($event)">
+                      </ag-grid-angular>
+                    </div>
+                    <!-- <div class="ag_grid" *ngIf="trainSelected">
+                      <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                        [rowData]="rowDataSuggested" [columnDefs]="columnDefstrain"
+                        (cellClicked)='onCellClickedCopy($event)' [pagination]=true [paginationPageSize]=10
+                        (gridReady)="onGridReady($event)">
+                      </ag-grid-angular>
+                    </div> -->
+                    <div class="form-group" *ngIf="!statusTravel">
+                      <mat-icon class="add-man" (click)="addBtn($event)">add_circle</mat-icon>
+                    </div>
+                  </div>
+                </div>
+                <div class="form_basic" *ngIf="addContact">
+                  <div class="add_expense">
+                    <p *ngIf="!idTicket">Add Travel Option </p>
+                    <p *ngIf="idTicket">Update Travel Option </p>
+
+                  </div>
+                 <div class="row">
+                  <div class="">
+                    <button class="favorite add-btn saveStyle" (click)="cleanInput()">Clean</button>
+
+                  </div>
+                 </div>
+                  <form class="form_set" [formGroup]="travelTicketForm">
+                    <div class="row">
+                      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <p><u><b>Travel Tickets:</b></u></p>
+                      </div> -->
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Flight/Train No</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="flight_no" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Flight/Train Name</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="flight_name" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Travel Date</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput [matDatepicker]="dp"
+                             (click)="dp.open()" 
+                             formControlName="travel_date"
+                             (click)="fromDate($event)"
+                             [min]="minDate"
+                             />
+                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                            <mat-datepicker #dp></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div> -->
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <p>Departure Time</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput name="selected_time_B" [format]=24 formControlName="time"
+                            [ngxMatTimepicker]="pickerB" readonly />
+                          <mat-icon matSuffix (click)="pickerB.open()"> watch_later </mat-icon>
+                        </mat-form-field>
+                        <ngx-mat-timepicker color="accent" #pickerB></ngx-mat-timepicker>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <p>Arrival Time</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput name="selected_time_B" [format]=24 formControlName="arrivalTime"
+                            [ngxMatTimepicker]="pickerc" readonly />
+                          <mat-icon matSuffix (click)="pickerc.open()"> watch_later </mat-icon>
+                        </mat-form-field>
+                        <ngx-mat-timepicker color="accent" #pickerc></ngx-mat-timepicker>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Currency</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <mat-select formControlName="quotation_currency" (selectionChange)="selectCurrency($event)">
+                              <mat-option *ngFor="let item of currencyList" [value]="item.Currency_Convert_id">{{item.Currency_Type}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>EXR</p>
+                          <mat-form-field appearance="outline" readonly class="readonly-wrapper">
+                            <input matInput type="text" formControlName="exr"/>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Travel Amount</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="number" formControlName="travel_amount" (input)="onSearchChange($event)"/>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Final Amount</p>
+                          <mat-form-field appearance="outline" readonly class="readonly-wrapper">
+                            <input matInput type="number" formControlName="finalAmount"/>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div> -->
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Mode of Travel</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <mat-select formControlName="mode_of_travel">
+                              <mat-option   value="Train">Train</mat-option>
+                              <mat-option  value="Flight">Flight</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Departure</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="departure" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Arrival</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="arrival" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div> -->
+                      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Ticket Type</p>
+                          <mat-form-field appearance="outline">
+                            <mat-select formControlName="ticketTypeDetails" (selectionChange)="returnSelect($event)">
+                              <mat-option value="One Way">One Way</mat-option>
+                              <mat-option value="Round Trip">Round Trip</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div> -->
+                      <!-- <div class="col-lg-12">
+                        <button class="add-btn" (click)="saveFlight()">Save</button>
+                      </div> -->
+                      <div class="col-lg-12" *ngIf="idTicket">
+                        <button class="favorite saveCss saveStyle" (click)="updateTicket()">Update Tickets</button>
+                      </div>
+                      <div class="col-lg-12" *ngIf="!idTicket">
+                        <button class="favorite saveCss saveStyle" (click)="saveFlight()">ADD Tickets</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- Two way ticket -->
+                <!-- confirmd -->
+                <div class="confirmed" *ngIf="enableSuggest">
+                  <mat-card *ngIf="lead_id">
+                    <div class="row form_head">
+                      <h3>Travel Ticket Detail Confirm</h3>
+                    </div>
+                    <div class="ag_grid" *ngIf="flightOn">
+                      <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                        [rowData]="rowData" [columnDefs]="columnDefsConfirm" (cellClicked)='onCellClicked($event)'
+                        [pagination]=true [paginationPageSize]=10 (gridReady)="onGridReady($event)">
+                      </ag-grid-angular>
+                    </div>
+                    <!-- train -->
+                    <div class="ag_grid" *ngIf="trainOn">
+                      <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                        [rowData]="rowDataTrain" [columnDefs]="columnDefstrain" (cellClicked)='onCellClicked($event)'
+                        [pagination]=true [paginationPageSize]=10 (gridReady)="onGridReady($event)">
+                      </ag-grid-angular>
+                    </div>
+                    <!-- bus -->
+                    <div class="form-group" *ngIf="!statusTravel">
+                      <!-- <mat-icon class="add-man" (click)="addBtn()">add_circle</mat-icon> -->
+                    </div>
+                  </mat-card>
+                </div>
+
+                <!-- book tickets -->
+                <div class="confirmed" *ngIf="enableConfirm">
+                  <mat-card *ngIf="lead_id">
+                    <div class="row form_head">
+                      <h3>Travel Ticket Details bT</h3>
+                    </div>
+                    <div class="ag_grid">
+                      <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                        [rowData]="rowDataBookTiket" [columnDefs]="columnDefsConfirm"
+                        (cellClicked)='onCellClicked($event)' [pagination]=true [paginationPageSize]=10
+                        (gridReady)="onGridReady($event)">
+                      </ag-grid-angular>
+                    </div>
+
+                    <div class="form-group" *ngIf="!statusTravel">
+                      <!-- <mat-icon class="add-man" (click)="addBtn()">add_circle</mat-icon> -->
+                    </div>
+                  </mat-card>
+                </div>
+                <div class="form_basic" *ngIf="twoWayTicket">
+                  <form class="form_set" [formGroup]="leadForm">
+                    <div class="row">
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <p><u><b>Travel Tickets:</b></u></p>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Flight No</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="flight_no" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Flight Name</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="flight_name" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Travel Date</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="travel_date"
+                           />
+                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                            <mat-datepicker #dp></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <p>Time</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput name="selected_time_B" [format]=24 formControlName="time"
+                            [ngxMatTimepicker]="pickerB" readonly />
+                          <mat-icon matSuffix (click)="pickerB.open()"> watch_later </mat-icon>
+                        </mat-form-field>
+                        <ngx-mat-timepicker color="accent" #pickerB></ngx-mat-timepicker>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Currency</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <mat-select formControlName="quotation_currency" (selectionChange)="selectCurrency($event)">
+                              <mat-option *ngFor="let item of currencyList" [value]="item.quotation_currency_name">{{item.quotation_currency_name}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Travel Amount</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="travel_amount" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>EXR</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="exr"/>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Final Amount</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="number" formControlName="finalAmount"/>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                       <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Mode of Travel</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <mat-select formControlName="mode_of_travel">
+                              <mat-option value="Train">Train</mat-option>
+                              <mat-option value="Flight">Flight</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Departure</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="departure" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Arrival</p>
+                          <mat-form-field appearance="outline" readonly>
+                            <input matInput type="text" formControlName="arrival" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
+                      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Ticket Type</p>
+                          <mat-form-field appearance="outline">
+                            <mat-select formControlName="ticketTypeDetails" (selectionChange)="returnSelect($event)">
+                              <mat-option value="One Way">One Way</mat-option>
+                              <mat-option value="Round Trip">Round Trip</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div> -->
+                      <div class="col-lg-12">
+                        <button class="add-btn" (click)="saveFlight()">SaveTT</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <br>
+                <div class="row" *ngIf="enableConfirm">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Attach Tickets</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <input formControlName="attach_ticket" id=" expenseApprovalfile" type="file" multiple
+                        class="form-control" (change)="attchApprovalFile($event)" required />
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Attach Invoice</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <input formControlName="attach_invoice" id=" expenseApprovalfile" type="file" multiple
+                        class="form-control" (change)="attachInvoiceFile($event)" required />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12  pt-3" *ngIf="enableConfirm || statusTravel">
+                  <div class="form-group">
+                    <p>Remarks</p>
+                    <mat-form-field appearance="outline" readonly>
+                      <input matInput type="text" formControlName="attach_remarks" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                </div>
+              </form>
+            </div>
+            <div class="upload-btn">
+              <div *ngIf="travelDetOpen">
+                <button class="cancel-btn" (click)="cancel()">
+                  Cancel
+                </button>
+                <button class="favorite styled2" *ngIf="!lead_id" [disabled]="!submitBtnOn" (click)="travelSubmitForm()">Submit</button>
+              </div>
+              <button class="cancel-btn" *ngIf="lead_id && !enableSubmit" (click)="cancel()">
+                Cancel
+              </button>
+              <button class="favorite styled2" [disabled]="submitBtnOn" *ngIf="lead_id && !enableSubmit && !cancelTicketStatus"
+                (click)="suggestForm()">Suggest</button>
+         
+
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+
+    </div>
+  </div>
+
+
+  
+  <!-- task order pdf -->
+  <div class=" pdf-content" style="display: none;">
+    <div class="container" id="dashboard" #dashboard style="padding: 20px 35px;">
+    <div class="row">
+      <div class="invoice-title">
+        <h2></h2>
+        <h3 class="pull-right" >
+          <img align="right" src="../../../../../../assets/icons/DQS_logo.png" alt="" width="15%">
+        </h3>
+      </div>
+    </div>
+      <div class="row">
+        <p align="left" style="color: rgb(8, 8, 156);">DQS India | 5th Floor Anjaneya Techno Park 147 HAL Airport Road
+          Kodihalli Bengaluru -560017</p>
+      </div>
+
+      <div class="row" style="padding: 40px 0 0 0;">
+        <div class="col-md-12">
+          <p align="center" style="font-size: 16px; font-weight: 500;">Task Order Details</p>
+        </div>
+      </div>
+
+    <div class="row">
+       <div class="col-md-6">
+        <address>
+          <div class="to">
+            <strong>To:</strong>
+            <span>{{singleLeadData?.first_name}}</span>
+          </div>
+        <div class="acc_no">
+            <strong>Vendor Acc No:</strong>
+            <span>0011202</span>
+          </div>
+         </address>
+       </div>
+       <div class="col-md-6" >
+        <address align="right">
+          <div class="to">
+            <strong>Task Order No:</strong>
+            <span>{{singleLeadData?.task_order}}</span>
+          </div>
+        <div class="acc_no">
+            <strong>Work Order No:</strong>
+            <span>{{singleLeadData?.workOrder_no}}</span>
+          </div>
+         </address>
+       </div>
+    </div>
+
+    <div class="">
+  <strong>Note:</strong>
+  <span>
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium
+     consequatur aut odio explicabo enim est soluta rem ratione eaque voluptatem excepturi nihil
+    maiores repellendus eligendi consequuntur, accusantium tenetur saepe
+     laborum. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      Repudiandae at, deleniti expedita, dolore suscipit qui obcaecati
+      deserunt libero dolorum rem amet corrupti,
+     modi ipsum facilis quis facere eius? Quam, molestias.
+  </span>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p>BR Number:<span>{{singleLeadData?.br_number}}</span></p>
+        <p>Company Name:{{singleLeadData?.associated_company}}</p>
+        <p>Address:{{singleLeadData?.address2}}</p>
+        <p>City:{{singleLeadData?.city}}, State:{{singleLeadData?.state}}, Country:{{singleLeadData?.country}}</p>
+        <p>Pin Code:{{singleLeadData?.postal_code}}</p>
+        <p>Phone No:{{singleLeadData?.phone_number }}</p>
+      </div>
+      <div class="col-md-6">
+        <p>Contact person Details:<span>{{singleLeadData?.first_name}} {{singleLeadData?.last_name}}</span></p>
+        <p>Email:{{singleLeadData?.email}}</p>
+        <p>Phone Number:{{singleLeadData?.phone_number}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <p>Program Name:{{singleLeadData?.standard_program_assement}}</p>
+      <p>Audit Type:{{singleLeadData?.certificate_type}}</p>
+      <p>Audit Duration:21 feb 2023 To 22 feb 2034</p>
+    </div>?
+
+  <div class="row">
+    <p align="center" style="font-size: 15px; font-weight: 500;">Audit Spread</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Date Of Audit</th>
+          <th>Br Number</th>
+          <th>Location</th>
+
+
+        </tr>
+  </thead>
+      <tbody>
+        <tr>
+          <td>{{singleLeadData?.first_name}}</td>
+          <td>{{singleLeadData?.job_title}}</td>
+          <td>{{singleLeadData?.training_start_date}}</td>
+          <td>{{singleLeadData?.br_number}}</td>
+          <td>{{singleLeadData?.city}},{{singleLeadData?.state}},{{singleLeadData?.country}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <p>Bililable/Non-Bililable:</p><span>{{singleLeadData?.expense_category}}</span>
+    <p>Special Instructions:</p><span>Onsite Audit</span>
+  </div>
+
+  <footer style="padding: 60px 0;">
+    <div class="row">
+      <div class="col-md-4">
+      <strong>DQS India</strong>
+        <p>{{singleLeadData?.associated_company}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>{{singleLeadData?.address2}}</p>
+        <p>{{singleLeadData?.city}},{{singleLeadData?.state}},{{singleLeadData?.country}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Email:{{singleLeadData?.email}}</p>
+        <p>Phone Number:{{singleLeadData?.phone_number }}</p>
+      </div>
+    </div>
+  </footer>
+
+    </div>
+  </div>

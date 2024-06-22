@@ -1,0 +1,30 @@
+<h3 mat-dialog-title class="popHead">PROVIDENT FUND RECORD</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+    <div class="cotain">
+        <div class="emp_key">
+            <p>Esi Id:</p>
+            <p>Group:</p>
+            <p>Company:</p>
+            <p>Front Component:</p>
+            <p>Back Component:</p>
+            <p>Description:</p>
+            <p>Status:</p>
+        </div>
+        <div class="emp_value">
+            <p>{{singlePfData?.pfesi_id}}</p>
+            <p>{{singlePfData?.addGroup_nameById}}</p>
+            <p>{{singlePfData?.companyName}}</p>
+            <p>{{singlePfData?.frontComponent}}</p>
+            <p>{{singlePfData?.backComponent}}</p>
+            <p>{{singlePfData?.description}}</p>
+            <p>{{singlePfData?.status}}</p>
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close mat-raised-button color="primary">Close</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

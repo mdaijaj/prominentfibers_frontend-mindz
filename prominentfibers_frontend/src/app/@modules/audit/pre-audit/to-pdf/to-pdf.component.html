@@ -1,0 +1,77 @@
+<body>
+    <!-- <mat-dialog-content class="mat-typography"> -->
+    <div class="certificate" #dashboard id="dashboard">
+        <div class="header">
+            <img src="assets/tcer.png" alt="Header Image">
+        </div>
+        <div class="content">
+            <div class="name">DQS Academy</div>
+            <div class="course">hereby certifies that</div>
+            <div class="name">Mr. </div>
+            <div class="course">has successfully completed the</div>
+            <div class="name">IATF 16949:2016 Internal Auditor Training</div>
+            <!-- <div class="course">hereby certifies that</div> -->
+            <div class="course-topics">
+                <p>course.</p>
+                <ul>
+                    <li>Overview of IATF 16949:2016</li>
+                    <li>Overview of the auditing process as per auditing guidelines</li>
+                    <li>Initiating the Audit: Role of the M.R., auditees and top management</li>
+                    <li>Significant Requirements of IATF 16949:2016 Standard</li>
+                    <li>Role of Audit team leader & members</li>
+                    <li>Audit Activities</li>
+                    <li>Corrective and Preventive action</li>
+                </ul>
+            </div>
+            <br>
+            <table>
+                <tr>
+                    <td>Course Date: </td>
+                    <td>00-00-0000 – 00-00-0000 (00 hours)</td>
+                </tr>
+                <tr>
+                    <td>Certificate Registration No.</td>
+                    <td>KSC: Q0-0000/00</td>
+                </tr>
+                <tr>
+                    <td>Issued in.</td>
+                    <td>Bangalore, Karnataka, India. </td>
+                </tr>
+                <tr>
+                    <td>Issued by.</td>
+                    <td>Deutsch Quality Systems (India) Private Limited</td>
+                </tr>
+                <br><br>
+                <div>
+                    <img class="a4-sign" src="assets/sign.png" alt="Header Image">
+
+                </div>
+                <div class="course">Dr. Murugan Kandasamy</div>
+                <div class="course">Managing Director & CEO, DQS India.</div>
+
+                <br><br><br>
+                <h6 style="color: gray;">
+                    Ground Floor, South Wing, Vaishnavi Tech Park, Survey.No.16/1 and 17/2, Bellandur Gate, Sarjapur
+                    Main Road www.dqsglobal.com
+                    Sarjapur Main Road, Ambalipura, Bengaluru – 560 102
+
+                </h6>
+
+            </table>
+
+            <!-- <div class="course-dates">
+                    <p>Course Date: 00-00-0000 – 00-00-0000 (00 hours)</p>
+                </div>
+                <div class="registration">
+                    <p>Certificate Registration No. KSC: Q0-0000/00</p>
+                    <p>Issued in Bangalore, Karnataka, India.</p>
+                    <p>Issued by Deutsch Quality Systems (India) Private Limited</p>
+                </div> -->
+        </div>
+    </div>
+    <!-- </mat-dialog-content> -->
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="pdfGenerate()">Print</button>
+    </mat-dialog-actions>
+</body>

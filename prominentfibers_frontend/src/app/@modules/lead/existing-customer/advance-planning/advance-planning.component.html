@@ -1,0 +1,140 @@
+<!-- <div class="main section">
+    <div class="employee">
+        <p>Sales & Marketting</p>
+      </div>
+      <div class="msater-nav">
+        <a href="">Existing Customer Module<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Advance Planning</a>
+      </div>
+    
+      <div class="row">
+    <div class="col-md-3">
+        <mat-form-field appearance="outline">
+          <mat-label>From</mat-label>
+          <input [matDatepicker]="dp" (click)="dp.open()" matInput type="text" formControlName="name" />
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+      </div>
+    
+        <mat-form-field appearance="outline" class="col-md-3">
+          <mat-label>To</mat-label>
+          <input [matDatepicker]="dp1" (click)="dp1.open()" matInput type="text" formControlName="name" />
+          <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+          <mat-datepicker #dp1></mat-datepicker>
+        </mat-form-field>
+        
+ 
+      </div>
+
+      <div class="employ_sube mb-2">
+        <div class="">
+          <div class="example-header">
+            <select (change)="onPageSizeChanged()" id="page-size">
+              <option value="10" selected="">50</option>
+              <option value="100">100</option>
+              <option value="500">500</option>
+              <option value="1000">1000</option>
+            </select>
+          </div>
+        </div>
+
+        <button mat-raised-button color="primary" routerLink="send-notification">Send Notification</button>
+        <button mat-raised-button color="primary" routerLink="update-certificate">Update Certificate</button>
+        <button mat-raised-button color="primary" routerLink="certificate-detail">Certificate Details</button>
+
+        <div class="col-md-2">
+            <input placeholder="Search" class="form-control" type="text" id="filter-text-box"
+              (input)="onFilterTextBoxChanged()" />
+          </div>
+      </div>
+
+    <mat-card>
+        <div class="row form_head">
+            <h3>RA/TRA List Data</h3>
+        </div>
+        <div class="ag_grid">
+            <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                [rowData]="rowData" [columnDefs]="columnDefs" (cellClicked)='onCellClicked($event)' [pagination]=true [paginationPageSize]=10
+                (gridReady)="onGridReady($event)">
+            </ag-grid-angular>
+        </div>
+    </mat-card>
+
+</div>
+ -->
+<!--200 -->
+ <div class="row">
+    
+  <div class="service-box" routerLink="RA-TRA200">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/strat.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>(CSP)<br>Notification</p>
+    </div>
+  </div>
+
+<!--180 -->
+  <div class="service-box" routerLink="RA-TRA180">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/strat.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>(Plaining Team)<br>Notification</p>
+    </div>
+  </div>
+
+<!--150 -->
+  <div class="service-box" routerLink="RA-TRA150">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/strat.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>(SP Team)<br>Notification</p>
+    </div>
+  </div>
+
+<!--120 -->
+  <div class="service-box" routerLink="RA-TRA120">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/strat.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>(RBH)<br>Notification</p>
+    </div>
+  </div>
+
+<!--90 -->
+  <div class="service-box" routerLink="RA-TRA90">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/strat.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>(MSA HEAD)<br>Notification</p>
+    </div>
+  </div>
+
+<!-- 45-->
+  <div class="service-box" routerLink="RA-TRA45">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/strat.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>(MD)<br>Notification</p>
+    </div>
+  </div>
+
+<!--0 -->
+  <div class="service-box" routerLink="RA-TRA0">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/strat.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>(Post-Audit)<br>Notification</p>
+    </div>
+  </div>
+
+
+</div>
+

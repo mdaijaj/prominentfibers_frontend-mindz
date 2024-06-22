@@ -1,0 +1,38 @@
+<h3 mat-dialog-title class="popHead">Extend Date</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+  <div class="cotain">
+    <div class="row">
+        <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <form class="form_set" [formGroup]="extendDateForm">
+            <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                <mat-label>Extend Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="dp4"
+                    (click)="dp4.open()"
+                    formControlName="end_date"
+                  />
+
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="dp4"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #dp4></mat-datepicker>
+                </mat-form-field>
+              </div>
+              </form>
+          </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-raised-button color="primary">
+    Cancel
+  </button>
+  <button mat-button mat-dialog-close mat-raised-button color="primary" (click)="updateDate()">
+    Submit
+  </button>
+</mat-dialog-actions>

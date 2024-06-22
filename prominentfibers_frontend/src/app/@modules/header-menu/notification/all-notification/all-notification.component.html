@@ -1,0 +1,26 @@
+
+	
+	<nav>
+		<!-- <div class="icon" (click)="toggleNotifi()">
+			<img src="img/bell.png" alt=""> <span>17</span>
+		</div> -->
+		<div *ngIf="show"
+         class="notifi-box custom-scrollbar-container" id="box" #box #boxElement [style.height.px]="boxHeight" [style.opacity]="boxOpacity">
+			<!-- <h2>Notifications <span>17</span></h2> -->
+			<div class="notifi-header">
+				<!-- <img src="img/avatar1.png" alt="img"> -->
+				<div class="text">
+				   <h4>Notification</h4>
+			    </div> 
+			</div>
+			<div class="notifi-item">
+				<!-- <img src="img/avatar1.png" alt="img"> -->
+				<div class="text">
+				   <h4>LMS</h4>
+				   <p>You are assigned as auther.</p>
+			    </div> 
+			</div>
+
+		</div>
+	</nav>
+

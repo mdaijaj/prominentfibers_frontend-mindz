@@ -1,0 +1,9 @@
+<div class="edd-del">
+    <ng-container *ngIf="assignAction?.Write">
+        <mat-icon matTooltip="Extend Date" (click)="extendDate($event)">date_range</mat-icon>
+    </ng-container>
+    <ng-container *ngIf="assignAction?.Delete">
+        <mat-icon matTooltip="Delete" (click)="deleteRfp()">remove_circle</mat-icon>
+    </ng-container>
+    <!-- <button class="custom_button" (click)="extendDate($event)">Extend Date</button> -->
+</div>

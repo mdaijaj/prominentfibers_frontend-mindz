@@ -1,0 +1,692 @@
+<div class="section">
+    <div class="row head">
+      <p routerLink="../">Leave-master</p>
+    </div>
+    
+    <div class="row">
+      <div class="employee_top my-1">
+        Dashboard
+        <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #8B817D"></i>
+          {{'Leave-master-Create'}}
+        </span>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="btns">
+        <button (click)="goBackLeaveMasterList('master/hrms/leave-master/leave-master-list')"  type="button">List</button>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="section">
+    <div>
+      <mat-card>
+        <div class="row form_head">
+            <h3>LEAVE CREATE</h3>
+          </div>
+        <div class="form_basic">
+          <form class="form_set" [formGroup]="leaveMasterForm">
+            <div class="row">
+              <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Leave Name</mat-label>
+                      <mat-select formControlName="leaveName">
+                        <mat-option *ngFor=" let list of AllLeaveTypes_list" [value]="list.leave_id">{{list.leave_type}}</mat-option>
+                      </mat-select>
+              <mat-error
+                *ngIf="leaveMasterForm.controls['leaveName'].hasError('required')"
+              >
+                This field is required!
+              </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Leave Type</mat-label>
+                      <mat-select  formControlName="leaveType">
+                        <mat-option *ngFor=" let list of leaveType" [value]="list.name" >{{list.name}}</mat-option>
+                      </mat-select>
+                      <mat-error
+                      *ngIf="leaveMasterForm.controls['leaveType'].hasError('required')"
+                    >
+                      This field is required!
+                    </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                
+                <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"> 
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Company</mat-label>
+                      <mat-select  formControlName="companyName">
+                        <mat-option *ngFor="let compnyList of companyData" [value]="compnyList.companyName">{{compnyList.companyName}}</mat-option>
+                      </mat-select>
+                      <mat-error
+                      *ngIf="leaveMasterForm.controls['companyName'].hasError('required')"
+                    >
+                      This field is required!
+                    </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Unit</mat-label>
+                      <mat-select formControlName="leaveUnit" (selectionChange)="unit_selection($event)">
+                        <mat-option value="days">Days</mat-option>
+                        <mat-option value="hours">Hours</mat-option>
+                      </mat-select>
+                      <mat-error
+                      *ngIf="leaveMasterForm.controls['leaveUnit'].hasError('required')"
+                    >
+                      This field is required!
+                    </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <input matInput placeholder="Description" formControlName="description" required>
+                      <mat-error
+                      *ngIf="leaveMasterForm.controls['description'].hasError('required')"
+                    >
+                      This field is required!
+                    </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="On_Date=='days'">
+                   <div class="form-group">
+                     <mat-form-field appearance="outline">
+                       <mat-label>From </mat-label>
+                       <input matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="fromDate" />
+                     <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                     <mat-datepicker #dp></mat-datepicker>
+                     <!-- <mat-error *ngIf="holidayForm.controls['holiday_from'].hasError('required')">
+                       This field is required!
+                     </mat-error> -->
+                     </mat-form-field>
+                   </div>
+                 </div>
+                 <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="On_Date=='days'">
+                   <div class="form-group">
+                     <mat-form-field appearance="outline">
+                       <mat-label>To</mat-label>
+                       <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="toDate" name="date" (focusout)="todate ? calculateDiff() : calculateDiff()" (dateChange)="calculateDiff()">
+                       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                       <mat-datepicker #picker></mat-datepicker>
+                       <!-- <mat-error *ngIf="holidayForm.controls['holiday_to'].hasError('required')">
+                         This field is required!
+                       </mat-error> -->
+                     </mat-form-field>
+                   </div>
+                 </div>
+
+                 <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="On_Date=='hours'">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>On Date</mat-label>
+                      <input matInput [matDatepicker]="on_date" (click)="on_date.open()" formControlName="onDate" name="on_date" (focusout)="todate ? calculateDiff() : calculateDiff()" (dateChange)="calculateDiff()">
+                      <mat-datepicker-toggle matIconSuffix [for]="on_date"></mat-datepicker-toggle>
+                      <mat-datepicker #on_date></mat-datepicker>
+                      <!-- <mat-error *ngIf="holidayForm.controls['holiday_to'].hasError('required')">
+                        This field is required!
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+                 <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="On_Date=='hours'">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Start Time</mat-label>
+                      <mat-select formControlName="startTime">
+                        <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
+                      </mat-select>
+                      <!-- <mat-error *ngIf="holidayForm.controls['holiday_to'].hasError('required')">
+                        This field is required!
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+                 <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="On_Date=='hours'">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Number Of Hours</mat-label>
+                      <mat-select formControlName="no_of_hours">
+                        <mat-option *ngFor="let no_h of hourse" [value]="no_h">{{no_h}}</mat-option>
+                      </mat-select>
+                      <!-- <mat-error *ngIf="holidayForm.controls['holiday_to'].hasError('required')">
+                        This field is required!
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="On_Date=='days'">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Leave Count Days</mat-label>
+                      <input matInput placeholder="leaveCountDays" formControlName="leaveCountDays" readonly required>
+                      <mat-error
+                      *ngIf="leaveMasterForm.controls['leaveCountDays'].hasError('required')"
+                    >
+                      This field is required!
+                    </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+           </div>
+          </form>
+        </div>
+        <mat-stepper labelPosition="bottom" #stepper>
+          <mat-step [stepControl]="leaveMasterForm">
+            <div class="section">
+            <form [formGroup]="leaveMasterForm">
+              <ng-template matStepLabel><span style="color: #8B817D;">ENTITLEMENT</span></ng-template>
+              <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                  <div class="form-group check_set">
+                    <mat-checkbox color="primary" (click)="accrualLeave()" checked="isAcl" value="isAcl" formControlName="isAcl" >
+                      </mat-checkbox>Accrual Leave
+                  </div>
+                </div>
+ 
+                <div *ngIf="styles || accuralField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" style="display: styles;" >
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>Accrual Leave Type</mat-label>
+                     <mat-select formControlName="aclLeaveType">
+                       <mat-option *ngFor="let aclist of acLeaveType"  [value]="aclist.value">{{aclist.value}}</mat-option>
+                     </mat-select>
+   
+                   </mat-form-field>
+                 </div>
+               </div>
+ 
+               <div *ngIf="styles || accuralField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" >
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>On</mat-label>
+                     <mat-select formControlName="aclLeaveOn">
+                       <mat-option *ngFor="let list of acleave" [value]="list.value">{{list.value}}</mat-option>                      
+                     </mat-select>
+                   </mat-form-field>
+                 </div>
+               </div>
+               <div *ngIf="styles || accuralField" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+               </div>
+               <div *ngIf="styles || accuralField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>Month</mat-label>
+                     <mat-select formControlName="aclLeaveMonth">
+                       <mat-option *ngFor="let list of month" [value]="list.value">{{list.value}}</mat-option>
+                     </mat-select>
+                   </mat-form-field>
+                 </div>
+               </div>
+             
+               <div *ngIf="styles || accuralField " class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>No. Of Days</mat-label>
+                     <input matInput type="number" formControlName="leaveCount"/>
+                   </mat-form-field>
+                 </div>
+               </div>
+              </div> 
+              <div class="row">
+                 <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                   <div class="form-group check_set">
+                     <mat-checkbox color="primary" (click)="resetLeave()" checked="isRstl" formControlName="isRstl">
+                       </mat-checkbox>Reset Leave
+                   </div>
+                 </div>
+  
+                 <div *ngIf="reset || resetField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Reset Leave Type</mat-label>
+                      <mat-select formControlName="rstlLeaveType">
+                        <mat-option *ngFor="let aclist of acLeaveType"  [value]="aclist.value">{{aclist.value}}</mat-option>
+                      </mat-select>
+    
+                    </mat-form-field>
+                  </div>
+                </div>
+  
+                <div *ngIf="reset || resetField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>On</mat-label>
+                      <mat-select formControlName="rstlLeaveOn">
+                                              <mat-option *ngFor="let list of acleave" [value]="list.value">{{list.value}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div *ngIf="reset || resetField" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                </div>
+                <div *ngIf="reset || resetField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Month</mat-label>
+                      <mat-select formControlName="rstlLeaveMonth">
+                        <mat-option *ngFor="let list of month" [value]="list.value">{{list.value}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div *ngIf="reset || resetField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Carry Froward</mat-label>
+                      <input matInput type="number"  formControlName="rstlCarryFwdValue"/>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div *ngIf="reset || resetField" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                </div>
+                <div *ngIf="reset || resetField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>Unit(s)</mat-label>
+                     <mat-select formControlName="rstlCarryFwdUnit">
+                       <mat-option value="Units">Units(s)</mat-option>
+                       <mat-option value="Percentages">Percentages</mat-option>
+                     </mat-select>
+                   </mat-form-field>
+                 </div>
+               </div>
+              
+                <div *ngIf="reset || resetField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>Encashment</mat-label>
+                     <input matInput type="number" formControlName="rstlEncashmentValue" />
+                   </mat-form-field>
+                 </div>
+               </div>
+               <div *ngIf="reset || resetField" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+              </div>
+               <div *ngIf="reset || resetField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>Unit(s)</mat-label>
+                     <mat-select formControlName="rstlEncashmentUnit">
+                       <mat-option value="Units">Units(s)</mat-option>
+                       <mat-option value="Percentages">Percentages</mat-option>
+                     </mat-select>
+                   </mat-form-field>
+                 </div>
+               </div>
+               </div>
+ 
+               <div class="row">
+                 <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                   <div class="form-group check_set">
+                     <mat-checkbox color="primary" (click)="creditLeave()" formControlName="isCtrl" >
+                       </mat-checkbox>Credit Leave
+                   </div>
+                 </div>
+  
+                 <div *ngIf="credit || creditLeaveField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>On</mat-label>
+                      <input matInput type="text" formControlName="ctrlLeaveType"/>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div *ngIf="credit || creditLeaveField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Regular Working Days</mat-label>
+                      <input matInput type="number" formControlName="ctrlLeaveOn" />
+                    </mat-form-field>
+                  </div>
+                </div>
+               </div>
+ 
+               <div class="row">
+                 <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                   <div class="form-group check_set">
+                     <mat-checkbox color="primary" (click)="prorateLeave()" formControlName="isPrl">
+                       </mat-checkbox>Prorate Leave
+                   </div>
+                 </div>
+  
+                 <div *ngIf="prorate || prorateField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>If the joning is before</mat-label>
+                      <input matInput type="text" formControlName="prlLeaveOn" />
+                    </mat-form-field>
+                  </div>
+                </div>
+  
+                <div *ngIf="prorate || prorateField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Month, then the leave Count for the month should Days<span style="color: red;">*</span></mat-label>
+                      <input matInput type="number" formControlName="prlLeaveMonth" />
+                    </mat-form-field>
+                  </div>
+                </div>
+               </div>
+
+              <!-- <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                  <div class="form-group check_set">
+                    <mat-checkbox color="primary" (click)="clubLeave()" [checked]="clubVal" formControlName="isClub">
+                    </mat-checkbox>Club
+                  </div>
+                </div>
+
+                  <div *ngIf="clubVal" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="Ganders" formControlName="clubValue"  color="primary">
+                        <mat-radio-button [checked]="clubValYes" value="yes"></mat-radio-button>Yes
+                      </mat-radio-group>
+                    </div>
+                  <div *ngIf="clubVal" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="Ganders" formControlName="clubValue"  color="primary">
+                        <mat-radio-button [checked]="clubValNo"  value="no"></mat-radio-button>No
+                      </mat-radio-group>
+                    </div>
+               </div> -->
+
+               <div class="row">
+                 <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                   <div class="form-group check_set">
+                     <mat-checkbox color="primary" (click)="openingBalance()" value="isOpnBl" formControlName="isOpnBl">
+                     </mat-checkbox>Opening Balance
+                   </div>
+                 </div>
+                 <div *ngIf="openingBalanceState || openingBalField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Balance</mat-label>
+                      <input matInput type="number" placeholder="Balance" formControlName="opnBlValue"  />
+                    </mat-form-field>
+                  </div>
+                </div>
+               </div>
+               <div class="row">
+                 <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                   <div class="form-group check_set">
+                     <mat-checkbox color="primary" (click)="maximumBalance()" formControlName="isMxBl">
+                       </mat-checkbox>Maximum Balance
+                   </div>
+                 </div>
+                 <div *ngIf="maximumBalanceState || maximumBalField" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Balance</mat-label>
+                      <input matInput placeholder="Balance" type="number" formControlName="mxBlValue"/>
+                    </mat-form-field>
+                  </div>
+                </div>
+               </div>
+ 
+              <div class="mt-3">
+                <button mat-raised-button color="primary" class="mx-3"  matStepperNext>Next</button>
+              </div>
+            </form>
+            </div>
+          </mat-step>
+          <mat-step [stepControl]="leaveMasterForm">
+            <div class="section">
+            <form [formGroup]="leaveMasterForm">
+              <ng-template matStepLabel><span style="color: #8B817D;">APPLICABLE</span></ng-template>
+              <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <p>Gender</p>
+                </div>
+            <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <mat-radio-group name="Ganders" formControlName="applicableGender"  color="primary">
+                    <mat-radio-button [checked]="male" value="male"></mat-radio-button>Male
+                  </mat-radio-group>
+            </div>
+            <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <mat-radio-group name="Ganders" formControlName="applicableGender"  color="primary">
+                    <mat-radio-button [checked]="Female" value="Female"></mat-radio-button>Female
+                  </mat-radio-group>
+            </div>
+            <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <mat-radio-group name="Ganders"  formControlName="applicableGender" color="primary">
+                    <mat-radio-button [checked]="Both" value="Both"></mat-radio-button>Other
+                  </mat-radio-group>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <p>Marital Status</p>
+                </div>
+            <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <mat-radio-group name="MaritalStatus"  color="primary" formControlName="applicableMaritalStatus">
+                    <mat-radio-button [checked]="Single"  value="Single"></mat-radio-button>Single
+                  </mat-radio-group>
+            </div>
+            <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <mat-radio-group name="MaritalStatus"  color="primary" formControlName="applicableMaritalStatus">
+                    <mat-radio-button [checked]="Married" value="Married"></mat-radio-button>Married 
+                  </mat-radio-group>
+            </div>
+            <!-- <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <mat-radio-group  name="MaritalStatus"  color="primary" formControlName="applicableMaritalStatus">
+                    <mat-radio-button [checked]="MaritalBoth" value="Both"></mat-radio-button>Both
+                  </mat-radio-group>
+            </div> -->
+            </div>
+            <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <p>Department</p>
+                </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <mat-form-field appearance="outline">
+                    <mat-select  #select   placeholder ="None Selected" formControlName="department_name">
+                      <input type="text" class="form-control" id="filter-text-box" [(ngModel)]="nameSearch" placeholder="Search" formControlName="department1" >
+                      <mat-option *ngFor="let depList of depData | depFilter:nameSearch" [value]="depList.department_name" (click)="depOptionClick()">{{depList.department_name}}</mat-option>
+                      <p *ngIf="( depData
+                      | depFilter:nameSearch)?.length === 0" class="noDataFound">Department Not Found</p>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <p>Role</p>
+                </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <mat-form-field appearance="outline">
+                    <mat-select #roleSelect   placeholder ="None Selected" formControlName="role_master_name">
+                      <input type="text" class="form-control" id="filter-text-box" placeholder="Search" [(ngModel)]="nameSearch" formControlName="role_Name">
+                      <!-- <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allRoleSelected" *ngIf="( roleData
+                        | roleFilter:nameSearch)?.length != 0"
+                                        [ngModelOptions]="{standalone: true}"
+                                        (change)="toggleAllRoleSelection()">Select All</mat-checkbox>
+                    </div> -->
+                      <mat-option *ngFor="let roleList of roleData | roleFilter:nameSearch" [value]="roleList.role_master_name" (click)="roleOptionClick()" >{{roleList.role_master_name}}</mat-option>   
+                      <p *ngIf="( roleData
+                      | roleFilter:nameSearch)?.length === 0" class="noDataFound">Role Not Found</p>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <p>Employee</p>
+                </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <mat-form-field appearance="outline">
+                    <mat-select #empSelect  placeholder ="None Selected" formControlName="employee">
+                      <input type="text" class="form-control" id="filter-text-box" placeholder="Search" formControlName="emp_Name"
+                      [(ngModel)]="nameSearch"
+                      >
+                      <!-- <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allEmpSelected" *ngIf="( EmpListData
+                        | empFilter:nameSearch)?.length != 0"
+                                        [ngModelOptions]="{standalone: true}"
+                                        (change)="toggleAllEmpSelection()">Select All</mat-checkbox>
+                    </div> -->
+                      <mat-option *ngFor="let empList of EmpListData | empFilter:nameSearch" [value]="empList.employee_id" (click)="empOptionClick()">{{empList.first_name}} {{empList.last_name}}</mat-option>                   
+                        <p *ngIf="( EmpListData
+                        | empFilter:nameSearch)?.length === 0" class="noDataFound">Employee Not Found</p>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            </div>
+              <div class="mt-3">
+                <button mat-raised-button color="warn" class="mx-3" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" class="mx-3" matStepperNext>Next</button>
+              </div>
+            </form>
+            </div>
+          </mat-step>
+          <mat-step>
+            <div class="section">
+            <form [formGroup]="leaveMasterForm">
+            <ng-template  matStepLabel><span style="color: #8B817D;">RESTRICTIONS</span></ng-template>
+            <p class="main-heading">Weekends Between Leave Period:</p>
+            <div class="row">
+            <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <mat-radio-group name="Weakend" color="primary" formControlName="isCntLeaveBtwWk">
+                    <mat-radio-button value="LeaveCount" >Count as Leave Count after</mat-radio-button>
+                  </mat-radio-group>   
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Days</mat-label>
+                    <input matInput type="number" formControlName="cntLeaveBtwWk"/>
+                  </mat-form-field>
+                </div>
+              </div>          
+            </div>
+            <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="Weakend" color="primary" formControlName="isCntLeaveBtwWk">
+                        <mat-radio-button value="Dont Count">Dont Count as Leave</mat-radio-button>
+                      </mat-radio-group>   
+                </div>
+            </div>
+    
+            <p class="main-heading">Holiday Between Leave Period:</p>
+            <div class="row">
+            <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                <mat-radio-group name="Holiday" color="primary" formControlName="isCntLeaveBtwHld">
+                    <mat-radio-button value="holidayCount" >Count as Leave Count after</mat-radio-button>
+                  </mat-radio-group>   
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Days</mat-label>
+                    <input matInput type="number" formControlName="cntLeaveBtwHld" />
+                  </mat-form-field>
+                </div>
+              </div>          
+            </div>
+            <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="Holiday" color="primary">
+                        <mat-radio-button value="holiday dont Count">Dont Count as Leave</mat-radio-button>
+                      </mat-radio-group>   
+                </div>
+            </div>
+
+            <p class="main-heading">While Applying Leave, Exceed Leave Balance:</p>
+            <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="LeaveBalance" color="primary" formControlName="isLeaveExcide">
+                        <mat-radio-button value="Dont Allow">Dont Allow</mat-radio-button>
+                      </mat-radio-group>
+                </div>
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="LeaveBalance"  color="primary" formControlName="isLeaveExcide">
+                        <mat-radio-button value="Allow">Allow</mat-radio-button>
+                      </mat-radio-group>
+                </div>  
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="LeaveBalance"  color="primary" formControlName="isLeaveExcide">
+                        <mat-radio-button value="Both">Allow and marks as LOP</mat-radio-button>
+                      </mat-radio-group>
+                </div> 
+            </div>
+            <p class="main-heading">Duration(s) Allowed:</p>
+            <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="Duration" color="primary" formControlName="DurationAllowed">
+                      <mat-radio-button [checked]="FullDay" value="Full Day">Full Day</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="Duration" color="primary" formControlName="DurationAllowed">
+                      <mat-radio-button [checked]="HalfDay" value="Half Day">Half Day</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="Duration" color="primary" formControlName="DurationAllowed">
+                      <mat-radio-button [checked]="QuarterDay" value="Quarter Day">Quarter Day</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <mat-radio-group name="Duration" color="primary" formControlName="DurationAllowed">
+                      <mat-radio-button [checked]="Hourly" value="Hourly">Hourly</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xxl-5 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <mat-checkbox color="primary" [checked]="MaxLeaveAllowedCheck">
+                        <span>Maximum Number of Conscutive days of Leave Allowed</span></mat-checkbox>   
+                </div>
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" >
+                        <mat-label>Days</mat-label>
+                        <input matInput type="number" formControlName="MaxLeaveAllowed" />
+                      </mat-form-field>
+                    </div>
+                  </div>          
+                </div>
+
+                <div class="row">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <mat-checkbox color="primary" [checked]="LeaveSubmittedBeforeChek">
+                            <span>Leave Application Should be Submited before </span></mat-checkbox>   
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <mat-form-field appearance="outline" >
+                            <mat-label>Days</mat-label>
+                            <input matInput type="number" formControlName="LeaveSubmittedBefore" />
+                          </mat-form-field>
+                        </div>
+                      </div>          
+                    </div>
+            <div class="mt-4">
+              <button *ngIf="!leavePolicyId" mat-raised-button color="primary" class="mx-3" (click)="onSubmit()">Submit</button>
+              <button *ngIf="leavePolicyId" mat-raised-button color="primary" class="mx-3" (click)="leaveUpdate()">Update</button>
+              <button mat-raised-button color="warn" class="mx-3"  (click)="onCancel()" >Cancel</button>
+            </div>
+            </form>
+          </div>
+          </mat-step>
+        </mat-stepper>
+      </mat-card>
+    </div>
+  </div>

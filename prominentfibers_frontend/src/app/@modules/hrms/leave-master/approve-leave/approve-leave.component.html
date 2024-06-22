@@ -1,0 +1,26 @@
+<section class="tab-bar section" >
+  <div class="row head">
+    <p routerLink="../">Leave Approve</p>
+  </div>
+  
+  <div class="row">
+    <div class="employee_top my-1">
+      Dashboard
+      <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #8B817D"></i>
+        {{'Leave-Master'}}
+      </span>
+    </div>
+  </div>
+    <div fxflex="100%">
+      <div class="row">
+        <div class="tab_menu">
+          <div class="tab-item">
+            <button class="main-button" color="primary"  [routerLink]="['unapproved-leave']" routerLinkActive="active" >APPLIED LEAVES</button>
+            <button class="main-button" color="primary"  [routerLink]="['approved-leave']" routerLinkActive="active">APPROVED LEAVES</button>
+            <button class="main-button" color="primary"  [routerLink]="['rejected-leave']" routerLinkActive="active">REJECTED LEAVES</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <router-outlet></router-outlet>

@@ -1,0 +1,13 @@
+<div class="edd-del">
+    <mat-icon (click)="edit($event)" *ngIf="assignAction?.Write">edit</mat-icon>
+    <!-- <mat-icon> <a 
+        download="Naukri_Rajkumar[6y_0m].pdf"
+        target="_blank"
+        href="file:///C:/Users/user/Pictures/Saved%20Pictures/Naukri_Rajkumar[6y_0m].pdf"> file_download </a></mat-icon> -->
+    <mat-icon  *ngIf="assignAction?.Read">visibility</mat-icon>
+    <!-- <mat-icon (click)="downloadAll($event)">file_download</mat-icon> -->
+    <!-- <mat-icon (click)="delete($event)">delete</mat-icon> -->
+
+    <!-- <button mat-raised-button color="primary">Primary</button>
+    <button mat-raised-button color="warn">Warn</button> -->
+</div>

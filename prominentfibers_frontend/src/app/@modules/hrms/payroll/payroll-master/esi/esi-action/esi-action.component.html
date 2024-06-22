@@ -1,0 +1,11 @@
+<div class="edd-del">
+    <mat-icon #tooltip="matTooltip" matTooltip="Edit"
+    matTooltipPosition="above" (click)="edit($event)"
+    matTooltipHideDelay="100">edit</mat-icon>
+    <mat-icon #tooltip="matTooltip" matTooltip="View"
+    matTooltipPosition="above"
+    matTooltipHideDelay="100">visibility</mat-icon>
+    <mat-icon #tooltip="matTooltip" matTooltip="Delete"
+    matTooltipPosition="above"
+    matTooltipHideDelay="100" (click)="pfDelete($event)">delete</mat-icon>
+</div>

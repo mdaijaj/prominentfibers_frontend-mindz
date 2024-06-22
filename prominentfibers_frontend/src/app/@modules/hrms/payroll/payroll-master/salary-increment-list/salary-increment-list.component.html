@@ -1,0 +1,64 @@
+<div class="section">
+    <mat-card>
+      <div>
+        <form>
+          <div class="form_basic section">
+            <div class="row">
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Employee</mat-label>
+                        <mat-select formControlName="employee" (selectionChange)=" 
+                        slectionChange($event)">
+                            <mat-option *ngFor="let emp of EmpListData" [value]="emp.employee_id">{{emp.first_name}} {{emp.last_name}}</mat-option>        
+                        </mat-select>        
+                      </mat-form-field>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  
+      <div class="employ_sube py-2">
+        <div class="">
+          <div class="example-header">
+            <select  id="page-size" (change)="onPageSizeChanged()">
+              <option value="10" selected>10</option>
+              <option value="100">100</option>
+              <option value="500">500</option>
+              <option value="1000">1000</option>
+            </select>
+            <!-- <span class="pag_size">Per Page</span> -->
+          </div>
+        </div>
+      </div>
+  
+      <div class="form_head">
+        <h3>SALARY INCREMENT LIST</h3>
+        <button class="backBtn" routerLink="../">
+          <i class="fa fa-arrow-circle-left"></i> Back
+        </button>
+      </div>
+  
+      <div class="ag_grid">
+        <ag-grid-angular
+          class="ag-theme-alpine"
+          id="myGrid"
+          style="width: 100%; height: 400px"
+          [rowData]="rowData"
+          [columnDefs]="columnDefs"
+          [pagination]="true"
+          [paginationPageSize]="10"
+          [rowData]="rowData"
+          (gridReady)="onGridReady($event)"
+          (cellClicked)="onCellClicked($event)"
+          [rowClass]="rowClass"
+          (cellValueChanged)="onCellValueChanged($event)"
+        >
+        </ag-grid-angular>
+      </div>
+    </mat-card>
+  </div>
+  <router-outlet></router-outlet>
+  

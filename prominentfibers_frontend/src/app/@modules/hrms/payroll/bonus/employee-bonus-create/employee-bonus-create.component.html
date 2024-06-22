@@ -1,0 +1,109 @@
+<section class="section">
+  <div class="row head">
+    <p routerLink="../">Create Bonus</p>
+  </div>
+
+  <div class="row">
+    <div class="employee_top my-1">
+    HRMS
+      <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #8B817D"></i>
+        Payroll </span>
+    </div>
+  </div>
+
+
+  <mat-card>
+    <div class="form_head">
+      <h3>Create Bonus</h3>
+      <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+    </div>
+    <div class="form-basic">
+      <form class="form_set" [formGroup]="createSchedule">
+        <div class="row">
+
+
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Department</mat-label>
+                <mat-select formControlName="department" (selectionChange)="getCategoryFun($event)">
+                  <mat-option [value]="data.department_name"
+                    *ngFor="let data of getCategory,index as i">{{data.department_name}}</mat-option>
+                  <mat-option value="selectAll">Selete All</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group" >
+              <mat-form-field appearance="outline" >
+                <mat-label>Add Muliple User Name</mat-label>
+                <mat-select  formControlName="add_multiplr_user" multiple   (selectionChange)="multipleUser($event)">
+                  <mat-option [value]="data.employee_id" *ngFor="let data of getUserAsPerCategorys,index as i">
+                    {{data.fullName}}
+                  </mat-option>
+                </mat-select>
+                <br><br>
+                <div *ngIf="f.add_multiplr_user.touched && f.add_multiplr_user.invalid" class="message">
+                  <span *ngIf="f['add_multiplr_user'].hasError('maxlength')">*Maximum 10 Selection here</span>
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+           
+              <input type="month" class="form-control col-4" id="inputField" formControlName="bonus_date" 
+              (change)="kj()"
+              />
+     </div>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Bonus Type</mat-label>
+                <input matInput type="test" formControlName="BonusType" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Bonus Amount</mat-label>
+                <input matInput type="number" formControlName="bonus_amount" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input matInput type="text" formControlName="description" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+  
+
+
+
+    </form>
+    <div align="right">
+      <button mat-raised-button id="save" color="primary" type="submit" class="m-3"
+        (click)="submit(createSchedule)">{{button_value}}</button>
+
+      <button mat-raised-button color="warn" class="ml-3" (click)="back()">Cancel</button>
+
+    </div>
+    </div>
+  </mat-card>
+
+</section>

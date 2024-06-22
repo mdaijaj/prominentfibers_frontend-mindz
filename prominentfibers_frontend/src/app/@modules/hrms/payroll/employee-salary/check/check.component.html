@@ -1,0 +1,14 @@
+<p>check works!</p>
+<form [formGroup]="form">
+  <!-- Other form controls... -->
+  <div formArrayName="items">
+    <div *ngFor="let item of items12.controls; let i = index" [formGroupName]="i">
+      <input formControlName="name" placeholder="Item name">
+      <input formControlName="quantity" placeholder="Quantity">
+      <button (click)="removeItem(i)">Remove</button>
+    </div>
+    <button (click)="addItem()">Add Item</button>
+    <button (click)="submit()">Save</button>
+    <button (click)="patchValue()">Patch</button>
+  </div>
+</form>

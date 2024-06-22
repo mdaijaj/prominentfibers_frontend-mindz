@@ -1,0 +1,48 @@
+<h3 mat-dialog-title class="popHead">COMPONENTS</h3>
+<mat-dialog-content class="mat-typography">
+  <form class="form_set" [formGroup]="filterForm">
+    <div>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" formControlName="filter" [(ngModel)]="nameSearch"/>
+          </mat-form-field>
+    </div>
+    <div class="cotain">
+        <div class="tableContainer"> 
+            <div class="bodyContainer">
+                <ng-container>
+                    <div class="">
+                        <table class="table">
+                            <thead class="tableHeader">
+                              <tr>
+                                <th scope="col-7">
+                               <span>Component</span>
+                                </th>
+                                <th scope="col-5">
+                                    <span>Type</span>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let list of configeItemlist | compoFilter:nameSearch">
+                                <td>
+                                  <mat-checkbox color="primary" [value]="list.name" (click)="addFormRowField($event,list.name,list.code)"></mat-checkbox>{{list.name}}
+                                </td>
+                                <td>
+                                  {{list.code}}    
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </ng-container>
+            </div>
+        </div>     
+    </div>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close mat-raised-button color="primary"(click)="onSubmit()">Submit</button>
+    <button mat-button mat-dialog-close mat-raised-button color="warn">Close</button>
+</mat-dialog-actions>

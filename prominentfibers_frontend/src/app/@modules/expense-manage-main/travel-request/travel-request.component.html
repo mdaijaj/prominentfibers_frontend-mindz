@@ -1,0 +1,62 @@
+<div class="row">
+
+  <ng-container *ngFor="let module of subModules">
+    <div class="service-box">
+      <div class="service-img" [routerLink]="module?.menuLink" (click)="goInToPage(module)">
+        <img [src]="module.menuIcon" alt="" />
+      </div>
+      <div class="card-title">
+        <p>{{module.menuName}}</p>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <div class="service-box" routerLink="Draft-travel">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/draft_travel_icon.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>All Cancel Request</p>
+    </div>
+  </div>
+
+
+
+
+  <!-- <div class="service-box" routerLink="user-access">
+    <div class="service-img" >
+      <img src="assets//icons/icon_DQS/compooter.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>User Access</p>
+    </div>
+  </div>  
+  <div class="service-box" routerLink="agent-access">
+    <div class="service-img" >
+      <img src="assets//icons/icon_DQS/agentExpense.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Agent access</p>
+    </div>
+  </div> 
+  <div class="service-box" routerLink="manger-access">
+    <div class="service-img" >
+      <img src="assets//icons/icon_DQS/manegerExpense.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Managar Access</p>
+    </div>
+  </div> 
+
+  <div class="service-box" routerLink="travel-request">
+    <div class="service-img" >
+      <img src="assets//icons/icon_DQS/airplane.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Travel Request</p>
+    </div>
+  </div> -->
+
+  </div>
+

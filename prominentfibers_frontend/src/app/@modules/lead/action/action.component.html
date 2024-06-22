@@ -1,0 +1,126 @@
+<div class="edd-del" >
+  <!-- <mat-icon matTooltip="Send Mail">visibility</mat-icon> -->
+  <!-- <mat-icon matTooltip="Send Mail"  (click)="emailSend($event)">edit</mat-icon>
+  <mat-icon matTooltip="Send Mail"  (click)="emailSend($event)">alarm_add</mat-icon> -->
+  <mat-icon matTooltip="Send Mail" [ngStyle]="{ color: (role_id === 5) ? '' : '#808a9b' }"
+  [ngClass]= "[(role_id==5) ? '': 'readonly-wrapper' ]"
+    (click)="emailSend($event)">email</mat-icon>
+
+  <mat-icon matTooltip="Validate" [ngStyle]="{ color: (role_id === 5) ? '' : '#808a9b' }"
+  [ngClass]= "[(role_id==5) ? '': 'readonly-wrapper' ]" *ngIf="!enableAssign && enableValidate && assignAction?.Delete" (click)="validate($event)">admin_panel_settings</mat-icon>
+  <mat-icon matTooltip="Assign" [ngStyle]="{ color: (role_id === 5) ? '' : '#808a9b' }"
+  [ngClass]= "[(role_id==5) ? '': 'readonly-wrapper' ]"
+   *ngIf="!enableValidate && enableAssign" (click)="assign($event)">how_to_reg</mat-icon>
+  <!-- <mat-icon matTooltip="Edit"  *ngIf="!enableValidate && enableAssign" (click)="editLeadValidate($event)">edit</mat-icon> -->
+
+  <mat-icon matTooltip="Prospect" *ngIf="enableAccount && !enableProspect" (click)="prospect($event)">person_add</mat-icon>
+  <!-- <mat-icon matTooltip="Edit" *ngIf="enableAccount && !enableProspect" (click)="prospect_edit($event)">edit</mat-icon> -->
+  <mat-icon matTooltip="Account" *ngIf="enableProspect && !enableAccount" (click)="account($event)">thumb_up</mat-icon>
+  <!-- <mat-icon matTooltip="Edit" *ngIf="enableProspect && !enableAccount" (click)="edit_p($event)">edit_prospect</mat-icon> -->
+  <mat-icon matTooltip="Customer Account" *ngIf="enableOpportunity" (click)="opportunity($event)"> transfer_within_a_station</mat-icon>
+  <mat-icon matTooltip="Sales Request" (click)="salesRequest($event)"
+   *ngIf="enableProspect ||advancePaymentList ||FEAaprrovel || enableOpportunity || feaPending || enableSendL1 || enablePreL1 || enablePreL2 || enableQuote || openHouseNew||updateApprove||sentPI || prepareQuote|| snmHead || uploadDocsSigned|| signDocument|| updateSM || updateQuote">
+    rowing</mat-icon>
+    <mat-icon matTooltip="Sales Request" (click)="salesRequestCopy($event)"
+    *ngIf="FEAaprroverCopy">
+     rowing</mat-icon>
+  <mat-icon matTooltip="Budgetary Quote" *ngIf="enableSendL1" (click)="sendBudget($event)"> next_week</mat-icon>
+  <mat-icon matTooltip="Sent For L1" *ngIf="enableSendL1" (click)="sendL1($event)"> label_important</mat-icon>
+  <mat-icon matTooltip="Pre-Audit L1" *ngIf="enablePreL1" (click)="preL1($event)"> swap_horiz</mat-icon>
+  <mat-icon matTooltip="Add Participants" *ngIf="enableSendL1" (click)="openHouse($event)">all_inclusive</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="enableSendL1" (click)="edit_sendL1($event)"> edit</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="enablePreL1" (click)="edit_preL1($event)"> edit</mat-icon>
+
+  <mat-icon matTooltip="Pre-Audit L2" *ngIf="enablePreL2" (click)="preL2($event)"> gavel</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="enablePreL2" (click)="edit_preL2($event)"> edit</mat-icon>
+  <mat-icon matTooltip="Prepare Quotation" *ngIf="enableQuote" (click)="quote($event)">grade</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="enableQuote" (click)="edit_quote($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Send Quotation" *ngIf="prepareQuote || updateApprove" (click)="prepare($event)">offline_pin</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="prepareQuote" (click)="edit_prepare($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Update Quotation" *ngIf="updateQuote" (click)="update($event)">thumbs_up_down</mat-icon>
+  <!-- <mat-icon matTooltip="Sign Documents" *ngIf="signDocument" (click)="signDocs($event)">markunread_mailbox</mat-icon> -->
+  <mat-icon matTooltip="Edit" *ngIf="updateQuote" (click)="edit_update($event)">edit</mat-icon>
+  <mat-icon matTooltip="Send PI" *ngIf="updateQuote" (click)="approve($event)">done</mat-icon>
+
+
+  <mat-icon matTooltip="Edit" *ngIf="updateApprove" (click)="edit_approve($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Approve Quote" *ngIf="updateSM" (click)="approveSM($event)">assignment_late</mat-icon>
+  <mat-icon matTooltip="Update PI" *ngIf="sentPI" (click)="sentPIFunc($event)">done_all</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="sentPI" (click)="edit_sentPIFunc($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Plan Audit" *ngIf="workOrder" (click)="workOrderFunc($event)">done_outline</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="workOrder" (click)="edit_workOrderFunc($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Rise Task Order" *ngIf="enableTaskOrder" (click)="RaiseOrderEditorFunc($event)">beenhere</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="enableTaskOrder" (click)="edit_finalEditorFunc($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Rise TO" *ngIf="finalEditor" (click)="finalEditorFunc($event)">beenhere</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="finalEditor" (click)="edit_finalEditorFunc($event)">edit</mat-icon>
+  <mat-icon matTooltip="Work Order" *ngIf="poReceived" (click)="poReceivedFunc($event)">games</mat-icon>
+  <!-- <button mat-raised-button color="primary">Primary</button>
+  <button mat-raised-button color="warn">Warn</button> -->
+  <!-- post audit -->
+  <!-- <mat-icon *ngIf="taskOrder || postReview" (click)="edit($event)">edit</mat-icon>
+  <mat-icon *ngIf="taskOrder || postReview">visibility</mat-icon> -->
+  <!-- training material feedback icons  -->
+  
+  <!-- <mat-icon matTooltip="Training" *ngIf="finalTraining" (click)="training_feedback($event)"><span class="material-icons">model_training</span></mat-icon> -->
+
+  <mat-icon matTooltip="Send For L1" *ngIf="taskOrder" (click)="auditVerification($event)">all_out</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="taskOrder" (click)="edit_auditVerification($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Technical Review" *ngIf="techReview" (click)="techreviewauditVerification($event)">donut_small</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="techReview" (click)="edit_techreviewauditVerification($event)">event_seat</mat-icon>
+
+  <mat-icon matTooltip="L1 Review" *ngIf="postReview" (click)="reviewL1($event)">offline_bolt</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="postReview" (click)="edit_reviewL1($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Manage Dates" *ngIf="l1Reviewed" (click)="l1Review($event)">domain</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="l1Reviewed" (click)="edit_l1Review($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Upload Certificate" *ngIf="datesManaged" (click)="managedDates($event)">add_to_photos</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="datesManaged" (click)="edit_managedDates($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Send Response" *ngIf="performaInvoiceSent" (click)="perfomaInvoice($event)">bookmark_border</mat-icon>
+  <mat-icon matTooltip="Branch Office Response" *ngIf="responseSent" (click)="responseSentFunc($event)">bookmark</mat-icon>
+  <mat-icon *ngIf="responseConfirm">book</mat-icon>
+  <mat-icon matTooltip="Verify DQS Data" *ngIf="documentUploaded" (click)="documentUpload($event)">accessible_forward</mat-icon>
+  <mat-icon matTooltip="Edit" *ngIf="documentUploaded" (click)="edit_documentUpload($event)">edit</mat-icon>
+
+  <mat-icon matTooltip="Open House" *ngIf="openHouseNew" (click)="openHouseClick($event)">grade</mat-icon>
+<!--- For Editing start-->
+  <mat-icon matTooltip="Edit" *ngIf="!enableAssign && enableValidate" (click)="edit1($event)">edit</mat-icon>
+  <!-- <mat-icon matTooltip="Assign" *ngIf="!enableValidate && enableAssign" (click)="edit($event)">how_to_reg</mat-icon> -->
+<!--- For Editing end-->
+
+<!-- **********************Icon Invoice Notification******************************* -->
+<mat-icon matTooltip="Verify Invoice Request" *ngIf="workOrder" (click)="verify_invoice_request($event)">note</mat-icon>
+<mat-icon matTooltip="Invoice Request List" *ngIf="workOrder" (click)="invoice_request_list($event)">list</mat-icon>
+<mat-icon matTooltip="Invoice Verify" *ngIf="invoice_icon=='yes'" (click)="verify_invoice_request($event)">add_circle</mat-icon>
+<mat-icon matTooltip="Invoice Request List" *ngIf="invoice_icon=='yes'" (click)="invoice_request_list($event)">list</mat-icon>
+<!-- ***************************************************** -->
+<!-- opprunuity fel -->
+<mat-icon matTooltip="FEA Aprroval Request" *ngIf="signDocument_FEA" (click)="feaApprovel($event)">bug_report</mat-icon>
+<mat-icon matTooltip="FEA Aprroval Request" *ngIf="feaPending" (click)="feaApprovelRequest($event)">bug_report</mat-icon>
+
+<!-- <mat-icon matTooltip="FEA Aprrover" *ngIf="FEAaprrover"  (click)="feaApprover($event)">bug_report</mat-icon> -->
+<mat-icon matTooltip="Sign Documents" *ngIf="FEAaprrover && FEA_"  (click)="signDocs($event)">markunread_mailbox</mat-icon>
+
+<mat-icon matTooltip="Send Notification" (click)="cutomerMajor($event)" *ngIf="verifyDqsData">note_add</mat-icon>
+<mat-icon matTooltip="Create Advance Payment" *ngIf="signDocument" (click)="createAdvancePayment($event)" >note_add</mat-icon>
+<mat-icon matTooltip="Upload DSD" *ngIf="signDocument" (click)="createDSD($event)" >important_devices</mat-icon>
+<mat-icon matTooltip="Verify DSD" *ngIf="verifyDigitalDoc"  (click)="verifyDSD($event)">invert_colors</mat-icon>
+<mat-icon matTooltip="Sign Documents" *ngIf="advancePayment" (click)="signDocs($event)">markunread_mailbox</mat-icon>
+<mat-icon matTooltip="Sales Support" *ngIf="uploadDocsSigned" (click)="uploadDocsSignedTwo($event)">chrome_reader_mode</mat-icon>
+<mat-icon matTooltip="Verify DSD" *ngIf="snmHead" (click)="snmHeadFunc($event)">track_changes</mat-icon>
+<mat-icon matTooltip="S&M Head Approve" *ngIf="salesHeadApproval" (click)="navigateToSalesApproval($event)">offline_bolt</mat-icon>
+<!-- <mat-icon matTooltip="Edit Account" *ngIf="enablePreL1" (click)="edit_preL1($event)"> edit</mat-icon> -->
+
+<mat-icon matTooltip="Budgetary Quote" *ngIf="completenessCheck" matTooltip="Completeness Check" (click)="navigateToCompletenessCreate($event)"> domain</mat-icon>
+
+</div>
+<!-- sales request -->
+

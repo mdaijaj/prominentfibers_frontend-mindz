@@ -1,0 +1,476 @@
+<section>
+  <div class="conatiner">
+    <form [formGroup]="personalForm">
+      <mat-card>
+        <div class="form_head">
+          <h3>PRESENT ADDRESS DETAILS</h3>
+          <button class="backBtn" routerLink="../../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+        </div>
+        <div class="form_basic">
+          <div class="row">
+            <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Address</mat-label>
+                  <input matInput type="text" maxlength="100" formControlName="address"
+                    [value]="personalForm.controls['address'].value | titlecase" />
+                  <mat-error *ngIf="
+                      personalForm.controls['address'].hasError('required')
+                    ">
+                    This field is Required!
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Country</mat-label>
+                   <mat-select formControlName="country" (selectionChange)="presentCountryChange($event)">
+                      <mat-option *ngFor="let country of countryList" [value]="country.countryss_id">{{country.countryss_name}}</mat-option>
+                    </mat-select>
+                  <mat-error *ngIf="
+                      personalForm.controls['country'].hasError('required')
+                    ">
+                    This field is Required!
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>State</mat-label>
+                   <mat-select formControlName="state" (selectionChange)="presentStateChange($event)">
+                      <mat-option *ngFor="let state of presentSteteData" [value]="state.states_id">{{state.states_name}}</mat-option>
+                    </mat-select>
+                  <mat-error *ngIf="personalForm.controls['state'].hasError('required')">
+                    This field is Required!
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline" readonly>
+                    <mat-label>City</mat-label>
+                     <mat-select formControlName="city" >
+                        <mat-option *ngFor="let city of presentCityList" [value]="city.city_id">{{city.city_name}}</mat-option>
+                        </mat-select>
+                        </mat-form-field>
+              </div>
+              </div>
+              <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Pin Code</mat-label>
+                    <input matInput type="text" maxlength="9" formControlName="pincode" (keypress)="onKeyPress($event)" />
+                    <mat-error>
+                      <span *ngIf="personalForm.get('pincode')?.hasError('required')">This field is required!</span>
+                      <span *ngIf="personalForm.get('pincode')?.hasError('pattern')">Minimum 3 numbers required!</span>
+                      <span *ngIf="personalForm.get('pincode')?.hasError('maxlength')">Maximum 9 numbers accepted!</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="form-group check_set">
+                  <mat-checkbox color="primary"  [checked]="isAddressChecked()" (change)="showPermanent($event)" >
+                    <span>Permanent Address Same as Present Address </span></mat-checkbox>
+                </div>
+              </div>
+            </div>
+            </div>
+           
+          <!-- open permanent address details  -->
+      <div class="form_basic">
+        <div class="row" >
+          <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline" readonly>
+                <mat-label>Address</mat-label>
+                <input matInput type="text" maxlength="100" formControlName="permanent_address"
+                   />
+                <mat-error *ngIf="
+                    personalForm.controls['permanent_address'].hasError('required')
+                  ">
+                  This field is Required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Country</mat-label>
+                 <mat-select formControlName="permanent_country" (selectionChange)="permanentCountryChange($event)">
+                    <mat-option *ngFor="let country of countryList" [value]="country.countryss_id">{{country.countryss_name}}</mat-option>
+                  </mat-select>
+                <mat-error *ngIf="
+                    personalForm.controls['permanent_country'].hasError('required')
+                  ">
+                  This field is Required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="permanent_state" (selectionChange)="permanentState($event)">
+                    <mat-option *ngFor="let state of permanentStateData" [value]="state.states_id">{{state.states_name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="personalForm.controls['permanent_state'].hasError('required')">
+                    This field is Required!
+                  </mat-error>
+           </mat-form-field>
+       
+            </div>
+          </div>
+ 
+        </div>
+
+        <div class="row">
+          <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+            <div class="form-group">
+             <mat-form-field appearance="outline" readonly>
+               <mat-label>City</mat-label>
+               <mat-select formControlName="permanent_city">
+                   <mat-option *ngFor="let city of permanentCityList" [value]="city.city_id">{{city.city_name}}</mat-option>
+                 </mat-select>
+               <mat-error *ngIf="personalForm.controls['permanent_city'].hasError('required')">
+                 This field is Required!
+               </mat-error>
+             </mat-form-field>
+           </div>
+  
+         </div>
+         <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+           <div class="form-group">
+
+             <mat-form-field appearance="outline">
+               <mat-label>Pin Code</mat-label>
+               <input matInput type="text" maxlength="9" formControlName="permanent_pincode" (keypress)="onKeyPress($event)" />
+               <mat-error>
+                 <span *ngIf="personalForm.get('pincode')?.hasError('required')">This field is required!</span>
+                 <span *ngIf="personalForm.get('pincode')?.hasError('pattern')">Minimum 3 numbers required!</span>
+                 <span *ngIf="personalForm.get('pincode')?.hasError('maxlength')">Maximum 9 numbers accepted!</span>
+               </mat-error>
+             </mat-form-field>
+           </div>
+         </div>
+        </div>
+      </div>
+  
+      </mat-card>
+
+      <!-- personal details  -->
+      <div class="personalDetails pt-5">
+        <mat-card>
+          <div class="row form_head">
+            <h3>PERSONAL DETAILS</h3>
+          </div>
+          <div class="form_basic">
+            <div class="row">
+              <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Alternate No</mat-label>
+                    <input matInput type="text" formControlName="alternate_mobile"/>
+                    <mat-error *ngIf="personalForm.controls['alternate_mobile'].hasError('required' )">
+                      This field is Required!
+                    </mat-error>
+                    <mat-error *ngIf="personalForm.controls['alternate_mobile'].hasError('pattern' )">
+                      It is not a valid mobile number.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Blood Group</mat-label>
+                    <input matInput type="text" maxlength="4" formControlName="blood_group" [value]="
+                        personalForm.controls['blood_group'].value | titlecase
+                      " />
+                    <mat-error *ngIf="
+                        personalForm.controls['blood_group'].hasError(
+                          'required'
+                        )
+                      ">
+                      This field is Required!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Marital Status</mat-label>
+                    <!-- <input matInput type="text" maxlength="20" formControlName="maritial_status" [value]="
+                        personalForm.controls['maritial_status'].value
+                          | titlecase
+                      " /> -->
+                      <mat-select formControlName="maritial_status">
+                        <mat-option value="Married">Married</mat-option>
+                        <mat-option value="Unmarried">Unmarried</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="
+                        personalForm.controls['maritial_status'].hasError(
+                          'required'
+                        )
+                      ">
+                      This field is Required!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline" readonly>
+                    <mat-label>Spouse Name</mat-label>
+                    <input matInput type="text" maxlength="30" formControlName="spouse_name" 
+                      
+                       />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Pan Card Number</mat-label>
+                    <input matInput type="text" formControlName="pan_number" id="txtPANCard" maxlength="10" 
+                      oninput="this.value = this.value.toUpperCase()" />
+                      <mat-error
+                      *ngIf="
+                      personalForm.controls['pan_number'].hasError('required')
+                      "
+                    >
+                      PAN Number is required
+                    </mat-error>
+                      <mat-error
+                      *ngIf="
+                      personalForm.controls['pan_number'].hasError('pattern')
+                      "
+                    >
+                      PAN Number is Invalid
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Aadhar Card Number</mat-label>
+                    <input matInput type="text" formControlName="adhar_number" />
+                    <mat-error>
+                      <span *ngIf="
+                          personalForm.controls['adhar_number'].hasError(
+                            'required'
+                          )
+                        ">
+                        This field is required!</span>
+                      <span *ngIf="
+                          (personalForm.controls['adhar_number'].hasError(
+                            'pattern'
+                          ) &&
+                            personalForm.controls['pincode'].hasError(
+                              'minlength'
+                            )) ||
+                          (personalForm.controls['adhar_number'].hasError(
+                            'pattern'
+                          ) &&
+                            personalForm.controls['adhar_number'].hasError(
+                              'maxlength'
+                            )) ||
+                          personalForm.controls['adhar_number'].hasError(
+                            'pattern'
+                          )
+                        ">Enter only numbers!</span>
+                      <span *ngIf="
+                          personalForm.controls['adhar_number'].hasError(
+                            'minlength'
+                          )
+                        ">
+                        Minimum 3 numbers required!</span>
+                      <span *ngIf="
+                          personalForm.controls['adhar_number'].hasError(
+                            'maxlength'
+                          )
+                        ">
+                        Maximum 12 numbers accepts!</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <!-- family details -->
+
+      <div class="personalDetails pt-5">
+        <mat-card>
+          <div class="row form_head">
+            <h3>FAMILY DETAILS</h3>
+          </div>
+          <div class="form_basic">
+            <div class="table px-3" style="width: 100%;">
+              <thead>
+                <tr class="row">
+                  <th maxlength="20" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    Family Member's Name
+                  </th>
+                  <th class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    Date Of Birth
+                  </th>
+                  <th class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    Relation With Employee
+                  </th>
+                  <th class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    Contact Number
+                  </th>
+
+                  <th class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                    Remarks
+                  </th>
+                  <th class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12 py-2">
+                    <button mat-raised-button color="warn" (click)="addRow()">
+                      Add
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="tableRows" *ngFor="let control of CF_1.tableRows['controls']; index as i">
+                  <tr class="row" [formGroup]="control">
+                    <td class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                      <input type="text"  formControlName="family_member_name" class="form-control" />
+                    </td>
+                    <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                      <input type="date" formControlName="date_of_birth" class="form-control" />
+                    </td>
+                    <td class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                      <input type="text" maxlength="20" formControlName="relation" class="form-control" />
+                    </td>
+                    <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                      <input type="text"
+                        formControlName="contact_number" class="form-control" [class.contactInvalid]="control.controls['contact_number'].invalid"/>
+                        <span *ngIf="control.controls['contact_number'].hasError('pattern')" style="color:red;">invalid contact number</span>
+                    </td>
+                    <td class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                      <input type="text" maxlength="30" formControlName="remark" class="form-control" />
+                    </td>
+                    <td class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12" style="
+                        text-align: center;
+                        color: #8B817D;
+                        cursor: pointer;
+                      ">
+                      <i class="material-icons" (click)="deleteTableRows(i, control)">delete</i>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <!-- PRIVIOUS EMPLOYER DETAILS -->
+      <div class="personalDetails pt-5">
+        <mat-card>
+          <div class="row form_head">
+            <h3>PREVIOUS EMPLOYER DETAILS</h3>
+          </div>
+          <div class="form_basic">
+            <div class="table px-3" style="width: 100%;">
+              <thead>
+                <tr class="row">
+                  <th class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    Company Name
+                  </th>
+                  <th class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                    Position
+                  </th>
+                  <th class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    Form Date
+                  </th>
+                  <th class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    To Date
+                  </th>
+                  <th class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                    Last Drawn Salary (k)
+                  </th>
+                  <th class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    Reason Of Leaving
+                  </th>
+                  <th class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                    Location
+                  </th>
+                  <th class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12 py-2">
+                    <button mat-raised-button color="warn" (click)="addRowEmploy()">
+                      Add
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="employerRows" *ngFor="
+                    let control_2 of CF_1.employerRows['controls'];
+                    index as i
+                  ">
+                  <tr class="row" [formGroup]="control_2">
+                    <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                      <input type="text" maxlength="50" formControlName="company_name" class="form-control" />
+                    </td>
+                    <td class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                      <input type="text" maxlength="30" formControlName="position" class="form-control" />
+                    </td>
+                    <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                      <input type="date" formControlName="from_date" class="form-control" />
+                    </td>
+                    <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                      <input type="date" formControlName="to_date" class="form-control" />
+                    </td>
+                    <td class="col-xxl-1 col-lg-1 col-md-1 col-sm-1">
+                      <input type="number" min="0" maxlength="5" formControlName="last_drawn_salary" class="form-control" />
+                    </td>
+                    <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                      <input type="text" maxlength="50" formControlName="reson_of_leaving" class="form-control" />
+                    </td>
+                    <td class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                      <input type="text" maxlength="20" formControlName="location" class="form-control" />
+                    </td>
+                    <td class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12" style="
+                        text-align: center;
+                        color: #8B817D;
+                        cursor: pointer;
+                      ">
+                      <i class="material-icons" (click)="deleteEmployerRow(i, control_2)">delete</i>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div class="mt-3">
+        <button mat-raised-button color="primary" class="mx-3" (click)="onSubmitPersonal()">
+
+          Save & Next
+
+        </button>
+        <button mat-raised-button color="warn" (click)="Skip()">Skip</button>
+      </div>
+    </form>
+  </div>
+</section>

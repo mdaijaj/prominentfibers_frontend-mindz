@@ -1,0 +1,60 @@
+<!-- **************** DMS Dashboard head start******************** -->
+<div class="section">
+    <div class="row head">
+        <p>Employee</p>
+    </div>
+    <div class="row py-1 section">
+        <div class="employee_top">Dashboard
+            <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+                </i>
+                Document Master System </span>
+        </div>
+
+        <div class="employ_sube">
+            <div class="add_btn">
+                <!-- <button class="btn_add" routerLink="createFolder">Create Folder</button> -->
+            </div>
+        <div class="employee_2" align="end">
+            <!-- <label>Search: </label> -->
+            <input type="text" class="form-control" id="filter-text-box search" placeholder="First Name Search" [(ngModel)]="nameSearch">
+        </div></div>
+
+       </div>
+                <!-- ****************DMS Dashboard head end******************** -->
+                <!-- ****************DMS Dashbaard container start******************* -->
+                <div>
+                <div class="form_head">
+                    <h3>Document Library</h3>
+                    <button class="backBtn" routerLink="../../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+                </div>
+                <div class="card">
+                    <div class="noData" *ngIf="getData.length==0">
+                        No data found
+                    </div>
+                    <div class="row">
+                        <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4"
+                            *ngFor="let data of rowData | search:nameSearch; let i=index">
+                            <div >
+                            <div class="card">
+                                <img class="hr-profile" [src]="getProfilrPhoto(data.employee_photo)" alt="" />
+                                <div class="card-body" >
+                                    <div class="field">{{data.first_name}}</div>
+                                    <div class="field">{{data.employee_official_email}}</div>
+                                    <div class="field">{{data.status}}</div>
+                                </div>
+
+                            </div>
+                            <p style="text-align: center;">
+                                <button class="round-info" (click)="gotoSeeDetails(data.employee_id)"
+                                    routerLink="seeDetails">See Details</button>
+                            </p>
+                        </div>
+                            <!-- <p style="text-align: center;">
+                                <button class="round-info" [routerLink]="['seeDetails',data.document_master_id]">See Details</button>
+                            </p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!-- ****************HR Dashbaard  container end******************* -->
+    </div>

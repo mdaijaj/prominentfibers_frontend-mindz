@@ -1,0 +1,181 @@
+<div class="section">
+
+  <div class="employee">
+    <p>View Ticket</p>
+  </div>
+  <div class="msater-nav">
+    <a href="">Admin<mat-icon>keyboard_arrow_right</mat-icon></a>
+    <a routerLink="../new-ticket-list">Add Ticket</a>
+  </div>
+  <div class="back" (click)="back()">Back</div>
+
+  <mat-card>
+    <div class="row form_head">
+      <form class="">
+        <h3>{{itTicketing_number?'Update Ticket':'Add Ticket'}}</h3>
+      </form>
+    </div>
+    <div class="main-form form_set">
+      <form class="form" [formGroup]="itForm">
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="example-form-field">
+              <mat-label>Ticket Raised By</mat-label>
+              <mat-select formControlName="ticket_raised_by" (selectionChange)="change($event)">
+                <mat-option value="Self">Self</mat-option>
+                <mat-option value="Other">Others</mat-option>
+              </mat-select>
+              <mat-error *ngIf="itForm.controls['ticket_raised_by'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6" *ngIf="this.hide=='Other'">
+            <mat-form-field appearance="outline" class="example-form-field">
+              <mat-label>Other</mat-label>
+              <mat-select formControlName="others_name" (selectionChange)="changes()">
+                <mat-option [value]="data.fullName" *ngFor="let data of GetAllUserNameDropDown">
+                  {{data.fullName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="itForm.controls['others_name'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-md-6">
+            <mat-form-field appearance="outline" class="example-form-field">
+              <mat-label>Ticket Assign To</mat-label>
+              <mat-select formControlName="ticket_assigned_to">
+                <mat-option [value]="data.fullName" *ngFor="let data of asignTo">
+                  {{data.fullName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="itForm.controls['ticket_assigned_to'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="example-form-field">
+              <mat-label>Category</mat-label>
+              <mat-select formControlName="category">
+                <mat-option value="Hardware">Hardware</mat-option>
+                <mat-option value="Software">Software</mat-option>
+              </mat-select>
+              <mat-error *ngIf="itForm.controls['category'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="example-form-field">
+              <mat-label>Stage</mat-label>
+              <mat-select formControlName="stage">
+                <mat-option value="Critical">Critical</mat-option>
+                <mat-option value="Major">Major</mat-option>
+                <mat-option value="Minor">Minor</mat-option>
+                <mat-option value="Information">Information</mat-option>
+              </mat-select>
+              <mat-error *ngIf="itForm.controls['stage'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-form-field" appearance="outline">
+              <mat-label>Subject</mat-label>
+              <input matInput type="text" formControlName="subject" />
+              <mat-error *ngIf="itForm.controls['subject'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-12">
+            <mat-label>Description</mat-label>
+            <div class="form-group attach_file">
+              <ckeditor #editer id="ckediter" formControlName="description"></ckeditor>
+            </div>
+          </div>
+
+          <div class="col-md-6 mt-4">
+            <div class="form-group">
+              <input class="form-control" type="file" formControlName="attachment" placeholder="Employee Photo"
+                (change)="onFileChange($event)" />
+              <img [src]="imagePath ?imagePath:ticketData?.attachment" *ngIf="imagePath || ticketData?.attachment"
+                alt="emp image" class="imgEmp" (click)="seePreview(ticketData?.attachment, imagePath)" />
+            </div>
+          </div>
+
+          <!-- <div class="col-md-6 mt-4" *ngIf="key">
+            <mat-form-field class="example-form-field" appearance="outline">
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status" (selectionChange)="onstatuschange($event)">
+                <mat-option value="OPEN">Open</mat-option>
+                <mat-option value="IN-PROGRES">In-Progress</mat-option>
+                <mat-option value="CLOSE">Close</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div> -->
+          <div class="col-md-6 mt-4" *ngIf="key">
+            <mat-form-field appearance="outline" class="example-form-field">
+              <mat-label>Ticket Assign To</mat-label>
+              <mat-select formControlName="ticket_assigned_to">
+                <mat-option [value]="data.fullName" *ngFor="let data of asignTo">
+                  {{data.fullName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="itForm.controls['ticket_assigned_to'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-12" *ngIf="key">
+            <mat-form-field class="example-form-field" appearance="outline" style="min-height: 100px;">
+              <mat-label>Remark</mat-label>
+              <input matInput type="text" formControlName="remarks" />
+              <mat-error *ngIf="itForm.controls['remarks'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div align="end">
+          <div class="mt-3">
+            <button *ngIf="!itTicketing_number" mat-raised-button color="primary" (click)="sumbit()" class="mx-3">
+              Escalate
+            </button>
+
+            <button *ngIf="itTicketing_number" (click)="onUpdateForm()" mat-raised-button color="primary" class="mx-3">
+              Update
+            </button>
+
+            <button mat-raised-button color="warn" (click)="reLoad()">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </mat-card>
+
+  <div class="main-table">
+    <mat-card>
+      <div class="row form_head">
+        <h3>Ticket List - user</h3>
+      </div>
+      <div class="ag_grid">
+        <ag-grid-angular class="ag-theme-alpine" style=" width:100%; height:400px;" [rowData]="rowData"
+          [columnDefs]="columnDefs" [pagination]=true [paginationPageSize]=10 [rowData]="rowData"
+          (gridReady)="onGridReady($event)" (cellClicked)='onCellClicked($event)' [rowClass]="rowClass">
+        </ag-grid-angular>
+      </div>
+    </mat-card>
+  </div>
+</div>

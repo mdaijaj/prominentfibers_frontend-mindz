@@ -1,0 +1,20 @@
+<div class="section">
+    <div class="msater-nav">
+      <a style="color:#8B817D; text-decoration: none;" routerLink="../">ITR</a>
+    </div>
+  <section class="tab-bar" >
+      <div fxflex="100%">
+        <div class="row">
+          <div class="tab_menu">
+            <div class="tab-item">
+              <button class="main-button" color="primary"  [routerLink]="['itr-deductionss']" routerLinkActive="active"  >ITR DEDUCTION</button>
+              <button class="main-button" color="primary"  [routerLink]="['other-deduction']" routerLinkActive="active">OTHER DEDUCTION</button>
+              <button class="main-button" color="primary"  [routerLink]="['other-allowance']" routerLinkActive="active">OTHER ALLOWANCE</button>
+              <button class="main-button" color="primary"  [routerLink]="['variable']" routerLinkActive="active"> VARIABLE </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <router-outlet></router-outlet>

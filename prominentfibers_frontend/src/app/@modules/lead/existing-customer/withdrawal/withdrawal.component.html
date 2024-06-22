@@ -1,0 +1,47 @@
+<div class="main section">
+    <!-- <div class="employee">
+        <p>Sales & Marketting</p>
+      </div> -->
+      <!-- <div class="msater-nav">
+        <a href="">Existing Customer Module<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Withdrawal</a>
+      </div> -->
+      <div class="msater-nav">
+        <a>S & M<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="/master/lead/existing-customer">Accreditation Mgmt<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="/master/lead/existing-customer/withdrawal">Withdrawal</a>
+    </div>
+        <div class="employ_sube mb-2 mt-3">
+        <div class="">
+          <div class="example-header">
+            <select (change)="onPageSizeChanged()" id="page-size">
+              <option value="10" selected="">50</option>
+              <option value="100">100</option>
+              <option value="500">500</option>
+              <option value="1000">1000</option>
+            </select>
+            <!-- <span class="pag_size">Per Page</span> -->
+          </div>
+        </div>
+        <div class="col-md-2">
+            <input placeholder="Search" class="form-control" type="text" id="filter-text-box"
+              (input)="onFilterTextBoxChanged()" />
+          </div>
+      </div>
+      
+
+    <mat-card>
+        <div class="row form_head">
+            <h3>Advance Planning RA/TRA Notification Details List</h3>
+        </div>
+        <div class="ag_grid">
+            <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                [rowData]="rowData" [columnDefs]="columnDefs" (cellClicked)='onCellClicked($event)' [pagination]=true [paginationPageSize]=10
+                (gridReady)="onGridReady($event)">
+            </ag-grid-angular>
+        </div>
+    </mat-card>
+
+</div>
+
+

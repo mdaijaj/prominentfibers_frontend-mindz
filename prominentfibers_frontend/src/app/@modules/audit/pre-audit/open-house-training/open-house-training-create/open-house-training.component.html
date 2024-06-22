@@ -1,0 +1,353 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee">
+      </div>
+      <div class="msater-nav">
+        <a href="">HRMS<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Open House Training List</a>
+      </div>
+      <div class="updatetitle">
+        <h2><b>Create Open House Training</b></h2>
+      </div>
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <form class="" [formGroup]="leadForm">
+              <div class="row form_head">
+                <h3>Customer Details</h3>
+              </div>
+
+              <div class="form_basic form_set">
+
+
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Program Title</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="program_title" />
+                        <mat-error *ngIf="leadForm.controls['program_title'].hasError('required')">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Program Name</p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="program_name">
+                          <mat-select-filter [array]="programListVar"
+                            (filteredReturn)="programListfilter($event)"></mat-select-filter>
+                          <mat-option *ngFor="let item of standardList"
+                            [value]="item.product_master_name">{{item.product_master_name}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="leadForm.controls['program_name'].hasError('required')">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Start Date</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="dp" (click)="dp.open()" [min]="todayDate"
+                          (dateChange)="startDateChanged($event)" formControlName="open_house_start_date" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                        <mat-datepicker #dp></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>End Date</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="dp1" (click)="dp1.open()" [min]="startDate"
+                          (dateChange)="endDateChanged($event)" formControlName="open_house_end_date" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                        <mat-datepicker #dp1></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>No of Days</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="number" min="0" readonly formControlName="no_of_days" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Traning Mode</p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="venue" (selectionChange)="trainingModeSelection($event)">
+                          <mat-option value="Online">Online</mat-option>
+                          <mat-option value="On Site">On Site</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="showTrainingLocation">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Traning vanue</p>
+                        <mat-form-field appearance="outline">
+                          <mat-select formControlName="training_location">
+                            <mat-option value="Online">Dqs Banglore</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </ng-container>
+          
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Program Organizer</p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="program_organizer" (ngModelChange)="updateBRNumber($event)">
+                          <mat-select-filter [array]="programOrgVar"
+                            (filteredReturn)="programfilter($event)"></mat-select-filter>
+                          <mat-option *ngFor="let item of allCompanyList"
+                            [value]="item.associated_company">{{item.associated_company}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>BR Number</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="br_number" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Program Cost</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" formControlName="program_cost" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Training Templete</p>
+                      <input class="form-control" type="file" style="padding-right: 19%" title="Training Templete"
+                        (change)="onTemplateChange($event)" formControlName="advartisment_image " />
+                      <img [src]="templatePath" *ngIf="templatePath" class="imgEmp"
+                        (click)="seeTempletePreview( templatePath)" />
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Created By</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input matInput type="text" formControlName="created_by" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Created Date</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="dp2" (click)="dp2.open()" formControlName="created_date" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                        <mat-datepicker #dp2></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- add participant -->
+              <div class="patcipants_table" *ngIf="singleLeadData">
+                <div class="row form_head">
+                  <h3>Add Participant</h3>
+                </div>
+
+                <div class="form_basic form_set">
+                  <div class="row">
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Participant Name</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput type="text" formControlName="participant_name" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>E-mail Id</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput type="email" formControlName="email_id" />
+                          <mat-error *ngIf="leadForm.controls['email_id'].errors?.['pattern']">Please
+                            enter valid email</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>contact number</p>
+                        <mat-form-field appearance="outline">
+                          <!-- <mat-label>Candidate Name</mat-label> -->
+                          <input matInput type="number" formControlName="contact_number" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Program Cost</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput type="number" formControlName="program_cost2" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Disccount(%)</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput type="number" formControlName="disccount" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Final Fee After</p>
+                        <mat-form-field appearance="outline">
+                          <!-- <mat-label>Candidate Name</mat-label> -->
+                          <input matInput type="text" formControlName="final_fee_after" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Gst(%)</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput type="text" formControlName="gst" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Total Cost</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput type="text" formControlName="total_cost" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Advance Fee Collected</p>
+                        <mat-form-field appearance="outline">
+                          <!-- <mat-label>Candidate Name</mat-label> -->
+                          <input matInput type="text" formControlName="advance_fee_collected" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Advane Percentage(%)</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput type="text" formControlName="advane" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Payment Details</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput type="text" formControlName="payment_details" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Promis To Pay Date</p>
+                        <mat-form-field appearance="outline">
+                          <input matInput [matDatepicker]="dp10" (click)="dp10.open()"
+                            formControlName="promis_to_pay_date" />
+
+                          <mat-datepicker-toggle matSuffix [for]="dp10"></mat-datepicker-toggle>
+                          <mat-datepicker #dp10></mat-datepicker>
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="upload-btn">
+
+                    <button class="add_participant" (click)="addparticipantSubmit()">
+                      Add Participant
+                    </button>
+                  </div>
+                </div>
+                <div class="ag_grid">
+                  <ag-grid-angular class="ag-theme-alpine" style="width:100%; height:426px;" [rowData]="rowData"
+                    [columnDefs]="columnDefs" [pagination]=true [paginationPageSize]=9
+                    (gridReady)="onGridReady($event)">
+                  </ag-grid-angular>
+                  <!-- <div class="add_mat">
+    <i class="fa fa-plus" aria-hidden="true" (click)="onFactoryButtonClick($event)" style="cursor: pointer;"></i>
+  </div> -->
+                </div>
+              </div>
+
+              <div class="upload-btn">
+                <button class="cancel-btn">
+                  Cancel
+                </button>
+                <button class="favorite styled" (click)="submitForm()">Save</button>
+              </div>
+            </form>
+          </mat-card>
+        </div>
+
+      </section>
+
+
+    </div>
+  </div>
+</mat-card>

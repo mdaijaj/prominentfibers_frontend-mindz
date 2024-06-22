@@ -1,0 +1,88 @@
+.employee_top {
+    color: #989aa0;
+    cursor: pointer;
+}
+
+.employee_2 {
+    font-size: 16px;
+    color: #8B817D;
+}
+
+button.view-doc {
+    border: none;
+    background: #316bcb;
+    border-radius: 8px;
+    color: #fff;
+    padding: 3px 10px;
+    font-size: 12px;
+    margin: 7px;
+}
+.form_audit{
+    padding: 20px 0px;
+}
+button.iploadBtn {
+    float: right;
+    margin: 2% 5%;
+    color: #fff;
+    background: #212a5e;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+.form_set {
+    padding: 20px;
+}
+.table thead tr th {
+    font-weight: 400;
+    font-size: 14px;
+    background-color: #8b8b8b;
+    color: #fff;
+}
+.updatetitle{
+    text-align: center;
+    color: #8B817D;
+    font-size: 18px;
+    font-weight: 450;
+}
+.cancel-btn {
+    float: right;
+    background: gray;
+    margin: 2% 2% 2% 0;
+    border: unset;
+    padding: 10px 30px;
+    border-radius: 5px;
+    color: #fff;
+}
+.readonly-wrapper {
+    pointer-events: none;
+}
+
+.btn_add{
+    color: #fff;
+    background-color: #8B817D;
+    font-size: 14px;
+    border-color: #8B817D;
+    border-radius: 4px;
+    border: 1px solid #8B817D;
+    padding: 2px 12px;
+    float: right;
+    margin: 10px 53px 0 0;
+}
+
+.msater-nav {
+    a {
+        margin: 0 24px 0 0;
+    }
+    :nth-child(1) {
+        color: black;
+      }
+      :nth-child(2) {
+        color: black;
+      }
+    :nth-child(3) {
+        color: #0d6efd;
+      }
+    mat-icon {
+        position: absolute;
+        margin-top: -4px;
+    }
+}

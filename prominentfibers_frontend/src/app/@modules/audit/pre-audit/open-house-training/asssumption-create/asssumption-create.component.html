@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>Create Revenue</h2>
+<mat-dialog-content class="mat-typography">
+
+    <div class="section">
+        <form action="" [formGroup]="revenueCreate">
+          <div class="row">
+            
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Trainer Fee/Day</mat-label>
+                    <input matInput type="text" formControlName="trainer_fees" />
+                </mat-form-field>
+            </div>
+            
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Price/Kit </mat-label>
+                    <input matInput type="text" formControlName="price_kit" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Hall Charges</mat-label>
+                    <input matInput type="text" formControlName="hall_charges" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Projector Cost</mat-label>
+                    <input matInput type="text" formControlName="projector_cost" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Trainer Stay/Day </mat-label>
+                    <input matInput type="text" formControlName="trainer_stay" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Additional Peopel for Hall Charges</mat-label>
+                    <input matInput type="text" formControlName="additional_people" />
+                </mat-form-field>
+            </div>
+        
+        </div>
+    </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" (click)="submitForm()" [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

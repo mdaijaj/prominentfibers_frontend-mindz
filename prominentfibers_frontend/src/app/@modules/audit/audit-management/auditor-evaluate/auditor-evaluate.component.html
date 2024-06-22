@@ -1,0 +1,68 @@
+<div class="section">
+
+    <div class="row py-1">
+        <div class="msater-nav">
+            <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="/master/audit/audit-management">Audit Management<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="/master/audit/audit-management/add-auditor">Add Evaluation</a>
+        </div>
+
+    </div>
+    <div class="employ_sube">
+        <div class="">
+            <div class="add_btn">
+                <!-- <button type="button" class="btn_add" routerLink="employee-create" *ngIf="assignAction?.Write">Add Employee</button> -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="employ_sube py-2">
+        <div class="">
+
+        </div>
+        <div class="">
+            <div class="employee_2" align="end">
+                <!--   
+          <input type="text" class="form-control" id="filter-text-box" placeholder="Search"
+            (input)="onFilterTextBoxChanged()"> -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form_head">
+        <h3>Audit List</h3>
+    </div>
+    <div class="ag_grid">
+        <div class="container">
+            <div class="row" >
+               
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let data of auditorLists">
+                    <div class="our-team">
+                        <div class="picture">
+                            <img class="img-fluid" src="https://picsum.photos/130/130?image=839">
+                        </div>
+                        <div class="team-content" >
+                            <h3 class="name">Naeme:-{{data.auditor_first_name}}</h3>
+                            <h4 class="title">Qualification:-{{data.auditor_qualification}}</h4>
+                        </div>
+                        <ul class="social" (click)="Evaluation_summary_page(data.audit_qualification_id)">
+                           <li class="status">
+                            View Evaluation
+                           </li>
+                        </ul>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+</div>

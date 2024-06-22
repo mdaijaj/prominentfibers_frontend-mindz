@@ -1,0 +1,124 @@
+<h3 mat-dialog-title class="popHead">Add BOM </h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<form  [formGroup]="bomForm">
+    <mat-dialog-content class="mat-typography">
+        <div class="cotain">
+            <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>BOM Category</mat-label>
+                            <mat-select  formControlName="bomCategory" (selectionChange)="selectCateGory($event)" >
+                                <mat-option *ngFor="let data of getAllBomData"
+                                    [value]=" data.id">{{data.bomCategory}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="
+                            bomForm.controls['bomCategory'].hasError('required')
+                        ">
+                  This field is required!
+                </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+    
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Products Name</mat-label>
+                            <mat-select  formControlName="product_name" (selectionChange)="selectProduct($event)">
+                                <mat-option *ngFor="let data of productAll"
+                                    [value]=" data.id">{{data.product_name}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="
+                            bomForm.controls['product_name'].hasError('required')
+                        ">
+                  This field is required!
+                </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Varient</mat-label>
+                            <mat-select  formControlName="varient" (selectionChange)="selectVarient($event)">
+                                <mat-option *ngFor="let data of varientAll"
+                                    [value]="data" >{{data.product_variant}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="
+                            bomForm.controls['varient'].hasError('required')
+                        ">
+                  This field is required!
+                </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>No Of BOM</mat-label>
+                            <!-- <mat-select (selectionChange)="selectVarient($event)">
+                                <mat-option *ngFor="let data of varientAll"
+                                    [value]="data" >{{data.product_variant}}</mat-option>
+                            </mat-select> -->
+                            <input matInput formControlName="noOfBOM" type="number"/>
+                            <mat-error *ngIf="
+                            bomForm.controls['noOfBOM'].hasError('required')
+                        ">
+                  This field is required!
+                </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- <div class="row">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Items</th>
+                            <th scope="col">MVP</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Select</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="itemData?.length !=0">
+                        <tr *ngFor="let data of itemData ; let i = index">
+                            <td>{{data.item_name}}</td>
+                            <td>{{data.MVP}}</td>
+                            <td><input type="number" min="1" placeholder="Quantity" [name]="'quantity' + i"
+                                    [id]="'quantity' + i" [(ngModel)]="data.quantity"></td>
+                            <td><input type="checkbox" (change)="checkboxClicked($event,data)"></td>
+                        </tr>
+    
+                    </tbody>
+                    <tbody *ngIf="filteredData?.length ==0">
+                        <tr>
+                            <td colspan=5>
+                                <div style="text-align: center; color: #8e8e8e;
+                  font-size: 12px;">
+                                    <span>No Record Found</span>
+                                </div>
+    
+                            </td>
+                        </tr>
+                    </tbody>
+    
+                </table>
+            </div> -->
+    
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-raised-button color="primary" class="mx-3" (click)="closeDialog()">
+            Add BOM
+        </button>
+        <button mat-button mat-dialog-close mat-raised-button color="warn">
+            Close
+        </button>
+    </mat-dialog-actions>
+</form>

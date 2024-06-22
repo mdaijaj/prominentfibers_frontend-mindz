@@ -1,0 +1,107 @@
+<h3 mat-dialog-title class="popHead">PAY SLIP RECORD</h3>
+<mat-dialog-content class="mat-typography" id ="htmlData">
+  <div class="cotain">
+    <div><img width="100px" height="100px" src="../../../assets/icons/Em_OfficeLogo_1.png"></div>
+    <div style="text-align: center; font-weight: bold;">
+       EM Office Pvt. Ltd
+    </div>
+    <div class="row pt-4 pl-5">
+        <table class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="font-weight: bold;">
+            <p>Employee Code:  {{EmpListData[0]?.employee_code}}</p>
+            <p>Department   :  {{EmpListData[0]?.department}}</p>
+            <p>Designation  :  {{EmpListData[0]?.designation}} </p>
+            <p>PAN	  :  {{EmpListData[0]?.pan_number}}</p>
+            <p>LWP   :  {{0}}</p>
+        </table>
+        <table class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="font-weight: bold;" align="end">
+            <p>Name:  {{EmpListData[0]?.first_name}} </p>
+            <p>Date Of Joining :  {{EmpListData[0]?.date_of_joining}}</p>
+            <p>UAN No.	:  {{EmpListData[0]?.emp_bank_details[0].uan_number}} </p>
+            <p>Arrear Days :  {{0}}</p>
+            <p>Esi No.:  {{EmpListData[0]?.emp_bank_details[0].pf_number}}</p>
+        </table>
+
+
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="row">Leave Name</th>
+          <th scope="row">Opening Balance</th>
+          <th scope="row">Availed Leave</th>
+          <th scope="row">Closing Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Sick</th>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="" style="display: flex;">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td colspan="5">Earnings</td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td>Description</td>
+                    <td>Rate</td>
+                    <td>Monthly</td>
+                    <td>Arrear</td>
+                    <td>Total</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td colspan="2">Deductions</td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td style="border-bottom: 1px solid #dee2e6;">Description</td>
+                    <td style="border-bottom: 1px solid #dee2e6;">Amount</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+  </div>
+  <div style="font-weight: 900">Payable Days:  {{0}}</div>
+  <div style="font-weight: 900">Net Pay :</div>
+  <div style="font-weight: 900">Net Pay in words :</div>
+  <br />
+  <div style="font-size: 12px;">
+    THIS IS SYSTEM GENERATED REPORT AND HENCE DOES NOT REQUIRE ANY SIGNATURE
+    This document contains confidential information. If you are not the intended
+    recipient you are not authorized to use or disclose it in any form. If you
+    received this in error please destroy it along with any copies and notify
+    the sender immediately.
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions
+  style="display: flex; justify-content: center; align-items: center"
+>
+  <button mat-button mat-dialog-close mat-raised-button color="primary">
+    Close
+  </button>
+  <button
+    style="margin-left: 5px;"
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="warn"
+    cdkFocusInitial
+   (click)="openPDF()"
+  >
+    Print
+  </button>
+</mat-dialog-actions>

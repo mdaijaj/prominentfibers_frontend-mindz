@@ -1,0 +1,11 @@
+<div class="edd-del">
+    <mat-icon #tooltip="matTooltip" matTooltip="Edit"
+    matTooltipPosition="above"
+    matTooltipHideDelay="100" (click)="edit($event)" *ngIf="assignAction?.Write">edit</mat-icon>
+    <mat-icon #tooltip="matTooltip" matTooltip="View"
+    matTooltipPosition="above"
+    matTooltipHideDelay="100" *ngIf="assignAction?.Read">visibility</mat-icon>
+    <mat-icon #tooltip="matTooltip" matTooltip="Delete"
+    matTooltipPosition="above"
+    matTooltipHideDelay="100" (click)="holidayDelete($event)" *ngIf="assignAction?.Delete">delete</mat-icon>
+</div>

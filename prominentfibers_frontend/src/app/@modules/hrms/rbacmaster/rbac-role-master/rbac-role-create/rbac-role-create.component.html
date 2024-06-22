@@ -1,0 +1,67 @@
+<section class="job-nav">
+  <div>
+    <div class="row">
+      <div class="row"></div>
+      <div class="btns">
+        <button type="button" class="btn_add" (click)="back()">List</button>
+      </div>
+    </div>
+    <mat-card>
+      <div class="form_head">
+        <h3>Role Name Assign Menu</h3>
+        <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+      </div>
+
+      <div class="form_basic">
+        <form class="form_set" [formGroup]="roleMasterForm">
+          <div class="row">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mb-2">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Select Branch</mat-label>
+                  <mat-select formControlName="branch_id">
+                    <mat-option *ngFor="let branch_setup of branchData"
+                      [value]="branch_setup.id">{{branch_setup.branch_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mb-2">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Add New Role Name</mat-label>
+                  <!-- <mat-select formControlName="role_name">
+                    <mat-option *ngFor="let role of roleData" [value]="role.role_name">{{role.role_name}}</mat-option>
+                  
+                  </mat-select> -->
+                  <input matInput type="text" formControlName="role_master_name" />
+                  <mat-error *ngIf="roleMasterForm.controls['role_master_name'].hasError('required')">
+                    Role Name is Required.
+                  </mat-error>
+                  <mat-error *ngIf="roleMasterForm.controls['role_master_name'].hasError('leadingSpaces')">
+                    *No leading spaces!
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="save-style">
+            <div class="mt-3">
+              <button mat-raised-button color="primary" class="mx-3" (click)="roleSubmitForm()">
+                Save
+              </button>
+              <button mat-raised-button color="warn" class="mx-3" (click)="back()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-card>
+  </div>
+</section>
+
+<!--Role Functionality Assign Menu start-->
+
+
+<!--Role Functionality Assign Menu end-->

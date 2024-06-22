@@ -1,0 +1,40 @@
+.imgEmp {
+    width: 41px;
+    height: 31px;
+    position: relative;
+    top: -35px;
+    left: 84%;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .outherDoc{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background: #cccaca2b;
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+.deleteBtn{
+  cursor: pointer;
+  color: #dd1a1a;
+  position: relative;
+  top: 7px;
+}
+
+button.view-doc {
+  border: none;
+  background: #316bcb;
+  color: #fff;
+  padding: 3px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  margin: 7px;
+  }
+  button.view-doc.down {
+  background: #49ad49;
+  }

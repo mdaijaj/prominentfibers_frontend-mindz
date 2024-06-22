@@ -1,0 +1,91 @@
+<div class="section">
+  <div class="row head">
+    <p routerLink="../">Employee Attendance</p>
+  </div>
+
+  <div class="row">
+    <div class="employee_top my-1">
+      Dashboard
+      <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #8B817D"></i>
+        {{'Employee Attendance'}}
+      </span>
+    </div>
+  </div>
+    <!-- <div class="row" style="margin-top: 7px;">
+      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <input type="month" class="monthSelector" [formControl]="monthYear" id="monthPicker" placeholder="Month, Year">
+            <button mat-raised-button color="primary" (click)="searchAttendence()"><i class="fa fa-search"></i> Serch</button>
+        </div>
+      </div>
+      <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12" align="end">
+        <button mat-raised-button color="primary" routerLink="../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+      </div>
+    </div> -->
+
+    <form [formGroup]="filterForm" class="formCon">
+      <div class="row">
+        <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>From </mat-label>
+              <!-- <input matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="start_date" /> -->
+              <input matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="start_date" 
+              [max]="maxDate" [min]="minDate"
+                      (dateChange)="fromDate($event)" readonly/>
+              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>To</mat-label>
+              <input matInput [matDatepicker]="on_date" (click)="on_date.open()" formControlName="end_date" name="on_date"
+                (focusout)="todate ? calculateDiff() : calculateDiff()" (dateChange)="calculateDiff()" [max]="maxDate" [min]="FromDate || minDate" (dateChange)="ToDate($event)" readonly>
+              <mat-datepicker-toggle matIconSuffix [for]="on_date"></mat-datepicker-toggle>
+              <mat-datepicker #on_date></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <button mat-raised-button color="primary" style="margin-top: 3px;" (click)="searchAttendence()"><i class="fa fa-search"></i> Search</button>
+          <button matTooltip="Refresh Attendence" class="resetBtn" (click)="reset()"><mat-icon class="rfrIcon">autorenew</mat-icon></button>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" align="end">
+          <button mat-raised-button color="primary" routerLink="../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+        </div>
+      </div>
+    </form>
+  
+
+  <section class="section">
+    <table class="table table-bordered">
+      <thead align="center">
+        <tr>
+          <th scope="col">Sr.no</th>
+          <th scope="col">Employee</th>
+          <th scope="col">Leave Type</th>
+          <th scope="col">Start Date</th>
+          <th scope="col">End Date</th>
+          <th scope="col">Total Leave</th>
+        </tr>
+      </thead>
+      <tbody align="center">
+        <tr *ngFor="let data of allLeaves; index as i">
+          <td>{{i+1}}</td>
+          <td>{{data.applier_name}}</td>
+          <td>{{data.leave_type}}</td>
+          <td>{{data.start_date}}</td>
+          <td>{{data.end_date}}</td>
+          <td>{{data.leave_count}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notFound" *ngIf="allLeaves?.length===0">
+      <p>Data Not Found</p>
+    </div>
+  </section>
+</div>

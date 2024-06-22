@@ -1,0 +1,178 @@
+<div class="section">
+    <form class="form_set" [formGroup]="salaryIncreForm">
+        <div class="row">
+            <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Employee</mat-label>
+                    <mat-select formControlName="first_name">
+                        <mat-option *ngFor="let emp of EmpListData" [value]="emp.employee_id">{{emp.first_name}} {{emp.last_name}}</mat-option>        
+                    </mat-select>        
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Department</mat-label>
+                    <mat-select formControlName="department" (selectionChange)="onDepChange($event)">
+                      <mat-option *ngFor="let deplist of depData" [value]="deplist.dept_id">{{deplist.department_name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Designation</mat-label>
+                    <mat-select formControlName="designation">
+                      <mat-option *ngFor="let diglist of designations" [value]="diglist.designation_id">{{diglist.designation_name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline" readonly>
+                    <mat-label>Increment Type</mat-label>
+                    <mat-select formControlName="increment_type">
+                      <mat-option value="Fix Amount">Fix Amount</mat-option>
+                      <mat-option value="% On CTC">% On CTC</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline" readonly>
+                    <mat-label>Increment Value</mat-label>
+                    <input matInput formControlName="increment_Value">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="mt-3">
+                <button   mat-raised-button color="primary" class="mx-3" 
+                >
+                 Submit
+               </button>
+               <button   mat-raised-button color="primary" class="mx-3" 
+               >
+              Clear
+              </button>
+                <button mat-raised-button color="warn" routerLink="/master/hrms/payroll/payroll-master/salary-process/salary-increment-list">
+                  Cancel
+                </button>
+              </div>
+              
+          </div>
+      </form>
+      <div class="form_head">
+        <h3>Current salary Details</h3>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Group</mat-label>
+              <mat-select (selectionChange)="onGroupChange($event)">
+                <mat-option *ngFor="let groupList of groupData" [value]="groupList.addGroup_id">{{groupList.addGroup_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Company</mat-label>
+              <mat-select >
+                <mat-option *ngFor="let cp of companySelect" [value]="cp">{{cp.companyName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Department</mat-label>
+              <mat-select  (selectionChange)="onDepChange($event)">
+                <mat-option *ngFor="let deplist of depData" [value]="deplist.dept_id">{{deplist.department_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Designation</mat-label>
+              <mat-select >
+                <mat-option *ngFor="let diglist of designations" [value]="diglist.designation_name">{{diglist.designation_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Grade</mat-label>
+              <mat-select >
+                <mat-option *ngFor="let gradeData of gradeData" [value]="gradeData.grade_id">{{gradeData.grade_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Effect From </mat-label>
+              <input matInput [matDatepicker]="dp" (click)="dp.open()" />
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+            <!-- <mat-error *ngIf="holidayForm.controls['holiday_from'].hasError('required')">
+              This field is required!
+            </mat-error> -->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Effect To</mat-label>
+              <input matInput [matDatepicker]="picker" (click)="picker.open()"  name="date" >
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    <div class="form_head">
+      <h3>Salary Calculate</h3>
+    </div>
+    <div class="ag_grid">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>S No.</th>
+            <th>Component</th>
+            <th>Applicable On</th>
+            <th>Yearly</th>
+            <th>Monthly</th>
+            <th>ManualCheck</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let listData of configData; index as i">
+            <td>{{i+1}}</td>
+            <td>{{listData.component_name}}</td>
+            <td>{{listData.configFormula}}</td>
+            <td> <input type="text" id="fname" [disabled]="true" name="fname" [value]="listData.yearly"></td>
+            <td> <input type="text" id="fname" [value]="listData.monthly" [disabled]="true" name="fname"></td>
+            <td> <input type="checkbox" checked></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

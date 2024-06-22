@@ -1,0 +1,1251 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee">
+        <!-- <p>HRMS</p> -->
+      </div>
+      <!-- <div class="msater-nav">
+        <a href="">InterCompany<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Office Request Form</a>
+      </div> -->
+      <div class="msater-nav">
+        <a>S & M<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="/master/lead/inter-company">Inter Company<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="/master/lead/inter-company/receive-request/receive-request-create">Request Form</a>
+    </div>
+      <form class="form_set" [formGroup]="leadForm">
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Information About The Company</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Name and Legal Status of Organization:</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="name_legal_status" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- hiiii -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        Site(s) (List each Address)
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <!-- <mat-form-field appearance="fill" class="test">
+                        <textarea  matInput  matTextareaAutosizem formControlName="site_s_list_add"></textarea>
+                      </mat-form-field> -->
+                      <textarea
+                          appTextareaAutosize
+                          placeholder="Type your Address here..."
+                          rows="4"
+                          class="text-input"
+                          style="width: 100%;"
+                          formControlName="site_s_list_add"
+                        ></textarea>
+                    </div>
+                  </div>
+                  <!-- 123 -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Ref. no (s)</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="number" formControlName="ref_no_s" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- hii -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Parent Ref. No.</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="number" formControlName="parent_ref" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>BR Number</h3>
+                    </div>
+                  </div>
+
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="inter_company_br_number" (selectionChange)="getDataWithBr($event)">
+                          <mat-select-filter [array]="brVar" (filteredReturn)="brfilter($event)" (focusout)="focusout()" ></mat-select-filter>
+                          <mat-option  *ngFor="let item of ber_No" [value]="item.br_number">{{'Br No - ' + item?.br_number
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      <h3>Head Counts</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="number" formControlName="headcounts" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 123 -->
+                  <!-- hii -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        Local Contact Person:
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="local_contact_person" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        *Phone:
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="number" formControlName="local_contact_person_phone" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        *E-mail:
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="local_contact_person_email" />
+                        <mat-error *ngIf="
+                          leadForm.controls['local_contact_person_email'].hasError('required')
+                        ">
+                          Required*
+                        </mat-error>
+                        <mat-error *ngIf="leadForm.controls['local_contact_person_email'].errors?.['pattern']">Please
+                          enter valid email</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 123 -->
+
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Standard(s)</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="standard_s" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 123 -->
+
+                  <!-- hii -->
+
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Scope</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="scope" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Accreditation</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="accreditation" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        DQS Contact Person (Leading Office)
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="dqs_contact_person" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <!-- hii -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Email</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" formControlName="email" />
+                        <mat-error *ngIf="
+                          leadForm.controls['email'].hasError('required')
+                        ">
+                          Required*
+                        </mat-error>
+                        <mat-error *ngIf="leadForm.controls['email'].errors?.['pattern']">Please
+                          enter valid email</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Phone</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="number" formControlName="phone" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 123 -->
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Information About The Audit</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Due Date</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput [matDatepicker]="dp4" (click)="dp4.open()" formControlName="due_date" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                        <mat-datepicker #dp4></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      <h3>Expiry Date of the Certificate</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput [matDatepicker]="dp2" (click)="dp2.open()"
+                          formControlName="expiry_date_of_certi" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                        <mat-datepicker #dp2></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      <h3>
+                        Planned Dates
+                        <p>(TimeFrame if available)</p>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput [matDatepicker]="dp3" (click)="dp3.open()" formControlName="planned_dates" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker #dp3></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Types of Assessment</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="type_assessment">
+                          <mat-option value="Stage 1">Stage 1</mat-option>
+                          <mat-option value="Initial Audit">Initial Audit</mat-option>
+                          <mat-option value="Transfer Audit (from other CB)">Transfer Audit (from other CB)</mat-option>
+                          <mat-option value="1 Surveillance Audit">1 Surveillance Audit</mat-option>
+                          <mat-option value="2 Surveillance Audit">2 Surveillance Audit</mat-option>
+                          <mat-option value="Transfer Audit (from other CB)">Recertification Audit</mat-option>
+                          <mat-option value="1 Surveillance Audit">Special Audit</mat-option>
+                          <mat-option value="2 Surveillance Audit">Other Assessment</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 123 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Frequency of Audit Cycle</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="Frequency_audit_cycle">
+                          <mat-option value="12 months">12 months</mat-option>
+                          <mat-option value="9 months">9 months</mat-option>
+                          <mat-option value="6 months">6 months</mat-option>
+                          <mat-option value="Others">Others</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Type of Site</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 ml-5">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-label>Manifacturing Site</mat-label>
+                        <mat-select formControlName="manifacturing_site">
+                          <mat-option value="Yes">Yes</mat-option>
+                          <mat-option value="No">No</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Remote Location</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="remote_location">
+                          <!-- <mat-label>Manifacturing Site</mat-label> -->
+                          <mat-option value="Yes">Yes</mat-option>
+                          <mat-option value="No">No</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Part of Sampling Procedure</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="part_sampling_procedure">
+                          <!-- <mat-label>Manifacturing Site</mat-label> -->
+                          <mat-option value="Yes">Yes</mat-option>
+                          <mat-option value="No">No</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>If Yes, Date of last audit at this site</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <!-- <mat-label>Manifacturing Site</mat-label> -->
+                        <input matInput [matDatepicker]="dp62" (click)="dp62.open()"
+                        formControlName="sampling_last_audit_date" />
+
+                      <mat-datepicker-toggle matSuffix [for]="dp62"></mat-datepicker-toggle>
+                      <mat-datepicker #dp62></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Corporate Scheme</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="Corporate_Scheme_Name" (selectionChange)="corporateScheme($event)">
+                          <mat-option value="Yes">Yes</mat-option>
+                          <mat-option value="No">No</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field *ngIf="ref_no" appearance="outline" readonly>
+                        <mat-label>Corporate scheme ref. no</mat-label>
+                        <input matInput formControlName="ref_no" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType && ref_no">
+                      <h3>provide contact information for the lead auditor:</h3>
+                    </div>
+                  </div>
+                  <div *ngIf="ref_no" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-label>Name:</mat-label>
+                        <input matInput formControlName="corporate__name" />
+                      </mat-form-field>
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-label>Email:</mat-label>
+                        <input matInput formControlName="corporate_email" />
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-label>Phone:</mat-label>
+                        <input matInput formControlName="corporate_phone" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Design Function:</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="design_function">
+                          <mat-option value="Yes">Yes</mat-option>
+                          <mat-option value="No">No</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        Detailed Calculation of Audit Time and Current No. of HeadCounts:
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="detailed_calculation">
+                          <!-- <mat-label>Manifacturing Site</mat-label> -->
+                          <mat-option value="See Attachment">See Attachment</mat-option>
+                          <mat-option value="See Individual Planning in Team Room on Intranet">See Individual Planning
+                            in Team Room on Intranet</mat-option>
+                          <mat-option value="Has to be done by the office independently">Has to be done by the office
+                            independently</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Audit Language</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="audit_language">
+                          <mat-option *ngFor="let lang of languageData" [value]="lang.language_name">{{lang.language_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        No. of Audit days:<br />
+                        (for the requested <br />
+                        auditor/audit name)
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="number" formControlName="no_audit_days" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>New Certificate Requested:</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="certi_req">
+                          <mat-option value="Yes">Yes</mat-option>
+                          <mat-option value="No">No</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 321 -->
+                  <!-- abc -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Change of Current Certificate:</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="current_certi">
+                          <!-- <mat-label>Manifacturing Site</mat-label> -->
+                          <mat-option value="Yes">Yes</mat-option>
+                          <mat-option value="No">No</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <!-- 321 -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12 ml-5">
+                    <div class="form-group">
+                      <p>Status</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-label>Request Submitted</mat-label>
+                        <mat-select formControlName="status">
+                          <mat-option value="Request Received">Request Received</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </mat-card>
+          </div>
+        </section>
+        <!-- new added section starts -->
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Information About The Requested Auditor</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <!-- 123 -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Request is for:</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select multiple formControlName="rqst_for">
+                          <mat-option value="Lead Auditor">Lead Auditor</mat-option>
+                          <mat-option value="Co-Auditor">Co-Auditor</mat-option>
+                          <mat-option value="Expert">Expert</mat-option>
+                          <mat-option value="Entire Audit Team">Entire Audit Team</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 123 -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        Name and ID No. of Prefered Auditor(s) Per Role:
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="name_id_of_auditor_1" />
+                      </mat-form-field>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="name_id_of_auditor_2" />
+                      </mat-form-field>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="name_id_of_auditor_3" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- hii -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        FYI Only: the following auditors will also take
+                        part (name,role,office)
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-50 col-lg-4 col-md-8 col-sm-6 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="fyi_only" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- xyz -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Standard(s):</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select multiple formControlName="standard_s">
+                          <mat-option value="Combined">Combined</mat-option>
+                          <mat-option value="Integrated">Integrated</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Business Sector(s):</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-label>EAC</mat-label>
+                        <input matInput type="text" formControlName="EAC" />
+                      </mat-form-field>
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-label>IAF</mat-label>
+                        <input matInput type="text" formControlName="IAF" />
+                      </mat-form-field>
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-label>SIC</mat-label>
+                        <input matInput type="text" formControlName="SIC" />
+                      </mat-form-field>
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-label>Others</mat-label>
+                        <input matInput type="text" formControlName="Others" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Fluent Language Skill Required:</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-radio-group name="fluent_lang" color="primary" formControlName="fluent_lang_skill_req"
+                        (change)="fluentLang($event)">
+                        <mat-radio-button value="English">English</mat-radio-button>
+                        <mat-radio-button style="padding-left: 10px;" value="Other">Other</mat-radio-button>
+                      </mat-radio-group>
+                      <mat-form-field *ngIf="otherLang" appearance="outline" readonly>
+                        <mat-label> Fluent Other Language</mat-label>
+                        <input matInput formControlName="fluent_other_lag" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Information about the Report:</h3>
+              </div>
+
+              <div class="form_basic">
+                <div class="row">
+                  <!-- 123 -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Language:</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-radio-group name="Language" color="primary" formControlName="Languages"
+                        (change)="Languages($event)">
+                        <mat-radio-button value="English">English</mat-radio-button>
+                        <mat-radio-button style="padding-left: 10px;" value="Other">Other</mat-radio-button>
+                      </mat-radio-group>
+                      <mat-form-field *ngIf="Lang" appearance="outline" readonly>
+                        <mat-label>Other Language</mat-label>
+                        <input matInput formControlName="other_lag" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- 123 -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>
+                        Format(Based On Audit Cycle):
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select multiple formControlName="Format">
+                          <mat-option value="Standard re-cert/Initial report">Standard re-cert/Initial
+                            report</mat-option>
+                          <mat-option value="Standard Surveillance report">Standard Surveillance report</mat-option>
+                          <mat-option value="Site report for multi-site assessment">Site report for multi-site
+                            assessment</mat-option>
+                          <mat-option value=" Closing meeting report"> Closing meeting report</mat-option>
+                          <mat-option value=" Customer-specific (see Teamroom or annex)">Customer-specific (see Teamroom
+                            or annex)</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Information about administrative details:</h3>
+              </div>
+              <div class="form_basic">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Tasks to be done by leading Office</th>
+                      <th scope="col">Tasks to be done by answering Office</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Scheduling with customer</td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Tasks_to_be_done_by_leading_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Tasks_to_be_done_by_answering_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Upload of documents via Corp. DB:</td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Upload_Tasks_to_be_done_by_leading_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Upload_Tasks_to_be_done_by_answering_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Control of Technical review:</td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Control_Tasks_to_be_done_by_leading_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Control_Tasks_to_be_done_by_answering_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Sending of report to customer:</td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Sending_Tasks_to_be_done_by_leading_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Sending_Tasks_to_be_done_by_answering_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Issuance of certificate and sending to customer:</td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Issuance_Tasks_to_be_done_by_leading_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Issuance_Tasks_to_be_done_by_answering_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Upload of documents into MyDQS:</td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Upload_of_documents_into_MyDQS_1st">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Upload_of_documents_into_MyDQS_2snd">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Customer invoicing:</td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Customer_invoicing_leading_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="Customer_invoicingy_answering_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>DQS Customer evaluation:</td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="DQS_Customer_leading_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group check_set">
+                          <mat-checkbox color="primary" formControlName="DQS_Customer_answering_Office">
+                          </mat-checkbox>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="row">
+                  <!-- 123 -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>For multi-site assessments, send report or findings to:</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      Global Audit Team leader of multi-site assessment:
+                    </div>
+                    <mat-form-field appearance="outline" readonly>
+                      <mat-label>Name</mat-label>
+                      <input matInput formControlName="send_report_name" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" readonly>
+                      <mat-label>E-Mail address:</mat-label>
+                      <input matInput formControlName="send_report_email" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- 123 -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Only for pricing model B and C (CM04):
+                        Special agreements regarding invoicing to customer:</h3>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" formControlName="Bills_and_receipts_shall_be_send_with_invoice"
+                        value="Bills and receipts shall be send with invoice">
+                        Bills and receipts shall be send with invoice
+                      </mat-checkbox>
+                    </div>
+
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" formControlName="Travel_fee_travel_flat_rates"
+                        value="Travel fee (e.g. travel flat rates )">
+                        Travel fee (e.g. travel flat rates )
+                      </mat-checkbox>
+                    </div>
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" formControlName="Special_price_for_travel_expenses"
+                        value="Special price for travel expenses (e.g. rate for km/m )">
+                        Special price for travel expenses (e.g. rate for km/m )
+                      </mat-checkbox>
+                    </div>
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" (change)="selectOtherinvoice($event)">
+                        Other invoice address
+                      </mat-checkbox>
+                      <input *ngIf="Otherinvoice" matInput formControlName="Other_invoice_address" />
+                    </div>
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" (change)="selectPayment($event)">
+                        Payment terms
+                      </mat-checkbox>
+                      <input *ngIf="inputPay" matInput formControlName="Payment_terms" />
+                    </div>
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" formControlName="See_special_information_attached"
+                        value="See special information attached">
+                        See special information attached
+                      </mat-checkbox>
+                    </div>
+                    <div class="form-group check_set">
+                      <mat-checkbox color="primary" formControlName="See_special_information_in_GAM_team_room"
+                        value=" See special information in GAM team room">
+                        See special information in GAM team room
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Explanation / further comments:</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <mat-form-field appearance="outline" readonly>
+                      <mat-label>Explanation / further comments:</mat-label>
+                      <input matInput formControlName="Explanation_further_comments" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Financial Terms</h3>
+              </div>
+              <div class="form_basic">
+                <div class="row">
+                  <!-- 123 -->
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <h3>Intercompany Pricing Model (see CM04):</h3>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <div class="form-group">
+                        <mat-form-field appearance="outline" readonly>
+                          <mat-select multiple formControlName="Intercompany_Pricing_Model">
+                            <mat-option value="A (75%)">A (75%)</mat-option>
+                            <mat-option value="B (85%)">B (85%)</mat-option>
+                            <mat-option value="C (95%)">C (95%)</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col">Customer Rate as agreed with customer</th>
+                          <th scope="col">Thereof fee payable to the requested office</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Daily rate</td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Daily_rate_customer" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Daily_rate_pay" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Report fee
+                            (only for re-certification/initial):</td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Report_fee_recertification_customer" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Report_fee_recertification_pay" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Report fee (if applicable for surveillance audit):</td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Report_fee_audit_customer" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Report_fee_audit_payable" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Travel Time (if applicable):</td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Travel_time_rate_currency_customer" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Travel_time_Thereof_fee_payable" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Others:</td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Others_rate_currency_customer" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Others_Thereof_fee_payable" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Currency:</td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="rate_currency_customer" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Thereof_fee_payable" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Explanation/Comment about the fee:</td>
+                          <td>
+                            <div class="form-group check_set">
+                              <mat-form-field appearance="outline" readonly> <input matInput
+                                  formControlName="Exp_Comment_about_the_fee" />
+                              </mat-form-field>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Send Request With Link To</h3>
+              </div>
+              <div class="form_basic">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Name</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input matInput type="text" formControlName="name" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Email</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input matInput type="text" formControlName="email_id" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Request Raised By</p>
+                      <mat-form-field appearance="outline">
+                        <!-- <mat-select> -->
+                          <!-- <mat-select-filter [array]="countryVar" (filteredReturn)="countryfilter($event)"></mat-select-filter>
+                          <mat-option *ngFor="let item of allAchievement" [value]="item.first_name">{{ item.first_name
+                            }}</mat-option>
+                        </mat-select> -->
+                        <input readonly matInput formControlName="request_rasied_by">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <!-- new added section ends  -->
+
+        <div class="mt-3">
+          <button class="favorite styled" (click)="submitForm()">SUBMIT</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-card>

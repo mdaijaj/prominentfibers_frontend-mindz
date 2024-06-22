@@ -1,0 +1,144 @@
+<form>
+  <!-- Static form start -->
+  <div class="row m-3">
+
+
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+  
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group formField">
+          <mat-form-field appearance="outline">
+            <mat-label>Name of Warehouse</mat-label>
+            <input matInput type="text" id="warehouse-name-text-box"
+              [(ngModel)]="name" name="name">
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+          <mat-label>Select Plant Name</mat-label>
+          <mat-select [(value)]="selectedPlant" >
+          <mat-option *ngFor="let item of masterList"
+            [value]="item.id">{{item.plant_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>     
+      </div>
+    </div>
+
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+          <mat-label>Select Role</mat-label>
+          <mat-select  [(value)]="selectedRole" (selectionChange)="onSelectedRole($event)">
+          <mat-option *ngFor="let item of rolesList"
+            [value]="item.role_master_id">{{item.role_master_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>     
+      </div>
+    </div>
+
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+          <mat-label>Select Employee Name</mat-label>
+          <mat-select  [(value)]="selectedEmployee">
+          <mat-option *ngFor="let item of employeesList"
+            [value]="item.employee_id">{{item.first_name + " " + item.last_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>     
+      </div>
+    </div>
+
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+  
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group formField">
+          <mat-form-field appearance="outline">
+            <mat-label>Contact Number</mat-label>
+            <input matInput type="text" id="warehouse-contact-text-box"
+            [(ngModel)]="contactNo" name="contactNo"
+           >
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+  
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group formField">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" id="warehouse-email-text-box"
+            [(ngModel)]="email" name="email"
+            >
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+  
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group formField">
+          <mat-form-field appearance="outline">
+            <mat-label>Alt Email</mat-label>
+            <input matInput type="text" id="warehouse-altemail-text-box"
+            [(ngModel)]="altEmail" name="altEmail"
+              />
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+  
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group formField">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="common_button_sub text-right w-50 p-0">
+    </div>
+
+    <div class="common_button_sub text-right w-50 p-0">
+      <button class="mx-3 " (click)='save()'>
+        Save
+      </button>
+      <button class="mx-3 " (click)='cancel()'>
+        Cancel
+      </button>
+    </div>
+
+  </div>
+</form>

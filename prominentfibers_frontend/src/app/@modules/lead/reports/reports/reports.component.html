@@ -1,0 +1,34 @@
+<section>
+    <div class="msater-nav mt-2 ms-1">
+        <a>S & M<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="/master/lead/reports">Reports<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="/master/lead/reports">Report List</a>
+    </div>
+    <mat-card>
+        <div class="text-center mt-2 text-primary">
+            <h3 class="fw-bold">Reports</h3>
+        </div>
+
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 ms-2">
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Report Type</mat-label>
+                    <mat-select formControlName="courier_contain">
+                        <mat-option value="A">Lead</mat-option>
+                        <mat-option value="AA">Prospect</mat-option>
+                        <mat-option value="AAA">Account</mat-option>
+                        <mat-option value="AAAA">Quotation</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-card>
+    <mat-card>
+      <div class="ag_grid">
+          <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+              [rowData]="rowData" [columnDefs]="columnDefs" (cellClicked)='onCellClicked($event)' [pagination]=true [paginationPageSize]=10
+              (gridReady)="onGridReady($event)">
+          </ag-grid-angular>
+      </div>
+  </mat-card>
+</section>

@@ -1,0 +1,130 @@
+<mat-card>
+    <div class="section">
+      <div class="main">
+        <div class="msater-nav">
+            <a href="">My Expenses<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="../">My Expenses List</a>
+        </div>
+        <div class="ticket_travel" id="dashboard" #dashboard >
+            <div class="updatetitle" > <h2><b>Travel Ticket Download</b></h2></div>
+            <section>
+                <div class="task_details">
+                    <div class="row form_head">
+                          <h3>Tickets Details</h3>
+                     </div>
+               
+                 <div class="row details" *ngFor="let item of expenseData">
+                  
+                    <div class="col-md-6 ">
+               
+                   <table id="customers" >
+                        <tr>
+                            <td class="head_task">Ticket No</td>
+                            <td >{{item?.expense_id}}</td>
+                        </tr>
+                        <tr>
+                            <td class="head_task">Travler Name</td>
+                            <td>{{item?.traveler_name}}</td>
+                         </tr>
+                         <!-- <tr>
+                             <td class="head_task">BR No</td>
+                             <td>{{singleLeadData}}</td>
+                         </tr> -->
+                         <tr>
+                             <td class="head_task">Ticket Type</td>
+                             <td>{{item?.ticketType}}</td>
+                          </tr>
+                          <tr>
+                           <td class="head_task">Date Of Travel</td>
+                           <td>{{item?.dateOf_travel}}</td>
+                        </tr>
+                        <tr>
+                            <td class="head_task">Ticket Status</td>
+                            <td>{{item?.status}}</td>
+                         </tr>
+                         <tr>
+                            <td class="head_task">Remarks</td>
+                            <td>{{item?.remarks}}</td>
+                         </tr>
+                         <tr>
+                          <!-- <td class="head_task">Ticket Download</td> -->
+                          <!-- <td>
+                            <button (click)="downloadFile()">Download</button>
+                          </td> -->
+                       </tr>
+                    </table>
+                 
+               </div>
+               
+               <div class="col-md-6">
+               
+                    <table id="customers">
+                       <tr>
+                          <td class="head_task">Travler Form</td>
+                          <td>{{item?.travel_form}}</td>
+                      </tr>
+                      <tr>
+                          <td class="head_task">Travler To</td>
+                          <td>{{item?.travel_to}}</td>
+                      </tr>
+                      <!-- <tr>
+                         <td class="head_task">Audit Start Date</td>
+                         <td>{{singleLeadData.}}</td>
+                       </tr> -->
+                      <tr>
+                         <td class="head_task"> Traveling Time</td>
+                         <td>{{item?.time_travel}}</td>
+                      </tr>
+                      <tr>
+                       <td class="head_task">Travler Type</td>
+                       <td>{{item?.travel_type}}</td>
+                    </tr>
+               
+                    <tr>
+                     <td class="head_task">Mode Of Travel</td>
+                     <td>{{item?.modeOf_travel}}</td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">Ticket Download</td>
+                    <td class="download" *ngFor="let links of rowDataConfirm">
+                      <!-- <p>{{links.attach_ticket}}</p> -->
+                      <a href="{{links.attach_ticket}}" class="btn clss" download>
+                          <mat-icon style="color:#8B817D">
+                              file_download</mat-icon>
+                      </a>
+                  </td>
+                 </tr>
+                 </table>
+               
+               </div>
+
+                 </div>
+               
+                 
+                 
+                 
+               </div>
+            </section>
+        </div>
+        <!-- <div class="row" *ngFor="let links of rowDataConfirm">
+          <p>DownLoad Link</p><a  href="javascript:void(0)"
+style="cursor:pointer" (click)="downloadPdf($event)">{{links.attach_ticket}}</a>
+         </div> -->
+
+
+
+        
+
+
+
+
+      </div>
+      <div class="upload-btn">
+        <button  class="cancel-btn"  (click)="cancel()">
+            Cancel
+          </button>
+        <!-- <button class="iploadBtn" btn btn-primary  *ngIf="!approveStatus && !makePaymentStatus && !makePaymentStatusApproved" (click)="submitFormFinal()">Submit Expense</button> -->
+        <!-- <button class="favorite styled" *ngIf=" makePaymentStatus" (click)="approveForm()">Approve</button> -->
+        <!-- <button class="favorite styled" (click)="pdfGenerate()">Download Ticket</button> -->
+      </div>
+      </div>

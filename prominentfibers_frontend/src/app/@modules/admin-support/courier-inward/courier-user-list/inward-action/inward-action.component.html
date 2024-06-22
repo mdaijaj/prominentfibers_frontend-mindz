@@ -1,0 +1,5 @@
+<div class="edd-del">
+    <mat-icon>visibility</mat-icon>
+    <mat-icon (click)="edit($event)">autorenew</mat-icon>
+    <mat-icon *ngIf="status =='Locked'" (click)="lock($event)" matTooltip="Courier Has locked">lock</mat-icon>
+</div>

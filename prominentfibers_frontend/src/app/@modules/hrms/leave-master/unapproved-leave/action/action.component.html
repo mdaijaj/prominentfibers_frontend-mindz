@@ -1,0 +1,4 @@
+<div class="edd-del" >
+    <mat-icon matTooltip="approve" (click)="approve($event)" *ngIf="assignAction?.Write">check_circle</mat-icon>
+    <mat-icon matTooltip="reject" (click)="reject($event)" *ngIf="assignAction?.Delete">cancel</mat-icon>
+</div>

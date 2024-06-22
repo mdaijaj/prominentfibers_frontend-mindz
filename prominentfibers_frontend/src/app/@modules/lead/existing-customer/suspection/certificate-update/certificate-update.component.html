@@ -1,0 +1,378 @@
+<div class="s section">
+    <!-- <div class="employee">
+        <p>Sales & Marketting</p>
+    </div> -->
+    <mat-card>
+        <div class="row form_head">
+            <h3>Certificate Update</h3>
+        </div>
+        <body>
+                <!-- ****************************** -->
+                        <div class="row">
+                            <div class="card col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <h2 style="text-align: center;" class="form_heads">Company Details</h2>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <h5>BR No.</h5>
+                                        <h5>Company Name</h5>
+                                        <h5>City</h5>
+                                        <h5>State</h5>
+
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <h5>{{br}}</h5>
+                                        <h5>{{companyName}}</h5>
+                                        <h5>{{cityName}}</h5>
+                                        <h5>{{stateName}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <h2 style="text-align: center;" class="form_heads">Product Details</h2>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <h5>Stage Name</h5>
+                                        <h5>Audit State Date</h5>
+                                        <h5>Audit End Date</h5>
+                                        <h5>Total Audit Mandays</h5>
+                                        <h5>Lead Auditor</h5>
+                                        <h5>Product Details</h5>
+
+
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <h5>{{stages}}</h5>
+                                        <h5>{{auditStartDate}}</h5>
+                                        <h5>{{auditEndDate}}</h5>
+                                        <h5>{{totalMandays}}</h5>
+                                        <h5>{{totalMandays}}</h5>
+                                        <h5> {{product_details}},</h5>
+                                        <!-- <h5>{{}}</h5> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+
+               
+                <hr>
+                <!-- ******************************** -->
+
+                <form class="form_set" [formGroup]="form">
+                    <h2 style="text-align: center;" class="form_heads">Certificate Details</h2>
+
+                    <div class="row">
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Certificate Id</mat-label>
+                                    <input matInput type="text" formControlName="certificate_id" />
+                                    <mat-error *ngIf="form.controls['certificate_id'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Business Relation Id</mat-label>
+                                    <input matInput type="text" formControlName="BR_id" />
+                                    <mat-error *ngIf="form.controls['BR_id'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Standard Id</mat-label>
+                                    <input matInput type="text" formControlName="Stander_id" />
+                                    <mat-error *ngIf="form.controls['Stander_id'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-69 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Other Standard Id</mat-label>
+                                    <input matInput type="text" formControlName="other_id" />
+                                    <mat-error *ngIf="form.controls['other_id'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Certificate Valid Until</mat-label>
+                                    <input matInput [matDatepicker]="dp" (click)="dp.open()"
+                                        formControlName="Cer_valid_date" />
+                                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp></mat-datepicker>
+                                    <mat-error *ngIf="form.controls['Cer_valid_date'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>RA/TRA Due Date</mat-label>
+                                    <input matInput [matDatepicker]="dp1" (click)="dp1.open()"
+                                        formControlName="RA_TRA_date" />
+                                    <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp1></mat-datepicker>
+                                    <mat-error *ngIf="form.controls['RA_TRA_date'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Industry Code Id</mat-label>
+                                    <input matInput type="text" formControlName="industry_code" />
+                                    <mat-error *ngIf="form.controls['industry_code'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Sort Name</mat-label>
+                                    <input matInput type="text" formControlName="shortName" />
+                                    <mat-error *ngIf="form.controls['shortName'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date of first Issue</mat-label>
+                                    <input matInput [matDatepicker]="dp2" (click)="dp2.open()"
+                                        formControlName="firstIssue" />
+                                    <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp2></mat-datepicker>
+                                    <mat-error *ngIf="form.controls['firstIssue'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Main Certificate ID</mat-label>
+                                    <input matInput type="text" formControlName="mainCentificateID" />
+                                    <mat-error *ngIf="form.controls['mainCentificateID'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Owner Relation Business Relation Id</mat-label>
+                                    <input matInput type="text" formControlName="ownerRelationID" />
+                                    <mat-error *ngIf="form.controls['ownerRelationID'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Publishing Enabled</mat-label>
+                                    <mat-select formControlName="publishEnabled">
+                                        <mat-option value="yes">Yes</mat-option>
+                                        <mat-option value="no">No</mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Is Excerpt</mat-label>
+                                    <mat-select formControlName="isExcerpt">
+                                        <mat-option value="yes">Yes</mat-option>
+                                        <mat-option value="no">No</mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Is Main Certificate</mat-label>
+                                    <mat-select formControlName="isMainCertificate">
+                                        <mat-option value="yes">Yes</mat-option>
+                                        <mat-option value="no">No</mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Status</mat-label>
+                                    <mat-select formControlName="status">
+                                        <mat-option value="active">Active</mat-option>
+                                        <mat-option value="suspend">Suspend</mat-option>
+                                        <mat-option value="withdrawal">Withdrawal</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Pdf Download</mat-label>
+                                    <mat-select formControlName="pdfDownload">
+                                        <mat-option value="active">Yes</mat-option>
+                                        <mat-option value="suspend">No</mat-option>
+
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>IATF Number</mat-label>
+                                    <input matInput type="text" formControlName="IATF" />
+                                    <mat-error *ngIf="form.controls['IATF'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Unit Id</mat-label>
+                                    <input matInput type="text" formControlName="unitID" />
+                                    <mat-error *ngIf="form.controls['unitID'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Accreditation Id
+                                    </mat-label>
+                                    <input matInput type="text" formControlName="AccreditationId" />
+                                    <mat-error *ngIf="form.controls['AccreditationId'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Registration ID</mat-label>
+                                    <input matInput type="text" formControlName="RegistrationId" />
+                                    <mat-error *ngIf="form.controls['RegistrationId'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Data Verified</mat-label>
+                                    <mat-select formControlName="dataVerified">
+                                        <mat-option value="active">Yes</mat-option>
+                                        <mat-option value="suspend">No</mat-option>
+
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>E-Mail ID</mat-label>
+                                    <input matInput type="text" formControlName="email_id" />
+                                    <mat-error *ngIf="form.controls['email_id'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Reason</mat-label>
+                                    <mat-select formControlName="reason">
+                                        <mat-option value="dueDate">Due Date</mat-option>
+                                        <mat-option value="mojorNC">Major NC</mat-option>
+                                        <mat-option value="customerComplaints">Customer Complaints</mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Comments</mat-label>
+                                    <input matInput type="text" formControlName="comment" />
+                                    <mat-error *ngIf="form.controls['comment'].hasError('required')">
+                                        This field is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div align="end">
+                        <button mat-raised-button color="primary" class="mx-3" (click)="productSave(form)">Update</button>
+                        <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+                    </div>
+                </form>
+          
+        </body>
+
+
+    </mat-card>
+
+</div>

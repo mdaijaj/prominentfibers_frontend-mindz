@@ -1,0 +1,86 @@
+<body>
+  <mat-icon style="color:#2f62b5" mat-button mat-dialog-close>cancel</mat-icon>
+
+  <h1 id="Heading">Booking Dates of Auditors</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Sr.No</th>
+        <th scope="col">Auditor Name</th>
+        <th scope="col">Auditor Type</th>
+        <th scope="col">Booked Record</th>
+        <th scope="col">Booking Date</th>
+        <th scope="col">No of Mandays</th>
+        <!-- <th scope="col">Booked Details</th>
+        -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees;let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{employee.auditor_first_name}}</td>
+        <td>{{employee.type}}</td>
+
+        <td>
+          <div>
+
+            <button mat-icon-button [matMenuTriggerFor]="appMenuOne" (click)="emp_id(employee,i)">
+              <mat-icon>calendar_today</mat-icon>
+            </button>
+            <mat-menu #appMenuOne="matMenu" class="drop-calendar">
+              <div (click)="dateOd(employee)" (click)="$event.stopPropagation()">
+                <mat-calendar #calendar (selectedChange)="select($event,calendar,employees,i)"
+                  [dateClass]="isSelected"
+                  [maxDate]="maxDate" [minDate]="minDate"
+                  (dateChange)="fromDate($event)"   ></mat-calendar>
+              </div>
+            </mat-menu>
+
+            <!-- <input (click)="dateOd(employee)" type="date" [(ngModel)]="employee.selectedDate" (change)="logSelectedDate(employee)"> -->
+          </div>
+        </td>
+        <td scope="col">
+          <textarea readonly appTextareaAutosize rows="2" class="text-input" style="width: 100%;">
+                    {{employee.Select_Date_.join(', ')}}
+                  </textarea>
+        </td>
+        <td>
+         <input type="number"  class="hh" [name]="'manday' + index" [id]="'manday' + i"  [(ngModel)]="employee.noOfMandays" />
+
+        </td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+  <!-- <fieldset>
+      
+          <button (click)="save()">save</button>
+        </fieldset> -->
+  <input type="submit" value="Submit" (click)="save()" />
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

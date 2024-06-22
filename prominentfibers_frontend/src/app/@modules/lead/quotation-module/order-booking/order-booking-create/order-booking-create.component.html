@@ -1,0 +1,135 @@
+<!-- lead-management -->
+<div>
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">
+    Order Booking
+  </h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography">
+    <!-- <div class="cotain">
+      <div class="emp_key">
+        <p>Lead ID:</p>
+        <p>BR Number:</p>
+        <p>Associated Company:</p>
+        <p>Job Title:</p>
+        <p>Name:</p>
+        <p>Created Date:</p>
+        <p>Customer Type:</p>
+        <p>Work Order No:</p>
+        <p style="margin-top:40px">Status</p>
+      </div>
+      <div class="emp_value">
+        <p>{{ singleLeadData?.lead_genration_id }}</p>
+        <p>{{ singleLeadData?.br_number || "-" }}</p>
+        <p>{{ singleLeadData?.associated_company || "-" }}</p>
+        <p>{{ singleLeadData?.job_title || "-" }}</p>
+        <p>{{ singleLeadData?.first_name + " " + singleLeadData?.last_name || "-" }}</p>
+        <p>{{ singleLeadData?.lead_created_date | date }}</p>
+        <p>{{ singleLeadData?.customer_type || "-" }}</p>
+        <p>{{ singleLeadData?.workOrder_no || "NA" }}</p>
+        <form class="form_set" [formGroup]="leadForm">
+          <mat-form-field appearance="outline" style="margin-top: -10px;">
+            <mat-select formControlName="status" placeholder="Select Status">
+              <mat-option value="Work Order Created">Approve</mat-option>
+              <mat-option value="Reject">Reject</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+    </div> -->
+    <div>
+      <div class="container" *ngIf="singleLeadData">
+        <ng-container *ngIf="!restLeadData?.advancePaymentFlag && !restLeadData?.feaApprovalFlag">
+          <div class="row">
+            <div class="warning-msg">
+              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+              This order requires one action, either an Advance Payment or FEA Approval. 
+            </div>
+          </div>
+        </ng-container>
+        <div class="row mt-2">
+          <div class="col-sm-6">
+            <div class="information">
+              <h4>Associated Company :</h4>
+              <h5>{{ singleLeadData?.associated_company || "N/A" }}</h5>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="information">
+              <h4>BR Number :</h4>
+              <h5>{{ singleLeadData?.br_number || "N/A" }}</h5>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="information">
+              <h4>Customer Type:</h4>
+              <h5>{{ singleLeadData?.customer_type || "N/A" }}</h5>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="information">
+              <h4>Name:</h4>
+              <h5>{{ singleLeadData?.first_name + " " + singleLeadData?.last_name || "N/A" }}</h5>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="information">
+              <h4 style="margin-top:20px">Update Status :</h4>
+              <form class="form_set" [formGroup]="leadForm">
+                <mat-form-field appearance="outline" style="margin-top: -10px;">
+                  <mat-select formControlName="status" placeholder="Select Status" (selectionChange)="approvalType($event)">
+                    <mat-option value="Work Order Created">Approve</mat-option>
+                    <mat-option value="Reject">Reject</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="restLeadData">
+          <h3 class="heading" >Required Action check for this Order</h3>
+          <div class="actionC">
+            <span class="label">Finance and Accounting Head : Advance / FEA</span>
+            <div class="example-section">
+              <input type="checkbox" class="checkboxFeild" [disabled]="true" [checked]="showCheck.Advance_Payment || showCheck.FEA_approed" [name]="'adv_payment'">
+            </div>
+          </div>
+          <div class="actionC mt-2">
+            <span class="label">Sales And Marketing Head : </span>
+           
+            <div class="example-section">
+              <input type="checkbox" class="checkboxFeild" [disabled]="true" [checked]="showCheck.SM_Approved" [name]="'fea_approval'">
+            </div>
+          </div>
+          <div class="actionC mt-2">
+            <span class="label">Auditor Blocked/Planning Team approval</span>
+            <div class="example-section">
+              <input type="checkbox" class="checkboxFeild" [disabled]="true" [checked]="showCheck.Sales_Request" [name]="'sales_request'">
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="!restLeadData.advancePaymentFlag && !restLeadData.feaApprovalFlag">
+        <div class="row mt-2">
+          Note:- Complete one of the following actions to proceed with this order:
+          <div class="d-flex justify-content-between mt-2">
+            <div class="">
+              <a class="third after" (click)="navigateToFeaApproval($event)">Go For FEA Approval</a>
+            </div>
+            <div class="">
+              <a class="third after" (click)="createAdvancePayment($event)">Go For Advance Payment</a>
+            </div>
+          </div>
+        </div>
+        </ng-container>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <hr>
+  <mat-dialog-actions class="d-flex justify-content-between mx-4">
+    <button mat-button mat-dialog-close mat-raised-button color="primary" style="float: right">
+      Close
+    </button>
+    <button  mat-button mat-dialog-close mat-raised-button color="primary" disabled={{dis}} (click)="updateLead()">Update</button>
+  </mat-dialog-actions>
+</div>
+<!-- [disabled]="!restLeadData.advancePaymentFlag && !restLeadData.feaApprovalFlag" -->

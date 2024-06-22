@@ -1,0 +1,76 @@
+<section class="section">
+    <!-- <div class="row head">
+      <p routerLink="../">Department-Wise Budget</p>
+    </div> -->
+  
+    <div class="row">
+      <div class="employee_top my-1">
+        Department-Wise Budget
+        <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #8B817D"></i>
+          Create Budget</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="btns">
+        <button routerLink="../" type="button">List</button>
+      </div>
+    </div>
+  
+    <mat-card>
+      <div class="form_head">
+        <h3>Create Budget</h3>
+      </div>
+  
+      <div class="form_basic">
+        <form class="form_set" [formGroup]="department_budget_form">
+        
+  
+              <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Department</mat-label>
+                      <input matInput type="text" formControlName="department_name" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Budget Amount</mat-label>
+                      <input matInput type="number" formControlName="budget_amount"
+                        (keyup)="budget_amount($event)" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <mat-label class="ll" >Session From</mat-label>
+
+                  <div class="form-group">
+  
+                    <input type="month" class="form-control col-4" id="inputField"
+                      formControlName="from_date" (change)="kj()" />
+                  </div>
+                </div>
+                <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <mat-label class="ll">Session To</mat-label>
+                    <div class="form-group">
+                      <input type="month" class="form-control col-4" id="inputField"
+                        formControlName="to_date" (change)="kj()" />
+                    </div>
+                  </div>
+              </div>
+              <div class="mt-3" align="left">
+                <button mat-raised-button color="primary" class="mx-3" (click)="onCreate()">
+                  {{button_type}}
+                </button>
+                <button mat-raised-button color="warn" (click)="Skip()">
+                  Cancel
+                </button>
+              </div>
+        </form>
+      </div>
+    </mat-card>
+  </section>

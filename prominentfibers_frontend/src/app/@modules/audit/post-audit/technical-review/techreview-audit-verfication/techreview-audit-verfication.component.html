@@ -1,0 +1,834 @@
+<section class="section">
+    <div class="row head">
+        <!-- <p routerLink="../">Post Audit</p> -->
+    </div>
+
+
+    <div class="row">
+        <!-- <div class="employee_top my-1">
+            Post Audit Module
+            <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #8B817D"></i>
+                Technical Review</span>
+        </div> -->
+        <div class="msater-nav">
+            <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="/master/audit/post-audit">Post-Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a [routerLink]="getCurrentRoute()">Technical Review</a>
+        </div>
+    </div>
+    <div class="updatetitle">{{leadUpdate==='updateundertechReview'? 'Update Technical Review':'Technical Review'}}</div>
+    <mat-card>
+        <form class="form_set" [formGroup]="postAuditForm">
+            <div class="form_head">
+                <h3>Customer Details</h3>
+            </div>
+
+            <div class="form_basic form_set">
+
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Associated Comapany</p>
+
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Associated Comapany </mat-label> -->
+                                <!-- <mat-select formControlName="associated_company">
+                                    <mat-option value="MSA">MSA</mat-option>
+                                    <mat-option value="MED">MED</mat-option>
+                                </mat-select> -->
+                                <input matInput type="text" formControlName="associated_company" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>First Name</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>First Name</mat-label> -->
+                                <input matInput type="text" formControlName="first_name" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>BR Number </p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>BR Number </mat-label> -->
+                                <input matInput type="number" formControlName="br_number" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Street Address </p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Street Address </mat-label> -->
+                                <input matInput type="text" formControlName="street_address" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Address Line 2</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Address Line 2</mat-label> -->
+                                <input matInput type="text" formControlName="address2" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Country&nbsp;<span class="form_required">*</span></p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Candidate Name</mat-label> -->
+                                <mat-select formControlName="country" (selectionChange)="getCountryID($event)">
+                                    <mat-option *ngFor="let item of countryList" [value]="item.countryss_id">{{
+                                        item.countryss_name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>State&nbsp;<span class="form_required">*</span></p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Candidate Name</mat-label> -->
+                                <mat-select formControlName="state" (selectionChange)="getStateID($event)">
+                                    <mat-option *ngFor="let item of stateList" [value]="item.states_id">{{
+                                        item.states_name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>City&nbsp;<span class="form_required">*</span></p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Candidate Name</mat-label> -->
+                                <mat-select formControlName="city" (selectionChange)="getPinCode($event)">
+                                    <mat-option *ngFor="let item of cityList" [value]="item.city_id">{{ item.city_name
+                                        }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Postal Code</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Postal Code</mat-label> -->
+                                <input matInput type="number" formControlName="postal_code" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form_head">
+                <h3>Customer Details</h3>
+            </div>
+            <div class="form_basic form_set">
+                <div class="row">
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Product Request</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="product_request" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Opportunity Type</p>
+                            <mat-form-field appearance="outline" readonly>
+                                <mat-select formControlName="opportunity_type" required>
+                                    <mat-option value="Certification - New Audit (RA)">Certification - New Audit
+                                        (RA)</mat-option>
+                                    <mat-option value="Certification - Audit (TRA)">Certification - Audit
+                                        (TRA)</mat-option>
+                                    <mat-option value="KSC - Facilitation">KSC - Facilitation</mat-option>
+                                    <mat-option value="KSC - GAP Assessment">KSC - GAP Assessment</mat-option>
+                                    <mat-option value="KSC - Special Assessment">KSC - Special Assessment</mat-option>
+                                    <mat-option value="KSC - Training">KSC - Training</mat-option>
+                                    <mat-option value="Certification - Inter Company">Certification - Inter
+                                        Company</mat-option>
+                                    <mat-option value="Existing Opportunity - Migration">Existing Opportunity -
+                                        Migration</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Assessment Period</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <mat-select formControlName="assessment_period">
+                                    <mat-option value="Annual">Annual</mat-option>
+                                    <mat-option value="Semi-Annual">Semi-Annual</mat-option>
+                                </mat-select>
+                               
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>EA Code</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="ea_code" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Accredition Logo Details</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Candidate Name</mat-label> -->
+                                <input matInput type="text" formControlName="accredition_logo_details" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Additional Certificates Copies</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="add_cert_copy" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="job-nav">
+                <div class="section">
+                  <mat-card>
+                    <div class="row form_head">
+                      <h3>Additional Site Details</h3>
+                    </div>     
+                    <div class="form_basic">     
+                      <div class="row">
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group" style="margin-left:10px; margin-top:10px;">
+                            <p> Select Site</p>
+                             <div *ngFor="let data of singleLeadData1">
+                                <mat-checkbox [ngModelOptions]="{ standalone: true }" [(ngModel)]="data.checked"  class="example-margin"
+                                [checked]="data.checked"
+                                (change)="typeChangeChild($event,data)">
+                                {{this.data?.br_number}}/
+                                {{this.singleLeadData?.associated_company + " - " }}/{{this.singleLeadData?.state_name}}/{{this.singleLeadData?.region_name}}
+                               </mat-checkbox>      
+                              </div>
+                            </div>      
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"  style="padding: 10px 0;">
+                         
+                            <p>Billing Site</p>
+                            <label for="billing_site_two" class="bill-site" *ngFor="let item of singleLeadData?.billing_site_copy index as i">
+                              {{i+1}} {{')'}} {{ item}}
+                                {{this.singleLeadData?.associated_company +" - " +this.singleLeadData?.customer_category }}/{{item?.city_name }}/
+                                {{item?.region_name}}/{{item?.first_name}}
+                              </label>
+                          </div>
+                      </div>
+                       <div class="row" *ngIf="childSide">
+                         <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                          <div class="form-group stage-table">
+                            <div class="head-table">
+                              <h4 class="head-stage">
+                                Stage
+                              </h4>
+                              <h4 class="head-stage right">
+                                No of Mandays
+                              </h4>
+      
+                            </div>
+                            <div *ngFor="let item of this.stageData" class="data_right_all">
+                              <div style="display: flex;justify-content: space-between; align-items: center;">
+                                <span class="row-val">
+                                  {{ item.stage }}
+                                </span>
+                                <span class="row-val">
+                                  <span style="margin-right: 12px;">{{ item.noOfMandays }}</span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>                      
+                     </div>                   
+      
+                    </div>
+                  </mat-card>
+                </div>
+              </section>
+            <!-- Audit Planning Details -->
+            <div class="form_audit">
+
+
+                <div class="form_head ">
+                    <h3>Audit Planning Details</h3>
+                </div>
+
+                <div class="form_basic form_set">
+                    <div class="row">
+                        <table class="table">
+                            <thead style="text-align: center;">
+                                <tr>
+                                    <th>Audit Start Date</th>
+                                    <th>Audit End Date</th>
+                                    <th>Audit Duration</th>
+                                    <th>Planning Status</th>
+                                    <th>Locked Status</th>
+                                    <th>Audit Confirmed Date </th>
+                                    <th>Remarks</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center;">
+                                <tr>
+                                    <td>{{auditGetByData?.training_start_date|| "-"}}</td>
+                                    <td>{{auditGetByData?.training_end_date|| "-"}}</td>
+                                    <td>{{auditGetByData?.training_start_date|| "-"}}</td>
+                                    <td>{{auditGetByData?.planning_status|| "-"}}</td>
+                                    <td>{{auditGetByData?.locked_status|| "-"}}</td>
+                                    <td>{{auditGetByData?.training_confirm_date|| "-"}}</td>
+                                    <td>{{auditGetByData?.training_remarks|| "-"}}</td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Auditor Eligible SIC Code Details -->
+            <div class="form_head">
+                <h3>Auditor Eligible SIC Code Details</h3>
+            </div>
+
+            <div class="form_basic form_set">
+                <div class="row">
+
+
+                    <div class="row">
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <p>Auditor Type</p>
+                                <mat-form-field appearance="outline"
+                                    [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                    <input matInput type="text" formControlName="auditorType2" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <p>Auditor Name</p>
+                                <mat-form-field appearance="outline"
+                                    [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                    <input matInput type="text" formControlName="auditor_name2" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <p>EA Code</p>
+                                <mat-form-field appearance="outline"
+                                    [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                    <input matInput type="text" formControlName="eaCode2" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container formArrayName="tableRows"
+                        *ngFor="let control of CF_1.tableRows['controls']; index as i" ?>
+                        <div class="row" [formGroup]="control">
+                            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <p>Auditor Type</p>
+                                    <mat-form-field appearance="outline"
+                                        [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                        <input matInput type="text" formControlName="auditorType" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <p>Auditor Name</p>
+                                    <mat-form-field appearance="outline"
+                                        [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                        <input matInput type="text" formControlName="auditor_name" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <p>EA Code</p>
+                                    <mat-form-field appearance="outline"
+                                        [ngClass]="leadUpdate==='undertechReview' ? 'readonly-wrapper' : ''">
+                                        <input matInput type="text" formControlName="eaCode" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form_head">
+                <h3>Uploaded Documents</h3>
+            </div>
+
+            <div class="form-basic">
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Contact Review Form</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChange($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocReview()">View</button>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Agreement</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form2" id="file" type="file" multiple
+                                class="form-control" (change)="agreementChange($event)">
+
+                        </div>
+                    </div>
+                    <!-- <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc">View</button>
+                        </div>
+                    </div> -->
+
+                </div>
+
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Basic Form</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form3" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChangeThree($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocBasic()">View</button>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">FEA_DOC</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form4" id="file" type="file" multiple
+                                class="form-control" (change)="feaDocChange($event)">
+
+                        </div>
+                    </div>
+                    <!-- <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc">View</button>
+                        </div>
+                    </div> -->
+
+                </div>
+
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">GST File</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form5" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChangeOne($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocGST()">View</button>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Others-Manday App</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form6" id="file" type="file" multiple
+                                class="form-control" (change)="otherMandayChange($event)">
+
+                        </div>
+                    </div>
+                    <!-- <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc">View</button>
+                        </div>
+                    </div> -->
+
+                </div>
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Company Logo File</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form7" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChangeTwo($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocLogo()">View</button>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Purchase_Order</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form8" id="file" type="file" multiple
+                                class="form-control" (change)="purchaseOrderChange($event)">
+
+                        </div>
+                    </div>
+                    <!-- <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc">View</button>
+                        </div>
+                    </div> -->
+
+                </div>
+
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Others</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form9" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChangeFour($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocOther()">View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form_set">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>Remarks</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='underL1Review' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="remarks" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Update Audit Related Documents -->
+            <!-- <app-updatetechreview-related [postAuditForm]="postAuditForm"
+                (reject1)="rejectData1($event)"></app-updatetechreview-related> -->
+
+                <ng-container *ngIf="auditorStatus == 'rejected', else Other">
+                    <div class="form_head">
+                        <h3>Rejected Audit Related Documents</h3>
+                    </div>
+                    <fieldset disabled>
+                    <div class="menu-table">
+                        <table *ngIf="auditGetByData && auditGetByData.auditData && auditGetByData.auditData.length > 0">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th class="text-center" colspan="2"> Check criteria and details</th>
+                                    <th>
+                                        Evaluation 
+                                            <div [ngStyle]="{'text-align':auditGetByData.auditData[0].code_status ?'end':''}">
+                                                <span>Not Ok</span>
+                                                <span class="ms-4">Ok</span>
+                                                <span class="ms-4">Not Appl.</span>
+                                            </div>
+                                    </th>
+                                    <th>Comment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let parent of auditGetByData.auditData">
+                                    <tr class="parent-row fw-bold">
+                                        <td>{{parent.TL1_code}}</td>
+                                        <td class="text-center" colspan="2">{{parent.discription}}</td>
+                                        <td>
+                                            <input type="checkbox" [checked]="parent.code_status" (change)="onParentMenuChecked(parent)">
+                                            <span class="ms-5">
+                                                <input type="checkbox" [checked]="parent.done" (change)="onOkChecked(parent)">
+                                            </span>
+                                            <ng-container *ngIf="parent.TL1_code == 'T30'">
+                                                <span [ngClass]=" parent.code_status ? 'ms-4' : 'ms-5'">
+                                                    <input type="checkbox" [checked]="parent.not_applied" (change)="onNotAppliedChecked(parent)">
+                                                </span>
+                                            </ng-container>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <textarea matInput  type="text" [(ngModel)]="parent.comment" [ngModelOptions]="{standalone: true}"></textarea>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <ng-container *ngIf="parent.code_status == true">
+                                        <tr *ngFor="let subMenu of parent.sub_menu" class="submenu-row">
+                                            <td></td>
+                                            <td>{{ subMenu.code }}</td>
+                                            <td>{{ subMenu.description }}</td>
+                                            <td>
+                                                <input type="checkbox" [checked]="subMenu.checked"  (change)="onSubMenuChecked(parent, subMenu)">
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                </ng-container>
+
+                <ng-template #Other>
+                    <div class="form_head">
+                        <h3>Update Audit Related Documents</h3>
+                    </div>
+                    <div class="menu-table">
+                        <table *ngIf="techreviewData && techreviewData.length > 0">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th class="text-center" colspan="2"> Check criteria and details</th>
+                                    <th>
+                                        Evaluation 
+                                            <div [ngStyle]="{'text-align':techreviewData[2].code_status ?'end':''}">
+                                                <span>Not Ok</span>
+                                                <span class="ms-4">Ok</span>
+                                                <span class="ms-4">Not Appl.</span>
+                                            </div>
+                                    </th>
+                                    <th>Comment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let parent of techreviewData">
+                                    <tr class="parent-row fw-bold">
+                                        <td>{{parent.TL1_code}}</td>
+                                        <td class="text-center" colspan="2">{{parent.discription}}</td>
+                                        <td>
+                                            <input type="checkbox" [checked]="parent.code_status" (change)="onParentMenuChecked(parent)">
+                                            <span class="ms-5">
+                                                <input type="checkbox" [checked]="parent.done" (change)="onOkChecked(parent)">
+                                            </span>
+                                            <ng-container *ngIf="parent.TL1_code == 'T30'">
+                                                <span [ngClass]=" parent.code_status ? 'ms-4' : 'ms-5'">
+                                                    <input type="checkbox" [checked]="parent.not_applied" (change)="onNotAppliedChecked(parent)">
+                                                </span>
+                                            </ng-container>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <textarea matInput  type="text" [(ngModel)]="parent.comment" [ngModelOptions]="{standalone: true}"></textarea>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <ng-container *ngIf="parent.code_status == true">
+                                        <tr *ngFor="let subMenu of parent.sub_menu" class="submenu-row">
+                                            <td></td>
+                                            <td>{{ subMenu.code }}</td>
+                                            <td>{{ subMenu.description }}</td>
+                                            <td>
+                                                <input type="checkbox" [checked]="subMenu.checked"  (change)="onSubMenuChecked(parent, subMenu)">
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-template>
+
+
+
+    <ng-container *ngIf="!auditorStatus">
+        <div class="form_head">
+            <h3> Conclusion of Technical Review (certificate decision)</h3>
+        </div>
+        <ng-container formArrayName="technical_completenessCheck">
+            <ng-container *ngFor="let completenessForm of  CF_1.technical_completenessCheck['controls']; let i = index">
+                <!-- <h3>{{ completenessForm.get('heading')?.value }}</h3> -->
+                <div [formGroup]="completenessForm">
+                    <table class="customers1">
+                        <tr>
+                            <td>{{ completenessForm.get('heading')?.value }}</td>
+                            <td width="9.5%">
+                                <mat-checkbox [value]="'val'+i" [name]="'openFirst'+i"
+                                    (change)="checkBox($event,i)"></mat-checkbox>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table id="customers" *ngIf="check=== 'val'+i &&  check_status==true" style="border: 1px solid #ddd;">
+                        <tr>
+                            <td></td>
+                            <td>Approved Report:</td>
+                            <td><mat-checkbox formControlName="approvedReport"></mat-checkbox></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Rework/clarification required:</td>
+                            <td><mat-checkbox formControlName="clarificationRequired"></mat-checkbox></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Rejected:</td>
+                            <td><mat-checkbox formControlName="rejected"></mat-checkbox></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Certification decision:</td>
+                            <td><input type="text" placeholder="Enter text" formControlName="clarificationDecision"></td>
+                        </tr>
+                        <tr>
+                            <td width="10%"></td>
+                            <td width="60%">Further review required?</td>
+                            <td width="30%"><mat-checkbox formControlName="reviewRequired"></mat-checkbox>Yes</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Comments:</td>
+                            <td><input type="text" placeholder="Enter Comments" formControlName="comments"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Reviewer:</td>
+                            <td><input type="text" placeholder="Enter Reviewer" formControlName="reviewer"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>for standard(s):</td>
+                            <td><input type="text" placeholder="Enter standards" formControlName="standards"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Date:</td>
+                            <td><input type="date" placeholder="Enter Date" formControlName="date"></td>
+                        </tr>
+                    </table>
+                </div>
+                <hr>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngIf="auditorStatus == 'rejected'">
+        <div class="row mt-3">
+            <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Auditor Remark</mat-label>
+                        <input matInput type="text" formControlName="auditor_remarks" />
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline" readonly>
+                        <mat-label>Review Date</mat-label>
+                        <input matInput [matDatepicker]="rdd" (click)="rdd.open()"
+                            formControlName="review_date" />
+                        <mat-datepicker-toggle matSuffix [for]="rdd"></mat-datepicker-toggle>
+                        <mat-datepicker #rdd></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="auditorStatus == 'rejected', else OtherButton">
+        <div class=" d-flex justify-content-between">
+            <button class="iploadBtn" (click)="back()">Back</button>
+            <button class="iploadBtn" (click)="reviewSave()">Save</button>
+        </div>
+    </ng-container>  
+
+    <ng-template #OtherButton>
+        <div class="upload-btn">
+            <div><button [disabled]="savedata" *ngIf="leadUpdate==='undertechReview'" class="iploadBtn" (click)="submitForm('APPROVED')">Save</button>
+            </div>
+            <div><button (click)="submitForm('REJECTED')" class="iploadBtn1">Reject</button>
+            </div>
+            <button *ngIf="leadUpdate==='updateundertechReview'" class="iploadBtn" (click)="updateForm()">Update
+                Save</button>
+        </div>
+    </ng-template>
+        </form>
+    </mat-card>
+
+
+</section>

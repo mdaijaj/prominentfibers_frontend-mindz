@@ -1,0 +1,948 @@
+<section class="section">
+    <div class="row head">
+        <!-- <p routerLink="../">Post Audit</p> -->
+    </div>
+
+
+    <div class="row">
+        <!-- <div class="employee_top my-1">
+            Post Audit Module
+            <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #8B817D"></i>
+                L-1 Reviewer</span>
+        </div> -->
+        <div class="msater-nav">
+            <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="/master/audit/post-audit">Post-Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a [routerLink]="getCurrentRoute()">L-1 Reviewer</a>
+        </div>
+    </div>
+    <div class="updatetitle">{{leadUpdate==='updateL-1Reviewer'? 'Update L-1 Reviewer':'L-1 Reviewer'}}</div>
+    <div class="employ_sube">
+        <div class="add_btn">
+          <button type="button" class="btn_add" (click)="openDialog()">
+            File Upload
+            <img
+              src="/assets/icons/exc3.png"
+              alt=""
+              height="20px"
+              width="25px"
+            />
+          </button>
+        </div>
+      </div>
+    <mat-card>
+        <form class="form_set" [formGroup]="postAuditForm">
+            <div class="form_head">
+                <h3>Customer Details</h3>
+            </div>
+
+            <div class="form_basic form_set">
+
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Associated Comapany</p>
+
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Associated Comapany </mat-label> -->
+                                <input matInput type="text" formControlName="associated_company" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>First Name</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>First Name</mat-label> -->
+                                <input matInput type="text" formControlName="first_name" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>BR Number </p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>BR Number </mat-label> -->
+                                <input matInput min="1" type="text" formControlName="br_number" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Street Address </p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Street Address </mat-label> -->
+                                <input matInput type="text" formControlName="street_address" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Address Line 2</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Address Line 2</mat-label> -->
+                                <input matInput type="text" formControlName="address2" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Country&nbsp;<span class="form_required">*</span></p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Candidate Name</mat-label> -->
+                                <mat-select formControlName="country" (selectionChange)="getCountryID($event)">
+                                    <mat-option *ngFor="let item of countryList" [value]="item.countryss_id">{{
+                                        item.countryss_name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>State&nbsp;<span class="form_required">*</span></p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Candidate Name</mat-label> -->
+                                <mat-select formControlName="state" (selectionChange)="getStateID($event)">
+                                    <mat-option *ngFor="let item of stateList" [value]="item.states_id">{{
+                                        item.states_name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>City&nbsp;<span class="form_required">*</span></p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Candidate Name</mat-label> -->
+                                <mat-select formControlName="city" (selectionChange)="getPinCode($event)">
+                                    <mat-option *ngFor="let item of cityList" [value]="item.city_id">{{ item.city_name
+                                        }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Postal Code</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Postal Code</mat-label> -->
+                                <input matInput type="number" min="1" formControlName="postal_code" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form_head">
+                <h3>Customer Details</h3>
+            </div>
+            <div class="form_basic form_set">
+                <div class="row">
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Product Request</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="product_request" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Opportunity Type</p>
+                            <mat-form-field appearance="outline" readonly>
+                                <mat-select formControlName="opportunity_type" required>
+                                    <mat-option value="Certification - New Audit (RA)">Certification - New Audit
+                                        (RA)</mat-option>
+                                    <mat-option value="Certification - Audit (TRA)">Certification - Audit
+                                        (TRA)</mat-option>
+                                    <mat-option value="KSC - Facilitation">KSC - Facilitation</mat-option>
+                                    <mat-option value="KSC - GAP Assessment">KSC - GAP Assessment</mat-option>
+                                    <mat-option value="KSC - Special Assessment">KSC - Special Assessment</mat-option>
+                                    <mat-option value="KSC - Training">KSC - Training</mat-option>
+                                    <mat-option value="Certification - Inter Company">Certification - Inter
+                                        Company</mat-option>
+                                    <mat-option value="Existing Opportunity - Migration">Existing Opportunity -
+                                        Migration</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Assessment Period</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <mat-select formControlName="assessment_period">
+                                    <mat-option value="Annual">Annual</mat-option>
+                                    <mat-option value="Semi-Annual">Semi-Annual</mat-option>
+                                </mat-select>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>EA Code</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="ea_code" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Accredition Logo Details</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="accredition_logo_details" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Additional Certificates Copies</p>
+                            <mat-form-field appearance="outline" readonly>
+                                <input matInput type="number" min="0" formControlName="add_cert_copy" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                             
+
+                                
+                                <ng-container matColumnDef="account_name">
+                                    <th mat-header-cell *matHeaderCellDef>Select Stage </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.account_name}} </td>
+                                </ng-container>
+
+                             
+                                <ng-container matColumnDef="br_number">
+                                    <th mat-header-cell *matHeaderCellDef>No of Mandays</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.br_number}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                    </div> -->
+
+                   
+                </div>
+            </div>
+
+
+            <section class="job-nav">
+                <div class="section">
+                  <mat-card>
+                    <div class="row form_head">
+                      <h3>Additional Site Details</h3>
+                    </div>
+                    <div class="form_basic">
+                      <div class="row">
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group" style="margin-left:10px; margin-top:10px;">
+                            <p >Select Site</p>                                      
+                             <!-- new code for child data  starts-->
+                              <div *ngFor="let data of singleLeadData1">
+                                <mat-checkbox [ngModelOptions]="{ standalone: true }" [(ngModel)]="data.checked"  class="example-margin"
+                                [checked]="data.checked"
+                                (change)="typeChangeChild($event,data)">
+                                {{this.data?.br_number}}/
+                                {{this.singleLeadData?.associated_company + " - " }}/{{this.singleLeadData?.state_name}}/{{this.singleLeadData?.region_name}}
+                               </mat-checkbox>      
+                              </div>
+                              <!-- new code for child data  starts-->
+                          </div>
+        
+                        </div>
+                        <div
+                        class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                        style="padding: 10px 0"
+                      >
+                        <p>Billing Site</p>
+                        <label
+                          for="billing_site_two"
+                          class="bill-site"
+                          *ngFor="
+                            let item of singleLeadData?.billing_site_copy;
+                            index as i
+                          "
+                        >
+                          {{ i + 1 }} {{ ")" }} {{ item }}
+                          {{
+                            this.singleLeadData?.associated_company +
+                              " - " +
+                              this.singleLeadData?.customer_category
+                          }}/{{ item?.city_name }}/ {{ item?.region_name }}/{{
+                            item?.first_name
+                          }}
+                        </label>
+                      </div>
+                      </div>
+                      <!-- child side box starts  -->
+                      <div class="row" *ngIf="childSide">
+                       <!---stage and Mandays table start-->
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                          <div class="form-group stage-table">
+                            <div class="d-flex justify-content-between  p-1 rounded fw-bolder text-white" style="background-color: #8B817D;">
+                                <h4 class="p-0 m-0"> Stage </h4>
+                                <h4 class="p-0 m-0">   No of Mandays </h4>
+                              </div>
+                            <div *ngFor="let item of this.stageData" class="data_right_all">
+                              <div style="display: flex;justify-content: space-between; align-items: center;">
+                                <span class="row-val">
+                                  {{ item.stage }}
+                                </span>
+                                <span class="row-val">
+                                  <span style="margin-right: 12px;">{{ item.noOfMandays }}</span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!---stage and Mandays table end-->
+                     </div>
+                      <!-- child side box ends  -->
+        
+                    </div>
+                  </mat-card>
+                </div>
+              </section>
+            <!-- Audit Planning Details -->
+            <div class="form_audit">
+
+
+                <div class="form_head ">
+                    <h3>Audit Planning Details</h3>
+                </div>
+
+                <div class="form_basic form_set">
+                    <div class="row">
+                        <table class="table">
+                            <thead style="text-align: center;">
+                                <tr>
+                                    <th>Audit Start Date</th>
+                                    <th>Audit End Date</th>
+                                    <th>Audit Duration</th>
+                                    <th>Planning Status</th>
+                                    <th>Locked Status</th>
+                                    <th>Audit Confirmed Date </th>
+                                    <th>Remarks</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center;">
+                                <tr>
+                                    <td>{{auditGetByData?.training_start_date}}</td>
+                                    <td>{{auditGetByData?.training_end_date}}</td>
+                                    <td>{{auditGetByData?.training_start_date}}</td>
+                                    <td>{{auditGetByData?.planning_status}}</td>
+                                    <td>{{auditGetByData?.locked_status}}</td>
+                                    <td>{{auditGetByData?.training_confirm_date}}</td>
+                                    <td>{{auditGetByData?.training_remarks}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Auditor Eligible SIC Code Details -->
+            <div class="form_head">
+                <h3>Auditor Eligible SIC Code Details</h3>
+            </div>
+
+            <div class="form_basic form_set">
+                <div class="row">
+
+
+                    <div class="row">
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <p>Auditor Type</p>
+                                <mat-form-field appearance="outline"
+                                    [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                    <input matInput type="text" formControlName="auditorType2" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <p>Auditor Name</p>
+                                <mat-form-field appearance="outline"
+                                    [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                    <input matInput type="text" formControlName="auditor_name2" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <p>EA Code</p>
+                                <mat-form-field appearance="outline"
+                                    [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                    <input matInput type="text" formControlName="eaCode2" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container formArrayName="tableRows"
+                        *ngFor="let control of CF_1.tableRows['controls']; index as i" ?>
+                        <div class="row" [formGroup]="control">
+                            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <p>Auditor Type</p>
+                                    <mat-form-field appearance="outline"
+                                        [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                        <input matInput type="text" formControlName="auditorType" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <p>Auditor Name</p>
+                                    <mat-form-field appearance="outline"
+                                        [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                        <input matInput type="text" formControlName="auditor_name" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <p>EA Code</p>
+                                    <mat-form-field appearance="outline"
+                                        [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                        <input matInput type="text" formControlName="eaCode" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form_head">
+                <h3>NC Information details</h3>
+            </div>
+            <div class="form-basic form_set">
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Auditor Name</th>
+                                <th>Major NC</th>
+                                <th>Minor NC</th>
+                                <th>OFI</th>
+                                <th>Total NC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nagaraj Joshi</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>0</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form_head">
+                <h3>Uploaded Documents</h3>
+            </div>
+
+            <div class="form-basic">
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Contact Review Form</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChange($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocReview()">View</button>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Agreement</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form2" id="file" type="file" multiple
+                                class="form-control" (change)="agreementChange($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="agreementView()">View</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Basic Form</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form3" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChangeThree($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocBasic()">View</button>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">FEA_DOC</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form4" id="file" type="file" multiple
+                                class="form-control" (change)="feaDocChange($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="feaDocView()">View</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">GST File</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form5" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChangeOne($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocGST()">View</button>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Others-Manday App</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form6" id="file" type="file" multiple
+                                class="form-control" (change)="otherMandayChange($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="otherManday()">View</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Company Logo File</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form7" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChangeTwo($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocLogo()">View</button>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Purchase_Order</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form8" id="file" type="file" multiple
+                                class="form-control" (change)="purchaseOrderChange($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="purchaseView()">View</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row form_set">
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                        <div class="form-group">
+                            <p class="file-tag">Others</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="contact_review_form9" id="file" type="file" multiple
+                                class="form-control" (change)="fileInputChangeFour($event)">
+
+                        </div>
+                    </div>
+                    <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                        <div class="form-group">
+                            <button class="view-doc" (click)="viewDocOther()">View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form_set">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>Remarks</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="remarks" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Update Audit Related Documents -->
+            <div class="form_head">
+                <h3>Update Audit Related Documents</h3>
+            </div>
+            <div class="form-basic form_set">
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>CGCM Needed</p>
+                            <mat-form-field appearance="outline">
+                                <mat-select formControlName="CGCMNeeded">
+                                    <mat-option value="Yes">Yes </mat-option>
+                                    <mat-option value="No">No</mat-option>
+                                </mat-select>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Status</p>
+                            <mat-form-field appearance="outline"
+                                [ngClass]="leadUpdate==='L-1Reviewer' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-select formControlName="status">
+                                    <mat-option value="Save now for further updates">Save now for further updates </mat-option>
+                                    <mat-option value="Submit to CG team for varification">Submit to CG team for varification </mat-option>
+                                </mat-select> -->
+                                <input matInput type="text" formControlName="status" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verification Team Check List -->
+            <div class="form_head">
+                <h3>Verification Team Check List</h3>
+            </div>
+            <div class="form-basic form_set">
+
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Open Action Plans</p>
+                            <mat-form-field appearance="outline" readonly>
+                                <input matInput type="number" [min]="0" formControlName="opneActionPlans" required />
+                                <mat-error *ngIf="
+                                postAuditForm.controls[
+                                    'opneActionPlans'
+                                  ].hasError('required')
+                                ">
+                                    Required*
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            Open Action Plans Status:
+                            <input formControlName="customer_type1" checked="checked" type="radio" name="customer_type1"
+                                value="Yes" id="red" style="margin: 0 5px 0 4%" (click)="checkCustomType()" />Yes
+                            <input formControlName="customer_type1" type="radio" required name="customer_type1"
+                                value="No" id="blue" style="margin: 0 5px 4% 4%" (click)="checkCustomTypeNo()" />No
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <p>Review Needed</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input type="radio" formControlName="customer_type3" name="customer_type3" checked="checked"
+                                value="Yes" id="red" style="margin: 0 5px 0 4%" />Yes
+                            <input type="radio" formControlName="customer_type3" checked="checked" name="customer_type3"
+                                required value="No" id="blue" style="margin: 0 5px 4% 4%" />No
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <p>Certification Changes:</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <div class="form-group">
+                            <input formControlName="customer_type6" type="radio" checked="checked" name="customer_type6"
+                                value="Yes" id="red" style="margin: 0 5px 0 4%" />Yes
+                            <input formControlName="customer_type6" type="radio" required name="customer_type6"
+                                value="No" id="blue" style="margin: 0 5px 4% 4%" />No
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>Certification Changes Remarks</p>
+                            <mat-form-field appearance="outline" readonly>
+                                <input matInput type="text" formControlName="certificationChangeRemark" />
+                                <mat-error *ngIf="
+                                postAuditForm.controls[
+                                    'certificationChangeRemark'
+                                  ].hasError('required')
+                                ">
+                                    Required*
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>Your Action</p>
+                            <mat-form-field appearance="outline">
+                                <mat-select formControlName="yourAction">
+                                    <mat-option value="Just Save Further Action Required
+                                    ">Just Save Further Action Required</mat-option>
+
+                                </mat-select>
+                                <mat-error *ngIf="
+                                postAuditForm.controls[
+                                    'yourAction'
+                                  ].hasError('required')
+                                ">
+                                    Required*
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>Technical Reviewer Level 1 &nbsp; &nbsp; <span class="span_text"> Data input from
+                                    CDB</span>
+                            </p>
+
+                            <mat-form-field appearance="outline">
+                                <input matInput type="text" formControlName="tecnicalReviewrLevel" />
+
+                                <!-- <mat-select formControlName="tecnicalReviewrLevel">
+                                    <mat-option value="EAC 11">EAC 11</mat-option>
+                                    <mat-option value="EAC 12">EAC 12</mat-option>
+                                    <mat-option value="EAC 13">EAC 13</mat-option>
+                                    <mat-option value="EAC 14">EAC 14</mat-option>
+                                    <mat-option value="EAC 15">EAC 15</mat-option>
+                                </mat-select> -->
+                                <mat-error *ngIf="
+                                postAuditForm.controls[
+                                    'tecnicalReviewrLevel'
+                                  ].hasError('required')
+                                ">
+                                    Required*
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Technical Reviewer Level 2</p>
+                            <mat-form-field appearance="outline">
+                                <mat-select formControlName="tecnicalActionLevel2">
+                                    <mat-option value="EAC 11">EAC 11</mat-option>
+                                    <mat-option value="EAC 12">EAC 12</mat-option>
+                                    <mat-option value="EAC 13">EAC 13</mat-option>
+                                    <mat-option value="EAC 14">EAC 14</mat-option>
+                                    <mat-option value="EAC 15">EAC 15</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="
+                                postAuditForm.controls[
+                                    'tecnicalActionLevel2'
+                                  ].hasError('required')
+                                ">
+                                    Required*
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>Comments to Technical Auditor &nbsp; &nbsp; <span class="span_text"> Data input from
+                                    CDB</span></p>
+                            <mat-form-field appearance="outline">
+                                <input matInput type="text" formControlName="commentTechnicalAuditor" />
+                                <mat-error *ngIf="
+                                postAuditForm.controls[
+                                    'commentTechnicalAuditor'
+                                  ].hasError('required')
+                                ">
+                                    Required*
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>Comments to Technical Reviewer Level 1 &nbsp; &nbsp; <span class="span_text"> Data input
+                                    from CDB</span></p>
+                            <mat-form-field appearance="outline">
+                                <input matInput type="text" formControlName="commentTechnicalReviewr1" />
+                                <mat-error *ngIf="
+                                postAuditForm.controls[
+                                    'commentTechnicalReviewr1'
+                                  ].hasError('required')
+                                ">
+                                    Required*
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>Comments to Technical Reviewer Level 2 &nbsp; &nbsp; <span class="span_text"> Data input
+                                    from CDB</span></p>
+                            <mat-form-field appearance="outline">
+                                <input matInput type="text" formControlName="commentTechnicalReviewr2" />
+                                <mat-error *ngIf="
+                                postAuditForm.controls[
+                                    'commentTechnicalReviewr2'
+                                  ].hasError('required')
+                                ">
+                                    Required*
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <p>Verification Group Comments</p>
+                            <mat-form-field appearance="outline">
+                                <input matInput type="text" formControlName="verificationGroupComment" />
+                                <mat-error *ngIf="
+                                postAuditForm.controls[
+                                    'verificationGroupComment'
+                                  ].hasError('required')
+                                ">
+                                    Required*
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="upload-btn">
+
+                    <button *ngIf="leadUpdate==='L-1Reviewer'" class="iploadBtn" (click)="submitForm()">Save</button>
+                    <button *ngIf="leadUpdate==='updateL-1Reviewer'" class="iploadBtn" (click)="updateForm()">Update
+                        Save</button>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+
+
+</section>

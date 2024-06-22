@@ -1,0 +1,67 @@
+<div class="section">
+    <div class="row head" routerLink="../">
+      <p>Leave Master</p>
+    </div>
+    <div class="row py-1">
+      <div class="employee_top">Dashboard
+        <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+          </i>
+          Holiday </span>
+      </div>
+    </div>
+    <div class="employ_sube">
+      <div class="">
+        <div class="add_btn">
+          <button type="button" class="btn_add" (click)="goToHolidayCreate('master/hrms/leave-master/holiday-create')" *ngIf="assignAction?.Write">Add Holiday</button>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="">
+             <div class="row">
+              <div class="col">
+                <button mat-raised-button color="primary" class="exslBtn" (click)="onBtnExportDataAsExcel()" *ngIf="assignAction?.Read"><mat-icon>filter_list</mat-icon>Export <img src="assets/icons/exc3.png" class="btnImg" alt=""></button>
+              </div>
+              <div class="col">
+                <button mat-raised-button color="primary" class="exslBtn" (click)="onBtnImportDataAsExcel()" *ngIf="assignAction?.Write"><mat-icon>filter_list</mat-icon>Import <img src="assets/icons/exc3.png" class="btnImg" alt=""></button>
+              </div>
+             </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="employ_sube py-2">
+      <div class="">
+        <div class="example-header">
+          <select  id="page-size" (change)="onPageSizeChanged()">
+            <option value="10" selected>10</option>
+            <option value="100">100</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+          </select>
+          <!-- <span class="pag_size">Per Page</span> -->
+        </div>
+      </div>
+      <div class="">
+        <div class="employee_2" align="end">
+  
+          <input type="text" class="form-control" id="filter-text-box" placeholder="Search"
+            (input)="onFilterTextBoxChanged()"
+          >
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="form_head">
+      <h3>HOLIDAY LIST</h3>
+      <button class="backBtn" routerLink="../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+    </div>
+    <div class="ag_grid">
+      <ag-grid-angular class="ag-theme-alpine" id="myGrid" style=" width:100%; height:400px;" [rowData]="rowData"
+        [columnDefs]="columnDefs" [pagination]=true [paginationPageSize]="10" [rowData]="rowData"
+        (gridReady)="onGridReady($event)" (cellClicked)="onCellClicked($event)"  [rowClass]="rowClass">
+      </ag-grid-angular>
+    </div>
+  </div>

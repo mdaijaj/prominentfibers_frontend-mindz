@@ -1,0 +1,12 @@
+<div class="edd-del">
+    <mat-icon (click)="edit($event)" *ngIf="assignAction?.Write"
+    mat-raised-button #tooltip="matTooltip"
+          matTooltip="Assign for Product"
+    
+       
+    >assignment_turned_in</mat-icon>
+    <!-- <mat-icon (click)="delete($event)" *ngIf="assignAction?.Delete">delete</mat-icon> -->
+    <mat-icon *ngIf="assignAction?.Read">visibility</mat-icon>
+    <!-- <button mat-raised-button color="primary">Primary</button>
+    <button mat-raised-button color="warn">Warn</button> -->
+</div>

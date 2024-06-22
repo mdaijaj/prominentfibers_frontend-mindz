@@ -1,0 +1,77 @@
+<div class="row">
+  
+  <ng-container *ngFor="let module of subModules">
+    <div class="service-box">
+      <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+        <img [src]="module.menuIcon" alt="" />
+      </div>
+      <div class="card-title">
+        <p>{{module.menuName}}</p>
+      </div>
+    </div>
+  </ng-container>
+  <!-- <div class="service-box" routerLink="lead-validation">
+    <div class="service-img" >
+      <img src="assets//icons/icon_DQS/oplist.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Lead Validation</p>
+    </div>
+  </div> -->
+
+    <!-- <div class="service-box" routerLink="generate-lead">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/lead.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Lead Generation</p>
+      </div>
+    </div>
+
+    <div class="service-box" >
+      <div class="service-img" routerLink="validate-lead">
+        <img src="assets//icons/icon_DQS/stamp.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Lead Validation</p>
+      </div>
+    </div>
+
+    <div class="service-box" routerLink="assign-lead">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/userrr.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Lead Assignment</p>
+      </div>
+    </div>
+
+    <div class="service-box" routerLink="escalate-lead">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/stair.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Lead Escalation</p>
+      </div>
+    </div>
+
+    <div class="service-box">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/convir.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Lead Conversion</p>
+      </div>
+    </div>
+
+    <div class="service-box" routerLink="lead-master">
+      <div class="service-img">
+        <img src="assets//icons/icon_DQS/software.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Lead <br> Master</p>
+      </div>
+    </div> -->
+
+  </div>
+

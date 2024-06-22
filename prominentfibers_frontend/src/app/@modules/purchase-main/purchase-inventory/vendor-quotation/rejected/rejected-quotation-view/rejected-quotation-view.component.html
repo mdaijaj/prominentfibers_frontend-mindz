@@ -1,0 +1,33 @@
+<h3 mat-dialog-title class="popHead">Quotation Record</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+    <div class="cotain">
+        <div class="emp_key">
+            <p>Pr Id:</p>
+            <p>Vendor Name:</p>
+            <p>Department:</p>
+            <p>Create Date:</p>
+            <p>Asset Category:</p>
+            <p>Amount:</p>
+            <p>Priority:</p>
+            <p>Status:</p>
+        </div>
+
+        <div class="emp_value">
+            <p>{{ cellData?.procurement_product_id}}</p>
+            <p>{{ cellData?.vendor_name}}</p>
+            <p>{{ cellData?.department}}</p>
+            <p>{{ createDate}}</p>
+            <p>{{ cellData?.item_name}}</p>
+            <p>{{ cellData?.mvp}}</p>
+            <p>{{ cellData?.priority}}</p>
+            <p>{{ cellData?.approvel_status}}</p>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close mat-raised-button color="primary">
+        Close
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,101 @@
+<div style="width: 600px;">
+    <form class="form_set" [formGroup]="create_fglist_Form">
+        <div class="row">
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Product Name</mat-label>
+                <mat-select
+                formControlName="product_name"
+              >
+                <!-- <mat-option [value]="st.amc_description" *ngFor="let st of amc_des">{{
+                  st.amc_description
+                }}</mat-option> -->
+                <mat-option>option 1</mat-option>
+                <mat-option>option 2</mat-option>
+                <mat-option>option 3</mat-option>
+              </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Product Code</mat-label>
+                <mat-select
+                formControlName="product_code"
+              >
+                <!-- <mat-option [value]="st.amc_description" *ngFor="let st of amc_des">{{
+                  st.amc_description
+                }}</mat-option> -->
+                <mat-option>option 1</mat-option>
+                <mat-option>option 2</mat-option>
+                <mat-option>option 3</mat-option>
+              </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Product Variant</mat-label>
+                  <mat-select
+                  formControlName="product_variant"
+                >
+                  <!-- <mat-option [value]="st.amc_description" *ngFor="let st of amc_des">{{
+                    st.amc_description
+                  }}</mat-option> -->
+                  <mat-option>option 1</mat-option>
+                  <mat-option>option 2</mat-option>
+                  <mat-option>option 3</mat-option>
+                </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                    <mat-form-field appearance="outline">
+                    <mat-label>Allocate</mat-label>
+                    <input matInput type="text"
+                        />
+                    </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Select Batch Number</mat-label>
+                  <mat-select
+                  formControlName="product_code"
+                >
+                  <!-- <mat-option [value]="st.amc_description" *ngFor="let st of amc_des">{{
+                    st.amc_description
+                  }}</mat-option> -->
+                  <mat-option>option 1</mat-option>
+                  <mat-option>option 2</mat-option>
+                  <mat-option>option 3</mat-option>
+                </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                    <div class="form-group formField">
+                        <mat-form-field appearance="outline">
+                        <mat-label>Allocate</mat-label>
+                        <input matInput type="text"
+                            />
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+      </form>
+        <mat-dialog-actions align="end" *ngIf="!view">
+            <button *ngIf="!departmentId" mat-raised-button color="primary" (click)="onSubmitForm()" class="mx-2">
+                Allocate
+            </button>
+        </mat-dialog-actions>
+</div>

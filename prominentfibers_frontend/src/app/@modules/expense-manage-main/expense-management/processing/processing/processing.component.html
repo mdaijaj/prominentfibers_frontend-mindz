@@ -1,0 +1,466 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee"></div>
+      <div class="msater-nav">
+        <a href="">My Expenses<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">My Expenses List</a>
+      </div>
+
+      <div class="updatetitle">
+        <h2><b>Processing Expense</b></h2>
+      </div>
+      <section class="job-nav">
+        <div class="section">
+          <div class="task_details" *ngIf="!nonBillable || billableStatus">
+            <div class="row form_head">
+              <h3>Task Order Details</h3>
+            </div>
+
+            <div class="row details">
+              <div class="col-md-6">
+                <table id="customers">
+                  <tr>
+                    <td class="head_task">Task No</td>
+                    <td class="tasklinks" class="tasklink" (click)="pdfGenerate()"
+                      matTooltip="Task Order File(Pdf Generate)">
+                      {{ expenseData?.taskOrder_no }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">Company Name</td>
+                    <td>{{ expenseData?.associated_company }}</td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">Company Remark</td>
+                    <td>{{ expenseData?.company_remarks }}</td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">Customer Category</td>
+                    <td>{{ expenseData?.customer_category }}</td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">Email</td>
+                    <td>{{ expenseData?.email }}</td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">Country Name</td>
+                    <td>{{ expenseData?.country_name }}</td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">State Name</td>
+                    <td>{{ expenseData?.state_name }}</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="col-md-6">
+                <table id="customers">
+                  <tr>
+                    <td class="head_task">BR Number</td>
+                    <td>{{ expenseData?.br_number }}</td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">Audit Start Date</td>
+                    <td>{{ expenseData?.training_start_date }}</td>
+                  </tr>
+
+                  <tr>
+                    <td class="head_task">Audit End Date</td>
+                    <td>{{ expenseData?.training_end_date }}</td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">Travler Type</td>
+                    <td>{{ expenseData?.travel_type }}</td>
+                  </tr>
+                  <tr>
+                    <td class="head_task">Mobile Number</td>
+                    <td>{{ expenseData?.mobile_number }}</td>
+                  </tr>
+               
+                  <tr>
+                    <td class="head_task">Opportunity Type</td>
+                    <td>{{ expenseData?.opportunity_type }}</td>
+                  </tr>
+
+                
+                  <tr>
+                    <td class="head_task">City Name</td>
+                    <td>{{ expenseData?.city_name }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <mat-card style="padding: 20px 0px">
+            <div class="row form_head">
+              <h3>My Expenses</h3>
+            </div>
+            <div class="form_basic">
+              <form class="form_set" [formGroup]="expenceForm">
+                <div class="row">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <p>Expense Type</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly class="readonly-wrapper">
+                        <input matInput type="text" formControlName="expense_type" readonly />
+
+                        <!-- <mat-select formControlName="expense_type">
+                            <mat-option (click)="billableFunc()" value="Billable">Billable</mat-option>
+                            <mat-option (click)="nonBillableFunc()" value="Non-Billable">Non-Billable</mat-option>
+                          </mat-select> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <p>Expense Name</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" formControlName="expense_name" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="!nonBillable || billableStatus">
+                    <div class="form-group filed_hed">
+                      <p>Task Order</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!nonBillable || billableStatus">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" formControlName="task_order" readonly />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12" *ngIf="
+                (nonBillable && !billableStatus) || task_order_nonBilable
+              ">
+                    <div class="form-group filed_hed">
+                      <p class="file-tag">Expense Approval</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="
+                (nonBillable && !billableStatus) || task_order_nonBilable
+              ">
+                    <div class="form-group">
+                      <input formControlName="expenseApprovalfile" id=" expenseApprovalfile" type="file" multiple
+                        class="form-control" (change)="expenseApprovalFile($event)"  accept=".pdf" />
+                      <div class="file set_icon">
+                        <img class="selctedImg" [src]="pdfFile" *ngIf="expenseData.attach_bill != null">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <p>Expense Advance :</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="number" min="0" formControlName="expense_advance" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <p>Expense Description</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      
+                      <textarea appTextareaAutosize rows="2" class="text-input" style="width: 100%;"
+                        formControlName="expense_desc"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <div class="form-group filed_hed">
+                      <span style="margin: 0 44px 0 20px">Travel Tickets</span>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+
+                      <input formControlName="travel_ticket" type="radio" name="travel_ticket" value="Yes"
+                        (click)="yesTickets()" id="red" style="margin: 0 5px 0 0%" />Yes
+                      <input formControlName="travel_ticket" type="radio" name="travel_ticket" checked="checked"
+                        value="No" (click)="noTickets()" id="blue" style="margin: 0 5px 4% 4%" />No
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="
+                    (nonBillable && !billableStatus) || task_order_nonBilable
+                  ">
+
+                </div>
+                
+                <mat-card *ngIf="showTickets">
+                  <div class="row form_head">
+                    <h3>Travel Tickets</h3>
+                  </div>
+                  <div class="ag_grid">
+                    <p class="note_travel">
+                      
+                    </p>
+                    <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style="width: 100%; height: 400px"
+                      [rowData]="rowDataBookTiket" [columnDefs]="columnDefsConfirm"
+                      (cellClicked)="onCellValueChanged($event)" [pagination]="true" [paginationPageSize]="10"
+                      (gridReady)="onGridReady($event)">
+                    </ag-grid-angular>
+                  </div>
+                </mat-card>
+                <br />
+
+                <div class="row form_head">
+                  <h3>Expense Details</h3>
+                </div>
+                <div class="ag_grid">
+                  <p class="note_travel">
+                    Note:<span>Please Update Verifier Comment And Verifier Status Of
+                      Individual Expense Details</span>
+                  </p>
+
+                  <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style="width: 100%; height: 400px"
+                    [rowData]="rowExpenseCopy" [columnDefs]="columnDefs" (cellClicked)="onCellValueChanged1($event)"
+                    [pagination]="true" [paginationPageSize]="10" (gridReady)="onGridReady($event)">
+                  </ag-grid-angular>
+                </div>
+                <div class="form-group">
+                  <!-- <mat-icon class="add-man" (click)="addBtn()">add_circle</mat-icon> -->
+                </div>
+
+                <div class="form_basic">
+                  <form class="form_set" [formGroup]="expenceForm">
+                    
+                    <div class="row pt-3">
+                      <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <p>Date</p>
+                        </div>
+
+                        <div class="form-group">
+                          <mat-form-field appearance="outline">
+                            <input matInput [matDatepicker]="dp5" (click)="dp5.open()" formControlName="date_posted"
+                              [max]="maxDate" [min]="minDate" (dateChange)="dateChange($event)" />
+
+                            <mat-datepicker-toggle matSuffix [for]="dp5"></mat-datepicker-toggle>
+                            <mat-datepicker #dp5></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <!-- <div class="form-group">
+                          <p>Remarks</p>
+                        </div> -->
+
+                        <div class="form-group">
+                          <!-- <mat-form-field appearance="outline" readonly>
+                            <input
+                              matInput
+                              type="text"
+                              formControlName="remarks_posted"
+                            />
+                            
+                          </mat-form-field> -->
+                          <!-- </mat-form-field> -->
+                          <!-- <textarea
+ appTextareaAutosize
+ 
+ rows="2"
+ class="text-input"
+ style="width: 100%;"
+ formControlName="remarks_posted"
+></textarea> -->
+                          <div class="form-group">
+                            <p>Remark</p>
+                            <div class="form-group">
+                              <mat-form-field appearance="outline" readonly>
+                                <input matInput type="text" formControlName="remarks_posted" />
+
+                                <mat-error *ngIf="expenceForm.controls['remarks_posted'].hasError('required')
+  ">
+                                  This field is required!
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="upload-btn">
+                      <button class="cancel-btn" (click)="cancel()">Reject</button>
+                      <!-- <button *ngIf="approveStatus || makePaymentStatus" class="cancel-btn" (click)="cancel()">
+                        Cancel
+                      </button> -->
+    
+                      <button class="favorite styled" (click)="paymentForm()">
+                        Processing
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+          
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+    </div>
+  </div>
+</mat-card>
+
+<div class=" pdf-content">
+  <div class="container" id="dashboard" #dashboard style="padding: 20px 35px;">
+    <div class="row">
+      <div class="invoice-title">
+        <h2></h2>
+        <h3 class="pull-right">
+          <img align="right" src="../../../../../../assets/icons/DQS_logo.png" alt="" width="15%">
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+      <p align="left" style="color: rgb(8, 8, 156);">DQS India | 5th Floor Anjaneya Techno Park 147 HAL Airport Road
+        Kodihalli Bengaluru -560017</p>
+    </div>
+
+    <div class="row" style="padding: 40px 0 0 0;">
+      <div class="col-md-12">
+        <p align="center" style="font-size: 16px; font-weight: 500;">Task Order Details</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <address>
+          <div class="to">
+            <strong>To:</strong>
+            <span>{{expenseData?.first_name}}</span>
+          </div>
+          <div class="acc_no">
+            <strong>Vendor Acc No:</strong>
+            <span>0011202</span>
+          </div>
+        </address>
+      </div>
+      <div class="col-md-6">
+        <address align="right">
+          <div class="to">
+            <strong>Task Order No:</strong>
+            <span>{{expenseData?.task_order}}</span>
+          </div>
+          <div class="acc_no">
+            <strong>Work Order No:</strong>
+            <span>{{expenseData?.workOrder_no}}</span>
+          </div>
+        </address>
+      </div>
+    </div>
+
+    <div class="">
+      <strong>Note:</strong>
+      <span>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium
+        consequatur aut odio explicabo enim est soluta rem ratione eaque voluptatem excepturi nihil
+        maiores repellendus eligendi consequuntur, accusantium tenetur saepe
+        laborum. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Repudiandae at, deleniti expedita, dolore suscipit qui obcaecati
+        deserunt libero dolorum rem amet corrupti,
+        modi ipsum facilis quis facere eius? Quam, molestias.
+      </span>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p>BR Number:<span>{{expenseData?.br_number}}</span></p>
+        <p>Company Name:{{expenseData?.associated_company}}</p>
+        <p>Address:{{expenseData?.address2}}</p>
+        <p>City:{{expenseData?.city}}, State:{{expenseData?.state}}, Country:{{expenseData?.country}}</p>
+        <p>Pin Code:{{expenseData?.postal_code}}</p>
+        <p>Phone No:{{expenseData?.phone_number }}</p>
+      </div>
+      <div class="col-md-6">
+        <p>Contact person Details:<span>{{expenseData?.first_name}} {{expenseData?.last_name}}</span></p>
+        <p>Email:{{expenseData?.email}}</p>
+        <p>Phone Number:{{expenseData?.phone_number}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <p>Program Name:{{expenseData?.standard_program_assement}}</p>
+      <p>Audit Type:{{expenseData?.certificate_type}}</p>
+      <p>Audit Duration:21 feb 2023 To 22 feb 2034</p>
+    </div>?
+
+    <div class="row">
+      <p align="center" style="font-size: 15px; font-weight: 500;">Audit Spread</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Date Of Audit</th>
+            <th>Br Number</th>
+            <th>Location</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{expenseData?.first_name}}</td>
+            <td>{{expenseData?.job_title}}</td>
+            <td>{{expenseData?.training_start_date}}</td>
+            <td>{{expenseData?.br_number}}</td>
+            <td>{{expenseData?.city}},{{expenseData?.state}},{{expenseData?.country}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <p>Bililable/Non-Bililable:</p><span>{{expenseData?.expense_category}}</span>
+      <p>Special Instructions:</p><span>Onsite Audit</span>
+    </div>
+
+    <footer style="padding: 60px 0;">
+      <div class="row">
+        <div class="col-md-4">
+          <strong>DQS India</strong>
+          <p>{{expenseData?.associated_company}}</p>
+        </div>
+        <div class="col-md-4">
+          <p>{{expenseData?.address2}}</p>
+          <p>{{expenseData?.city}},{{expenseData?.state}},{{expenseData?.country}}</p>
+        </div>
+        <div class="col-md-4">
+          <p>Email:{{expenseData?.email}}</p>
+          <p>Phone Number:{{expenseData?.phone_number }}</p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</div>

@@ -1,0 +1,966 @@
+<div *ngIf="ticketId">
+    <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel List</h3>
+    <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+  
+    <mat-dialog-content class="mat-typography">
+      <div class="cotain">
+        <div class="emp_key">
+           <p>S.No</p>
+          <p>Flight/Train No.</p>
+          <p>Travel Date</p>
+          <p>Travel Amount</p>
+          <p>Mode of Travel</p>
+          <p>Status</p>
+        </div>
+        <div class="emp_value">
+        
+             <p>{{ticketData?.ticket_id|| "-" }}</p>
+             <P>{{ticketData?.flight_no|| "-" }}</P>
+             <P>{{ticketData?.travel_date|| "-" }}</P>
+             <P>{{ticketData?.travel_amount|| "-" }}</P>
+             <P>{{ticketData?.mode_of_travel|| "-" }}</P>
+             <p><mat-form-field appearance="outline">
+             <mat-select (selectionChange)="getStatus($event)"> 
+                  <mat-option value="Confirmed">Confirmed</mat-option>
+                  <!-- <mat-option value="SUGGESTED">Suggested</mat-option>     -->
+             </mat-select>
+                </mat-form-field></p>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+     
+      <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="statusGet()">
+        Submit
+      </button>
+      <button
+      mat-button
+      mat-dialog-close
+      mat-raised-button
+      color="primary"
+      style="float: right"
+    >
+      Close
+    </button>
+      <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+    </mat-dialog-actions>
+  </div>
+
+<div *ngIf="myExpense_id">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">My Expense List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography">
+    <div class="cotain">
+      <div class="emp_key">
+        <p>S.No</p>
+         <p>Expense Report No</p>
+        <p>Expense Type</p>
+        <p>Task Order</p>
+        <p>Expense Name</p>
+        <p>Expense Advance</p>
+        <p>Date</p>
+        <p>Expense Description</p>
+
+      </div>
+      <div class="emp_value">
+           <p>{{expenseDataById?.myexpense_id}}</p>
+           <p>{{expenseDataById?.expense_report_no|| "-" }}</p>
+           <P>{{expenseDataById?.expense_type|| "-" }}</P>
+           <P>{{expenseDataById?.task_order|| "-" }}</P>
+           <P>{{expenseDataById?.expense_name|| "-" }}</P>
+           <P>{{expenseDataById?.expense_advance|| "-" }}</P>
+           <P>{{expenseDataById?.createdAt| date}}</P>
+           <P>{{expenseDataById?.expense_desc|| "-" }}</P>
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>
+
+<div *ngIf="expenseDetailId">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">My Expense Details List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography" >
+    <div class="cotain" >
+      <div class="emp_key">
+        <p>Expense Detail Id</p>
+         <p>Expense For</p>
+        <p>Bill Amount</p>
+        <p>Create Date</p>
+        <!-- <p>Start Date</p>
+        <p>End Date</p> -->
+        <p>Expense Location</p>
+        <p>Date Of Expense</p>
+        <p>Quotation Currency</p>
+        <p>quantity</p>
+        <P>Exr</P>
+        <P>Final Amount</P>
+        <P>Attach Bill</P>
+        
+
+        <!-- <p>Attach Bill</p> -->
+
+      </div>
+      <div class="emp_value">
+           <p>{{expenseDetailsDataCopy?.exp_detail_id||"-"}}</p>
+           <p>{{expenseDetailsDataCopy?.expensefor|| "-" }}</p>
+           <P>{{expenseDetailsDataCopy?.billAmount|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.createdAt | date}}</P>
+           <!-- <P>{{expenseDetailsDataCopy?.exp_start_date|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.exp_end_date|| "-" }}</P> -->
+           <P>{{expenseDetailsDataCopy?.expense_location|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.exp_start_date|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.Currency_Type|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.quantity|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.exr|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.finalAmount || "-" }}</P>
+           <a *ngIf="!attachBill"  href="{{expenseDetailsDataCopy?.attachedBill}}" download  target="_blank">Download File</a>
+<p *ngIf="attachBill">No Attach Bill</p>
+
+           <P>
+            <!-- {{expenseDetailsDataCopy?.attachedBill|| "-" }} -->
+
+            <!-- <a [href]="expenseDetailsDataCopy?.attachedBill" download></a> -->
+           </P>
+          
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>
+
+<div *ngIf="confirmIconData">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel List</h3>
+    <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+  
+    <mat-dialog-content class="mat-typography">
+      <div class="cotain">
+        <div class="emp_key">
+           <p>S.No</p>
+          <p>Flight/Train No.</p>
+          <p>Flight/Train Name</p>
+          <p>EXR</p>
+          <p>Currency</p>
+          <p>Travel Date</p>
+          <p>Mode Of Travel</p>
+          
+          <p>Attach Tickets</p>
+          <p class="pt-3">Attach Invoice test</p>
+          <p class="pt-2">Travel Amount-</p>
+          <p>Mangement Fee</p>
+          <p>CGST(9%)-</p>
+          <p>SGST(9%)-</p>
+          
+          <p class="pt-2" style="font-weight: 800;">Grand Total=</p>
+         
+        </div>
+        <div class="emp_value" [formGroup]="leadForm" *ngFor="let confirmIdData2 of confirmIdData">
+        
+             <p>{{confirmIdData2?.ticket_id|| "-" }}</p>
+             <P>{{confirmIdData2?.flight_no|| "-" }}</P>
+             <p>{{ confirmIdData2?.flight_name ||"-" }}</p>
+             <p>{{ confirmIdData2?.exr ||"-" }}</p>
+             <p>{{ confirmIdData2?.quotation_currency ||"-" }}</p>
+             <p>{{ confirmIdData2?.travel_date ||"-" }}</p>
+             <p>{{ confirmIdData2?.mode_of_travel ||"-" }}</p>
+        
+              <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"> -->
+              <div  >
+                <div class="form-group">
+                  <input
+                    formControlName="attach_ticket"
+                    id=" expenseApprovalfile"
+                    type="file"
+                    multiple
+                    class="form-control"
+                    (change)="attchApprovalFile($event)"
+                    required
+                    accept=".pdf"
+                  />
+  <!-- pdfFile: any = '../../../../../../assets/icons/pdfimg.png'; -->
+  <!-- <img src="../../../../../../assets/icons/pdfimg.png" > -->
+<a href="{{confirmIdData2.attach_ticket}}" download target="_blank">
+  <img class="selctedImg" style="align-items: end;" [src]="pdfFile" *ngIf="confirmIdData2.attach_ticket != null">
+
+</a>
+                </div>
+              </div>
+               
+              <!-- </div> -->
+           <div class="pt-3">
+           
+              <div class="form-group">
+                <input
+                  formControlName="attach_invoice"
+                  id=" expenseApprovalfile"
+                  type="file"
+                  multiple
+                  class="form-control"
+                  (change)="attachInvoiceFile($event)"
+                  required
+                  accept=".pdf"
+                />
+                <a href="{{confirmIdData2.attach_invoice}}" download target="_blank">
+                  <img class="selctedImg" style="align-items: end;" [src]="pdfFile" *ngIf="confirmIdData2.attach_invoice != null">
+                
+                </a>
+              </div>
+           
+          </div>
+          <p class="pt-3">{{confirmIdData2?.finalAmount}}</p>
+          <div class="form-group">
+                     
+            <mat-form-field appearance="outline">
+              <input matInput type="number" formControlName="mangement_fee" [min]="0" name="mangement_fee" (input)="onSearchChange($event)" />
+            </mat-form-field>
+          </div>
+          <p>{{cgstAmount||0}}</p>
+          <p>{{sgstAmount||0}}</p>
+          <!-- <p *ngIf="!mangeNum">{{totleInvoice}} </p> -->
+           <p> {{totleFee || "-"}}</p>
+         </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+     
+      <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="submitTravel()">
+        Submit
+      </button>
+      <button
+      mat-button
+      mat-dialog-close
+      mat-raised-button
+      color="primary"
+      style="float: right"
+    >
+      Close
+    </button>
+      <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+    </mat-dialog-actions>
+</div>
+
+
+
+<!-- uplaod onbording -->
+<div *ngIf="uploadOnbordingId">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">My Expense Details List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography" >
+    <div class="cotain"  *ngFor="let item of uploadBoardData">
+      <div class="emp_key">
+        <p>S.No</p>
+         <p>Travler Name</p>
+        <p>Task Order</p>
+        <p>Travel Data</p>
+        <p>Travler Type</p>
+        <p>Travel Ticket</p>
+        <p class="pt-3">Upload OnBording File</p>
+      </div>
+      <div class="emp_value" [formGroup]="onbordForm">
+           <p>{{item?.expense_id}}</p>
+           <p>{{item?.traveler_name|| "-" }}</p>
+           <P>{{item?.task_order|| "-" }}</P>
+           <P>{{item?.dateOf_travel|| "-" }}</P>
+           <P>{{item?.travel_type|| "-" }}</P>
+           <P>{{item?.travel_ticket|| "-" }}</P>
+           <div  >
+            <div class="form-group">
+              <input
+                formControlName="upload_onbording"
+                id=" expenseApprovalfile"
+                type="file"
+                multiple
+                class="form-control"
+                (change)="attachOnbording($event)"
+                required
+              />
+            </div>
+          </div>
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="submitOnbording()">
+      Submit
+    </button>
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>
+
+
+<!-- child travel ticket -->
+
+<div *ngIf="travelDetailChiled">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel Details List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography" >
+    <div class="cotain"  >
+      <div class="emp_key">
+        <p>S.No</p>
+         <p>Travler Name</p>
+        <p>Booking Date</p>
+        <p>Mode of Travel</p>
+        <p>Travel From</p>
+        <p>Travel to</p>
+        <!-- <p>Ticket Type</p> -->
+        <p>Time</p>
+        <p>Remarks</p>
+      </div>
+      <div class="emp_value" *ngFor="let item of travelChildData">
+           <p>{{item?.expense_id}}</p>
+           <p>{{item?.traveler_name|| "-" }}</p> 
+           <P>{{item?.dateOf_travel|| "-" }}</P>
+           <P>{{item?.modeOf_travel|| "-" }}</P>
+           <P>{{item?.travel_form|| "-" }}</P>
+           <P>{{item?.travel_to|| "-" }}</P>
+           <!-- <P>{{item?.ticketType|| "-" }}</P> -->
+           <P>{{item?.time_travel|| "-" }}</P>
+           <P>{{item?.remarks|| "-" }}</P>
+
+           
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <!-- <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="submitOnbording()">
+      Submit
+    </button> -->
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>
+
+
+<!-- travel ticket Child -->
+
+<div *ngIf="employeId">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel Tickets Available Details ss</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography">
+    <div class="cotain">
+      <div class="emp_key">
+         <p>S.No</p>
+        <p>Flight/Train No.</p>
+        <p>Flight/Train Name.</p>
+        <p>Travel Date</p>
+        <p>Departure Time</p>
+        <p>Arrivel Time</p>
+        <p>EXR</p>
+        <p>Departure</p>
+        <p>Arrivel</p>
+        <!-- <p>Currency</p> -->
+        <p>Travel Amount</p>
+        <p>Final Amount</p>
+        <p>Mode of Travel</p>
+        
+        <p>Status</p>
+        <P *ngIf="!hideInvoiceFileds">Attach Invoice</P>
+        <p *ngIf="!hideInvoiceFileds">Attach Ticket</p>
+      </div>
+      <div class="emp_value" *ngFor="let item of travelTicketData">
+      
+           <p>{{item?.ticket_id|| "-" }}</p>
+           <P>{{item?.flight_no|| "-" }}</P>
+           <P>{{item?.flight_name|| "-" }}</P>
+           <P>{{item?.travel_date|| "-" }}</P>
+           <P>{{item?.time|| "-" }}</P>
+           <P>{{item?.arrivalTime|| "-" }}</P>
+           <P>{{item?.exr|| "-" }}</P>
+           <P>{{item?.departure|| "-" }}</P>
+           <P>{{item?.arrival|| "-" }}</P>
+           <!-- <P>{{item?.travel_date|| "-" }}</P> -->
+           <P>{{item?.travel_amount|| "-" }}</P>
+           <P>{{item?.finalAmount|| "-" }}</P>
+
+           <P>{{item?.mode_of_travel|| "-" }}</P>
+          
+           <P>{{item?.travel_status|| "-" }}</P>
+           <p *ngIf="!hideInvoiceFileds">
+            <a href="{{item?.attach_invoice}}" download target="_blank">
+             View Attach Invoice
+            </a>
+           </p>
+           <p *ngIf="!hideInvoiceFileds">
+            <a href="{{item?.attach_ticket}}" download target="_blank">
+              View Attach Ticket
+            </a>
+           </p>
+          
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+   
+    <!-- <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="statusGet()">
+      Submit
+    </button> -->
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+  </mat-dialog-actions>
+</div>
+
+
+<div *ngIf="expenseIdUser && !employeId">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel Request List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography">
+    <div class="cotain">
+      <div class="emp_key">
+        <p>S.No</p>
+         <!-- <p>Travel ID</p> -->
+        <p>Task Order</p>
+      
+        <!-- <p>Traveler Name</p> -->
+        <p>Booking Date/Travel Date</p>
+        <p>Travel Type</p>
+        <p>Travel Ticket</p>
+        <!-- <p>Mode Of Travel</p> -->
+        <!-- <p>Travel From</p>
+        <p>Travel To</p> -->
+        <!-- <p>Suggested Time</p> -->
+        <p>Status</p>
+
+      </div>
+      <div class="emp_value" *ngFor="let item of dataTravelRequst; index as i">
+           <!-- <p>{{i+1}}</p> -->
+           <p>{{item?.expense_id|| "-" }}</p>
+           <P>{{item?.task_order|| "-" }}</P>
+           <!-- <P>{{item?.task_order|| "-" }}</P> -->
+           <!-- <P>{{item?.traveler_name|| "-" }}</P> -->
+           <P>{{item?.dateOf_travel|| "-" }}</P>
+           <P>{{item?.travel_type}}</P>
+           <p>{{item?.travel_ticket}}</p>
+           <!-- <P>{{item?.modeOf_travel|| "-" }}</P> -->
+           <!-- <P>{{item?.travel_form|| "-" }}</P>
+           <P>{{item?.travel_to|| "-" }}</P> -->
+           <!-- <P>{{item?.time_travel|| "-" }}</P> -->
+           <P>{{item?.status|| "-" }}</P>
+
+
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>
+
+
+
+<div *ngIf="travelDetailsId">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel Details</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography">
+    <div class="cotain">
+      <div class="emp_key">
+        <p>Expense Detail Id</p>
+        <p>Travler Name</p>
+       <p>Booking Date</p>
+       <p>Mode of Travel</p>
+       <p>Travel From</p>
+       <p>Travel to</p>
+       <p>Time</p>
+       <!-- <p>Ticket Type</p> -->
+       <!-- <p>Time</p> -->
+       <p>Remarks</p>
+
+      </div>
+      <div class="emp_value" *ngFor="let item of travelChildDataCopy; index as i">
+        <p>{{item?.expensechildId}}</p>
+        <p>{{item?.traveler_name|| "-" }}</p> 
+        <P>{{item?.dateOf_travel|| "-" }}</P>
+        <P>{{item?.modeOf_travel|| "-" }}</P>
+        <P>{{item?.travel_form|| "-" }}</P>
+        <P>{{item?.travel_to|| "-" }}</P>
+        <P>{{item?.time_travel|| "-" }}</P>
+
+        <!-- <P>{{item?.ticketType|| "-" }}</P> -->
+        <!-- <P>{{item?.time_travel|| "-" }}</P> -->
+        <P>{{item?.remarks|| "-" }}</P>
+
+
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>
+
+<!-- confirm Ticket Travel -->
+
+<div *ngIf="ticketIdTravelCopy">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography">
+    <div class="cotain">
+      <div class="emp_key">
+         <p>S.No</p>
+        <p>Flight/Train No.</p>
+        <p>Travel Date</p>
+        <p>Travel Amount</p>
+        <p>Mode of Travel</p>
+        <!-- <p>Status</p> -->
+        <!-- <p>Flight/Train Name.</p> -->
+    
+        <p>Departure Time</p>
+        <p>Arrivel Time</p>
+        <p>EXR</p>
+        <p>Departure</p>
+        <p>Arrivel</p>
+        <!-- <p>Currency</p> -->
+         <p>Final Amount</p>
+         <p>Status</p>
+         <p>Update Ticket Status</p>
+      </div>
+      <div class="emp_value">
+      
+           <p>{{travelTicketConfirm?.ticket_id|| "-" }}</p>
+           <P>{{travelTicketConfirm?.flight_no|| "-" }}</P>
+           <P>{{travelTicketConfirm?.travel_date|| "-" }}</P>
+           <P>{{travelTicketConfirm?.travel_amount|| "-" }}</P>
+           <P>{{travelTicketConfirm?.mode_of_travel|| "-" }}</P>
+
+           <P>{{travelTicketConfirm?.time|| "-" }}</P>
+           <P>{{travelTicketConfirm?.arrivalTime|| "-" }}</P>
+           <P>{{travelTicketConfirm?.exr|| "-" }}</P>
+           <P>{{travelTicketConfirm?.departure|| "-" }}</P>
+           <P>{{travelTicketConfirm?.arrival|| "-" }}</P>
+        
+           <P>{{travelTicketConfirm?.finalAmount|| "-" }}</P>
+
+         
+           <P>{{travelTicketConfirm?.travel_status|| "-" }}</P>
+
+
+
+           <p><mat-form-field appearance="outline">
+           <mat-select (selectionChange)="getStatus($event)"> 
+                <mat-option value="Confirmed">Confirmed</mat-option>
+               <mat-option value="Suggested">Suggested</mat-option>    
+           </mat-select>
+              </mat-form-field></p>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+   
+    <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="statusGet()">
+      Submit
+    </button>
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+  </mat-dialog-actions>
+</div>
+
+<!-- processsing ticket details update -->
+
+<div *ngIf="employeIdProcessing" [formGroup]="processingForm">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel Tickets Available Details t</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+
+  
+  <mat-dialog-content class="mat-typography" *ngFor="let item of travelTicketDataProcessing">
+    <div class="cotain">
+      <div class="emp_key">
+         <p>S.No</p>
+        <p>Flight/Train No.</p>
+        <p>Flight/Train Name.</p>
+        <p>Travel Date</p>
+        <p>Departure Time</p>
+        <p>Arrivel Time</p>
+        <p>EXR</p>
+        <p>Departure</p>
+        <p>Arrivel</p>
+        <!-- <p>Currency</p> -->
+        <p>Travel Amount</p>
+        <p>Final Amount</p>
+        <p>Mode of Travel</p>
+        
+        <p>Status</p>
+        <P>Attach Invoice</P>
+        <p>Attach Ticket</p>
+        <p>Bill Verifier Comment</p>
+        <p>Verifier Status</p>
+      </div>
+      <div class="emp_value" >
+      
+           <p>{{item?.ticket_id|| "-" }}</p>
+           <P>{{item?.flight_no|| "-" }}</P>
+           <P>{{item?.flight_name|| "-" }}</P>
+           <P>{{item?.travel_date|| "-" }}</P>
+           <P>{{item?.time|| "-" }}</P>
+           <P>{{item?.arrivalTime|| "-" }}</P>
+           <P>{{item?.exr|| "-" }}</P>
+           <P>{{item?.departure|| "-" }}</P>
+           <P>{{item?.arrival|| "-" }}</P>
+           <!-- <P>{{item?.travel_date|| "-" }}</P> -->
+           <P>{{item?.travel_amount|| "-" }}</P>
+           <P>{{item?.finalAmount|| "-" }}</P>
+
+           <P>{{item?.mode_of_travel|| "-" }}</P>
+          
+           <P>{{item?.travel_status|| "-" }}</P>
+           <p>
+            <a href="{{item?.attach_invoice}}" download target="_blank">
+             View Attach Invoice
+            </a>
+           </p>
+           <p>
+            <a href="{{item?.attach_ticket}}" download target="_blank">
+              View Attach Ticket
+            </a>
+           </p>
+          
+       
+            <div class="form-group">
+              
+              <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="verifier_comment" />
+              </mat-form-field>
+            </div>
+      
+
+      
+              <div class="form-group">
+                <mat-form-field appearance="outline" >
+                  <!-- <input matInput type="text" formControlName="expense_type" readonly/> -->
+
+                  <mat-select formControlName="verifier_name">
+                    <mat-option *ngFor="let item of allStatusList"  [value]="item.verifier_status_name">{{item.verifier_status_name}}</mat-option>
+                    <!-- <mat-option  value="Non-Billable">Non-Billable</mat-option> -->
+                  </mat-select>
+
+                </mat-form-field>
+              </div>
+            
+         
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+   
+    <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="updateverifierstatus()">
+      Submit
+    </button>
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    class="cancel-btn"
+    style="float: right"
+  >
+    Close
+  </button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+  </mat-dialog-actions>
+</div>
+
+<div *ngIf="expenseDetailIdProces" [formGroup]="processingForm">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">My Expense Details List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography" >
+    <div class="cotain" >
+      <div class="emp_key">
+        <p>S.No</p>
+         <p>Expense For</p>
+        <p>Bill Amount</p>
+        <p>Expense Date</p>
+        <!-- <p>End Date</p> -->
+        <p>Expense Location</p>
+        <p> Currency</p>
+        <p>quantity</p>
+        <P>Exr</P>
+        <P>Final Amount</P>
+        <p>Attach Bill</p>
+        <p>Bill Verifier Comment</p>
+        <p>Verifier Status</p>
+
+      </div>
+      <div class="emp_value">
+           <p>{{expenseDetailsDataProcessing?.exp_detail_id}}</p>
+           <p>{{expenseDetailsDataProcessing?.expensefor|| "-" }}</p>
+           <P>{{expenseDetailsDataProcessing?.billAmount|| "-" }}</P>
+           <P>{{expenseDetailsDataProcessing?.exp_start_date|| "-" }}</P>
+           <!-- <P>{{expenseDetailsDataProcessing?.exp_end_date|| "-" }}</P> -->
+           <P>{{expenseDetailsDataProcessing?.expense_location|| "-" }}</P>
+           <P>{{expenseDetailsDataProcessing?.Currency_Type|| "-" }}</P>
+           <P>{{expenseDetailsDataProcessing?.quantity|| "-" }}</P>
+           <P>{{expenseDetailsDataProcessing?.exr|| "-" }}</P>
+           <P>{{expenseDetailsDataProcessing?.finalAmount|| "-" }}</P>
+           
+
+<!-- 
+           <P>
+\
+            <a [href]="expenseDetailsDataProcessing?.attachedBill" download target="_blank">Attach Bill View</a>
+           </P> -->
+           <a *ngIf="!attachBill"  href="{{expenseDetailsDataProcessing?.attachedBill}}" download  target="_blank">Download File</a>
+           <p *ngIf="attachBill">No Attach Bill</p>
+           
+           <div class="form-group">
+              
+            <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="verifier_comment2" />
+            </mat-form-field>
+          </div>
+    
+
+    
+            <div class="form-group">
+              <mat-form-field appearance="outline" >
+                <!-- <input matInput type="text" formControlName="expense_type" readonly/> -->
+
+                <mat-select formControlName="verifier_name2">
+                  <mat-option *ngFor="let item of allStatusList"  [value]="item.verifier_status_name">{{item.verifier_status_name}}</mat-option>
+                  <!-- <mat-option  value="Non-Billable">Non-Billable</mat-option> -->
+                </mat-select>
+
+              </mat-form-field>
+            </div>
+          
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="updateexpenseverifierstatusProces()">
+      Submit
+    </button>
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+   class="cancel-btn"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>
+
+
+<!-- cancel ticket dialog -->
+<div *ngIf="cancelTicketId">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Tickets List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography">
+    <div class="cotain">
+      <div class="emp_key">
+         <p>Ticket No</p>
+        <p>Flight/Train No.</p>
+        <p>Travel Date</p>
+        <p>Travel Amount</p>
+        <p>Mode of Travel</p>
+        <!-- <p>Status</p> -->
+        <!-- <p>Flight/Train Name.</p> -->
+    
+        <p>Departure Time</p>
+        <p>Arrivel Time</p>
+        <p>EXR</p>
+        <p>Departure</p>
+        <p>Arrivel</p>
+        <!-- <p>Currency</p> -->
+         <p>Final Amount</p>
+         <p>Status</p>
+         <p>Update Ticket Status</p>
+      </div>
+      <div class="emp_value">
+      
+           <p>{{travelTicketCancel?.ticket_id|| "-" }}</p>
+           <P>{{travelTicketCancel?.flight_no|| "-" }}</P>
+           <P>{{travelTicketCancel?.travel_date|| "-" }}</P>
+           <P>{{travelTicketCancel?.travel_amount|| "-" }}</P>
+           <P>{{travelTicketCancel?.mode_of_travel|| "-" }}</P>
+
+           <P>{{travelTicketCancel?.time|| "-" }}</P>
+           <P>{{travelTicketCancel?.arrivalTime|| "-" }}</P>
+           <P>{{travelTicketCancel?.exr|| "-" }}</P>
+           <P>{{travelTicketCancel?.departure|| "-" }}</P>
+           <P>{{travelTicketCancel?.arrival|| "-" }}</P>
+        
+           <P>{{travelTicketCancel?.finalAmount|| "-" }}</P>
+
+         
+           <P>{{travelTicketCancel?.travel_status|| "-" }}</P>
+
+
+
+           <p><mat-form-field appearance="outline">
+           <mat-select (selectionChange)="getCancel($event)"> 
+                <mat-option value="Cancel">Cancel</mat-option>
+               <mat-option value="Confirmed">Confirmed</mat-option>    
+           </mat-select>
+              </mat-form-field></p>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+   
+    <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="statusUpdate()">
+      Submit
+    </button>
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+  </mat-dialog-actions>
+</div>
+
+<!-- cancel approved ticket -->
+<div *ngIf="cancelApprovedEmpId">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Ticket List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography">
+    <div class="cotain">
+      <div class="emp_key">
+         <p>Ticket No</p>
+        <p>Flight/Train No.</p>
+        <p>Travel Date</p>
+        <p>Travel Amount</p>
+        <p>Mode of Travel</p>
+        <!-- <p>Status</p> -->
+        <!-- <p>Flight/Train Name.</p> -->
+    
+        <p>Departure Time</p>
+        <p>Arrivel Time</p>
+        <p>EXR</p>
+        <p>Departure</p>
+        <p>Arrivel</p>
+        <!-- <p>Currency</p> -->
+         <p>Final Amount</p>
+         <p>Status</p>
+         
+      </div>
+      <div class="emp_value">
+      
+           <p>{{traveltickeCanceltApproved?.ticket_id|| "-" }}</p>
+           <P>{{traveltickeCanceltApproved?.flight_no|| "-" }}</P>
+           <P>{{traveltickeCanceltApproved?.travel_date|| "-" }}</P>
+           <P>{{traveltickeCanceltApproved?.travel_amount|| "-" }}</P>
+           <P>{{traveltickeCanceltApproved?.mode_of_travel|| "-" }}</P>
+
+           <P>{{traveltickeCanceltApproved?.time|| "-" }}</P>
+           <P>{{traveltickeCanceltApproved?.arrivalTime|| "-" }}</P>
+           <P>{{traveltickeCanceltApproved?.exr|| "-" }}</P>
+           <P>{{traveltickeCanceltApproved?.departure|| "-" }}</P>
+           <P>{{traveltickeCanceltApproved?.arrival|| "-" }}</P>
+        
+           <P>{{traveltickeCanceltApproved?.finalAmount|| "-" }}</P>
+           <P>{{traveltickeCanceltApproved?.travel_status|| "-" }}</P>
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+   
+   
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+  </mat-dialog-actions>
+</div>

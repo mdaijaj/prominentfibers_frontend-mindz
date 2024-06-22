@@ -1,0 +1,95 @@
+
+
+<div class="section">
+    <div class="head">
+        <p>Employee</p>
+    </div>
+
+    <div class="employ_sube">
+        <div class="employee_top">Dashboard
+            <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+                </i>Document Master System</span>
+        </div>
+
+    </div>
+
+    <mat-card>
+        <div class="form_head">
+            <h3>Document Library</h3>
+        </div>
+    </mat-card>
+
+    <div class="service-container">
+
+
+        <div class="content">
+            <form [formGroup]="myForm" (ngSubmit)="submit(myForm)">
+                <div class="center">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 name">Add Folder Name</div>
+                        <div class="col-md-3">
+                            <input formControlName="name" id="name" type="text" class="form-control">
+         
+                            <div *ngIf="myForm.controls['name'].touched && !myForm.controls['name'].valid">
+                                <span *ngIf="myForm.controls['name'].hasError('required')" style="color: red;">
+                                    Folder Name is Required.
+                                </span>
+                            <div *ngIf="f.name.touched && f.name.invalid" class="message">
+                                <span *ngIf="f['name'].hasError('minlength')">*Minimum 3 characters are required.</span>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 name">Add Files Name </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input formControlName="file" id="file" type="file" multiple class="form-control"
+                                    (change)="onFileChange($event)">
+                            </div>
+                            <div *ngIf="myForm.controls['file'].touched && !myForm.controls['file'].valid">
+                                <div *ngIf="myForm.controls['file'].hasError('required')" style="color: red;">
+                                    One File is required
+                                </div>
+                           
+                        </div>
+                        </div>
+
+                      
+                    </div>
+  
+
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 name">File Description</div>
+                        <div class="col-md-3">
+                            <input formControlName="fileDes" id="name" type="text" class="form-control">
+                            <div *ngIf="myForm.controls['fileDes'].touched && !myForm.controls['fileDes'].valid">
+                                <span *ngIf="myForm.controls['fileDes'].hasError('required')" style="color: red;">
+                                    File Description is Required.
+                                </span>
+                            <div *ngIf="f.fileDes.touched && f.fileDes.invalid" class="message">
+                                <span *ngIf="f['fileDes'].hasError('minlength')">*Minimum 5 characters are required.</span>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+             
+
+                <div align="center">
+                    <button mat-raised-button id="save" color="primary" type="submit"  class="m-3">Submit</button>
+                    <button mat-raised-button color="warn" class="ml-3" (click)="back()">Cancel</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>

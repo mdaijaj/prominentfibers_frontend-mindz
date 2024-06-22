@@ -1,0 +1,318 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee">
+        <!-- <p>HRMS</p> -->
+      </div>
+      <div class="msater-nav">
+        <a href="">Audit Management<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Sales Request</a>
+      </div>
+      <div class="updatetitle">Sales Request</div>
+
+      <form class="form_set" [formGroup]="salseRequest">
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3 (click)="salesChange()">Sales Request(Advance Booking of Auditor)</h3>
+              </div>
+              <div class="form_basic">
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Sales Request Date</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="request_audit_date" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Site&nbsp;<span class="site">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="site">
+                          <mat-option value="onSite">On Site</mat-option>
+                          <mat-option value="offSite">Off Site</mat-option>
+                        </mat-select>
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Mandays</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="mandays" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Country</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="country" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>State</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="state" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                    <div class="form-group">
+                      <p>City</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="City" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Service</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="service" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                    <div class="form-group">
+                      <p>Program</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="program" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                    <div class="form-group">
+                      <p>EA Code</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="eaCode" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Expacted Date</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="expected_date" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                    <div class="form-group">
+                      <p>Remark</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="remarksSale" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                    <div class="form-group">
+                      <p>Suggested Auditor List</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="suggested_auditor_list" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="separator">
+                  <div class="line"></div>
+                  <h2 >Auditor Booking...</h2>
+                  <div class="line"></div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Lead Auditor Name&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="leadAuditor" (selectionChange)="auditorFunction($event,'leadAuditor')">
+                          <mat-option [value]="data.audit_qualification_id" *ngFor="let data of auditorName">
+                            <div>
+                              {{data.auditor_first_name}} ({{data.auditor_standard}})
+                            </div>
+                          </mat-option>
+
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12 calendar">
+                    <button mat-icon-button [matMenuTriggerFor]="appMenu1">
+                      <mat-icon>calendar_today</mat-icon>
+                    </button>
+                    <mat-menu #appMenu1="matMenu" class="drop-calendar" >
+                      <div (click)="$event.stopPropagation()">
+                        <!-- <mat-calendar #calendar1 (selectedChange)="select1($event,calendar)" [dateClass]="isSelected"></mat-calendar> -->
+                        <mat-calendar formControlName="leadAuditor_bookedDate" #calendar1 (selectedChange)="select1($event,calendar1)" [dateClass]="isSelected1"></mat-calendar>
+
+                      </div>
+                    </mat-menu>
+                 
+                  </div>
+
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Co Auditor Name&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="coAuditor" (selectionChange)="auditorFunction1($event,'coAuditor')" multiple>
+                          <mat-option [value]="data.audit_qualification_id" *ngFor="let data of auditorName">
+                            <div>
+                              {{data.auditor_first_name}} ({{data.auditor_standard}})
+                            </div>
+                          </mat-option>
+
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12 calendar">
+                    <button mat-icon-button [matMenuTriggerFor]="appMenu2">
+                      <mat-icon>calendar_today</mat-icon>
+                    </button>
+                    <mat-menu #appMenu2="matMenu" class="drop-calendar" >
+                      <div (click)="$event.stopPropagation()">
+                        <!-- <mat-calendar #calendar1 (selectedChange)="select1($event,calendar)" [dateClass]="isSelected"></mat-calendar> -->
+                        <mat-calendar formControlName="coAuditor_bookedDate" #calendar2 (selectedChange)="select2($event,calendar2)" [dateClass]="isSelected2"></mat-calendar>
+                      </div>
+                    </mat-menu>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Trainee Auditor Name &nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="traineeAuditor" (selectionChange)="auditorFunction($event,'traineeAuditor')">
+                          <mat-option [value]="data.audit_qualification_id" *ngFor="let data of auditorName">
+                            <div>
+                              {{data.auditor_first_name}} ({{data.auditor_standard}})
+                            </div>
+                          </mat-option>
+
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12 calendar">
+                    <button mat-icon-button [matMenuTriggerFor]="appMenu3">
+                      <mat-icon>calendar_today</mat-icon>
+                    </button>
+                    <mat-menu #appMenu3="matMenu" class="drop-calendar" >
+                      <div (click)="$event.stopPropagation()">
+                        <!-- <mat-calendar #calendar1 (selectedChange)="select1($event,calendar)" [dateClass]="isSelected"></mat-calendar> -->
+                        <mat-calendar formControlName="traineeAuditor_bookedDate" #calendar3 (selectedChange)="select3($event,calendar3)" [dateClass]="isSelected3"></mat-calendar>
+                      </div>
+                    </mat-menu>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Technical Expert&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="technicalAuditor" (selectionChange)="auditorFunction($event,'technicalAuditor')">
+                          <mat-option [value]="data.audit_qualification_id" *ngFor="let data of auditorName">
+                            <div>
+                              {{data.auditor_first_name}} ({{data.auditor_standard}})
+                            </div>
+                          </mat-option>
+
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12 calendar">
+                    <button mat-icon-button [matMenuTriggerFor]="appMenu4">
+                      <mat-icon>calendar_today</mat-icon>
+                    </button>
+                    <mat-menu #appMenu4="matMenu" class="drop-calendar" >
+                      <div (click)="$event.stopPropagation()">
+                        <!-- <mat-calendar #calendar1 (selectedChange)="select1($event,calendar)" [dateClass]="isSelected"></mat-calendar> -->
+                        <mat-calendar formControlName="technicalAuditor_bookedDate" #calendar4 (selectedChange)="select4($event,calendar4)" [dateClass]="isSelected4"></mat-calendar>
+                      </div>
+                    </mat-menu>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Candidate Name&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="candidate" (selectionChange)="auditorFunction($event,'candidate')">
+                          <mat-option [value]="data.audit_qualification_id" *ngFor="let data of auditorName">
+                            <div>
+                              {{data.auditor_first_name}} ({{data.auditor_standard}})
+                            </div>
+                          </mat-option>
+
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12 calendar">
+                    <button mat-icon-button [matMenuTriggerFor]="appMenu5">
+                      <mat-icon>calendar_today</mat-icon>
+                    </button>
+                    <mat-menu #appMenu5="matMenu" class="drop-calendar" >
+                      <div (click)="$event.stopPropagation()">
+                        <!-- <mat-calendar #calendar1 (selectedChange)="select1($event,calendar)" [dateClass]="isSelected"></mat-calendar> -->
+                        <mat-calendar formControlName="candidateAuditor_bookedDate" #calendar5 (selectedChange)="select5($event,calendar5)" [dateClass]="isSelected5"></mat-calendar>
+                      </div>
+                    </mat-menu>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>
+                        Witness&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline">
+                        <mat-select formControlName="witness" (selectionChange)="auditorFunction($event,'witness')">
+                          <mat-option [value]="data.audit_qualification_id" *ngFor="let data of auditorName">
+                            <div>
+                              {{data.auditor_first_name}} ({{data.auditor_standard}})
+                            </div>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12 calendar">
+                    <button mat-icon-button [matMenuTriggerFor]="appMenu6">
+                      <mat-icon>calendar_today</mat-icon>
+                    </button>
+                    <mat-menu #appMenu6="matMenu" class="drop-calendar" >
+                      <div (click)="$event.stopPropagation()">
+                        <!-- <mat-calendar #calendar1 (selectedChange)="select1($event,calendar)" [dateClass]="isSelected"></mat-calendar> -->
+                        <mat-calendar formControlName="witnessAuditor_bookedDate" #calendar6 (selectedChange)="select6($event,calendar6)" [dateClass]="isSelected6"></mat-calendar>
+                      </div>
+                    </mat-menu>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+      </form>
+      <div class="upload-btn">
+        <button class="cancel-btn" (click)="cancel()">Cancel</button>
+        <button class="favorite styled" (click)="submitForm()">
+          Advance Booking
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>

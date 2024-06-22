@@ -1,0 +1,52 @@
+.employee_top {
+    color: #989aa0;
+    cursor: pointer;
+}
+.employee_2 {
+    font-size: 16px;
+    color: #8B817D;
+}
+.notFound{
+    margin-top: -17px;
+    text-align: center;
+    color: #c9c9ca;
+    border: 1px solid #dee2e6;
+    /* margin-bottom: -27px; */
+    padding-top: 40px;
+    padding-bottom: 30px;
+    border-top: none;
+}
+.monthSelector{
+    height: 36px;
+    width: 60%;
+    outline: none;
+    border: 1px solid #c9c9ca;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    margin-left: 9px;
+    box-shadow: 0 1px 0px 0px #a8a8a8;
+}
+.formCon{
+    margin-left: 7px;
+    margin-top: 10px;
+}
+.resetBtn{
+    margin-left: 5px;
+    border: none;
+    background: #8B817D;
+    color: white;
+    border-radius: 5px;
+    width: 27px;
+    height: 27px;
+    font-size: 12px;
+    position: relative;
+    top: -3px;
+}
+.rfrIcon{
+    font-size: 21px;
+    position: absolute;
+    top: 11%;
+    left: 2px;
+}

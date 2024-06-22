@@ -1,0 +1,79 @@
+<form>
+  <!-- Static form start -->
+  <div class="row m-3">
+
+
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+  
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group formField">
+          <mat-form-field appearance="outline">
+            <mat-label>Sales Order No</mat-label>
+            <input matInput [(ngModel)]="sales_order_no" name="sales_order_no" type="text" id="sales_order_no"    
+            >
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+  
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group formField">
+          <mat-form-field appearance="outline">
+            <mat-label>Sales Order Date</mat-label>
+            <input matInput [(ngModel)]="sales_order_date" name="sales_order_date" type="text" id="sales_order_date"    
+            >
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+  
+      <div class="flexCol">  
+        <div class="header">
+        </div>
+        <div class="form-group formField">
+          <mat-form-field appearance="outline">
+            <mat-label>Sales Order By</mat-label>
+            <input matInput [(ngModel)]="sales_order_by" name="sales_order_by" type="text" id="sales_order_by"    
+            >
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<div class="ag_grid">
+  <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:426px;"
+    [rowData]="rowData" [columnDefs]="columnDefs"
+  >
+  </ag-grid-angular>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+<div class="row m-3">
+  <div class="common_button_sub text-right w-50 p-0">
+  </div>
+
+  <div class="common_button_sub text-right w-50 p-0">
+    <button class="mx-3 " >
+      Generate Dispatch Order
+    </button>
+    <button class="mx-3 ">
+      Back
+    </button>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<mat-card class="m-card">
+  <div class="section">
+      <div class="row head">
+          <!-- <p>HRMS</p> -->
+      </div>
+  
+      
+  
+      <div class="employ_sube">
+          <!-- <div class="employee_top"><p>Pre Audit</p>
+             
+          </div> -->
+          <div class="msater-nav">
+            <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="/master/audit/pre-audit">Pre-Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="/master/audit/pre-audit/work-order/club-work-order-list">Club Work Order</a>
+        </div>
+          <div class="employee_2" align="end">
+              <label>Search: </label>
+              <input type="text" id="filter-text-box" (input)="onFilterTextBoxChanged()" />
+            </div>
+      </div>
+  
+  
+  
+      <div class="employ_sube">
+          <div class="add_btn">
+              <!-- <button type="button" class="btn_add" (click)="openDialog()">File Upload <img src="/assets/icons/exc3.png" alt="" height="20px" width="25px"></button> -->
+          </div>
+          <div class="updatetitle">Club Work Order</div>
+          <div class="profile-count">
+              <p style="margin: 20px 5px;">Total No. Of Club Work Order &nbsp;<span class="text" style="padding:5px 15px;">{{rowData?.length>0?rowData?.length:2}}</span></p>
+            </div>
+      </div>
+  
+      <mat-card>
+          <div class="row">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 form_heads1" (click)="navigate_work_order_list()">
+             <h3>Work Order List</h3>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 form_heads2" (click)="navigate_non_cert()">
+                <h3>Work Order List(Non Cert)</h3>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 form_heads3 ">
+              <h3>Club Work Order List</h3>
+            </div>        
+            </div>
+          <div class="ag_grid">
+              <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                  [rowData]="rowData" [columnDefs]="columnDefs"  [animateRows]="true" (cellClicked)='onCellClicked($event)' [pagination]=true [paginationPageSize]=10
+                  (gridReady)="onGridReady($event)">
+              </ag-grid-angular>
+          </div>
+      </mat-card>
+  
+  </div>
+</mat-card>

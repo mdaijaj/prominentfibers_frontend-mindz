@@ -1,0 +1,1964 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee">
+        <!-- <p>HRMS</p> -->
+      </div>
+      <div class="msater-nav"
+        *ngIf="!quotePrepared && !quoteSent && qoutationType !== 'updateQuotation' && !approvalSent && !invoiceSent">
+        <a href="">Quotation<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Prepare Quotation</a>
+      </div>
+
+      <div class="msater-nav" *ngIf="quotePrepared">
+        <a href="">Quotation<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Send Quotation to Customer</a>
+      </div>
+      <div class="msater-nav" *ngIf="quoteSent || approvalSent || invoiceSent">
+        <a href="">Quotation<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Update Quotation</a>
+      </div>
+
+      <div class="msater-nav" *ngIf="qoutationType == 'updateQuotation'">
+        <a href="">Quotation<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Update Quotation</a>
+      </div>
+
+      <div class="updatetitle" *ngIf="qoutationType == 'updateQuotation'">Send Proforma Invoice</div>
+
+      <div class="updatetitle" *ngIf="approvalSent">S&M Approval</div>
+
+      <div class="updatetitle" *ngIf="invoiceSent">Update P.I. & Documents</div>
+
+      <div class="apply-btn">
+        <!-- <a routerLink="../interview-status-list">List</a> -->
+      </div>
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Customer Details</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                Customer Type
+                <input formControlName="customer_type" (click)="customerTypeNew()" checked="checked" type="radio"
+                  name="customer_type" value="New User" id="red" style="margin: 0 5px 0 4%;">New
+                <input formControlName="customer_type" (click)="customerType()" type="radio" name="customer_type"
+                  value="Existing User" id="blue" style="margin: 0 5px 4% 4%;">Existing Customer
+                <span style="margin-left: 10%;">Multiple Site Audit</span>
+                <input formControlName="site_audit" (click)="siteAuditNew()" checked="checked" type="radio"
+                  name="site_audit" value="Yes" id="red" style="margin: 0 5px 0 4%;">Yes
+                <input formControlName="site_audit" (click)="siteAudit()" type="radio" name="site_audit" value="No"
+                  id="blue" style="margin: 0 5px 4% 4%;">No
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="cutomerType">
+                      <p>Associated Company</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="associated_company">
+                          <mat-option value="Elite Mindz Technology">Elite Mindz Technology</mat-option>
+                          <mat-option value="DQS Pvt Ltd">DQS Pvt Ltd</mat-option>
+                        </mat-select>
+
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <p>Associated Company</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="associated_company" />
+                        <mat-error *ngIf="
+                          leadForm.controls['associated_company'].hasError(
+                            'required'
+                          )
+                        ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Segment</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="segment">
+                          <mat-option *ngFor="let item of segmentList" [value]="item.segment_id">{{ item.segment_name
+                            }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['segment'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Certificate Type</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="certificate_type">
+                          <!-- <mat-option value="Cert">Cert</mat-option>
+                        <mat-option value="Non Cert">Non Cert</mat-option> -->
+                          <mat-option *ngFor="let item of certificateList" [value]="item.certificate_type_id">{{
+                            item.certificate_type_name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['certificate_type'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="cutomerType">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>BR No.</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input matInput type="text" formControlName="br_number" />
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="cutomerType">
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      Do you want to Create New Location/Site - {{this.singleLeadData.br_number}}
+                      <input formControlName="br_number" checked="checked" type="radio" name="br_number" value="yes"
+                        id="red" style="margin: 0 5px 0 4%;">Yes
+                      <input formControlName="br_number" type="radio" name="br_number" value="no" id="blue"
+                        style="margin: 0 5px 4% 4%;">No
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>First Name</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input matInput type="text" formControlName="first_name" />
+                        <mat-error *ngIf="
+                      leadForm.controls['first_name'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Last Name</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Email ID</mat-label> -->
+                        <input matInput type="text" formControlName="last_name" />
+                        <mat-error *ngIf="
+                      leadForm.controls['last_name'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Email ID</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Mobile Number</mat-label> -->
+                        <input matInput type="email" formControlName="email" />
+                        <mat-error *ngIf="
+                      leadForm.controls['email'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                        <mat-error *ngIf="leadForm.controls['email'].errors?.['pattern']">Please
+                          enter valid email</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Job Title</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Job Title</mat-label> -->
+                        <input matInput type="text" formControlName="job_title" />
+                        <mat-error *ngIf="
+                      leadForm.controls['job_title'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Street Address</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Job Role</mat-label> -->
+                        <input matInput type="text" formControlName="street_address" />
+                        <mat-error *ngIf="
+                      leadForm.controls['street_address'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Address Line 2</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Application Date</mat-label> -->
+                        <input matInput type="text" formControlName="address2" />
+                        <mat-error *ngIf="
+                      leadForm.controls['address2'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Country&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="country" (selectionChange)="getCountryID($event)">
+                          <mat-option *ngFor="let item of countryList" [value]="item.countryss_id">{{
+                            item.countryss_name }}</mat-option>
+                          <!-- <mat-option value="India">India</mat-option>
+                      <mat-option value="USA">USA</mat-option> -->
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['country'].hasError('required')
+                      ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>State&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="state" (selectionChange)="getStateID($event)">
+                          <mat-option *ngFor="let item of stateList" [value]="item.states_id">{{ item.states_name
+                            }}</mat-option>
+                          <!-- <mat-option value="Delhi">Delhi</mat-option>
+                      <mat-option value="Maharastra">Maharastra</mat-option> -->
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['state'].hasError('required')
+                      ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>City&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="city" (selectionChange)="getPinCode($event)">
+                          <mat-option *ngFor="let item of cityList" [value]="item.city_id">{{ item.city_name
+                            }}</mat-option>
+                          <!-- <mat-option value="New Delhi">New Delhi</mat-option>
+                      <mat-option value="Mumbai">Mumbai</mat-option> -->
+                        </mat-select>
+                        <mat-error *ngIf="leadForm.controls['city'].hasError('required')">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!pinCodeTrue">
+                      <p>Postal Code</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="postal_code">
+                          <mat-option *ngFor="let item of pinCodeList" [value]="item.pincode_name">{{ item.pincode_name
+                            }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['postal_code'].hasError(
+                          'pattern'
+                        )
+                      ">
+                          Postal Code must be 6 digit*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group" *ngIf="pinCodeTrue">
+                      <p>Postal Code</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="postal_code" />
+                        <mat-error *ngIf="
+                        leadForm.controls['postal_code'].hasError(
+                          'pattern'
+                        )
+                      ">
+                          Postal Code must be 5-6 digits..*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Region&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="region">
+                          <mat-option *ngFor="let item of regionSList" [value]="item.new_region_id">{{
+                            item.new_region_name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['region'].hasError('required')
+                      ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Regional Business Head&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="regional_bussiness_lead">
+                          <mat-option *ngFor="let item of regionalbheadList"
+                            [value]="item.new_regional_business_head_id">{{ item.first_name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls[
+                          'regional_bussiness_lead'
+                        ].hasError('required')
+                      ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Global Managing Director</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="global_managing_director" />
+                        <mat-error *ngIf="
+                      leadForm.controls['global_managing_director'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Global Manager Sales&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="global_manager_sales">
+                          <mat-option *ngFor="let item of globalMsalesList"
+                            [value]="item.new_global_manager_sales_id">{{ item.first_name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['global_manager_sales'].hasError(
+                          'required'
+                        )
+                      ">
+                          Required*
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Website URL</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input matInput type="text" formControlName="website_url" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                    <div class="form-group">
+                      <p>Code</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" min="1" tabindex="-1" readonly formControlName="phone_code" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Phone Number</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Department</mat-label> -->
+                        <input matInput type="text" formControlName="phone_number" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                    <div class="form-group">
+                      <p>Code</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" min="1" tabindex="-1" readonly formControlName="mobile_code" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Mobile Number</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input matInput type="text" formControlName="mobile_number" />
+                        <mat-error *ngIf="
+                      leadForm.controls['mobile_number'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                  </div>
+                </div>
+
+                <!-- <div class="mt-3">
+              <button mat-raised-button (click)="submitForm()" color="primary" class="mx-3">
+                Save
+              </button>
+            </div> -->
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Lead Source Details</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>DQS Contact Source</p>
+                       <mat-form-field appearance="outline"    [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                         <mat-select formControlName="dqs_contact_source">
+                          <mat-option  [disabled]="true" 
+                          [value]="data.contact_source_id" *ngFor="let data of contact_list">{{data.contact_source_name}}</mat-option
+                          >
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['dqs_contact_source'].hasError(
+                          'required'
+                        )
+                      ">
+                            This field is required!
+                          </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Lead Created By</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="lead_created_by_name" />
+                        <mat-error *ngIf="
+                        leadForm.controls['lead_created_by_name'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                        <mat-error *ngIf="  leadForm.controls['mobile_number'].errors?.['pattern']">Mobile
+                          number is not 10 digit</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Lead Created Date</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="lead_created_date" />
+
+                        <mat-datepicker-toggle class="readonly-wrapper" matSuffix [for]="dp"></mat-datepicker-toggle>
+                        <mat-datepicker #dp></mat-datepicker>
+                        <mat-error *ngIf="
+                      leadForm.controls['lead_created_date'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Requirement Details</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Categories</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="categories">
+                          <!-- <mat-option *ngFor="let item of categoryList" [value]="item.new_category_master_name">{{item.new_category_master_name}}</mat-option> -->
+                          <mat-option *ngFor="let item of CategorySList" [value]="item.new_category_master_id">{{
+                            item.new_category_master_name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['categories'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Standard Program Assesment</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                      <mat-select formControlName="standard_program_assement">
+                          <mat-option [disabled]="true"
+                            *ngFor="let item of assesmentList"
+                            [value]="item.product_master_id"
+                            >{{ item.product_master_name }}</mat-option>
+                         </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['standard_program_assement'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="remarks" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Lead Validation</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="lead_validate_remarks" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Validated By</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="validated_by">
+                          <mat-option *ngFor="let item of allAchievement"
+                            [value]="item.first_name">{{item.first_name}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                      leadForm.controls['validated_by'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" class="readonly-wrapper">
+                      <p>Lead Validated Date</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="dp2" (click)="dp2.open()"
+                          formControlName="lead_validated_date" />
+
+                        <mat-datepicker-toggle matSuffix class="readonly-wrapper" [for]="dp2"></mat-datepicker-toggle>
+                        <mat-datepicker #dp2></mat-datepicker>
+                        <mat-error *ngIf="
+                        leadForm.controls['lead_validated_date'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Company Additional Details</h3>
+            </div>
+
+            <div class="form_basic">
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Industry Sector</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="industry_sector" />
+                        <mat-error *ngIf="
+                        leadForm.controls['industry_sector'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Customer Category</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="customer_category">
+                          <mat-option value="Pvt Ltd">Pvt Ltd</mat-option>
+                          <mat-option value="Public Ltd">Public Ltd</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['customer_category'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="nonCertTrue">
+                    <div class="form-group">
+                      <p>Employee Count</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="employee_count" />
+                        <mat-error *ngIf="
+                        leadForm.controls['employee_count'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Customer Sales Executive</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="customer_sales_executive" />
+                        <mat-error *ngIf="
+                        leadForm.controls['customer_sales_executive'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Assign Opportunity to</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="assigned_to" />
+                        <mat-error *ngIf="
+                      leadForm.controls['assigned_to'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Opportunity Type</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <mat-select formControlName="opportunity_type" required>
+                          <mat-option value="Certification - New Audit (RA)">Certification - New Audit (RA)</mat-option>
+                          <mat-option value="Certification - Audit (TRA)">Certification - Audit (TRA)</mat-option>
+                          <mat-option value="KSC - Facilitation">KSC - Facilitation</mat-option>
+                          <mat-option value="KSC - GAP Assessment">KSC - GAP Assessment</mat-option>
+                          <mat-option value="KSC - Special Assessment">KSC - Special Assessment</mat-option>
+                          <mat-option value="KSC - Training">KSC - Training</mat-option>
+                          <mat-option value="Certification - Inter Company">Certification - Inter Company</mat-option>
+                          <mat-option value="Existing Opportunity - Migration">Existing Opportunity -
+                            Migration</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Opportunity Ref No</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="opportunity_ref" />
+                        <mat-error *ngIf="
+                        leadForm.controls['opportunity_ref'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Product Request</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="product_request" />
+                        <mat-error *ngIf="
+                        leadForm.controls['product_request'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>GST Applicable</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="gst_applicable" />
+                        <mat-error *ngIf="
+                        leadForm.controls['gst_applicable'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="unreg">
+                    <div class="form-group">
+                      <p>URD Number</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput maxlength="15" type="text" formControlName="urd_number"
+                          oninput="this.value = this.value.toUpperCase()" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="(gstreg&&gstvalidation)">
+                    <div class="form-group">
+                      <p>GST Number</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput maxlength="15" type="text" formControlName="gst_number"
+                          oninput="this.value = this.value.toUpperCase()" />
+                      </mat-form-field>
+                      <mat-error *ngIf="
+                      leadForm.controls['gst_number'].hasError('pattern')
+                    ">
+                        GST Number is Invalid
+                      </mat-error>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+
+
+      <section class="job-nav" *ngIf="((singleLeadData?.certificate_type=='1')||(singleLeadData?.certificate_type =='3'))">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>SIC & Accredition Logo Details</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Assessment Period</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="assessment_period">
+                          <mat-option value="Annual">Annual</mat-option>
+                          <mat-option value="Semi-Annual">Semi-Annual</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['assessment_period'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>EA Code</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="ea_code" />
+                        <mat-error *ngIf="
+                        leadForm.controls['ea_code'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Accredition Logo Details</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" formControlName="accredition_logo_details" />
+                        <mat-error *ngIf="
+                        leadForm.controls['accredition_logo_details'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                 <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Additional Certificates Copies</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="add_cert_copy" />
+                        <mat-error *ngIf="
+                      leadForm.controls['add_cert_copy'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Additional Site Details</h3>
+            </div>
+            <div class="form_basic">
+              <div class="row">
+                <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="form-group" style="margin-left:10px; margin-top:10px;">
+                    <p> Billing Site</p>
+                       <div *ngFor="let data of singleLeadData1">
+                        <mat-checkbox [ngModelOptions]="{ standalone: true }" [(ngModel)]="data.checked"  class="example-margin"
+                        [checked]="data.checked"
+                        (change)="typeChangeChild($event,data)">
+                        {{this.data?.br_number}}/
+                        {{this.singleLeadData?.associated_company + " - " }}/{{this.singleLeadData?.state_name}}/{{this.singleLeadData?.region_name}}
+                       </mat-checkbox>      
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="childSide">
+                 <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group stage-table">
+                    <div class="d-flex justify-content-between  p-1 rounded fw-bolder text-white" style="background-color: #8B817D;">
+                      <h4 class="p-0 m-0"> Stage </h4>
+                      <h4 class="p-0 m-0">   No of Mandays </h4>
+                    </div>
+                    <div *ngFor="let item of this.stageData" class="data_right_all">
+                      <div style="display: flex;justify-content: space-between; align-items: center;">
+                        <span class="row-val">
+                          {{ item.stage }}
+                        </span>
+                        <span class="row-val">
+                          <span style="margin-right: 12px;">{{ item.noOfMandays }}</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>           
+             </div>          
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Documents Required</h3>
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Contact Review Form</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="contact_review_form" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChange($event)" />
+                    </div>
+
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group" *ngIf="this.singleLeadData?.contact_review_form">
+                      <button class="view-doc" (click)="viewDocReview()">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadContact($event)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{singleLeadData?.contactFile_count}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">GST File</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="gst_file" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChangeOne($event)" />
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <button class="view-doc" (click)="viewDocGST()">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadGst($event)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{singleLeadData?.gstFile_count}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Company Logo File</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="company_logo" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChangeTwo($event)" />
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <button class="view-doc" (click)="viewDocLogo()">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadLogo($event)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{singleLeadData?.companyFile_count}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Basic Form</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="basic_form" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChangeThree($event)" />
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <button class="view-doc" (click)="viewDocBasic()">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadBasic($event)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{singleLeadData?.basicFile_count}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Others</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <input formControlName="other_file" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChangeFour($event)" />
+                    </div>
+                  </div>
+                  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <div class="form-group">
+                      <button class="view-doc" (click)="viewDocOther()">
+                        View
+                      </button>
+                      <button class="view-doc down" (click)="downloadOther($event)">
+                        Download
+                      </button>
+                      <p class="version_count">V{{singleLeadData?.otherFile_count}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <p class="file-tag">Remarks</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="document_remark" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </section>
+
+      <section class="job-nav" *ngIf="((singleLeadData?.certificate_type=='1')||(singleLeadData?.certificate_type=='3'))">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Opportunity Verification</h3> 
+            </div>
+
+            <div class="form_basic">
+
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>L1 Verifier Name</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="opp_verifier_name_level1" />
+                        <mat-error *ngIf="
+                      leadForm.controls['opp_verifier_name_level1'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>L1 Verified Date</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput [matDatepicker]="dp3" (click)="dp3.open()"
+                          formControlName="opp_verified_date_level1" [max]="maxDate" [min]="minDate" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker #dp3></mat-datepicker>
+                        <mat-error *ngIf="
+                      leadForm.controls['opp_verifier_name_level1'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" formControlName="opp_verified_remarks_level1" />
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>L2 Verifier Name</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput readonly type="text" formControlName="opp_verifier_name_level2" />
+                        <mat-error *ngIf="
+                      leadForm.controls['opp_verifier_name_level2'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>L2 Verified Date</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput [matDatepicker]="dp4" (click)="dp4.open()"
+                          formControlName="opp_verified_date_level2" [max]="maxDate" [min]="minDate" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                        <mat-datepicker #dp4></mat-datepicker>
+                        <mat-error *ngIf="
+                      leadForm.controls['opp_verified_date_level2'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Remarks</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" formControlName="opp_verified_remarks_level2" />
+                        <mat-error *ngIf="
+                      leadForm.controls['opp_verified_remarks_level2'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+
+        </div>
+      </section>
+
+      <section class="job-nav" *ngIf="msa_document">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Quotation Details</h3>
+            </div>
+
+            <div class="form_basic">
+              <div class="row">
+                <div class="col-xxl-10 col-lg-10 col-md-10 col-sm-10 col-12"></div>
+                <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                  <button mat-button tappable class="table-btn" (click)="showPriceTable()">View Price Details</button>
+                </div>
+              </div>
+              <form class="form_set" [formGroup]="leadForm">
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Quotation Currency</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <mat-select formControlName="quotation_currency">
+                          <mat-option *ngFor="let item of currencyList"
+                            [value]="item.quotation_currency_id">{{item.quotation_currency_name}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        leadForm.controls['quotation_currency'].hasError(
+                          'required'
+                        )
+                      ">
+                      
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Slab-A Quote</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="slab_quote" />
+                        <mat-error *ngIf="
+                        leadForm.controls['slab_quote'].hasError(
+                          'required'
+                        )
+                      ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Expense Category
+                      <p>
+                        <mat-form-field appearance="outline"
+                          [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                          <!-- <mat-label>Candidate Name</mat-label> -->
+                          <mat-select formControlName="expense_category">
+                            <mat-option value="Billable">Billable</mat-option>
+                            <mat-option value="Non-Billable">Non-Billable</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="
+                        leadForm.controls['expense_category'].hasError(
+                          'required'
+                        )
+                      ">
+                            This field is required!
+                          </mat-error>
+                        </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Accredition Logo Cost</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="logo_cost" />
+                        <mat-error *ngIf="
+                      leadForm.controls['logo_cost'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    Company Logo Required
+                    <input formControlName="company_logo_req" (click)="logoReqNew()" checked="checked" type="radio"
+                      name="company_logo_req" value="Yes" id="red" style="margin: 5% 5px 0 4%;">Yes
+                    <input formControlName="company_logo_req" (click)="logoReq()" type="radio" name="company_logo_req"
+                      value="No" id="blue" style="margin: 0 5px 4% 4%;">No
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="logoCost">
+                      <p>Company Logo Cost</p>
+                      <mat-form-field appearance="outline">
+                        <input matInput type="text" formControlName="company_logo_cost">
+                        <mat-error *ngIf="
+                      leadForm.controls['company_logo_cost'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Quote Prepared</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="quote_prepared" />
+                        <mat-error *ngIf="
+                      leadForm.controls['quote_prepared'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Quote Prepared Date</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='bookorder' ? 'readonly-wrapper' : ''">
+                        <input matInput [matDatepicker]="dp5" (click)="dp5.open()"
+                          formControlName="quote_prepared_date" />
+
+                        <mat-datepicker-toggle matSuffix [for]="dp5"></mat-datepicker-toggle>
+                        <mat-datepicker #dp5></mat-datepicker>
+                        <mat-error *ngIf="
+                      leadForm.controls['quote_prepared_date'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row"
+                    *ngIf="quoteSent || qoutationType == 'updateQuotation' || approvalSent || invoiceSent">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p style="margin: 10px 0;">Customer Agreed Slab-A Quote</p>
+                      </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                      <div class="form-group">
+                        <mat-form-field appearance="outline" readonly class="readonly-wrapper">
+                          <mat-select formControlName="agreed_slab_a">
+                            <mat-option (click)="acceptA()" value="Yes">Yes</mat-option>
+                            <mat-option (click)="rejectA()" value="No">No</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <div class="form-group" *ngIf="rejectRemarksA">
+                        <mat-form-field appearance="outline" readonly>
+                          <mat-label>Reject Remarks</mat-label>
+                          <input matInput type="text" formControlName="reject_remarks_a" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="invoiceSent">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <span>Finance & Accounting Team Approval *</span>
+                  </div>
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <input formControlName="fin_approval" (click)="finApproveNew()" checked="checked" type="radio"
+                      name="fin_approval" value="Yes" id="red" style="margin: 0% 5px 0 4%;">Yes
+                    <input formControlName="fin_approval" (click)="finApprove()" type="radio" name="fin_approval"
+                      value="No" id="blue" style="margin: 0 5px 4% 4%;">No
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <span>Sales & Marketing Head Approval *</span>
+                  </div>
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <input formControlName="sales_approval" (click)="saleApproveNew()" checked="checked" type="radio"
+                      name="sales_approval" value="Yes" id="red" style="margin: 0% 5px 0 4%;">Yes
+                    <input formControlName="sales_approval" (click)="saleApprove()" type="radio" name="sales_approval"
+                      value="No" id="blue" style="margin: 0 5px 4% 4%;">No
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <span>Auditor Blocked/Planning Team approval *</span>
+                  </div>
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <input formControlName="audit_approval" (click)="auditApproveNew()" checked="checked" type="radio"
+                      name="audit_approval" value="Yes" id="red" style="margin: 0% 5px 0 4%;">Yes
+                    <input formControlName="audit_approval" (click)="auditApprove()" type="radio" name="audit_approval"
+                      value="No" id="blue" style="margin: 0 5px 4% 4%;">No
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-card>
+
+        </div>
+      </section>
+
+      <!-- upload document section for MED flow starts -->
+      <section class="job-nav"  *ngIf="med_document">
+        <div class="section">
+          <mat-card>
+            <div class="row form_head">
+              <h3>Quotation Details</h3>
+            </div>
+            <form class="form_set" [formGroup]="leadForm">
+            <div calss="row" style="display: flex; margin-top: 1%; margin-left: 1%; margin-right: 1%; padding: 1% 1%;">
+              <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                <span>
+                  <strong style="margin-right:5px;">1.</strong>Combined invoice for Assessment Fee & Travel:
+                </span>
+               
+                <span style="margin: 15px;">
+                  <input type="radio" name='r' value="true" checked (change)="_1st_Check($event)">Yes
+                  <input type="radio" name='r' value="false" (change)="_1st_Check($event)">No
+                </span>
+              </div>
+               <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!show1_value">
+                <mat-form-field appearance="outline">
+                  <input matInput type="text" formControlName="asessment_invoice" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div calss="row"
+            style="display: flex; margin-top: 1%; margin-left: 1%; margin-right: 1%; padding: 1% 1%;">
+              <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                <span>
+                  <strong style="margin-right:5px;">2.</strong>
+                   Digitally signed soft copy of invoice sending
+                    through system to customer email:
+                </span>
+              
+                <span style="margin: 15px;">
+                  <input type="radio" name='a' value="true" checked (change)="_2nd_Check($event)">Yes
+                  <input type="radio" name='a' value="false" (change)="_2nd_Check($event)">No
+
+                </span>
+              </div>
+              <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!show2_value">
+                <mat-form-field appearance="outline">
+                  <input matInput type="text" formControlName="digital_signed_invoice" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div calss="row" 
+            style="display: flex; margin-top: 1%; margin-left: 1%; margin-right: 1%; padding: 1% 1%;">
+              <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                <span>
+                  <strong style="margin-right:5px;">3.</strong>
+                  100% Travel & Living Claim is billed to customer :
+                </span>
+              
+                <span style="margin: 15px;">
+                  <input type="radio" name='b' value="true" checked (change)="_3rd_Check($event)">Yes
+                  <input type="radio" name='b' value="false" (change)="_3rd_Check($event)">No
+
+                </span>
+              </div>
+              <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!show3_value">
+                <mat-form-field appearance="outline">
+                  <input matInput type="text" formControlName="travel_claim" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div calss="row"
+            style="display: flex; margin-top: 1%; margin-left: 1%; margin-right: 1%; padding: 1% 1%;">
+              <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                <span>
+                  <strong style="margin-right:5px;">4. </strong>
+                  T&L supporting not sent along with invoice :
+                </span>
+              
+                <span style="margin: 15px;">
+                  <input type="radio" name='c' value="true" checked (change)="_4th_Check($event)">Yes
+                  <input type="radio" name='c' value="false" (change)="_4th_Check($event)">No
+
+                </span>
+              </div>
+              <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!show4_value">
+                <mat-form-field appearance="outline">
+                  <input matInput type="text" formControlName="tl_support" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div calss="row" 
+            style="display: flex; margin-top: 1%; margin-left: 1%; margin-right: 1%; padding: 1% 1%;">
+              <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                <span>
+                  <strong style="margin-right:5px;">5.</strong>
+                  Invoice is with GST :
+                </span>
+               
+                <span style="margin: 15px;">
+                  <input type="radio" name='d' value="true" checked (change)="invoice_with_gst($event)">Yes
+                  <input type="radio" name='d' value="false" (change)="invoice_with_gst($event)">No
+
+                </span>
+              </div>
+              <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"  *ngIf="!show5_value">              
+                  <input type="radio" name='d1' value="export_of_service"  
+                   checked (change)="export_service($event)">Export of service
+                  <input type="radio"  name='d1' value="form_a2_received"  
+                  (change)="export_service($event)">Form A2 received              
+              </div>
+            </div>
+            <div calss="row" 
+            style="display: flex; margin-top: 1%; margin-left: 1%; margin-right: 1%; padding: 1% 1%;">
+              <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                <span>
+                  <strong style="margin-right:5px;">6.</strong>
+                  Client name as per PO :
+                </span>                
+                <span style="margin: 15px;">
+                  <input type="radio" name='e' value="true" checked (change)="_6th_Check($event)">Yes
+                  <input type="radio" name='e' value="false" (change)="_6th_Check($event)">No
+
+                </span>
+              </div>
+              <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="!show6_value">
+                <mat-form-field appearance="outline">
+                  <input matInput type="text" formControlName="client_name_pmo" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div calss="row" 
+            style="display: flex; margin-top: 1%; margin-left: 1%; margin-right: 1%; padding: 1% 1%;">
+              <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                <span>
+                  <strong style="margin-right:5px;">7.</strong>
+                Customer requested Audit Date :
+                </span>                
+              
+              </div>
+              <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" >
+                <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="dp5" (click)="dp5.open()"
+                          formControlName="customer_audit_date" />
+                        <mat-datepicker-toggle matSuffix [for]="dp5"></mat-datepicker-toggle>
+                        <mat-datepicker #dp5></mat-datepicker>
+                        <mat-error *ngIf="
+                      leadForm.controls['customer_audit_date'].hasError(
+                        'required'
+                      )
+                    ">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+              </div>
+            </div>
+         </form>
+          </mat-card>
+
+        </div>
+      </section>
+
+      <!-- upload document section for MED flow ends  -->
+
+      <div class="upload-btn" *ngIf="!quoteSent && !approvalSent && !invoiceSent">
+        <button class="cancel-btn">Cancel</button>
+        <button class="iploadBtn" *ngIf="!quotePrepared && qoutationType !== 'updateQuotation'"
+          (click)="submitForm()">Save Quote</button>
+        <button class="iploadBtn" *ngIf="quotePrepared" (click)="submitForm()">Send Quote</button>
+        <button class="iploadBtn" *ngIf="quotePrepared" (click)="toPdf()">Preview Quote</button>
+      </div>
+
+      <div class="upload-btn" *ngIf="quoteSent">
+        <button class="cancel-btn">Cancel</button>
+        <button class="iploadBtn" *ngIf="rejectRemarks || rejectRemarksA" (click)="submitSMForm()">Send S&M
+          Approval</button>
+        <button class="iploadBtn" *ngIf="!rejectRemarks && !rejectRemarksA" (click)="submitQAForm()">Quote
+          Accepted</button>
+      </div>
+
+      <div class="upload-btn" *ngIf="qoutationType == 'updateQuotation'">
+        <button class="iploadBtn" (click)="sentPI()">Send P.I.</button>
+        <button class="iploadBtn" (click)="toPdf()">Preview P.I.</button>
+      </div>
+
+      <div class="upload-btn" *ngIf="approvalSent">
+        <button class="iploadBtn" (click)="rejectBtn()">Reject</button>
+        <button class="iploadBtn" (click)="approveBtn()">Approve</button>
+      </div>
+
+      <div class="upload-btn" *ngIf="invoiceSent">
+        <button class="cancel-btn">Cancel</button>
+        <!-- <button *ngIf="leadUpdate==='bookorder' && bookRequest" class="favorite styled" (click)="bookBtn()">Book
+          Order</button> -->
+
+          <button class="favorite styled" (click)="bookBtn()">Book
+            Order</button>
+        <button *ngIf="leadUpdate==='updatebookorder' && bookRequest" class="favorite styled"
+          (click)="updatebookBtn()">Update Book Order</button>
+        <button class="iploadBtn" mat-raised-button color="warn" (click)="rejectBtn()">Reject</button>
+      </div>
+
+      <div *ngIf=showTable>
+         <app-planning-audit-details [data]="priceItem"></app-planning-audit-details>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<div class=" pdf-content">
+  <div class="container" id="dashboard" #dashboard>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="invoice-title">
+          <h2></h2>
+          <h3 class="pull-right">
+            <!-- <img src="assets\imgs\DQS_logo.png" alt="" width="60px" height="40px"> -->
+          </h3>
+        </div>
+
+        <hr>
+        <p align="left" style="color: rgb(8, 8, 156);">DQS India | 5th Floor Anjaneya Techno Park 147 HAL Airport Road
+          Kodihalli Bengaluru -560017</p>
+        <h4 style="margin-top: 40px;" align="center">PROFORMA INVOICE</h4>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <address>
+              <strong>To,</strong><br>
+              <strong>{{singleLeadData?.associated_company}}</strong><br>
+              {{singleLeadData?.associated_company}}<br>
+              {{singleLeadData?.address2}} <br>
+              {{singleLeadData?.postal_code}} <br>
+              {{singleLeadData?.country}} <br>
+              GSTIN: {{singleLeadData?.gst_number}}
+            </address>
+          </div>
+          <div class=" text-right">
+
+            <table align="right" class="box_details">
+              <col>
+              <colgroup span="2"></colgroup>
+              <colgroup span="2"></colgroup>
+
+
+              <tr>
+                <th scope="row">No. dummay</th>
+                <td> dummay</td>
+              </tr>
+
+              <tr>
+                <th scope="row">Date
+                </th>
+                <td>dummay</td>
+              </tr>
+
+              <tr>
+                <th scope="row">Business
+                  Relationship #</th>
+                <td>31-JAN-2023</td>
+              </tr>
+              <tr>
+                <th scope="row">GSTIN:</th>
+                <td>dummy</td>
+              </tr>
+              <tr>
+                <th scope="row">PAN</th>
+                <td>{{singleLeadData?.pan_number}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Our Proposal Ref:</th>
+                <td>dummay</td>
+              </tr>
+              <tr>
+                <th scope="row">Customer PO Ref:</th>
+                <td>dummay</td>
+              </tr>
+              <tr>
+                <th scope="row">Service Accouning Ref:</th>
+                <td>dummay</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <address>
+              Kind Attn: <strong>Mr.Vikas Jain</strong><br>
+              Manager<br>
+              Mobile:no +91-9356870200 <br>
+              Email: indrahosiery1954@gmail.com <br>
+              Standard:SMETA 6.1 - 4 Pillar
+            </address>
+          </div>
+          <div class="col-xs-6 text-right">
+            <address>
+              <strong>Order Date:</strong><br>
+              March 7, 2014<br><br>
+            </address>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>INVOICE</strong></h3>
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <td><strong>Description</strong></td>
+                    <td class="text-center"><strong>Quantity</strong></td>
+                    <td class="text-center"><strong>Unit</strong></td>
+                    <td class="text-center"><strong>Amount</strong></td>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                  <tr>
+                    <td>System Assessment / Stage 2 Audit Fee</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">Mandays</td>
+                    <td class="text-center">85,000</td>
+
+                  </tr>
+                  <tr>
+                    <td>Travel expenses externally billable</td>
+                    <td class="text-center">1</td>
+                    <td class="text-center">Mandays</td>
+                    <td class="text-center">5,000</td>
+
+                  </tr>
+
+
+                  <tr>
+                    <td class="thick-line"></td>
+                    <td class="thick-line"></td>
+                    <td class="thick-line text-center"><strong>Total</strong></td>
+                    <td class="thick-line text-right">$670.99</td>
+                  </tr>
+                  <tr>
+                    <td class="no-line"></td>
+                    <td class="no-line"></td>
+                    <td class="no-line text-center"><strong>SGST (0)%</strong></td>
+                    <td class="no-line text-right">0.00 INR</td>
+                  </tr>
+                  <tr>
+                    <td class="no-line"></td>
+                    <td class="no-line"></td>
+                    <td class="no-line text-center"><strong>CGST (0)%</strong></td>
+                    <td class="no-line text-right">0.00 INR</td>
+                  </tr>
+                  <tr>
+                    <td class="no-line"></td>
+                    <td class="no-line"></td>
+                    <td class="no-line text-center"><strong>IGST (0)%</strong></td>
+                    <td class="no-line text-right">0.00 INR</td>
+                  </tr>
+                  <tr>
+                    <td class="no-line"></td>
+                    <td class="no-line"></td>
+                    <td class="no-line text-center"><strong>Invoice Amount</strong></td>
+                    <td class="no-line text-right">dummay amout</td>
+                  </tr>
+                  <tr>
+                    <strong>
+                      Indian Rupees (One Lakh Six Thousand Two Hundred Only.)
+                    </strong>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <p>
+          1. As stipulated in Section 31 of the CGST Act, 2017, this invoice is authenticated with Digital Signature
+          Certificate (DSC) by DQS India authorised
+          signatory and is valid for availing input tax credit and releasing payment to us. In case you require a
+          printout
+          of invoice, you can print this invoice at your
+          end. However, if you would like DQS India to send you hard copy of this invoice in the given form, please send
+          your specific request to email id
+          requestprint.india@dqs.de by providing invoice and your address details. DQS India will courier hard copy of
+          invoice to you within 3 working days at
+          an extra cost of . </p>
+        <p>
+          2. Our Bank Details:
+          HDFC Bank Limited,Branch: Airport Road Branch, Golden Enclave, Bengaluru - 560 017 Account Name: Deutsch
+          Quality
+          Systems (India) Private
+          Limited Account Number: 00758630000138 SWIFT Number: HDFCINBB IFSC Code: HDFC0000075</p>
+        <p>3. email us payment advice to paymentadvise.india@dqs.de.</p>
+
+        <p>4. Tax Deduction at Source (TDS) u/s 194J is applicability is as follows. <br>
+          <strong>
+            Assessment/Audit and Certification Services : 2% (as technical services)
+          </strong> <br>
+          <strong>
+            Training and DQS-Nxt Services : 10%
+          </strong>
+        </p>
+        <p>
+          5. email us TDS Certificate / Withholding Tax Certificate to tdscert.india@dqs.de In case of failure to
+          provide the certificate/s the amount would be
+          treated as dues and stand recoverable as mentioned above.
+
+        </p>
+        <p>
+          6. Acknowledgment for LUT: Application Reference Number (ARN) - AD2904210058637.
+
+        </p>
+        <p>
+          7. Travel and living expenses of auditors/trainers shall be billed at actual. Invoice generated and issued to
+          you for the service/s provided by DQS India is
+          final and not subject to change /revision. Request you to indicate travel & living element in your purchase
+          order/s issued to DQS India, if any, as per terms
+          of agreement.
+
+        </p>
+
+        <strong>
+          For Deutsch Quality Systems (India) Private Limited,
+        </strong>
+        <br><br><br>
+        <strong>
+          Prasad Khanapur <br>
+          Head-Finance & Accounts
+
+        </strong>
+      </div>
+
+    </div>
+  </div>
+</div>

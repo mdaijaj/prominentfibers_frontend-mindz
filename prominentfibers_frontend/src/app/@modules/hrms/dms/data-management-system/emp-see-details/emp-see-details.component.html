@@ -1,0 +1,83 @@
+<!-- ******************************Header Section Start*********************************** -->
+<div class="section">
+    <div class="row head">
+        <p>Employee</p>
+    </div>
+    <div class="employ_sube">
+        <div class="employee_top"> Dashboard
+            <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+                </i>
+                Document Master System</span>
+        </div>
+    </div>
+    <div class="employ_sube">
+        <div class="employee_top">
+            <img src="assets//icons/icon_DQS/Folder.png" style="width:30px" alt="" />
+            {{nameEmploye}}
+            
+        </div>
+    </div>
+    <!-- ******************************Header Section End*********************************** -->
+
+    <!-- ******************************Document Library Start*********************************** -->
+    <mat-card>
+        <div class="form_head">
+            <h3>Document Library</h3>
+            <button class="backBtn" routerLink="../../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+        </div>
+
+        <div class="table" style="text-align: center;margin: 0px auto;">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-striped">
+                    <!-- ******************************Row Looping ********************************************************** -->
+                    <div class="nofound">
+                        
+                        <h3>{{noData}}</h3>
+                     </div>
+                    <tbody *ngFor="let data of documentsData;index as i">
+                        <tr>
+                            
+                            <!-- ******************************Files Name ******************************************************** -->
+                            <td class="name"> {{i+1}}</td>
+                            <td class="name"> {{data.document_name}}</td>
+                            <!-- ******************************Download ********************************************************** -->
+                            <td class="download">
+                                <a href="{{singleFile}}" class="btn clss" download>
+                                    <mat-icon style="color:#8B817D" (click)="download(data.document_file)">
+                                        file_download</mat-icon>
+                                </a>
+                            </td>
+                            <!-- ******************************Preview ********************************************************** -->
+                            <td class="view">
+                                <a href="{{data.document_file}}" class="btn clss" target="_blank"
+                                    (click)="preview(data.document_file)">
+                                    <mat-icon>visibility</mat-icon>
+                                </a>
+                            </td>
+                            <!-- ******************************Google Preview ********************************************************** -->
+
+                            <!-- <td ><mat-icon class="view"
+                                    (click)="openDialog(getbyIDdata.employee_photo[i],getbyIDdata.file_category[i])">visibility</mat-icon></td> -->
+                            <!-- ******************************Delete********************************************************** -->
+                            <td>
+                                <div class="add_btn" class="delete">
+                                    <button type="button" class="btn_add"
+                                    (click)="hideShow(data.emp_document_id)" >Delete</button>
+                                </div>
+                            </td>
+                            <!-- ******************************Date********************************************************** -->
+                            <td class="date">
+                                Created on : {{data.createdAt | date: 'dd-MM-yyyy'}} 
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- <h2>{{sourceName}}</h2>
+
+        <iframe class="doc" [src]="cleanUrl(fileUrl)" frameborder="0" height="500px" width="100%"></iframe> -->
+    </mat-card>
+</div>
+<!-- ******************************Document Library End*********************************** -->

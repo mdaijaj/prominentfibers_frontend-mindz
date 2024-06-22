@@ -1,0 +1,42 @@
+<h3 mat-dialog-title class="popHead">LEAVE RECORD</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+    <div class="cotain">
+        <div class="emp_key">
+            <p>Leave Id:</p>
+            <p>Leave Code:</p>
+            <p>Leave Name:</p>
+            <!-- <p>Company Name:</p> -->
+            <p>Leave Count:</p>
+            <p>Leave Type:</p>
+            <p>Leave Unit:</p>
+            <p>Gender:</p>
+            <p>Merital Status:</p>
+            <p>From Date:</p>
+            <p>To Date:</p>
+            <p>Status:</p>
+            <p>Description</p>
+        </div>
+        <div class="emp_value">
+            <p>{{singleLeaveData?.leavePolicyId}}</p>
+            <p>{{singleLeaveData?.leaveCode}}</p>
+            <p>{{singleLeaveData?.leaveName}}</p>
+            <!-- <p>{{singleLeaveData?.companyName}}</p> -->
+            <p>{{singleLeaveData?.leaveCount}}</p>
+            <p>{{singleLeaveData?.leaveType}}</p>
+            <p>{{singleLeaveData?.leaveUnit}}</p>
+            <p>{{singleLeaveData?.applicableGender}}</p>
+            <p>{{singleLeaveData?.applicableMaritalStatus}}</p>
+            <p>{{fromDate}}</p>
+            <p>{{toDate}}</p>
+            <p>{{singleLeaveData?.leave_status}}</p>
+            <p>{{singleLeaveData?.description}}</p>
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close mat-raised-button color="primary">Close</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

@@ -1,0 +1,85 @@
+<div class="row">
+
+  <ng-container *ngFor="let module of subModules">
+    <div class="service-box">
+      <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+        <img [src]="module.menuIcon" alt="" />
+      </div>
+      <div class="card-title">
+        <p>{{module.menuName}}</p>
+      </div>
+    </div>
+  </ng-container>
+  <!-- <div class="service-box">
+    <div class="service-img" routerLink="department-budget">
+      <img src="assets/icons/configuration/quotation_approval.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Department-Wise budget</p>
+    </div>
+  </div>
+  <div class="service-box">
+    <div class="service-img" routerLink="inventory">
+      <img src="assets/icons/configuration/inventory.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Inventory Record</p>
+    </div>
+  </div> -->
+<!-- 
+  <div class="service-box">
+    <div class="service-img" routerLink="invoice">
+      <img src="assets/icons/configuration/quotation_approval.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Invoice New</p>
+    </div>
+  </div> -->
+  
+
+   <!-- <div class="service-box">
+      <div class="service-img" routerLink="vendor-management">
+        <img src="assets/icons/icon_DQS/purchase-request.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Vendor Management </p>
+      </div>
+    </div>
+  
+     <div class="service-box">
+      <div class="service-img" routerLink="purchase-request">
+        <img src="assets/icons/configuration/purchase-request.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Purchase Request </p>
+      </div>
+    </div>
+  
+    <div class="service-box">
+      <div class="service-img" routerLink="accrediationlogodetails">
+        <img src="assets/icons/configuration/box.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Purchase Order </p>
+      </div>
+    </div>
+  
+    <div class="service-box">
+      <div class="service-img" routerLink="auditor-master">
+        <img src="assets/icons/configuration/invoicee.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Invoice</p>
+      </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-img" routerLink="standard-programe-assesment">
+          <img src="assets/icons/configuration/basket.png" alt="" />
+        </div>
+        <div class="card-title">
+          <p>GRN</p>
+        </div>
+      </div> -->
+  </div>
+  

@@ -1,0 +1,21 @@
+table thead tr th{
+    font-weight: 400;
+    font-size: 14px;
+    background-color: #8b8b8b;
+    /* color: #fff; */
+    /* padding: 12px 0px 0px 0px; */
+    text-align: center;
+  }
+  .imgEmp {
+    width: 41px;
+    height: 31px;
+    position: relative;
+    top: -35px;
+    left: 84%;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .readonly-select {
+    pointer-events: none;
+    background-color: #f8f9fa; 
+  }

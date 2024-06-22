@@ -1,0 +1,42 @@
+<h2 mat-dialog-title class="popHead">Select Course Assign Date</h2>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+    <form class="approval_form" [formGroup]="approval_form">
+        <div class="row">
+            <br><br>
+    
+            <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>From Schedule Date</mat-label>
+                        <input matInput [matDatepicker]="dp" (click)="dp.open()"
+                            formControlName="start_date" 
+                            (dateChange)="fromDate($event)" />
+                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                        <mat-datepicker #dp></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>End Schedule date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="end_date"
+                          (dateChange)="ToDate($event)">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close mat-raised-button color="primary" (click)="submit(approval_form.value)">submit</button>
+    <button mat-button mat-dialog-close mat-raised-button color="warn">Close</button>
+
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

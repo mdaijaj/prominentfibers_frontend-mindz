@@ -1,0 +1,238 @@
+<section class="section">
+  <div class="row head">
+    <p>Admin</p>
+  </div>
+  <div class="row py-1">
+    <div class="employee_top">Branch-Setup
+      <span class="employee_2" *ngIf="!employeId"><i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+        </i>
+        Create </span>
+      <span class="employee_2" *ngIf="employeId"><i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+        </i>
+        Update </span>
+    </div>
+  </div>
+
+  <mat-card>
+    <div class="form_head">
+      <h3>Branch Setup</h3>
+      <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+    </div>
+    <div class="form_basic">
+      <!-- helpDiskForm -->
+      <form class="form_set" [formGroup]="branchSetupForm">
+        <div class="row">
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Branch Name</mat-label>
+                <input matInput type="text" formControlName="branch_name" />
+                <mat-error *ngIf="branchSetupForm.controls['branch_name'].hasError('required')">
+                  Branch Name is Required.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_name'].hasError('minlength')">
+                  This field accepted minimum 2 length.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_name'].hasError('maxlength')">
+                  This field accepted maximum 150 length.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>GST NO.</mat-label>
+                <input matInput type="text" formControlName="branch_gstnumber" />
+                <mat-error *ngIf="branchSetupForm.controls['branch_gstnumber'].hasError('required')">
+                  GST NO. is Required.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_gstnumber'].hasError('minlength')">
+                  This field accepted minimum 2 length.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_gstnumber'].hasError('maxlength')">
+                  This field accepted maximum 150 length.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Contact Person Name</mat-label>
+                <input matInput type="text" formControlName="branch_contact_person_name" />
+                <mat-error *ngIf="branchSetupForm.controls['branch_contact_person_name'].hasError('required')">
+                  Contact Person Name is Required.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_contact_person_name'].hasError('minlength')">
+                  This field accepted minimum 2 length.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_contact_person_name'].hasError('maxlength')">
+                  This field accepted maximum 150 length.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Contact No.</mat-label>
+                <input matInput type="text" formControlName="branch_contact_no" />
+                <mat-error *ngIf="branchSetupForm.controls['branch_contact_no'].hasError('required')">
+                  Contact No. Name is Required.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_contact_no'].hasError('minlength')">
+                  This field accepted minimum 2 length.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_contact_no'].hasError('maxlength')">
+                  This field accepted maximum 150 length.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Alt Contact No.</mat-label>
+                <input matInput type="text" formControlName="branch_alt_contact_no" />
+                <mat-error *ngIf="branchSetupForm.controls['branch_alt_contact_no'].hasError('required')">
+                  Alt Contact No. Name is Required.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_alt_contact_no'].hasError('minlength')">
+                  This field accepted minimum 2 length.
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_alt_contact_no'].hasError('maxlength')">
+                  This field accepted maximum 150 length.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Email Id</mat-label>
+                <input matInput type="text" formControlName="branch_email" />
+                <mat-error *ngIf="branchSetupForm.controls['branch_email'].hasError('required')">
+                  *Required!
+                </mat-error>
+
+                <mat-error *ngIf="branchSetupForm.controls['branch_email'].errors?.['email']"> *Please
+                  enter a valid email</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Alt Email Id</mat-label>
+                <input matInput type="text" formControlName="branch_alt_email" />
+                <mat-error *ngIf="branchSetupForm.controls['branch_alt_email'].hasError('required')">
+                  *Required!
+                </mat-error>
+
+                <mat-error *ngIf="branchSetupForm.controls['branch_alt_email'].errors?.['email']"> *Please
+                  enter a valid email</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline" readonly>
+                <mat-label>Country</mat-label>
+                <mat-select #productselect formControlName="country_id" (selectionChange)="optionEaCode($event)">
+                  <mat-select-filter [array]="variables" (filteredReturn)="countryFilter($event)"></mat-select-filter>
+                  <mat-option *ngFor="let country of checkData"
+                    [value]="country.countryss_id">{{country.countryss_name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="branchSetupForm.controls['country_id'].hasError('required')">
+                  Country Name is Required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state_id" (selectionChange)="stateChange($event)">
+                  <mat-select-filter [array]="stateVar" (filteredReturn)="stateFilter($event)"></mat-select-filter>
+                  <mat-option *ngFor="let state of stateList"
+                    [value]="state.states_id">{{state.states_name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="branchSetupForm.controls['state_id'].hasError('required')">
+                  State Name is Required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <mat-select formControlName="city_id">
+                  <mat-select-filter [array]="cityVar" (filteredReturn)="cityFilter($event)"></mat-select-filter>
+                  <mat-option *ngFor="let city of cityList"
+                    [value]="city.city_id">{{city.city_name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="branchSetupForm.controls['city_id'].hasError('required')">
+                  City Name is Required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Pin Code</mat-label>
+                <input matInput type="text" maxlength="6" formControlName="branch_pin_code"
+                  [value]="branchSetupForm.controls['branch_pin_code'].value | titlecase" />
+                <mat-error *ngIf="branchSetupForm.controls['branch_pin_code'].hasError('pattern')">
+                  *Should contain 6 digit number
+                </mat-error>
+                <mat-error *ngIf="branchSetupForm.controls['branch_pin_code'].hasError('required')">
+                  *Required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Address</mat-label>
+
+                <input matInput (keydown)="changedText()" type="text" formControlName="branch_address"
+                  [attr.disabled]="words >100 ? '' : null" (keydown)="wordCounter()" #text id="wmd-input"
+                  name="post-text" class="wmd-input s-input bar0 js-post-body-field processed" data-post-type-id="2"
+                  cols="92" rows="15" tabindex="101" data-min-length="" oncopy="return false;" onpaste="return false;"
+                  oncut="return false;" />
+              </mat-form-field>
+            </div>
+            <span class="warn_text" *ngIf="extraWords">Please enter within the text limit: 50</span>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-checkbox formControlName="useAsBillingAddress">Use this branch as a billing address</mat-checkbox>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button *ngIf="!employeId" [disabled]="extraWords" (click)="onSubmitForm()" mat-raised-button color="primary">
+            Submit
+          </button>
+
+          <button *ngIf="employeId" (click)="updateForm($event)" mat-raised-button color="primary">
+            Update
+          </button>
+          <button mat-raised-button color="warn" class="mx-3" (click)="back()">Cancel</button>
+        </div>
+      </form>
+
+    </div>
+  </mat-card>
+</section>

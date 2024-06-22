@@ -1,0 +1,52 @@
+
+.tab_menu li {
+    list-style: none;
+    float: left;
+}
+.tab-item{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.employee_top {
+    color: #989aa0;
+    cursor: pointer;
+}
+.employee_2 {
+    font-size: 16px;
+    color: #8B817D;
+}
+.btns {
+    width: 100%;
+    // padding: 20px 0px 20px 14px;
+}
+.btns button{
+    background-color: #8B817D;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 5px;
+    width: 71px;
+    height: 28px;
+    letter-spacing: 1px;
+}
+.main-button {
+    text-decoration: none;
+    color: #8B817D;
+    margin: 12px;
+    border: 1px solid #8B817D;
+    padding: 6px 16px;
+    border-radius: 4px;
+    transition: all 0.1s ease-in-out;
+    font-size: 12px;
+    cursor: pointer;
+}
+.active {
+    color: white !important;
+    margin: 12px;
+    border: 1px solid #8B817D !important;
+    padding: 10px 16px;
+    border-radius: 4px;
+    background-color: #8B817D !important;
+    font-size: 12px;
+}

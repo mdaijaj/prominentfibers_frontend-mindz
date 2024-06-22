@@ -1,0 +1,112 @@
+<header>
+  <div routerLink="hrms/employee-master/dashboard" class="logo">
+ 
+    <img src="../../../assets/icons/erp-logo.png" style="height:37px" />
+
+  </div>
+
+  <div class="toggle_button" (click)="toggleLeftNav(leftNavToggle=!leftNavToggle)">
+    <img src="../../../assets/icons/nav.png" />
+  </div>
+  <!-- <div class="search-task">
+    routerLink="../pending-task"
+  (click)="openDialog()"
+    <a routerLinkActive="activ" style="position: relative;" routerLink="header-menu/notification" (click)="notifications($event)">
+      <mat-icon class="iconBell">notifications</mat-icon>
+      Notification</a>
+      <a routerLinkActive="activ" style="position: relative;" routerLink="header-menu/pending-task" (click)="myPendingTask($event)">
+       
+        My Pending Task</a>
+    <a routerLinkActive="active">Ex & AR Dashboard</a>
+    <a routerLinkActive="active">My Account</a>
+    <a routerLinkActive="active">Org Chart</a>
+  </div> -->
+
+  <!-- <div class="user_profile">
+    <ul>
+        <li>
+            <a href="#" class="arrow_down"><span class="user_picture"><img src="images/user.jpg" ></span>Uday Admin</a>
+            <div class="dropdown-profile">
+                <a href="#"><img src="images/user.png"> Profile User</a> 	
+                <a href="change-password.html"><img src="images/password.png"> Change password</a>
+                <a href="#"><img src="images/sign-out.png">Sign Out</a>
+</div>
+          </li>
+      </ul>
+   </div> -->
+
+
+   
+
+<div class="float-right">
+  <div class="user_profile">
+
+  <ul>
+    <!-- <li class="home" *ngIf="badges_count!==0">
+      <mat-icon  matTooltip="Notification"
+      matBadge="{{badges_count}}" matBadgePosition="after" matBadgeColor="accent" class="iconBell"  (click)="triggerFunction($event)" (mouseleave)="onHoverOut()">notifications</mat-icon>
+    </li> -->
+   <li>
+    <a *ngIf="badges_count==0">
+      <mat-icon  matTooltip="Notification"
+      [matBadgeHidden]="hidden"  matBadge="{{badges_count}}" matBadgePosition="after" matBadgeColor="accent" class="iconBell"  (click)="triggerFunction($event)" (mouseleave)="onHoverOut()">notifications_none</mat-icon>
+    </a>
+     
+    </li>
+    <!-- <li class="home">
+      <a routerLink="hrms">
+        <img src="assets/home.png" alt="" />
+      </a>
+    </li> -->
+    <li>
+      <a>  <span class="user_picture">
+        <img [src]="notExist !== undefined || parse.employee_photo !== null ? parse.employee_photo:imagePath"
+          *ngIf="notExist !== 'undefined'" alt="" matTooltip="Profile" (click)="seeProfile(parse.employee_photo)"
+          class="profileImg" />
+        <img [src]="notExist === 'undefined' ?imagePath:parse.employee_photo" *ngIf="notExist === 'undefined'" alt=""
+          matTooltip="Profile" (click)="seeProfile(parse.employee_photo)" class="profileImg" />
+        </span>
+        Welcome {{ parse.first_name }}
+      </a>
+      <div class="dropdown-profile">
+               
+        <a (click)="onLogout()"><img src="assets/logout.png" alt="Sign Out"> Logout</a>
+</div>
+    </li>
+   
+  </ul>
+  </div>
+  </div>
+</header>
+
+
+
+<nav  *ngIf="show" id="di" [class.className]="condition" (click)="nav($event)">
+  
+  <div
+       class="notifi-box custom-scrollbar-container" id="box" #box #boxElement [style.height]="boxHeight" [style.height]="boxWidth" [style.opacity]="boxOpacity">
+       <h2 class="header2">Notifications <span>{{ lengths }}</span></h2>
+
+       <div class="notifi-item" *ngFor="let notification of rowDataNotifications; let i = index">
+         <div class="text">
+           <h4>Sales Request</h4>
+           <p>{{ notification.message }}</p>
+         </div>
+       </div>
+       
+       <div class="notifi-item" *ngFor="let data of rowDataOther; let i = index">
+         <div class="text">
+           <h4>{{ data.type }}</h4>
+           <p>{{ data.remark }}</p>
+         </div>
+       </div>
+       
+    <div class="no_noti" *ngIf="lengths==0">
+    <h1>Empty</h1>
+    </div>
+
+    
+
+  </div>
+</nav>
+

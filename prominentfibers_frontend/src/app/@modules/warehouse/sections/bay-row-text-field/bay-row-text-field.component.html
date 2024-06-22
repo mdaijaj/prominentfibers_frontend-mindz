@@ -1,0 +1,6 @@
+<div class="form-group formField bays-input">
+  <mat-form-field appearance="outline">
+    <input matInput type="text" id="bay-row-text" class="bays-input" [disabled]="singleData?.isDisabled" [(ngModel)]="singleData.no_of_bays"
+      name="isDisabled" (input)="onTextChange($event)" style="width:80px;" />
+  </mat-form-field>
+</div>

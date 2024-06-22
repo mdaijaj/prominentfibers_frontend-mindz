@@ -1,0 +1,301 @@
+<div *ngIf="ticketId">
+    <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel List</h3>
+    <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+  
+    <mat-dialog-content class="mat-typography">
+      <div class="cotain">
+        <div class="emp_key">
+           <p>S.No</p>
+          <p>Flight No.</p>
+          <p>Travel Date</p>
+          <p>Travel Amount</p>
+          <p>Mode of Travel</p>
+          <p>Status</p>
+        </div>
+        <div class="emp_value">
+        
+             <p>{{ticketData?.ticket_id|| "-" }}</p>
+             <P>{{ticketData?.flight_no|| "-" }}</P>
+             <P>{{ticketData?.travel_date|| "-" }}</P>
+             <P>{{ticketData?.travel_amount|| "-" }}</P>
+             <P>{{ticketData?.mode_of_travel|| "-" }}</P>
+             <p><mat-form-field appearance="outline">
+             <mat-select (selectionChange)="getStatus($event)"> 
+                  <mat-option value="Confirmed">Confirmed</mat-option>
+                  <!-- <mat-option value="SUGGESTED">Suggested</mat-option>     -->
+             </mat-select>
+                </mat-form-field></p>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+     
+      <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="statusGet()">
+        Submit
+      </button>
+      <button
+      mat-button
+      mat-dialog-close
+      mat-raised-button
+      color="primary"
+      style="float: right"
+    >
+      Close
+    </button>
+      <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+    </mat-dialog-actions>
+  </div>
+
+<div *ngIf="myExpense_id">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">My Expense List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography">
+    <div class="cotain">
+      <div class="emp_key">
+        <p>S.No</p>
+         <p>Expense Report No</p>
+        <p>Expense Type</p>
+        <p>Task Order</p>
+        <p>Expense Name</p>
+        <p>Expense Advance</p>
+        <p>Date</p>
+        <p>Expense Description</p>
+
+      </div>
+      <div class="emp_value">
+           <p>{{expenseDataById?.myexpense_id}}</p>
+           <p>{{expenseDataById?.expense_report_no|| "-" }}</p>
+           <P>{{expenseDataById?.expense_type|| "-" }}</P>
+           <P>{{expenseDataById?.task_order|| "-" }}</P>
+           <P>{{expenseDataById?.expense_name|| "-" }}</P>
+           <P>{{expenseDataById?.expense_advance|| "-" }}</P>
+           <P>{{expenseDataById?.createdAt| date}}</P>
+           <P>{{expenseDataById?.expense_desc|| "-" }}</P>
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>
+
+<div *ngIf="expenseDetailId">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">My Expense Details List hello</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography" >
+    <div class="cotain" >
+      <div class="emp_key">
+        <p>S.No</p>
+         <p>Expense For</p>
+        <p>Bill Amount</p>
+        <p>Start Date</p>
+        <p>End Date</p>
+        <p>Expense Location</p>
+        <p>Quotation Currency</p>
+        <p>quantity</p>
+        <P>Exr</P>
+        <P>Final Amount</P>
+        
+
+        <p>Attach Bill</p>
+
+      </div>
+      <div class="emp_value">
+           <p>{{expenseDetailsDataCopy?.exp_detail_id}}</p>
+           <p>{{expenseDetailsDataCopy?.expensefor|| "-" }}</p>
+           <P>{{expenseDetailsDataCopy?.billAmount|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.exp_start_date|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.exp_end_date|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.expense_location|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.quotation_currency|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.quantity|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.exr|| "-" }}</P>
+           <P>{{expenseDetailsDataCopy?.finalAmount|| "-" }}</P>
+           
+
+
+           <P>
+            <!-- {{expenseDetailsDataCopy?.attachedBill|| "-" }} -->
+
+            <a [href]="expenseDetailsDataCopy?.attachedBill" download></a>
+           </P>
+          
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>
+
+<div *ngIf="confirmIconData">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">Travel List</h3>
+    <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+  
+    <mat-dialog-content class="mat-typography">
+      <div class="cotain">
+        <div class="emp_key">
+           <p>S.No</p>
+          <p>Flight No.</p>
+          <p>Flight Name</p>
+          <p>Attach Tickets</p>
+          <p class="pt-3">Attach Invoice</p>
+          <p class="pt-2">Travel Amount-</p>
+          <p>Mangement Fee</p>
+          <p>CGST(9%)-</p>
+          <p>SGST(9%)-</p>
+          
+          <p class="pt-2" style="font-weight: 800;">Grand Total=</p>
+         
+        </div>
+        <div class="emp_value" [formGroup]="leadForm" *ngFor="let confirmIdData2 of confirmIdData">
+        
+             <p>{{confirmIdData2?.ticket_id|| "-" }}</p>
+             <P>{{confirmIdData2?.flight_no|| "-" }}</P>
+             <p>{{ confirmIdData2?.flight_name ||"-" }}</p>
+        
+              <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"> -->
+              <div  >
+                <div class="form-group">
+                  <input
+                    formControlName="attach_ticket"
+                    id=" expenseApprovalfile"
+                    type="file"
+                    multiple
+                    class="form-control"
+                    (change)="attchApprovalFile($event)"
+                    required
+                  />
+                </div>
+              </div>
+               
+              <!-- </div> -->
+           <div class="pt-3">
+           
+              <div class="form-group">
+                <input
+                  formControlName="attach_invoice"
+                  id=" expenseApprovalfile"
+                  type="file"
+                  multiple
+                  class="form-control"
+                  (change)="attachInvoiceFile($event)"
+                  required
+                />
+              </div>
+           
+          </div>
+          <p class="pt-3">{{confirmIdData2?.travel_amount}}</p>
+          <div class="form-group">
+                     
+            <mat-form-field appearance="outline">
+              <input matInput type="number" formControlName="mangement_fee" name="mangement_fee" (input)="onSearchChange($event)" />
+            </mat-form-field>
+          </div>
+          <p>{{cgstAmount||0}}</p>
+          <p>{{sgstAmount||0}}</p>
+         
+           
+                    <!-- <p *ngIf="!mangeNum">{{totleInvoice}} </p> -->
+                    <p> {{totleFee || "-"}}</p>
+         </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+     
+      <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="submitTravel()">
+        Submit
+      </button>
+      <button
+      mat-button
+      mat-dialog-close
+      mat-raised-button
+      color="primary"
+      style="float: right"
+    >
+      Close
+    </button>
+      <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+    </mat-dialog-actions>
+</div>
+
+
+
+<!-- uplaod onbording -->
+<div *ngIf="uploadOnbordingId">
+  <h3 mat-dialog-title class="popHead" style="padding-left: 5px">My Expense Details List</h3>
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+  <mat-dialog-content class="mat-typography" >
+    <div class="cotain"  *ngFor="let item of uploadBoardData">
+      <div class="emp_key">
+        <p>S.No</p>
+         <p>Travler Name</p>
+        <p>Task Order</p>
+        <p>Travel Data</p>
+        <p>Travler Type</p>
+        <p>Travel Ticket</p>
+        <p class="pt-3">Upload OnBording File</p>
+      </div>
+      <div class="emp_value" [formGroup]="onbordForm">
+           <p>{{item?.expense_id}}</p>
+           <p>{{item?.traveler_name|| "-" }}</p>
+           <P>{{item?.task_order|| "-" }}</P>
+           <P>{{item?.dateOf_travel|| "-" }}</P>
+           <P>{{item?.travel_type|| "-" }}</P>
+           <P>{{item?.travel_ticket|| "-" }}</P>
+           <div  >
+            <div class="form-group">
+              <input
+                formControlName="upload_onbording"
+                id=" expenseApprovalfile"
+                type="file"
+                multiple
+                class="form-control"
+                (change)="attachOnbording($event)"
+                required
+              />
+            </div>
+          </div>
+          
+ </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button  mat-dialog-close  mat-raised-button color="primary"  style="float: right" (click)="submitOnbording()">
+      Submit
+    </button>
+    <button
+    mat-button
+    mat-dialog-close
+    mat-raised-button
+    color="primary"
+    style="float: right"
+  >
+    Close
+  </button>
+   
+  </mat-dialog-actions>
+</div>

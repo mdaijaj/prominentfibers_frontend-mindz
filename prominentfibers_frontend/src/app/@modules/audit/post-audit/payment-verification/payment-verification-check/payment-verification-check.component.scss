@@ -1,0 +1,227 @@
+.employee_top {
+    color: #989aa0;
+    cursor: pointer;
+}
+
+.employee_2 {
+    font-size: 16px;
+    color: #8B817D;
+}
+
+button.view-doc {
+    border: none;
+    background: #316bcb;
+    border-radius: 8px;
+    color: #fff;
+    padding: 3px 10px;
+    font-size: 12px;
+    margin: 7px;
+}
+.form_audit{
+    padding: 20px 0px;
+}
+button.iploadBtn {
+    float: right;
+    margin: 2% 5%;
+    color: #fff;
+    background: #212a5e;
+    padding: 10px 30px;
+    border-radius: 5px;
+    border:none;
+}
+
+.iploadBtn1 {
+    float: right;
+    margin: 2% 5%;
+    color: #fff;
+    background: #CC0000;
+    padding: 10px 30px;
+    border-radius: 5px;
+    border:none;
+}
+.form_set {
+    padding: 20px;
+}
+.form-group.stage-table {
+    overflow-y: auto;
+    height: 200px;
+    box-shadow: 1px 1px 6px 0px #92badf;
+    padding: 10px;
+    border-radius: 10px;
+}
+.head-table {
+    background: #023462;
+    color: #fff;
+    padding: 0 5px;
+    margin: unset;
+}
+hr {
+    margin: unset;
+}
+.table thead tr th {
+    font-weight: 400;
+    font-size: 14px;
+    background-color: #8b8b8b;
+    color: #fff;
+}
+
+.table thead tr th {
+    font-weight: 400;
+    font-size: 14px;
+    background-color: #8b8b8b;
+    color: #fff;
+    // padding: 12px 0px 0px 0px;
+}
+.updatetitle{
+    text-align: center;
+    color: #8B817D;
+    font-size: 18px;
+    font-weight: 450;
+}
+.cancel-btn {
+    float: right;
+    background: gray;
+    margin: 2% 2% 2% 0;
+    border: unset;
+    padding: 10px 30px;
+    border-radius: 5px;
+    color: #fff;
+}
+h4.head-stage.right {
+    float: right;
+    margin-top: -14%;
+    margin-right: 7%;
+}
+
+
+.data_right_all{width: 100%; float: left;}
+.data_right_all h1{font-size: 14px; font-weight: 1000;}
+.data_right_all h1 span{ float: right; padding-right: 10px; font-weight: 600;}
+.readonly-wrapper {
+    pointer-events: none;
+}
+
+
+.table-container {
+  margin: 50px auto;
+  width: 90%;
+  position: relative;
+}
+
+.account-tab table {
+  width: 90%;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc; 
+}
+
+.account-tab tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.account-tab td {
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid #ccc; 
+  border-bottom: 1px solid #ccc;
+}
+
+.account-tab td:last-child {
+  border-right: none; 
+}
+
+.account-tab .label {
+  font-weight: bold;
+  color: #333;
+}
+
+
+.account-tab tr:hover {
+  background-color: #f2f2f2;
+}
+
+.account-tab tr:first-child td:first-child {
+  border-radius: 4px 0 0 0;
+}
+
+.account-tab tr:first-child td:last-child {
+  border-radius: 0 4px 0 0;
+}
+
+.account-tab tr:last-child td:first-child {
+  border-radius: 0 0 0 4px;
+}
+
+.account-tab tr:last-child td:last-child {
+  border-radius: 0 0 4px 0;
+}
+
+
+.ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon::before,
+  .ribbon::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #2980b9;
+  }
+  .ribbon span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 9px 0;
+    background-color: #3498db;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 14px "Lato", sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+    padding-right: 52px;
+  }
+  
+  .ribbon-top-left {
+    top: -10px;
+    left: -10px;
+  }
+  .ribbon-top-left::before,
+  .ribbon-top-left::after {
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+  .ribbon-top-left::before {
+    top: 0;
+    right: 0;
+  }
+  .ribbon-top-left::after {
+    bottom: 0;
+    left: 0;
+  }
+  .ribbon-top-left span {
+    right: -25px;
+    transform: rotate(-45deg);
+  }
+  .msater-nav {
+    a {
+        margin: 0 24px 0 0;
+    }
+    :nth-child(1) {
+        color: black;
+      }
+      :nth-child(2) {
+        color: black;
+      }
+    :nth-child(3) {
+        color: #0d6efd;
+      }
+    mat-icon {
+        position: absolute;
+        margin-top: -4px;
+    }
+}

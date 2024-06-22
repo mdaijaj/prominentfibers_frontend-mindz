@@ -1,0 +1,37 @@
+<div class="row form_head">
+    <h3>Sales & Marketing ({{notificationType}})
+        <mat-icon class="old_notification" matTooltip="{{notificationToolTipe}}"
+            (click)="notificationd()">notifications_none</mat-icon>
+    </h3>
+
+    <div class="searchContainer">
+        <input type="text" placeholder="Search by Trainer/Auther" [(ngModel)]="searchVal" class="searchField" #searchBox
+            [disabled]="disabledSearchBox">
+        <mat-icon class="searchIcon" (click)="showSearchBox(searchBox)">search</mat-icon>
+    </div>
+</div>
+<div class="tableContainer">
+    <div class="tableHeader">
+        <span (click)="notify_company_details()">Br Number</span>
+        <span>Company Name</span>
+        <span>Audit Start Date</span>
+        <span>Audit End Date</span>
+        <span>Action</span>
+    </div>
+    <span class="notFound" *ngIf="rowData?.length === 0 || (rowData)?.length === 0">Record not found</span>
+    <!-- <mat-spinner *ngIf="showLoader" style="width: 50px; height:50px;"></mat-spinner> -->
+    <div class="bodyContainer">
+        <ng-container *ngFor="let data of rowData; index as i">
+            <div class="tableBody" (click)="getCellValue(data)" style="text-align: left;">
+                <span>{{data.br_number}}</span>
+                <span>{{data?.associated_company}}</span>
+                <span>{{data?.training_start_date}}</span>
+                <span>{{data?.training_end_date}}</span>
+                <span>
+                    <mat-icon matTooltip="go to on task" [ngStyle]="{'color':'green'}"
+                        (click)="goToTask(data,$event)">check_circle</mat-icon>
+                </span>
+            </div>
+        </ng-container>
+    </div>
+</div>

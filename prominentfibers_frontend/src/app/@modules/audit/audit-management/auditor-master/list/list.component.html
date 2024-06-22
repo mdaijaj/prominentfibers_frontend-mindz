@@ -1,0 +1,84 @@
+<mat-card class="m-card">
+    <div class="section">
+        <div class="row head">
+            <!-- <p>HRMS</p> -->
+        </div>
+    
+        
+    
+        <div class="employ_sube">
+            <!-- <div class="employee_top">Pre-Audit
+                <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+                    </i>
+                    Auditor Master List copy</span>
+            </div> -->
+
+            <div [ngSwitch]="braedCrumbs">
+                <div *ngSwitchCase="'block-auditor'">
+                    <div class="msater-nav">
+                        <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+                        <a routerLink="/master/audit/audit-management">Audit Management<mat-icon>keyboard_arrow_right</mat-icon></a>
+                        <a routerLink="/master/audit/audit-management/block-auditor">Block Auditor</a>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'auditor-evalvator'">
+                    <div class="msater-nav">
+                        <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+                        <a routerLink="/master/audit/audit-management">Audit Management<mat-icon>keyboard_arrow_right</mat-icon></a>
+                        <a routerLink="/master/audit/audit-management/auditor-evalvator">Auditor Evalvator</a>
+                    </div>
+                </div>
+                <div *ngSwitchDefault>
+                    <div class="msater-nav">
+                        <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+                        <a routerLink="/master/audit/audit-management">Audit Management<mat-icon>keyboard_arrow_right</mat-icon></a>
+                        <a routerLink="/master/audit/audit-management/auditor-master">Auditor Master</a>
+                    </div>
+                </div>
+              </div>
+            <div class="employee_2" align="end">
+                <label>Search: </label>
+                <input type="text" id="filter-text-box" (input)="onFilterTextBoxChanged()" />
+                <div class="profile-count">
+                    <p style="margin: 20px 5px;">Total No.of Auditors &nbsp;<span class="text" style="padding:5px 15px;">{{rowData?.length>0?rowData?.length:2}}</span></p>
+                </div>
+            </div>
+        </div>
+    
+    
+    
+        <div class="employ_sube" align="end">
+            <!-- <div class="add_btn">
+                <button type="button" class="btn_add" (click)="openDialog()">File Upload <img src="/assets/icons/exc3.png" alt="" height="20px" width="25px"></button>
+            </div> -->
+     
+        </div>
+    
+        <mat-card>
+            <div [ngSwitch]="braedCrumbs">
+                <div *ngSwitchCase="'block-auditor'">
+                    <div class="row form_head">
+                        <h3>Block Auditor List</h3>
+                    </div>
+                </div>
+                <div *ngSwitchCase="'auditor-evalvator'">
+                    <div class="row form_head">
+                        <h3>Auditor Evalvator List</h3>
+                    </div>
+                </div>
+                <div *ngSwitchDefault>
+                    <div class="row form_head">
+                        <h3>Auditor Master List</h3>
+                    </div>
+                </div>
+              </div>
+            <div class="ag_grid">
+                <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                    [rowData]="rowData" [columnDefs]="columnDefs" (cellClicked)='onCellClicked($event)' [pagination]=true [paginationPageSize]=10
+                    (gridReady)="onGridReady($event)">
+                </ag-grid-angular>
+            </div>
+        </mat-card>
+    
+    </div>
+</mat-card>

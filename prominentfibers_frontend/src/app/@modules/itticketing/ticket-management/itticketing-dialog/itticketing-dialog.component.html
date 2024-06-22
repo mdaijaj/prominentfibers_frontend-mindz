@@ -1,0 +1,29 @@
+<h3 mat-dialog-title class="popHead">Ticket Record</h3>
+<mat-dialog-content class="mat-typography">
+    <div class="cotain">
+        <div class="emp_key">
+            <p>Ticket No.</p>
+            <p>Raised By</p>
+            <p>On-Behalf</p>
+            <p>Ticket Assign To</p>
+            <p>Category</p>
+            <p>Stage</p>
+            <p>Subject</p>
+            <p>Status</p>
+           </div>
+        <div class="emp_value">
+            <p>{{itTicketingGetByData?.itTicketing_number}}</p>
+            <p>{{itTicketingGetByData?.ticket_raised_by}}</p>
+            <p>{{itTicketingGetByData?.others_name}}</p>
+            <p>{{itTicketingGetByData?.ticket_assigned_to}}</p>
+            <p>{{itTicketingGetByData?.category}}</p>
+            <p>{{itTicketingGetByData?.stage}}</p>
+            <p>{{itTicketingGetByData?.subject}}</p>
+            <p>{{itTicketingGetByData?.status}}</p>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close mat-raised-button color="primary">Close</button>
+</mat-dialog-actions>
+

@@ -1,0 +1,1444 @@
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { ConfigurationalmasterService } from 'src/app/@shared/services/configurationalmaster.service';
+import { EmpRegistrationService } from 'src/app/@shared/services/emp-registration.service';
+import { LeadService } from 'src/app/@shared/services/lead.service';
+import { RecruitService } from 'src/app/@shared/services/recruitment.service';
+import { Location } from '@angular/common';
+declare var require: any;
+const FileSaver = require('file-saver');
+
+export interface PeriodicElement {
+  br_number: string;
+  account_name: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  { account_name: "S1", br_number: "1" },
+  { account_name: "S2", br_number: "1" },
+  { account_name: "CA1", br_number: "2" }
+];
+@Component({
+  selector: 'app-advance-payment-create',
+  templateUrl: './advance-payment-create.component.html',
+  styleUrls: ['./advance-payment-create.component.scss']
+})
+export class AdvancePaymentCreateComponent {
+  // displayedColumns: string[] = ['stage', 'noOfMandays'];
+  br2: any;
+  parentSide: boolean;
+  br1: any;
+
+  displayedColumns: string[] = ['account_name', 'br_number'];
+  dataSource = ELEMENT_DATA;
+  leadForm: FormGroup;
+  jobType: any;
+  candidateArray: any;
+  interviewGetId: any;
+  candidateId: any;
+  id: any;
+  interview_id: any;
+  clicked: boolean = false;
+  cutomerType: boolean = false;
+  sitAudit: boolean = false;
+  lead_id: any;
+  singleLeadData: any;
+  myFiles: any;
+  fileList: any;
+  allAchievement: any;
+  errorMsg: string = '';
+  stateList: any[] = [];
+  countryList: any[] = [];
+  cityList: any;
+  pinCodeList: any;
+  pinCodeTrue: boolean = true;
+  allDataOne: any;
+  allDataTwo: any;
+  allDataMan: any;
+  unreg: boolean = false;
+  gstreg: boolean = false;
+
+  imageToUpload: any;
+  imagePath: any;
+
+  selectedFiles: File[] = [];
+  otherFileData: any = [];
+
+  role: any
+  fileDetails: { filePath: string | any; file: any } = {
+    filePath: '',
+    file: null,
+  };
+  fileDetailsOne: { filePath: string | any; file: any } = {
+    filePath: '',
+    file: null,
+  };
+  fileDetailsTwo: { filePath: string | any; file: any } = {
+    filePath: '',
+    file: null,
+  };
+  fileDetailsThree: { filePath: string | any; file: any } = {
+    filePath: '',
+    file: null,
+  };
+  fileDetailsFour: { filePath: string | any; file: any } = {
+    filePath: '',
+    file: null,
+  };
+  quotePrepared: boolean = false;
+  dataMain: {
+    expense_category: any; customer_type: any; assigned_to: any; categories: any; site_audit: any; associated_company: any; segment: any; certificate_type: any; first_name: any; last_name: any; email: any; emplyoment_type: any; job_title: any; street_address: any; address2: any; city: any; state: any; country: any; postal_code: any; region: any; regional_bussiness_lead: any; global_managing_director: any; global_manager_sales: any; website_url: any; phone_number: any; mobile_number: any; dqs_contact_source: any; contact_owner: any; lead_created_date: string; standard_program_assement: any; remarks: any;
+    add_cert_copy: any; accredition_logo_details: any; lead_validate_stage: any; validated_by: any; lead_validated_date: string; lead_validate_remarks: any; lead_assgn_contact_owner: any; assigned_by: any; stage: any; lead_assgn_remark: any; industry_sector: any; employee_count: any; company_remarks: any; gst_applicable: any; gst_number: any; pan_number: any; tan_number: any; product_request: any; customer_sales_executive: any; opportunity_type: any; opportunity_ref: any; billing_site: any; no_of_mandays: any; ea_code: any; assessment_period: any; opp_verifier_name_level1: any; opp_verified_date_level1: string;
+    opp_verified_remarks_level1: any; reject_remarks_a: any; reject_remarks_b: any; opp_verifier_name_level2: any; opp_verified_date_level2: string; opp_verified_remarks_level2: any; quotation_currency: number; slab_quote: any; logo_cost: any; quote_prepared: any; quote_prepared_date: string; status: string; company_logo_req: any; company_logo_cost: any;
+    agreed_slab_a: any;
+    agreed_slab_b: any;
+    agreed_logo_cost: any;
+    totalAmount_inInr:any;
+    agreed_accredition: any;
+    agreed_discount: any;
+    lead_created_by_name: any;
+    fin_approval: any;
+    sales_approval: any;
+    audit_approval: any;
+    remaining_amoutn: any,
+    current_date: any
+    commited_payment_amount: any,
+    advance_payment_remark: any,
+    commited_payment_date: any,
+    total_amount: any,
+    calculatedTotalAmmountWithStages: any,
+    advancePaymentFlag: boolean,
+    lead_genration_id: any,
+    billing_site_copy: any,
+    status3: any,
+  };
+  enableBtns: boolean = false;
+  quoteSent: boolean = false;
+  rejectRemarks: boolean = false;
+  rejectRemarksA: boolean = false;
+  categoryList: any;
+  myDate = new Date();
+  mainId: string | null;
+  mainEmployeeData: any;
+  logoRequired: boolean = false;
+
+  qoutationType: any;
+  approvalSent: boolean = false;
+  invoiceSent: boolean = false;
+  finReq: boolean = false;
+  saleReq: boolean = false;
+  auditReq: boolean = false;
+  logoCost: boolean = false;
+  showTable: boolean = false;
+  stageData: any[] = [];
+  nonCertt: boolean = false;
+  currencyList: any;
+  now = new Date();
+  year = this.now.getFullYear();
+  month = this.now.getMonth();
+
+  // day = this.now.getDay();
+  date = this.now.getDate();
+  maxDate = moment({ year: this.year + 100, month: this.month, date: this.date }).format('YYYY-MM-DD');
+  minDate = moment({ year: this.year - 0, month: this.month, date: this.date }).format('YYYY-MM-DD');
+  
+  leadUpdate: any;
+  submitted: boolean = false;
+  segmentList: any;
+  certificateList: any;
+  regionSList: any;
+  CategorySList: any;
+  regionalbheadList: any;
+  globalMsalesList: any;
+  assesmentList: any;
+  gstvalidation: boolean;
+  nonCertTrue: boolean;
+  totalCalculatedAmount: number;
+  calculatedTotalAmmountWithStages: any
+  contact_list: any;
+  status_btn: any;
+  status: string;
+  ad_flag: boolean;
+  singleLeadData1: any;
+  childSide: boolean;
+  child_br_number: any;
+  status3: string;
+  showaccredetion: boolean = false;
+  dataMains: { customer_type: any; site_audit: any; associated_company: any; segment: any; certificate_type: any; first_name: any; last_name: any; email: any; emplyoment_type: any; expense_category: any; job_title: any; street_address: any; address2: any; city: any; state: any; country: any; postal_code: any; region: any; regional_bussiness_lead: any; global_managing_director: any; global_manager_sales: any; website_url: any; phone_number: any; mobile_number: any; lead_created_by_name: any; assigned_to: any; reject_remarks_a: any; reject_remarks_b: any; dqs_contact_source: any; contact_owner: any; lead_created_date: string; standard_program_assement: any; remarks: any; lead_validate_stage: any; validated_by: any; lead_validated_date: string; lead_validate_remarks: any; lead_assgn_contact_owner: any; assigned_by: any; stage: any; lead_assgn_remark: any; industry_sector: any; employee_count: any; company_remarks: any; gst_applicable: any; gst_number: any; pan_number: any; tan_number: any; categories: any; product_request: any; customer_sales_executive: any; opportunity_type: any; opportunity_ref: any; billing_site: any; no_of_mandays: any; ea_code: any; assessment_period: any; accredition_logo_details: any; add_cert_copy: any; opp_verifier_name_level1: any; opp_verified_date_level1: string; opp_verified_remarks_level1: any; opp_verifier_name_level2: any; opp_verified_date_level2: string; opp_verified_remarks_level2: any; quotation_currency: number; slab_quote: any; logo_cost: any; quote_prepared: any; quote_prepared_date: string; company_logo_req: any; company_logo_cost: any; agreed_slab_a: any; agreed_slab_b: any; agreed_logo_cost: any; totalAmount_inInr:any; agreed_accredition: any; agreed_discount: any; fin_approval: any; sales_approval: any; audit_approval: any; outstanding_amount: any; advance_payment_remarks: any; fea_approval_date: string; br_number: any; customer_name: any; approval_type: any; revenue_Value: any; adv_payment_date: string; csp_auditor_name: any; ROH_RSM: any; status: any; status3: string; calculatedTotalAmmountWithStages: any; feaApprovalFlag: boolean; lead_genration_id: any; };
+  otherDocumentData: any;
+  currencyType: any;
+  stageData1: any;
+
+  constructor(
+    private location: Location,
+    private fb: FormBuilder,
+    private leadService: LeadService,
+    private route: Router,
+    private configService: ConfigurationalmasterService,
+    private recruitService: RecruitService,
+    private activeroute: ActivatedRoute,
+    private toast: ToastrService,
+    private _empRegistration: EmpRegistrationService
+  ) {
+    this.leadForm = this.fb.group({
+      customer_type: new FormControl(null),
+      site_audit: new FormControl(null),
+      billing_site: new FormControl(null),
+      associated_company: new FormControl(null, Validators.required),
+      segment: new FormControl(null, Validators.required),
+      certificate_type: new FormControl(null, Validators.required),
+      first_name: new FormControl(null, Validators.required),
+      categories: new FormControl(null, Validators.required),
+      last_name: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+      non_cert_type: new FormControl(null),
+      emplyoment_type: new FormControl(null, Validators.required),
+      job_title: new FormControl(null, Validators.required),
+      street_address: new FormControl(null, Validators.required),
+      address2: new FormControl(null, Validators.required),
+      city: new FormControl(null, Validators.required),
+      state: new FormControl(null, Validators.required),
+      country: new FormControl(null, Validators.required),
+      postal_code: new FormControl(null, Validators.required),
+      region: new FormControl(null, Validators.required),
+      regional_bussiness_lead: new FormControl(null, Validators.required),
+      global_managing_director: new FormControl(null, Validators.required),
+      global_manager_sales: new FormControl(null, Validators.required),
+      website_url: new FormControl(null),
+      lead_created_by_name: new FormControl(null),
+      phone_number: new FormControl(null),
+      urd_number: new FormControl(null),
+      mobile_number: new FormControl(null, [Validators.required, Validators.maxLength(10),
+      Validators.pattern('^[0-9]*$'),
+      Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]),
+      dqs_contact_source: new FormControl(null, Validators.required),
+      contact_owner: new FormControl(null, Validators.required),
+      lead_created_date: new FormControl(null, Validators.required),
+      standard_program_assement: new FormControl(null, [Validators.required]),
+      remarks: new FormControl(null),
+      lead_validate_stage: new FormControl(null, Validators.required),
+      validated_by: new FormControl(null, Validators.required),
+      lead_validated_date: new FormControl(null, Validators.required),
+      lead_validate_remarks: new FormControl(null, Validators.required),
+      lead_assgn_contact_owner: new FormControl(null, Validators.required),
+      assigned_by: new FormControl(null, Validators.required),
+      assigned_date: new FormControl(null, Validators.required),
+      stage: new FormControl(null, Validators.required),
+      lead_assgn_remark: new FormControl(null, Validators.required),
+      industry_sector: new FormControl(null, Validators.required),
+      customer_category: new FormControl(null, Validators.required),
+      employee_count: new FormControl(null, Validators.required),
+      company_remarks: new FormControl(null, Validators.required),
+      customer_sales_executive: new FormControl(null, Validators.required),
+      assigned_to: new FormControl(null, Validators.required),
+      opportunity_type: new FormControl(null, Validators.required),
+      opportunity_ref: new FormControl(null, Validators.required),
+      product_request: new FormControl(null, Validators.required),
+      no_of_mandays: new FormControl(null),
+      ea_code: new FormControl(null, Validators.required),
+      assessment_period: new FormControl(null, Validators.required),
+      gst_applicable: new FormControl(null, Validators.required),
+      gst_number: new FormControl(null, Validators.required),
+      pan_number: new FormControl(null, Validators.required),
+      tan_number: new FormControl(null, Validators.required),
+      file: new FormControl(null, Validators.required),
+      contact_review_form: new FormControl(null, Validators.required),
+      gst_file: new FormControl(null, Validators.required),
+      basic_form: new FormControl(null, Validators.required),
+      company_logo: new FormControl(null, Validators.required),
+      other_file: new FormControl(null),
+      accredition_logo_details: new FormControl(null, Validators.required),
+      add_cert_copy: new FormControl(null, Validators.required),
+      document_remark: new FormControl(null, Validators.required),
+      opp_verifier_name_level1: new FormControl(null, Validators.required),
+      opp_verified_date_level1: new FormControl(null, Validators.required),
+      opp_verified_remarks_level1: new FormControl(null, Validators.required),
+      opp_verifier_name_level2: new FormControl(null, Validators.required),
+      opp_verified_date_level2: new FormControl(null, Validators.required),
+      opp_verified_remarks_level2: new FormControl(null, Validators.required),
+      quotation_currency: new FormControl(null, Validators.required),
+      slab_quote: new FormControl(null, Validators.required),
+      logo_cost: new FormControl(null, Validators.required),
+      quote_prepared: new FormControl(null, Validators.required),
+      quote_prepared_date: new FormControl(null, Validators.required),
+      agreed_slab_a: new FormControl(null, Validators.required),
+      agreed_slab_b: new FormControl(null, Validators.required),
+      agreed_logo_cost: new FormControl(null, Validators.required),
+      agreed_accredition: new FormControl(null, Validators.required),
+      agreed_discount: new FormControl(null, Validators.required),
+      reject_remarks_a: new FormControl(null),
+      reject_remarks_b: new FormControl(null),
+      expense_category: new FormControl(null, Validators.required),
+      company_logo_req: new FormControl(null, Validators.required),
+      company_logo_cost: new FormControl(null),
+      fin_approval: new FormControl(null, Validators.required),
+      sales_approval: new FormControl(null, Validators.required),
+      audit_approval: new FormControl(null, Validators.required),
+      total_amount: new FormControl(null, [Validators.required]),
+      remaining_amoutn: new FormControl(null, [Validators.required]),
+      outstanding_amount: new FormControl(0, [Validators.required] ),
+      commited_payment_amount: new FormControl(null, [Validators.pattern(/^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/)]),
+      advPaymentAmount: new FormControl(null, [Validators.required]),
+      advance_payment_remark: new FormControl(null, [Validators.required]),
+      current_date: new FormControl(null, [Validators.required]),
+      commited_payment_date: new FormControl(null, [Validators.required]),
+      phone_code: new FormControl(),
+      mobile_code: new FormControl(),
+      totalAmount_inInr:new FormControl(),
+    })
+  }
+  today = new Date();
+
+  ngOnInit() {
+    this.leadForm.patchValue({
+      current_date:moment(this.today).format("YYYY-MM-DD"),
+    })
+    this.getAchievementList();
+
+    this.getCurrency();
+    this.getAllSegment();
+    this.getCountry();
+    this.getAchievementListt();
+    this.regionalBusiness();
+    this.globalManagerales();
+    this.get_cp_contact();
+    this.activeroute.queryParams.subscribe((params: any) => {
+      this.id = params;
+      this.lead_id = this.id.lead_id;
+      this.leadUpdate = this.id.type;
+      this.qoutationType = params.type
+      this.role = params.role
+      this.leadService.getByIdLead(this.lead_id).subscribe((res: any) => {
+        if(res && res.data){
+          this.singleLeadData = res.data;
+          this.otherDocumentData = res?.data.Lead_management_docs;
+          this.getSingleLeadDataa();
+        }
+        this.totalCalculatedAmount = this.singleLeadData.slab_quote;
+        this.leadForm.patchValue({
+          total_amount: this.totalCalculatedAmount
+        })
+        console.log(this.singleLeadData.slab_quote, "check data ");
+
+        this.configService.getProducts(res.data.certificate_type).subscribe((res: any) => {
+          this.assesmentList = res.data
+        }, (err: any) => {
+          this.toast.warning("no data found")
+        })
+
+        if (this.singleLeadData?.billing_site === true) {
+          this.parentSide = true;
+          this.getStage1(this.singleLeadData?.br_number)
+        }
+        if ((this.singleLeadData?.segment_name === 'MSA') && (this.singleLeadData?.certificate_type_name === 'Non-Cert')) {
+          this.showaccredetion = true;
+          console.log('check', this.showaccredetion)
+        }
+        if (this.singleLeadData.status === "Quotation") {
+          this.quotePrepared = true;
+        } else if (this.singleLeadData.status === "Quotation Sent") {
+          this.quoteSent = true;
+        } else if (this.singleLeadData.status === "Sent S&M Approval") {
+          this.approvalSent = true;
+        } else if (this.singleLeadData.status === "Perform Invoice Sent") {
+          this.invoiceSent = true;
+        }
+        if (this.singleLeadData?.export === "Export Wise") {
+          this.gstvalidation = false;
+        }
+        if (this.singleLeadData?.certificate_type_name === "Non-Cert") {
+          this.nonCertTrue = false;
+
+        } else {
+          this.nonCertTrue = true;
+
+        }
+        this.nonCertFunc();
+        this.patchFormvalue();
+        this.getCategory();
+      })
+    });
+    this.mainId = localStorage.getItem("EmpMainId");
+
+    if (this.mainId != undefined) {
+      this._empRegistration.getByUserId(this.mainId).subscribe((res) => {
+        this.mainEmployeeData = res.data;
+
+        this.getAchievementList();
+        this.patchFormvalue();
+      })
+    }
+    // this.getStage(this.br1);
+
+
+
+    setTimeout(() => {
+      let total = this.calculateTotalAmmount(this.stageData, this.singleLeadData.slab_quote, this.singleLeadData.logo_cost, this.singleLeadData.company_logo_cost);
+      // this.totalCalculatedAmount = total;
+      // this.leadForm.patchValue({
+      //   total_amount: total
+      // })
+      this.calculatedTotalAmmountWithStages = this.calculateTotalAmmountWithStages(this.stageData, this.singleLeadData.slab_quote, this.singleLeadData.logo_cost, this.singleLeadData.company_logo_cost);
+      console.log(this.calculatedTotalAmmountWithStages);
+
+    }, 1000);
+  }
+
+  get leadFormControl(): any {
+    return this.leadForm.controls;
+  };
+
+
+  getSingleLeadDataa(){
+    this.leadService.getByIdLeadId(this.lead_id).subscribe((res: any) => {
+
+      this.singleLeadData1 = res.data;
+      this.singleLeadData1.unshift(
+        {br_number:this.singleLeadData?.br_number, associated_company: this.singleLeadData?.associated_company,city_name:this.singleLeadData.city_name,state_name:this.singleLeadData.state_name,region_name:this.singleLeadData.region_name,first_name:this.singleLeadData.first_name},
+       ) 
+
+      this.fetchStageDataForLeads()
+    });
+  }
+  checkUnreg() {
+
+    if (this.singleLeadData?.gst_applicable === "Unregistered Dealer") {
+      this.unreg = true;
+      this.gstreg = false;
+    } else {
+      this.gstreg = true;
+      this.unreg = false;
+    }
+  }
+  unregisteredDealer() {
+    this.unreg = true;
+    this.gstreg = false;
+  }
+  gstDealer() {
+    this.gstreg = true;
+    this.unreg = false;
+  }
+  showPriceTable() {
+    this.showTable = !this.showTable;
+  }
+  nonCertFunc() {
+    if (this.singleLeadData?.certificate_type == "Non Cert") {
+      this.nonCertt = true
+    }
+  }
+  printDiv(divName: string) {
+    let printContents = document.getElementById('printableArea')?.innerHTML;
+    document.body.innerHTML = printContents ? printContents : "";
+    window.print();
+    window.location.reload();
+  }
+
+
+  getCurrency() {
+    this.configService.CurrencyList().subscribe((res: any) => {
+      this.currencyList = res.data;
+      setTimeout(() => {
+        console.log(this.singleLeadData.quotation_currency, "currency");
+        this.currencyType=this.currencyList.filter((res:any)=>res.Currency_Convert_id==this.singleLeadData.quotation_currency).
+        map((res:any)=>res.Currency_Type
+        )
+      }, 500);
+    });
+  }
+  getAllSegment() {
+    this.configService.getAllSegment().subscribe((res: any) => {
+      this.segmentList = res.data;
+
+    });
+  }
+  getCategory() {
+    this.configService.listCategory().subscribe((res: any) => {
+      this.categoryList = res.data;
+
+    })
+  }
+
+  downloadGst(e: any) {
+    const pdfUrl = this.singleLeadData?.gst_file;
+    const pdfName = this.singleLeadData?.gst_applicable;
+    FileSaver.saveAs(pdfUrl, pdfName);
+    e.stopPropagation();
+  }
+  downloadContact(e: any) {
+    const pdfUrl = this.singleLeadData?.contact_review_form;
+    const pdfName = this.singleLeadData?.contact_owner;
+    FileSaver.saveAs(pdfUrl, pdfName);
+    e.stopPropagation();
+  }
+  downloadLogo(e: any) {
+    const pdfUrl = this.singleLeadData?.company_logo;
+    const pdfName = this.singleLeadData?.associated_company;
+    FileSaver.saveAs(pdfUrl, pdfName);
+    e.stopPropagation();
+  }
+  // downloadOther(e: any) {
+  //   const pdfUrl = this.singleLeadData?.other_file;
+  //   const pdfName = this.singleLeadData?.document_remark;
+  //   FileSaver.saveAs(pdfUrl, pdfName);
+  //   e.stopPropagation();
+  // }
+  downloadBasic(e: any) {
+    const pdfUrl = this.singleLeadData?.basic_form;
+    const pdfName = this.singleLeadData?.first_name;
+    FileSaver.saveAs(pdfUrl, pdfName);
+    e.stopPropagation();
+  }
+
+  getAchievementList() {
+    this.recruitService.getAllAchivement().subscribe(
+      (res: any) => {
+
+        this.allAchievement = res.data;
+      },
+      (err) => {
+
+      }
+    );
+  }
+
+  viewDocLogo() {
+    window.open(this.singleLeadData.company_logo, '_blank');
+  }
+  viewDocOther(index: number) {
+    const file = this.selectedFiles[index];
+    if (file) {
+      // If a file was uploaded, open the uploaded file
+      const fileUrl = URL.createObjectURL(file);
+      window.open(fileUrl, '_blank');
+    } else {
+      const fileData = this.otherDocumentData[index]; // Adjust this line based on your data structure
+      if (fileData && fileData.other_file) {
+        window.open(fileData.other_file, '_blank');
+      }
+    }
+  }
+
+  downloadOther(index: number) {
+    const file = this.selectedFiles[index];
+    if (file) {
+      const fileBlob = new Blob([file], { type: file.type });
+      const fileUrl = URL.createObjectURL(fileBlob);
+
+      const a = document.createElement('a');
+      a.href = fileUrl;
+      a.download = file.name;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } else {
+      const fileData = this.otherDocumentData[index];
+      if (fileData) {
+        FileSaver.saveAs(fileData.other_file, fileData?.name);
+      }
+    }
+  }
+
+  viewDocReview() {
+    window.open(this.singleLeadData.contact_review_form, '_blank');
+  }
+  viewDocGST() {
+    window.open(this.singleLeadData.gst_file, '_blank');
+  }
+
+
+  candidateClick(e: any) {
+
+    this.candidateId = e;
+    this.recruitService.interViewGetIdBy(e).subscribe((res: any) => {
+      this.interviewGetId = res.data;
+
+      this.patchFormvalue();
+    })
+  }
+
+  fileInputChange(fileInput: File[] | any) {
+    this.errorMsg = '';
+
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const file = fileInput.target.files[0];
+
+      const reader = new FileReader();
+      const fileSizeInMb = file.size / 1024 ** 2;
+      if (fileSizeInMb > 30) {
+        this.errorMsg = 'File size should be less than 30MB';
+        return;
+      }
+      reader.onload = (e: any) => {
+        this.fileDetails.filePath = reader.result;
+      };
+      reader.readAsDataURL(file);
+      this.fileDetails.file = file;
+    } else {
+      this.fileDetails = { filePath: '', file: null };
+    }
+  }
+
+  fileInputChangeOne(fileInput: File[] | any) {
+    this.errorMsg = '';
+
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const file = fileInput.target.files[0];
+      const reader = new FileReader();
+      const fileSizeInMb = file.size / 1024 ** 2;
+      if (fileSizeInMb > 30) {
+        this.errorMsg = 'File size should be less than 30MB';
+        return;
+      }
+      reader.onload = (e: any) => {
+        this.fileDetailsOne.filePath = reader.result;
+      };
+      reader.readAsDataURL(file);
+      this.fileDetailsOne.file = file;
+    } else {
+      this.fileDetailsOne = { filePath: '', file: null };
+    }
+  }
+
+  fileInputChangeTwo(fileInput: File[] | any) {
+    this.errorMsg = '';
+
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const file = fileInput.target.files[0];
+      const reader = new FileReader();
+      const fileSizeInMb = file.size / 1024 ** 2;
+      if (fileSizeInMb > 30) {
+        this.errorMsg = 'File size should be less than 30MB';
+        return;
+      }
+      reader.onload = (e: any) => {
+        this.fileDetailsTwo.filePath = reader.result;
+      };
+      reader.readAsDataURL(file);
+      this.fileDetailsTwo.file = file;
+    } else {
+      this.fileDetailsTwo = { filePath: '', file: null };
+    }
+  }
+
+  fileInputChangeThree(fileInput: File[] | any) {
+    this.errorMsg = '';
+
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const file = fileInput.target.files[0];
+      const reader = new FileReader();
+      const fileSizeInMb = file.size / 1024 ** 2;
+      if (fileSizeInMb > 30) {
+        this.errorMsg = 'File size should be less than 30MB';
+        return;
+      }
+      reader.onload = (e: any) => {
+        this.fileDetailsThree.filePath = reader.result;
+      };
+      reader.readAsDataURL(file);
+      this.fileDetailsThree.file = file;
+    } else {
+      this.fileDetailsThree = { filePath: '', file: null };
+    }
+  }
+
+  fileInputChangeFour(fileInput: File[] | any) {
+    this.errorMsg = '';
+
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const file = fileInput.target.files[0];
+      const reader = new FileReader();
+      const fileSizeInMb = file.size / 1024 ** 2;
+      if (fileSizeInMb > 30) {
+        this.errorMsg = 'File size should be less than 30MB';
+        return;
+      }
+      reader.onload = (e: any) => {
+        this.fileDetailsFour.filePath = reader.result;
+      };
+      reader.readAsDataURL(file);
+      this.fileDetailsFour.file = file;
+    } else {
+      this.fileDetailsFour = { filePath: '', file: null };
+    }
+  }
+
+  getValue() {
+    if (this.singleLeadData.gst_file != null) {
+      this.enableBtns = true
+    }
+  }
+  getStage(br1: any) {
+    this.leadService.getStage(br1).subscribe((res: any) => {
+
+      this.stageData = res.data;
+    })
+  }
+
+  getStage1(br1: any) {
+    this.leadService.getStage(br1).subscribe((res: any) => {
+
+      this.stageData = res.data;
+    })
+  }
+
+  typeChange1(e: any, event: any) {
+    let br3 = []
+    this.br2 = e.br_number;
+    let br4 = br3.push(this.br2);
+
+
+
+
+
+    this.getStage1(this.br2);
+    if (e.lead_genration_id === this.singleLeadData.lead_genration_id) {
+      this.parentSide = event.target.checked;
+
+    }
+  }
+  typeChangeChild(e: any, event: any) {
+    console.log('event******', event?.br_number);
+    if (event.checked == true) {
+      this.childSide = true;
+      this.singleLeadData1.forEach((res: any) => {
+        console.log('res ', res);
+        if (res.br_number == event.br_number) {
+          res.checked = e.checked;
+          this.child_br_number = event?.br_number;
+          console.log('child br number ******', this.child_br_number);
+        } else {
+          res.checked = false;
+        }
+      });
+      this.getStage1(this.child_br_number);
+    }
+  }
+
+
+  patchFormvalue() {
+    this.checkUnreg();
+    if (this.singleLeadData?.segment != 'null || undefined') {
+      this.leadService.getCertificateByID(this.singleLeadData?.segment).subscribe((res: any) => {
+        this.certificateList = res.data.new_certificate_types;
+      });
+      this.leadService.getRegionByID(this.singleLeadData?.segment).subscribe((res: any) => {
+        this.regionSList = res.data.new_regions;
+      });
+      this.leadService.getCategoryBySegID(this.singleLeadData?.segment).subscribe((res: any) => {
+        this.CategorySList = res.data.new_category_masters;
+
+      });
+    }
+
+    if (this.singleLeadData?.region != 'null || undefined') {
+      this.leadService.getRBuisnessHead(this.singleLeadData?.region).subscribe((res: any) => {
+        this.regionalbheadList = res.data;
+
+      });
+      this.leadService.getGlobalManagerSales(this.singleLeadData?.region).subscribe((res: any) => {
+        this.globalMsalesList = res.data;
+
+      });
+    }
+
+
+    if (this.singleLeadData?.country != 'undefined || null') {
+      this.leadService.getStateByID(this.singleLeadData?.country).subscribe((res: any) => {
+        this.patchCountryCode(this.singleLeadData?.country)
+        this.stateList = res.data;
+      });
+    }
+    if (this.singleLeadData?.state != 'undefined || null') {
+      this.leadService.getCityByID(this.singleLeadData?.state).subscribe((res: any) => {
+
+        this.cityList = res.data;
+      });
+    }
+    if (this.singleLeadData?.city != 'undefined || null') {
+      this.leadService.getPinCodeNew(this.singleLeadData?.city).subscribe((res: any) => {
+        this.pinCodeList = res.data;
+
+
+      });
+    }
+    // if (this.singleLeadData?.certificate_type != 'undefined || null') {
+    //   this.leadService.getAssesmentByID(this.singleLeadData?.certificate_type).subscribe((res: any) => {
+
+    //     this.assesmentList = res.data[0].newitemlist;;
+
+    //   });
+    // }
+    console.log(this.singleLeadData?.standard_program_assement,'this.singleLeadData?.standard_program_assement');
+    
+    this.leadForm.patchValue({
+      standard_program_assement: this.singleLeadData?.standard_program_assement,
+
+      customer_type: this.singleLeadData?.customer_type,
+      site_audit: this.singleLeadData?.multiple_site_audit,
+      associated_company: this.singleLeadData?.associated_company,
+      segment: this.singleLeadData?.segment,
+      br_number: this.singleLeadData?.br_number,
+      assignedManager: this.singleLeadData?.assigned_hiring_manager,
+      certificate_type: this.singleLeadData?.certificate_type,
+      first_name: this.singleLeadData?.first_name,
+      last_name: this.singleLeadData?.last_name,
+      email: this.singleLeadData?.email,
+      non_cert_type: this.singleLeadData?.non_cert_type,
+      emplyoment_type: this.singleLeadData?.emplyoment_type,
+      street_address: this.singleLeadData?.street_address,
+      job_title: this.singleLeadData?.job_title,
+      address2: this.singleLeadData?.address2,
+      city: this.singleLeadData?.city,
+      state: this.singleLeadData?.state,
+      country: this.singleLeadData?.country,
+      postal_code: this.singleLeadData?.postal_code,
+      region: this.singleLeadData?.region,
+      accredition_logo_details: this.singleLeadData?.accredition_logo_details,
+      add_cert_copy: this.singleLeadData?.add_cert_copy,
+      regional_bussiness_lead: this.singleLeadData?.regional_bussiness_lead,
+      global_managing_director: this.singleLeadData?.global_managing_director,
+      global_manager_sales: this.singleLeadData?.global_manager_sales,
+      website_url: this.singleLeadData?.website_url,
+      phone_number: this.singleLeadData?.phone_number,
+      mobile_number: this.singleLeadData?.mobile_number,
+      lead_created_by_name: this.singleLeadData?.lead_created_by_name,
+      dqs_contact_source: this.singleLeadData?.dqs_Contact_id,
+      contact_owner: this.singleLeadData?.contact_owner,
+      lead_created_date: this.singleLeadData?.lead_created_date,
+      assigned_to: this.singleLeadData?.assigned_to,
+      remarks: this.singleLeadData?.remarks,
+      categories: this.singleLeadData?.categories,
+      lead_validated_date: this.singleLeadData?.lead_validated_date,
+      validated_by: this.singleLeadData?.validated_by,
+      lead_validate_remarks: this.singleLeadData?.lead_validate_remarks,
+      industry_sector: this.singleLeadData?.industry_sector,
+      customer_category: this.singleLeadData?.customer_category,
+      employee_count: this.singleLeadData?.employee_count,
+      company_remarks: this.singleLeadData?.company_remarks,
+      gst_applicable: this.singleLeadData?.gst_applicable,
+      gst_number: this.singleLeadData?.gst_number,
+      pan_number: this.singleLeadData?.pan_number,
+      tan_number: this.singleLeadData?.tan_number,
+      document_remark: this.singleLeadData?.document_remark,
+      product_request: this.singleLeadData.product_request,
+      customer_sales_executive: this.singleLeadData.customer_sales_executive,
+      opportunity_type: this.singleLeadData.opportunity_type,
+      opportunity_ref: this.singleLeadData.OpportunityRef_no,
+      no_of_mandays: this.singleLeadData.no_of_mandays,
+      assessment_period: this.singleLeadData?.assessment_period,
+      ea_code: this.singleLeadData.ea_code,
+      urd_number: this.singleLeadData?.urd_number,
+      billing_site: this.singleLeadData.billing_site,
+      totalAmount_inInr:this.singleLeadData?.totalAmount_inInr,
+      opp_verifier_name_level1: this.singleLeadData?.opp_verifier_name_level1,
+      opp_verified_date_level1: this.singleLeadData?.opp_verified_date_level1,
+      opp_verified_remarks_level1: this.singleLeadData?.opp_verified_remarks_level1,
+      opp_verifier_name_level2: this.singleLeadData?.opp_verifier_name_level2,
+      opp_verified_date_level2: this.singleLeadData?.opp_verified_date_level2,
+      opp_verified_remarks_level2: this.singleLeadData?.opp_verified_remarks_level2,
+      quotation_currency: this.singleLeadData?.quotation_currency,
+      expense_category: this.singleLeadData?.expense_category,
+      company_logo_req: this.singleLeadData?.company_logo_req,
+      company_logo_cost: this.singleLeadData?.company_logo_cost,
+      slab_quote: this.singleLeadData?.slab_quote,
+      logo_cost: this.singleLeadData?.logo_cost,
+      quote_prepared: this.mainEmployeeData?.first_name,
+      quote_prepared_date: this.myDate,
+      phone_code: this.singleLeadData?.userrespectiveleads[0]?.phone_code,
+
+    })
+
+    if (this.singleLeadData?.company_logo_req == 'Yes') {
+      this.logoCost = true;
+    }
+  }
+
+  reject() {
+    this.rejectRemarks = true;
+  }
+  accept() {
+    this.rejectRemarks = false;
+  }
+
+  rejectA() {
+    this.rejectRemarksA = true;
+  }
+  acceptA() {
+    this.rejectRemarksA = false;
+  }
+  customerType() {
+    this.cutomerType = true;
+  }
+  siteAudit() {
+    this.sitAudit = true;
+  }
+
+  siteAuditNew() {
+    this.sitAudit = false;
+  }
+
+  customerTypeNew() {
+    this.cutomerType = false;
+  }
+
+  logoReq() {
+    this.logoRequired = true;
+    this.logoCost = false;
+  }
+
+  get_cp_contact() {
+    this.leadService.get_contact().subscribe(
+      (res: any) => {
+        this.contact_list = res.data;
+
+      }, (err) => {
+
+      }
+    )
+  };
+  logoReqNew() {
+    this.logoRequired = false;
+    this.logoCost = true;
+  }
+
+  finApprove() {
+    this.finReq = true;
+  }
+
+  finApproveNew() {
+    this.finReq = false;
+  }
+
+  saleApprove() {
+    this.saleReq = true;
+  }
+
+  saleApproveNew() {
+    this.saleReq = false;
+  }
+
+  auditApprove() {
+    this.auditReq = true;
+  }
+
+  auditApproveNew() {
+    this.auditReq = false;
+  }
+
+
+  viewDocBasic() {
+    window.open(this.singleLeadData.basic_form, '_blank');
+  }
+
+  getCountryID(e: any) {
+    this.patchCountryCode(e.value);
+    this.leadService.getStateByID(e.value).subscribe((res: any) => {
+
+      this.stateList = res.data;
+    });
+  }
+  getCountry() {
+    this.configService.getCountry().subscribe((res: any) => {
+      this.countryList = res.data;
+
+    });
+  }
+  getStateID(e: any) {
+
+    this.leadService.getCityByID(e.value).subscribe((res: any) => {
+
+      this.cityList = res.data;
+    });
+  }
+  getPinCode(e: any) {
+
+    this.leadService.getPinCodeNew(e.value).subscribe((res: any) => {
+      this.pinCodeList = res.data;
+
+      if (this.pinCodeList.length === 0) {
+        this.pinCodeTrue = true;
+      } else {
+        this.pinCodeTrue = false;
+      }
+    });
+  }
+  getAchievementListt() {
+    this.leadService.regionListGet().subscribe((res: any) => {
+
+      this.allDataOne = res.data;
+    });
+  }
+  regionalBusiness() {
+    this.leadService.getListBusiness().subscribe((res: any) => {
+
+      this.allDataTwo = res.data;
+    });
+  }
+  globalManagerales() {
+    this.leadService.getGlobalSalesM().subscribe((res: any) => {
+
+      this.allDataMan = res.data;
+    });
+  }
+
+  submitForm() {
+    // this.submitted = true;
+    // if (this.leadForm.invalid) {
+    //   this.toast.error('Required fields should not be empty.','Error Occurred!');
+    //   return;
+    // }
+    if (this.leadForm.value.commited_payment_date == null) {
+      this.toast.error('Committed Payment Date should not be empty.');
+      return;
+    }
+    if (this.leadForm.value.commited_payment_amount == null) {
+      this.toast.error('Committed Payment Amount should not be empty.');
+      return;
+    }
+    if (this.leadForm.value.current_date == null) {
+      this.toast.error('Current Date should not be empty.');
+      return;
+    }
+    if (this.leadForm.value.advance_payment_remark == null) {
+      this.toast.error('Advance Payment Remarks should not be empty.');
+      return;
+    }
+
+    let val = this.leadForm.value;
+    let dynamicStatus
+    if (this.role == 'order_booking') {
+      dynamicStatus = 'Documents Signed'
+    } else {
+      dynamicStatus = 'Advance Payment'
+    }
+
+    this.dataMain = {
+      customer_type: val.customer_type,
+      site_audit: val.site_audit || " ",
+      associated_company: val.associated_company,
+      segment: val.segment,
+      certificate_type: val.certificate_type,
+      first_name: val.first_name,
+      last_name: val.last_name,
+      email: val.email,
+
+      emplyoment_type: val.emplyoment_type,
+      expense_category: val.expense_category,
+      job_title: val.job_title,
+      street_address: val.street_address,
+      address2: val.address2,
+      city: val.city,
+      state: val.state,
+      country: val.country,
+      postal_code: val.postal_code,
+      region: val.region,
+      regional_bussiness_lead: val.regional_bussiness_lead,
+      global_managing_director: val.global_managing_director,
+      global_manager_sales: val.global_manager_sales,
+      website_url: val.website_url,
+      phone_number: val.phone_number,
+      mobile_number: val.mobile_number,
+      lead_created_by_name: val.lead_created_by_name,
+      assigned_to: val.assigned_to,
+      reject_remarks_a: val.reject_remarks_a || " ",
+      reject_remarks_b: val.reject_remarks_b || " ",
+      dqs_contact_source: val.dqs_contact_source,
+      contact_owner: val.contact_owner,
+      lead_created_date: moment(val.lead_created_date).format('YYYY-MM-DD'),
+      standard_program_assement: val.standard_program_assement,
+      remarks: val.remarks,
+      lead_validate_stage: val.lead_validate_stage,
+      validated_by: val.validated_by,
+      lead_validated_date: moment(val.lead_validated_date).format('YYYY-MM-DD'),
+      lead_validate_remarks: val.lead_validate_remarks,
+      lead_assgn_contact_owner: val.lead_assgn_contact_owner || this.singleLeadData?.lead_assgn_contact_owner,
+      assigned_by: val.assigned_by,
+      stage: val.stage,
+      lead_assgn_remark: val.lead_assgn_remark,
+      industry_sector: val.industry_sector,
+      employee_count: val.employee_count,
+      company_remarks: val.company_remarks,
+      gst_applicable: val.gst_applicable,
+      gst_number: val.gst_number,
+      pan_number: val.pan_number,
+      tan_number: val.tan_number,
+      categories: val.categories,
+      product_request: val.product_request,
+      customer_sales_executive: val.customer_sales_executive,
+      opportunity_type: val.opportunity_type,
+      opportunity_ref: val.opportunity_ref,
+      billing_site: val.billing_site,
+      no_of_mandays: val.no_of_mandays,
+      ea_code: val.ea_code,
+      assessment_period: val.assessment_period,
+      accredition_logo_details: val.accredition_logo_details,
+      add_cert_copy: val.add_cert_copy,
+      opp_verifier_name_level1: val.opp_verifier_name_level1,
+      opp_verified_date_level1: moment(val.opp_verified_date_level1).format('YYYY-MM-DD'),
+      opp_verified_remarks_level1: val.opp_verified_remarks_level1,
+      opp_verifier_name_level2: val.opp_verifier_name_level2,
+      opp_verified_date_level2: moment(val.opp_verified_date_level2).format('YYYY-MM-DD'),
+      opp_verified_remarks_level2: val.opp_verified_remarks_level2,
+      quotation_currency: Number(val.quotation_currency),
+      slab_quote: val.slab_quote,
+      logo_cost: val.logo_cost,
+      quote_prepared: val.quote_prepared,
+      quote_prepared_date: moment(val.quote_prepared_date).format('YYYY-MM-DD'),
+      company_logo_req: val.company_logo_req,
+      company_logo_cost: val.company_logo_cost,
+      agreed_slab_a: val.agreed_slab_a,
+      agreed_slab_b: val.agreed_slab_b,
+      agreed_logo_cost: val.agreed_logo_cost,
+      totalAmount_inInr:val.totalAmount_inInr,
+      agreed_accredition: val.agreed_accredition,
+      agreed_discount: val.agreed_discount,
+      fin_approval: val.fin_approval,
+      sales_approval: val.sales_approval,
+      audit_approval: val.audit_approval,
+      remaining_amoutn: val.remaining_amoutn,
+      commited_payment_amount: val.commited_payment_amount,
+      advance_payment_remark: val.advance_payment_remark,
+      current_date: moment(val.current_date).format("YYYY-MM-DD"),
+      commited_payment_date: moment(val.commited_payment_date).format("YYYY-MM-DD"),
+      total_amount: val.total_amount,
+      status: this.status,
+      status3: this.status3 || null,
+      calculatedTotalAmmountWithStages: this.calculatedTotalAmmountWithStages,
+      advancePaymentFlag: this.ad_flag,
+      lead_genration_id: this.lead_id,
+      billing_site_copy: this.singleLeadData?.billing_site_copy,
+    }
+    const data = {
+      contact_review_form: this.fileDetails.file,
+      gst_file: this.fileDetailsOne.file,
+      basic_form: this.fileDetailsTwo.file,
+      company_logo: this.fileDetailsThree.file,
+      other_file: this.fileDetailsFour.file,
+      document_remark: val.document_remark,
+    }
+
+    if (data.contact_review_form) {
+      this.leadService.editLeadDoc(this.lead_id, data).subscribe((res: any) => {
+      });
+    }
+    this.leadService.editLead(this.lead_id, this.dataMain).subscribe((res: any) => {
+      if (this.status3 == 'Advance Payment') {
+        const data = {
+          lead_genration_id: this.singleLeadData.lead_genration_id,
+          br_number: this.singleLeadData.br_number,
+          Advance_Payment: true
+        }
+        this.leadService.create_Status(data).subscribe((res: any) => {
+          console.log(res, "successfully");
+        })
+
+        this.toast.success("Advance Payment Created Successfully..")
+        this.route.navigate(['master/lead/quotation']);
+
+      }
+      else if (this.status3 == 'Sent FEA Approval Pending') {
+        this.toast.success("Sent for FEA Approval Successfully..")
+        this.route.navigate(['master/lead/quotation']);
+      }
+      // this.toast.success("Advance Payment Created Successfully..")
+      // if(this.role == 'order_booking'){
+      //   this.route.navigate(['master/lead/quotation/order-booking']);
+      // }else{
+      //   this.route.navigate(['master/lead/quotation/advance-payment/make-advance-payment']);
+      // }
+    },
+      (err: any) => {
+        this.toast.error("Something Went To Wrong");
+      })
+  }
+
+  cancel() {
+    this.route.navigate(['master/lead/quotation/order-booking'])
+    // this.location.back();
+  }
+  calculateTotalAmmountWithStages(stageData: any, QuotePrice: any, logoCost: any, companyLogoCost: any) {
+    const results: any = {};
+    for (const obj of stageData) {
+      let total = 0
+      total = obj.noOfMandays * QuotePrice + logoCost + companyLogoCost;
+      results[obj.stage] = total;
+    }
+    return results;
+  }
+
+
+  calculateTotalAmmount(stageData: any, QuotePrice: any, logoCost: any, companyLogoCost: any) {
+    let totalNoOfDays = 0;
+    for (const obj of stageData) {
+      if (obj.stage === 'S1' || obj.stage === 'S2') {
+        totalNoOfDays += obj.noOfMandays;
+      } else if (obj.stage === 'CA1') {
+        totalNoOfDays = obj.noOfMandays;
+      } else if (obj.stage === 'CA2') {
+        totalNoOfDays = obj.noOfMandays;
+      } else if (obj.stage === 'TRA') {
+        totalNoOfDays = obj.noOfMandays;
+      } else if (obj.stage === 'Desk Review') {
+        totalNoOfDays = obj.noOfMandays;
+      } else if (obj.stage === 'PE') {
+        totalNoOfDays = obj.noOfMandays;
+      } else if (obj.stage === 'TF') {
+        totalNoOfDays = obj.noOfMandays;
+      } else if (obj.stage === 'BCA 3') {
+        totalNoOfDays = obj.noOfMandays;
+      } else if (obj.stage === 'BCA 4') {
+        totalNoOfDays = obj.noOfMandays;
+      } else if (obj.stage === 'BCA 5') {
+        totalNoOfDays = obj.noOfMandays;
+      }
+    }
+
+    if (totalNoOfDays > 0) {
+      return (totalNoOfDays * QuotePrice) + logoCost + companyLogoCost;
+    } else {
+      return QuotePrice + logoCost + companyLogoCost;
+    }
+  }
+
+  calculateOutstanding(event: any) {
+    let percentageValue: string = event.target.value
+    console.log(percentageValue, "percentage");
+    console.log(this.singleLeadData.slab_quote, "slab");
+    // console.log(this.singleLeadData.slab_quote,"slab");
+    console.log(event.target.value, "slab");
+
+
+    if (event.target.value >= 0 && event.target.value <= 100) {
+      this.leadForm.patchValue({
+        advPaymentAmount: (this.singleLeadData.slab_quote * event.target.value) / 100
+      })
+    }
+    else {
+      this.leadForm.patchValue({
+        advPaymentAmount: "Invalid"
+      })
+
+    }
+
+    const parsedPercentage = parseFloat(percentageValue);
+    if (parsedPercentage > 0 && parsedPercentage < 100) {
+      if (!isNaN(parsedPercentage) && this.totalCalculatedAmount !== undefined) {
+        const percentageToSubtract = (parsedPercentage / 100) * this.totalCalculatedAmount;
+        let outstandingAmount = this.totalCalculatedAmount - percentageToSubtract;
+        this.leadForm.patchValue({
+          remaining_amoutn: outstandingAmount
+        })
+      }
+    } else {
+      this.leadForm.patchValue({
+        remaining_amoutn: null
+      })
+      this.toast.error('Payment Amount should range from 0% to 100%');
+      return;
+    }
+  }
+  paymentStatus(e: any) {
+    console.log(e.value, "eeeee");
+    this.status_btn = e.value
+    if (this.status_btn == 'approve' && this.role !== 'order_booking') {
+      this.status3 = "Advance Payment"
+      this.status = "Digitally Signed Document"
+      this.ad_flag = true
+      console.log("Dire Advance");
+
+    }
+    else if (this.status_btn == 'reject' && this.role !== 'order_booking') {
+      this.status = "Digitally Signed Document"
+      this.status3 = "Sent FEA Approval Pending"
+      console.log("Dire Fea");
+    }
+    else if (this.status_btn == 'approve' && this.role == 'order_booking') {
+      this.status3 = "Advance Payment"
+      this.status = "Documents Signed"
+      this.ad_flag = true
+      console.log("No Advance");
+    }
+    else if (this.status_btn == 'reject' && this.role == 'order_booking') {
+      this.status = "Documents Signed"
+      this.status3 = "Sent FEA Approval Pending"
+      console.log("no FEA");
+
+    }
+  }
+  patchCountryCode(id:any){
+    this.countryList.forEach((res:any) =>{
+      if(res.countryss_id == id){
+          let code = "+" + res.phone_code;
+          this.leadForm.patchValue({
+            // phone_code: code,
+            mobile_code: code
+          })
+      }
+    })
+  }
+
+  feaApproval(){
+    let val = this.leadForm.value;
+
+    this.dataMains = {
+      customer_type: val.customer_type,
+      site_audit: val.site_audit || " ",
+      associated_company: val.associated_company,
+      segment: val.segment,
+      certificate_type: val.certificate_type,
+      first_name: val.first_name,
+      last_name: val.last_name,
+      email: val.email,
+
+      emplyoment_type: val.emplyoment_type,
+      expense_category: val.expense_category,
+      job_title: val.job_title,
+      street_address: val.street_address,
+      address2: val.address2,
+      city: val.city,
+      state: val.state,
+      country: val.country,
+      postal_code: val.postal_code,
+      region: val.region,
+      regional_bussiness_lead: val.regional_bussiness_lead,
+      global_managing_director: val.global_managing_director,
+      global_manager_sales: val.global_manager_sales,
+      website_url: val.website_url,
+      phone_number: val.phone_number,
+      mobile_number: val.mobile_number,
+      lead_created_by_name: val.lead_created_by_name,
+      assigned_to: val.assigned_to,
+      reject_remarks_a: val.reject_remarks_a || " ",
+      reject_remarks_b: val.reject_remarks_b || " ",
+      dqs_contact_source: val.dqs_contact_source,
+      contact_owner: val.contact_owner,
+      lead_created_date: moment(val.lead_created_date).format('YYYY-MM-DD'),
+      standard_program_assement: val.standard_program_assement,
+      remarks: val.remarks,
+      lead_validate_stage: val.lead_validate_stage,
+      validated_by: val.validated_by,
+      lead_validated_date: moment(val.lead_validated_date).format('YYYY-MM-DD'),
+      lead_validate_remarks: val.lead_validate_remarks,
+      lead_assgn_contact_owner: val.lead_assgn_contact_owner || this.singleLeadData?.lead_assgn_contact_owner,
+      assigned_by: val.assigned_by,
+      stage: val.stage,
+      lead_assgn_remark: val.lead_assgn_remark,
+      industry_sector: val.industry_sector,
+      employee_count: val.employee_count,
+      company_remarks: val.company_remarks,
+      gst_applicable: val.gst_applicable,
+      gst_number: val.gst_number,
+      pan_number: val.pan_number,
+      tan_number: val.tan_number,
+      categories: val.categories,
+      product_request: val.product_request,
+      customer_sales_executive: val.customer_sales_executive,
+      opportunity_type: val.opportunity_type,
+      opportunity_ref: val.opportunity_ref,
+      billing_site: val.billing_site,
+      no_of_mandays: val.no_of_mandays,
+      ea_code: val.ea_code,
+      assessment_period: val.assessment_period,
+      accredition_logo_details: val.accredition_logo_details,
+      add_cert_copy: val.add_cert_copy,
+      opp_verifier_name_level1: val.opp_verifier_name_level1,
+      opp_verified_date_level1: moment(val.opp_verified_date_level1).format('YYYY-MM-DD'),
+      opp_verified_remarks_level1: val.opp_verified_remarks_level1,
+      opp_verifier_name_level2: val.opp_verifier_name_level2,
+      opp_verified_date_level2: moment(val.opp_verified_date_level2).format('YYYY-MM-DD'),
+      opp_verified_remarks_level2: val.opp_verified_remarks_level2,
+      quotation_currency: Number(val.quotation_currency),
+      slab_quote: val.slab_quote,
+      logo_cost: val.logo_cost,
+      quote_prepared: val.quote_prepared,
+      quote_prepared_date: moment(val.quote_prepared_date).format('YYYY-MM-DD'),
+      company_logo_req: val.company_logo_req,
+      company_logo_cost: val.company_logo_cost,
+      agreed_slab_a: val.agreed_slab_a,
+      agreed_slab_b: val.agreed_slab_b,
+      agreed_logo_cost: val.agreed_logo_cost,
+      totalAmount_inInr:val.totalAmount_inInr,
+      agreed_accredition: val.agreed_accredition,
+      agreed_discount: val.agreed_discount,
+      fin_approval: val.fin_approval,
+      sales_approval: val.sales_approval,
+      audit_approval: val.audit_approval,
+      outstanding_amount: val.outstanding_amount,
+      advance_payment_remarks: val.advance_payment_remarks,
+      fea_approval_date: moment(val.fea_approval_date).format('YYYY-MM-DD'),
+      br_number: val.br_number,
+      customer_name: val.customer_name,
+      approval_type: val.approval_type,
+      revenue_Value: val.revenue_Value,
+      adv_payment_date: moment(val.adv_payment_date).format('YYYY-MM-DD'),
+      csp_auditor_name: val.csp_auditor_name,
+      ROH_RSM: val.ROH_RSM,
+      status: "Digitally Signed Document",
+      status3:"Sent FEA Approval",
+      calculatedTotalAmmountWithStages: this.calculatedTotalAmmountWithStages,
+      feaApprovalFlag: true,
+      lead_genration_id: this.lead_id
+    }
+    const data = {
+      lead_genration_id: this.singleLeadData.lead_genration_id,
+      br_number: this.singleLeadData.br_number,
+      FEA_approed: true 
+    }
+    this.leadService.editLead(this.lead_id, this.dataMains).subscribe((res: any) => {
+    this.leadService.create_Status(data).subscribe((res: any) => {
+      console.log(res, "successfully");
+      this.route.navigate(['master/lead/quotation/fea-approvel']);
+      this.toast.success("FEA Approval successful..")
+    })
+  })
+}
+
+fetchStageDataForLeads() {
+  const modify:any=[]
+  const modify1:any=[]
+
+  for (let a=0;a<this.singleLeadData1.length;a++) {
+    const brNumber = this.singleLeadData1[a].br_number;
+    this.leadService.getStage(brNumber)
+      .subscribe((data: any) => {
+        let dd = {...data.data[0], stage:data.data, singleData: this.singleLeadData1[a]}
+        modify.push(dd);
+
+      })   
+     
+  }
+  this.stageData1=modify
+
+}
+
+  onChange(event: any, index: number) {
+    const file: File | null = event.target.files[0] || null;
+
+    if (!file) {
+      return; // No file selected, nothing to do.
+    }
+
+    const fileSizeInMb = file.size / (1024 * 1024);
+
+    if (fileSizeInMb > 30) {
+      this.errorMsg = 'File size should be less than 30MB';
+      return;
+    }
+
+    this.selectedFiles[index] = file;
+
+    this.imageToUpload = file;
+    this.otherFileData.push({ index, filePath: this.imageToUpload });
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imagePath[index] = e.target.result;
+    };
+    reader.readAsDataURL(this.imageToUpload);
+  }
+
+}

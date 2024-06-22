@@ -1,0 +1,140 @@
+<div class="row">
+
+  <ng-container *ngFor="let module of subModules">
+    <div class="service-box">
+      <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+        <img [src]="module.menuIcon" alt="" />
+      </div>
+      <div class="card-title">
+        <p>{{module.menuName}}</p>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="service-box"  routerLink="ack">
+    <div class="service-img">
+      <img src="assets//ack.jpg" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Audit Acknowledgement</p>
+    </div>
+  </div>
+  <!-- <div class="service-box"  routerLink="open-house-training">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/openhouse.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Open House Training</p>
+    </div>
+  </div> -->
+
+  <!-- <div class="service-box"  routerLink="training-result">
+    <div class="service-img">
+      <img src="assets//icons/configuration/receipt.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Training Result</p>
+    </div>
+  </div> -->
+  <!-- <div class="service-box" routerLink="invoice-verify-list">
+    <div class="service-img">
+      <img src="assets//icons/configuration/ashu.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Invoice Verified Data</p>
+    </div>
+  </div> -->
+
+  <!-- <div class="service-box" routerLink="invoice_request_lists">
+    <div class="service-img">
+      <img src="assets//icons/configuration/innn.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Invoice Request List</p>
+    </div>
+  </div> -->
+
+<!-- <div class="service-box" routerLink="training-material">
+    <div class="service-img">
+      <img src="assets//icons/configuration/training_img.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Training Materials & Feedback Form</p>
+    </div>
+  </div>  -->
+
+  <!-- <div class="service-box" routerLink="RA-TRA200">
+    <div class="service-img">
+      <img src="assets//icons/configuration/ADV/ADVANCE.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Adv. CSP Notification</p>
+    </div>
+  </div>
+  <div class="service-box" routerLink="RA-TRA180">
+    <div class="service-img">
+      <img src="assets//icons/configuration/ADV/PLAINING.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Adv. Planning Notification</p>
+    </div>
+  </div>
+  <div class="service-box" routerLink="RA-TRA150">
+    <div class="service-img">
+      <img src="assets//icons/configuration/ADV/SP.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Adv. SP Notification</p>
+    </div>
+  </div>
+  <div class="service-box" routerLink="RA-TRA120">
+    <div class="service-img">
+      <img src="assets//icons/configuration/ADV/RBH.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Adv. RBH Notification</p>
+    </div>
+  </div>
+  <div class="service-box" routerLink="RA-TRA90">
+    <div class="service-img">
+      <img src="assets//icons/configuration/ADV/MSA.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Adv. MSA HEAD Notification</p>
+    </div>
+  </div>
+  <div class="service-box" routerLink="RA-TRA45">
+    <div class="service-img">
+      <img src="assets//icons/configuration/ADV/MD.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Adv. MD Notification</p>
+    </div>
+  </div> -->
+  <!-- <div class="service-box" routerLink="blocked-auditor">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/audit.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Planning Audit Details</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="task-order">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/orderrr.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Raise Task Order</p>
+    </div>
+  </div> -->
+
+  <!-- <div class="service-box" routerLink="Cutomer-major-reason">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/orderrr.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Customer Major Reason</p>
+    </div>
+  </div> -->
+</div>

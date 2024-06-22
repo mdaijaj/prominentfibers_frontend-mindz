@@ -1,0 +1,48 @@
+<h3 mat-dialog-title class="popHead">Courier Outward RECORD</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+  <div class="cotain">
+    <div class="emp_key">
+      <p>Courier OutWard Id:</p>
+      <p>From Whom:</p>
+      <p>Received By:</p>
+      <p>Received Date:</p>
+      <p>Name Of Clint:</p>
+      <p>Clint Address:</p>
+      <p>Courier Contain:</p>
+      <p>Receiver Contact NO.:</p>
+      <p>Courier Service Name:</p>
+      <p>Consignment Number:</p>
+      <p>Dispatched By:</p>
+      <p>Date of Dispatch:</p>
+      <p>Date of Delivery:</p>
+      <p>Proof of Delivery:</p>
+      <p>Status:</p>
+    </div>
+
+    <div class="emp_value">
+      <p>{{ singleData?.courier_Outward_id }}</p>
+      <p>{{ singleData?.from_whom }}</p>
+      <p>{{ singleData?.received_By }}</p>
+      <p>{{ singleData?.received_date }}</p>
+      <p>{{ singleData?.client_name_to_dispatch }}</p>
+      <p>{{ singleData?.client_address_to_dispatch }}</p>
+      <p>{{ singleData?.courier_contain }}</p>
+      <p>{{ singleData?.Receiver_contact_number }}</p>
+      <p>{{ singleData?.courier_service_name }}</p>
+      <p>{{ singleData?.consignment_number }}</p>
+      <p>{{ singleData?.dispatched_by }}</p>
+      <p>{{dispatch_date }}</p>
+      <p>{{ date_of_delivery}}</p>
+      <p style="cursor: pointer;"><a style="color:#00ff44;" *ngIf="singleData?.proof_of_delivery" [href]='singleData?.proof_of_delivery'  target="_blank">See Doc</a></p>
+      <p>{{ singleData?.outward_status }}</p>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-raised-button color="primary">
+    Close
+  </button>
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

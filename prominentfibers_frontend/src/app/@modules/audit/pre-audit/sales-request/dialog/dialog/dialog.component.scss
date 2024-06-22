@@ -1,0 +1,129 @@
+.mat-calendar-body-cell.selected
+{
+  background-color:red!important;
+  border-radius: 50%
+} 
+.drop-calendar
+{
+  width:30rem
+}
+// :host {
+//   color: #ffffff;
+// }
+
+.menu-triggers {
+  text-align: center;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #e3effd;
+}
+
+.menus {
+  border-bottom: 1px solid #c0c0c0;
+  background: #f8fbff;
+}
+
+.menu-item {
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid #dcdcdc;
+  max-width: 300px;
+  margin: auto;
+  width: 100%;
+  cursor: pointer;
+}
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:hover {
+  color: #c1c1c1;
+}
+
+.gg-chevron-up {
+  box-sizing: border-box;
+  position: relative;
+  transform: scale(var(--ggs, 1));
+  width: 22px;
+  height: 22px;
+  border: 2px solid transparent;
+  border-radius: 100px;
+}
+.gg-chevron-up::after {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid;
+  border-right: 2px solid;
+  transform: rotate(-45deg);
+  left: 4px;
+  bottom: 2px;
+}
+
+.gg-chevron-down {
+  box-sizing: border-box;
+  position: relative;
+  transform: scale(var(--ggs, 1));
+  width: 22px;
+  height: 22px;
+  border: 2px solid transparent;
+  border-radius: 100px;
+}
+
+.gg-chevron-down::after {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  transform: rotate(45deg);
+  left: 4px;
+  top: 2px;
+}
+.h33 {
+  width: max-content;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  font-size: 1.5em;
+  color: #cecece;
+  margin: 0 87px 16px;
+}
+.h33:before {
+  content: "\25C0";
+  position: absolute;
+  left: -50px;
+  -webkit-animation: leftRight 2s linear infinite;
+  animation: leftRight 2s linear infinite;
+}
+// h3:after {
+//   content: "\25b6";
+//   position: absolute;
+//   right: -50px;
+//   -webkit-animation: leftRight 2s linear infinite reverse;
+//   animation: leftRight 2s linear infinite reverse;
+// }
+
+@-webkit-keyframes leftRight {
+  0%    { -webkit-transform: translateX(0)}
+  25%   { -webkit-transform: translateX(-10px)}
+  75%   { -webkit-transform: translateX(10px)}
+  100%  { -webkit-transform: translateX(0)}
+}
+@keyframes leftRight {
+  0%    { transform: translateX(0)}
+  25%   { transform: translateX(-10px)}
+  75%   { transform: translateX(10px)}
+  100%  { transform: translateX(0)}
+}
+.mat-typography h3 {
+  font: 400 16px/28px Roboto, sans-serif;
+  letter-spacing: .009375em;
+  margin: 0 87px 0px;
+}

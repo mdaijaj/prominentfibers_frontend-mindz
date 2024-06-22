@@ -1,0 +1,130 @@
+<h2 mat-dialog-title class="popHead">Assign Auditor</h2>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography" style="width:500px;">
+  <form class="approval_form" [formGroup]="approval_form">
+    <div class="row mt-3">
+      <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Select Site</mat-label>
+            <mat-select formControlName="associated_company" (selectionChange)="billingAddress($event)">
+              <mat-option [value]="data.br_number" *ngFor="let data of br_onTask_order">{{ data.associated_company }}
+                ({{
+                data.br_number
+                }})</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="showAddress">
+        <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="form-group">
+            <mat-card class="example-card">
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-3 col-12">
+                    <p>Company Name:</p>
+                    <p>BR No. :</p>
+                    <p>Country:</p>
+                    <p>State:</p>
+                    <p>City:</p>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-3 col-12">
+                    <p>{{ associated_company }}</p>
+                    <p>{{ br }}</p>
+                    <p>{{ country_name }}</p>
+                    <p>{{ state }}</p>
+                    <p>{{ city }}</p>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-4 col-12">
+        <div class="form-group">
+          <mat-form-field appearance="outline" readonly>
+            <mat-label>Certificate</mat-label>
+            <mat-select formControlName="standard_audit">
+              <mat-option *ngFor="let item of statndardData"
+                [value]="item.product_master_name">{{item.product_master_name}}</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-xxl-12 col-lg-12 col-md-12 col -sm-4 col-12">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Sector </mat-label>
+            <mat-select formControlName="sector_audit">
+              <mat-option *ngFor="let item of eacodeData" [value]="item.ea_code_name">{{item.ea_code_name}}</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-4 col-12">
+        <div class="form-group">
+          <!-- <button mat-icon-button [matMenuTriggerFor]="appMenuOne">
+                <mat-icon>calendar_today</mat-icon>
+              </button>
+              <mat-menu  #appMenuOne="matMenu" class="drop-calendar" >
+                <div (click)="$event.stopPropagation()">
+                  <mat-calendar formControlName="lead_auditor_cal" form #calendarOne (selectedChange)="select($event,calendarOne)" [dateClass]="isSelectedUnique"></mat-calendar>
+                </div>
+              </mat-menu>      -->
+
+
+          <!-- <mat-card>
+                <mat-calendar formControlName="lead_auditor_cal" form #calendarOne  [dateClass]="isSelectedUnique" (selectedChange)="select($event,calendarOne)"></mat-calendar>
+              </mat-card> -->
+          <!--  -->
+          <div class="menu-triggers" (click)="isOpen = !isOpen">
+            Booked Audit Dates<i [ngClass]="isOpen ? 'gg-chevron-up' : 'gg-chevron-down'"></i>
+          </div>
+          <div class="menus" *ngIf="isOpen" [@dropDownMenu]>
+            <div class="menu-item" *ngFor="let item of daysSelected; let i = index">
+              Audit Date:- {{ item }}
+            </div>
+          </div>
+
+
+          <button mat-icon-button [matMenuTriggerFor]="appMenu">
+            <div style="display:flex">
+              <div>
+                <mat-icon>calendar_today</mat-icon>
+              </div>
+              <div>
+                <h3 class="h33">More Date Book here...</h3>
+              </div>
+            </div>
+          </button>
+          <mat-menu #appMenu="matMenu" class="drop-calendar">
+            <div (click)="$event.stopPropagation()">
+              <mat-calendar #calendar (selectedChange)="select($event,calendar)"
+                [dateClass]="isSelected"></mat-calendar>
+            </div>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-raised-button color="primary" (click)="submit(approval_form.value)">
+    Assign
+  </button>
+  <button mat-button mat-dialog-close mat-raised-button color="warn">
+    Close
+  </button>
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

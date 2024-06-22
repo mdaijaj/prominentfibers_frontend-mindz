@@ -1,0 +1,163 @@
+<div class="section">
+    <div class="row head">
+      <p routerLink="../">Leave Policy</p>
+    </div>
+    
+    <div class="row">
+      <div class="employee_top my-1">
+        Dashboard
+        <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #8B817D"></i>
+          {{'Leave-Policy-Create'}}
+        </span>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="btns">
+        <button (click)="goBackHolidayList('master/hrms/leave-master/leave-policy')"  type="button">List</button>
+      </div>
+    </div>
+
+        
+  </div>
+<div class="section">
+  <div>
+    <mat-card>
+      <div class="row form_head">
+          <h3>LEAVE POLICY</h3>
+        </div>
+      <div class="form_basic">
+        <form class="form_set" [formGroup]="leavePolicyForm" >
+          <div class="row">
+              <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Leave Name</mat-label>
+                      <mat-select formControlName="leave_name">
+                        <mat-option value="EarnedLeaves">Earned Leaves (EL)</mat-option>
+                        <mat-option value="SickLeave">Sick Leave (SL)</mat-option>
+                        <mat-option value="CasualLeave">Casual Leave (CL)</mat-option>
+                        <mat-option value="ManternityLeave">Manternity Leave (ML)</mat-option>
+                      </mat-select>
+              <mat-error
+                *ngIf="leavePolicyForm.controls['leave_name'].hasError('required')"
+              >
+                This field is required!
+              </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Leave Count</mat-label>
+                      <input formControlName="leave_count" matInput type="text" />  
+                      <mat-error
+                *ngIf="leavePolicyForm.controls['leave_count'].hasError('required')"
+              >
+                This field is required!
+              </mat-error>   
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Group</mat-label>
+                      <mat-select multiple formControlName="group">
+                        <mat-option value="North">Elite</mat-option>
+                      </mat-select>
+                      <mat-error
+                      *ngIf="leavePolicyForm.controls['group'].hasError('required')"
+                    >
+                      This field is required!
+                    </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Company</mat-label>
+                      <mat-select multiple formControlName="company">
+                        <mat-option value="EliteMindz">Elite Mindz</mat-option>
+                        <mat-option value="Mindz">Mindz</mat-option>
+                      </mat-select>
+                      <mat-error
+                      *ngIf="leavePolicyForm.controls['company'].hasError('required')"
+                    >
+                      This field is required!
+                    </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Leave Type</mat-label>
+                      <mat-select  formControlName="leave_type">
+                        <mat-option value="Paid">Paid</mat-option>
+                        <mat-option value="Unpaid">Unpaid</mat-option>
+                      </mat-select>
+                      <mat-error
+                      *ngIf="leavePolicyForm.controls['leave_type'].hasError('required')"
+                    >
+                      This field is required!
+                    </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Leave Status</mat-label>
+                  <mat-select formControlName="leave_currently">
+                    <mat-option value="North">Active</mat-option>
+                    <mat-option value="East">Inactive</mat-option>
+                  </mat-select>
+                  <mat-error
+                  *ngIf="leavePolicyForm.controls['leave_currently'].hasError('required')"
+                >
+                  This field is required!
+                </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+           
+           </div>
+          <div class="mt-3">
+            <button  mat-raised-button color="primary" class="mx-3" (click)="onSubmitForm()"
+             >
+               Submit 
+            </button>
+            <button mat-raised-button color="warn" (click)="onCancel()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </mat-card>
+  </div>
+</div>
+<section class="tab-bar" >
+  <div fxflex="100%">
+    <div class="row">
+      <div class="tab_menu">
+        <div class="tab-item">
+          <button class="main-button" color="primary"  [routerLink]="['entitlement']" routerLinkActive="active"  >ENTITLEMENT</button>
+          <button class="main-button" color="primary"  [routerLink]="['applicable']" routerLinkActive="active">APPLICABLE</button>
+          <button class="main-button" color="primary"  [routerLink]="['restrictions']" routerLinkActive="active">RESTRICTIONS</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<router-outlet></router-outlet>
+
+  
+    
+  
+

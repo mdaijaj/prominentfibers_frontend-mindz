@@ -1,0 +1,163 @@
+<section class="tab-bar" >
+    <div fxflex="100%">
+      <div class="row">
+        <div class="tab_menu">
+          <div class="tab-item">
+            <button class="main-button"  [ngClass]="POList?'btnActive':''"  color="primary" (click)="changeTabs('POList')" >PO List</button>
+            <button class="main-button" [ngClass]="PartialList?'btnActive':''" color="primary" (click)="changeTabs('Partial')" >Partial Submit</button>
+            <button class="main-button" [ngClass]="CompletedList?'btnActive':''" color="primary" (click)="changeTabs('Completed')" >Completed GRN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-----   this is an PO List -->
+<ng-container  *ngIf="POList" >
+    <div class="section">
+        <div class="row mx-1 mt-4">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group"  >
+                    <mat-form-field appearance="outline" class="mt-1">
+                        <mat-label>Vendor Name</mat-label>
+                        <mat-select   (selectionChange)="onFilterByVendorName($event)" >
+                            <mat-option *ngFor="let data of sortedPoData" [value]="data.po_supplier_vendor_name">{{data.po_supplier_vendor_name}}</mat-option>
+                             
+                        </mat-select>
+                       
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group"  >
+                    <mat-form-field appearance="outline" class="mt-1">
+                        <mat-label>PO Type</mat-label>
+                        <mat-select (selectionChange)="onFilterByPOTypeName($event)" >
+                            <mat-option  *ngFor="let data of sortedPoData"  [value]="data.po_type">{{data.po_type}}</mat-option>
+                         
+                        </mat-select>
+                       
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-1">
+                <input type="text" class="form-control py-2" id="filter-text-box" placeholder="Search"
+                (input)="onFilterTextBoxChanged()"
+                 >
+            </div>
+            
+        </div>
+        <div>
+            <div class="form_head">
+                <h3> PO LIST</h3>
+            </div>
+            <div class="ag_grid">
+                <ag-grid-angular class="ag-theme-alpine" id="myGrid" style="width: 100%; height: 400px" [rowData]="this.sortedPoData"
+                    [columnDefs]="columnDefsPoList" [pagination]="true" [paginationPageSize]="10" [rowData]="this.sortedPoData"
+                    (gridReady)="onGridReady($event)"   [rowClass]="rowClass">
+                </ag-grid-angular>
+            </div>
+        </div>
+        </div>
+</ng-container>
+ 
+
+  <!-----   this is an Partial Submit List -->
+<ng-container  *ngIf="PartialList">
+    <div class="section">
+        <div class="row mx-1 mt-4">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group"  >
+                    <mat-form-field appearance="outline" class="mt-1">
+                        <mat-label>Vendor Name</mat-label>
+                        <mat-select [(ngModel)]="quickFilter"   >
+                            <mat-option *ngFor="let data of partialListData" [value]="data.po_supplier_vendor_name">{{data.po_supplier_vendor_name}}</mat-option>
+                             
+                        </mat-select>
+                       
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group"  >
+                    <mat-form-field appearance="outline" class="mt-1">
+                        <mat-label>PO Type</mat-label>
+                        <mat-select [(ngModel)]="quickFilter" >
+                            <mat-option  *ngFor="let data of partialListData"  [value]="data.po_type">{{data.po_type}}</mat-option>
+                         
+                        </mat-select>
+                       
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-1">
+                <input type="text" class="form-control py-2" id="filter-text-box" placeholder="Search"
+                (input)="onFilterTextBoxChanged()"
+                 >
+            </div>
+            
+        </div>
+        <div>
+            <div class="form_head">
+                <h3>Partial Submit</h3>
+            </div>
+            <div class="ag_grid">
+                <ag-grid-angular class="ag-theme-alpine" id="myGrid" style="width: 100%; height: 400px" [rowData]="partialListData"
+                    [columnDefs]="columnDefsPartialList" [pagination]="true" [paginationPageSize]="10" [rowData]="partialListData"
+                    (gridReady)="onGridReady($event)"  [rowClass]="rowClass">
+                </ag-grid-angular>
+            </div>
+        </div>
+        </div>
+</ng-container>
+
+
+ <!-----   this is an Partial Completed List -->
+<ng-container *ngIf="CompletedList">
+    <div class="section">
+        <div class="row mx-1 mt-4">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group"  >
+                    <mat-form-field appearance="outline" class="mt-1">
+                        <mat-label>Vendor Name</mat-label>
+                        <mat-select [(ngModel)]="quickFilter"   >
+                            <mat-option *ngFor="let data of completedListData" [value]="data.po_supplier_vendor_name">{{data.po_supplier_vendor_name}}</mat-option>
+                             
+                        </mat-select>
+                       
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group"  >
+                    <mat-form-field appearance="outline" class="mt-1">
+                        <mat-label>PO Type</mat-label>
+                        <mat-select [(ngModel)]="quickFilter" >
+                            <mat-option  *ngFor="let data of completedListData"  [value]="data.po_type">{{data.po_type}}</mat-option>
+                         
+                        </mat-select>
+                       
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mt-1">
+                <input type="text" class="form-control py-2" id="filter-text-box" placeholder="Search"
+                (input)="onFilterTextBoxChanged()"
+                 >
+            </div>
+            
+        </div>
+        <div>
+            <div class="form_head">
+                <h3>Completed GRN</h3>
+            </div>
+            <div class="ag_grid">
+                <ag-grid-angular class="ag-theme-alpine" id="myGrid" style="width: 100%; height: 400px"  
+                    [columnDefs]="columnDefsCompletedList" [pagination]="true" [paginationPageSize]="10" [rowData]="completedListData"
+                    (gridReady)="onGridReady($event)"  [rowClass]="rowClass">
+                </ag-grid-angular>
+            </div>
+        </div>
+        </div>
+</ng-container>
+

@@ -1,0 +1,44 @@
+<h3 mat-dialog-title class="popHead">Courier Inward RECORD</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+  <div class="cotain">
+    <div class="emp_key">
+      <p>Courier Inward Id:</p>
+      <p>Addressed To Whom:</p>
+      <p>Senders Name:</p>
+      <p>senders_address:</p>
+      <p>Courier Contain:</p>
+      <p>Courier Service Name:</p>
+      <p>Consignment Number:</p>
+      <p>Received By:</p>
+      <p>Received Date:</p>
+      <p>Handover By:</p>
+      <p>Handover Date:</p>
+      <p>Handover To:</p>
+      <p>Status:</p>
+    </div>
+
+    <div class="emp_value">
+      <p>{{ singleData?.Courier_Inward_id }}</p>
+      <p>{{ singleData?.addressed_to_whom }}</p>
+      <p>{{ singleData?.senders_name }}</p>
+      <p>{{ singleData?.senders_address }}</p>
+      <p>{{ singleData?.courier_contain }}</p>
+      <p>{{ singleData?.courier_service_name }}</p>
+      <p>{{ singleData?.consignment_number }}</p>
+      <p>{{ singleData?.received_By }}</p>
+      <p>{{ singleData?.received_date }}</p>
+      <p>{{ singleData?.handover_By }}</p>
+      <p>{{ singleData?.handover_date }}</p>
+      <p>{{ singleData?.handover_to_whom }}</p>
+      <p>{{ singleData?.inward_status }}</p>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-raised-button color="primary">
+    Close
+  </button>
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

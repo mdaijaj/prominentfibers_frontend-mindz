@@ -1,0 +1,107 @@
+<div class="row">
+
+  <ng-container *ngFor="let module of subModules">
+    <div class="service-box">
+      <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+        <img [src]="module.menuIcon" alt="" />
+      </div>
+      <div class="card-title">
+        <p>{{module.menuName}}</p>
+      </div>
+    </div>
+  </ng-container>
+<!-- 
+
+  <div class="service-box" routerLink="aproved-reject-user">
+    <div class="service-img" >
+      <img src="assets//icons/icon_DQS/moneyyy.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>User Approvel</p>
+    </div>
+  </div> -->
+
+  <!-- <div class="service-box" routerLink="aproved-reject-user">
+    <div class="service-img" >
+      <img src="assets//icons/icon_DQS/moneyyy.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>My Expense Draft</p>
+    </div>
+  </div> -->
+
+     <!-- <div class="service-box" routerLink="my-expenses">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/expensive.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>My Expense</p>
+      </div>
+    </div>
+ 
+    <div class="service-box" routerLink="approve-expense">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/appp.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Approve Expense</p>
+      </div>
+    </div>
+
+    <div class="service-box" routerLink="aproved-reject-user">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/aprj.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Approved/Reject</p>
+      </div>
+    </div>
+
+    <div class="service-box">
+      <div class="service-img" routerLink="processing-expense">
+        <img src="assets/icons/icon_DQS/processing.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Processing</p>
+      </div>
+    </div> 
+
+    <div class="service-box">
+      <div class="service-img"  routerLink="manger-expense">
+        <img src="assets/icons/icon_DQS/manegerApprovel.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Manager Approvel</p>
+      </div>
+    </div>
+
+
+    <div class="service-box">
+      <div class="service-img"  routerLink="posted-expense">
+        <img src="assets/icons/icon_DQS/posted.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Posted</p>
+      </div>
+    </div>
+
+    <div class="service-box" routerLink="make-payment">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/coin.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Make Payment</p>
+      </div>
+    </div>
+    <div class="service-box" routerLink="paid-expense">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/paidExpense.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Paid Expense</p>
+      </div>
+    </div>  -->
+     
+    
+  </div>
+

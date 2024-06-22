@@ -1,0 +1,69 @@
+.employee{
+    color: #8B817D;
+    font-weight: 400;
+    font-size: 16px;
+    p{
+        margin: 0;
+    }
+}
+.msater-nav {
+    a {
+        margin: 0 24px 0 0;
+    }
+
+    :first-child {
+        color: #c0c0c0;
+    }
+
+    :last-child {
+        color: #8B817D;
+    }
+
+    mat-icon {
+        position: absolute;
+        margin-top: -4px;
+    }
+}
+
+.main-form{
+    
+    margin-top: 16px;
+    // width: 1071.4px;
+    .form{
+        background: #fff;
+        width: 100%;
+        padding: 32px;
+        border: 1px solid #9BAAB4;
+        border-radius: 4px;
+        .example-form-field{
+            width: 94%;
+        }
+        .example-form-field1{
+            width: 46%;
+        }
+        .example-form-field2{
+            width: 20%;
+        }
+    }
+
+}
+
+.main-table{
+    margin-top: 32px;
+}
+.toDate{
+    margin-top: 16px;
+}
+
+.leaveFormArea {
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+}
+
+
+
+
+
+
+

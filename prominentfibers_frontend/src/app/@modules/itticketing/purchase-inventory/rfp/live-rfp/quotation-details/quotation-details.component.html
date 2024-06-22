@@ -1,0 +1,154 @@
+<div class="section">
+    <div>
+        <mat-card>
+            <div class="form_basic">
+                <form class="form_set" [formGroup]="createPrForm">
+                    <div class="row">
+                        <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Product Image</th>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Item Code</th>
+                                        <th scope="col">Unit</th>
+                                        <th scope="col">Priority</th>
+                                        <th scope="col">MVP</th>
+                                        <th *ngIf="!id" scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="alldata"
+                                    *ngFor="let control of CF_1.alldata['controls']; index as i">
+                                    <tr *ngIf="CF_1.alldata.length != 0" style="text-align: center"
+                                        [formGroup]="control">
+                                        <td>
+                                            <div class="form-group">
+                                                <img [src]="control.value?.product_image" width="150" height="150" />
+                                            </div>
+                                        </td>
+                                        <td class="inpBox">
+                                            <div class="form-group">
+                                                <mat-form-field appearance="outline" style="width: 10vw">
+                                                    <input matInput formControlName="item_name" readonly />
+                                                </mat-form-field>
+                                            </div>
+                                        </td>
+                                        <td class="inpBox">
+                                            <div class="form-group">
+                                                <mat-form-field appearance="outline" style="width: 10vw">
+                                                    <input matInput formControlName="item_code" readonly />
+                                                </mat-form-field>
+                                            </div>
+                                        </td>
+                                        <td class="inpBox">
+                                            <div class="form-group">
+                                                <mat-form-field appearance="outline" style="width: 10vw">
+                                                    <input type="number" matInput formControlName="unit" min="1" />
+                                                </mat-form-field>
+                                            </div>
+                                        </td>
+                                        <td class="inpBox">
+                                            <div class="form-group">
+                                                <mat-form-field appearance="outline" style="width: 10vw">
+                                                    <mat-select formControlName="priority">
+                                                        <mat-option value="HIGH">HIGH</mat-option>
+                                                        <mat-option value="MEDIUM">MEDIUM</mat-option>
+                                                        <mat-option value="LOW">LOW</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </td>
+                                        <td class="inpBox">
+                                            <mat-form-field appearance="outline" style="width: 10vw">
+                                                <input matInput formControlName="mvp" readonly />
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="inpBox" *ngIf="!id">
+                                            <mat-icon (click)="deleteRow(i)">delete</mat-icon>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="CF_1.alldata.length == 0">
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; color: #8e8e8e">
+                                            Product Not Selcted
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                <br />
+                <div class="form_head">
+                    <h3>Delivery Address</h3>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Location(Branch)</p>
+                            <mat-form-field appearance="outline" readonly>
+                                <input matInput type="text" formControlName="location" readonly />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Delivery Address</p>
+                            <mat-form-field appearance="outline">
+                                <input matInput type="text" formControlName="delivery_address" readonly />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>PIN</p>
+                            <mat-form-field appearance="outline">
+                                <input matInput type="number" formControlName="pin" readonly />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+                <br>
+                <br>
+                <div class="form_head">
+                    <h3 style="text-align: center !important;">Quotations</h3>
+                </div>
+                <div class="ag_grid">
+                    <ag-grid-angular class="ag-theme-alpine" id="myGrid" style="width: 100%; height: 400px"
+                        [rowData]="rowData" [columnDefs]="columnDefs" [pagination]="true" [paginationPageSize]="10"
+                        [rowData]="rowData" (gridReady)="onGridReady($event)" (cellClicked)="statusCellClicked($event)"
+                        [rowClass]="rowClass">
+                    </ag-grid-angular>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div class="col-12">
+                    <form class="form_set" [formGroup]="remarkForm">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" readonly>
+                                <mat-label>Updated Remark</mat-label>
+                                <input matInput type="text" formControlName="remarks_approvel" />
+                            </mat-form-field>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                
+                <br />
+
+                <div align="end">
+                     <button mat-button  mat-raised-button color="primary" (click)="OpenDefineDate($event)">Start Negotiation</button>
+                     <button mat-button class="mx-4"  mat-raised-button color="primary" (click)="SendApproval()">Send for Approval</button>
+                    
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+

@@ -1,0 +1,5 @@
+<!-- <mat-icon matTooltip="Update List" (click)="notification($event)">note_add</mat-icon> -->
+<mat-icon *ngIf="status!=='Released' && status!=='Booked'" matTooltip="Invoice Create" (click)="invoice($event)">insert_drive_file</mat-icon>
+<mat-icon *ngIf="status=='Released' || status=='Booked'" matTooltip="Assign Auditor" [ngStyle]="{'color':'green'}" (click)="openDialog(data,$event)">check_circle</mat-icon>
+<!-- <mat-icon matTooltip="Send Mail"  >email</mat-icon> -->
+

@@ -1,0 +1,326 @@
+
+  <section>
+    <div>
+      <mat-card>
+        <div class="form_basic">
+          <form class="form_set" [formGroup]="EntitlementForm">
+            <div class="row">
+
+               <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                 <div class="form-group check_set">
+                   <mat-checkbox color="primary" (click)="accrualLeave()" formControlName="accrual_leave" >
+                     Accrual Leave</mat-checkbox>
+                 </div>
+               </div>
+
+               <div *ngIf="styles" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" style="display: styles;" >
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>*<span style="color: red;">*</span></mat-label>
+                    <mat-select >
+                      <mat-option value="1">OneTime</mat-option>
+                      <mat-option value="2">Monthly</mat-option>
+                      <mat-option value="3">Yearly</mat-option>
+                      <mat-option value="4">HalfYearly</mat-option>
+                      <mat-option value="2">Triannually</mat-option>
+                      <mat-option value="3">Quarterly</mat-option>
+                      <mat-option value="4">Bimonthly</mat-option>
+                    </mat-select>
+  
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div *ngIf="styles" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" >
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>On<span style="color: red;">*</span></mat-label>
+                    <mat-select>
+                      <mat-option value="1">1st</mat-option>
+                      <mat-option value="2">2nd</mat-option>
+                      <mat-option value="3">3rd</mat-option>
+                      <mat-option value="4">4th</mat-option>
+                      <mat-option value="5">5th</mat-option>
+                      <mat-option value="6">6th</mat-option>
+                      <mat-option value="7">7th</mat-option>
+                      <mat-option value="8">8th</mat-option>
+                      <mat-option value="9">9th</mat-option>
+                      <mat-option value="10">10th</mat-option>
+                      <mat-option value="11">11th</mat-option>
+                      <mat-option value="12">12th</mat-option>
+                      <mat-option value="13">13th</mat-option>
+                      <mat-option value="14">14th</mat-option>
+                      <mat-option value="15">15th</mat-option>
+                      <mat-option value="16">16th</mat-option>
+                      <mat-option value="17">17th</mat-option>
+                      <mat-option value="18">18th</mat-option>
+                      <mat-option value="19">19th</mat-option>
+                      <mat-option value="20">20th</mat-option>
+                      <mat-option value="21">21st</mat-option>
+                      <mat-option value="22">22nd</mat-option>
+                      <mat-option value="23">23rd</mat-option>
+                      <mat-option value="24">24th</mat-option>
+                      <mat-option value="25">25th</mat-option>
+                      <mat-option value="26">26th</mat-option>
+                      <mat-option value="27">27th</mat-option>
+                      <mat-option value="28">28th</mat-option>
+                      <mat-option value="29">29th</mat-option>
+                      <mat-option value="30">30th</mat-option>
+                      <mat-option value="31">31st</mat-option>
+                      <mat-option value="32">PolicyDate</mat-option>
+                      <mat-option value="33">LastDay</mat-option>
+                      <mat-option value="34">Birthday</mat-option>
+                      <mat-option value="35">JoiningDate</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div *ngIf="styles" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+              </div>
+              <div *ngIf="styles" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Month<span style="color: red;">*</span></mat-label>
+                    <mat-select>
+                      <mat-option value="1">January</mat-option>
+                      <mat-option value="2">February</mat-option>
+                      <mat-option value="3">March</mat-option>
+                      <mat-option value="4">April</mat-option>
+                      <mat-option value="5">May</mat-option>
+                      <mat-option value="6">June</mat-option>
+                      <mat-option value="7">July</mat-option>
+                      <mat-option value="8">August</mat-option>
+                      <mat-option value="9">September</mat-option>
+                      <mat-option value="10">October</mat-option>
+                      <mat-option value="11">November</mat-option>
+                      <mat-option value="12">December</mat-option>
+                      <mat-option value="13">PolicyMonth</mat-option>
+                      <mat-option value="14">JoiningMonth</mat-option>
+                      <mat-option value="15">BirthMonth</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            
+              <div *ngIf="styles" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>No. Of Days<span style="color: red;">*</span></mat-label>
+                    <input matInput type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+             </div> 
+             <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                  <div class="form-group check_set">
+                    <mat-checkbox color="primary" (click)="resetLeave()" formControlName="reset_leave">
+                      <span>Reset Leave</span></mat-checkbox>
+                  </div>
+                </div>
+ 
+                <div *ngIf="reset" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>*<span style="color: red;">*</span></mat-label>
+                     <mat-select >
+                      <mat-option value="1">OneTime</mat-option>
+                      <mat-option value="2">Monthly</mat-option>
+                      <mat-option value="3">Yearly</mat-option>
+                      <mat-option value="4">HalfYearly</mat-option>
+                      <mat-option value="2">Triannually</mat-option>
+                      <mat-option value="3">Quarterly</mat-option>
+                      <mat-option value="4">Bimonthly</mat-option>
+                     </mat-select>
+   
+                   </mat-form-field>
+                 </div>
+               </div>
+ 
+               <div *ngIf="reset" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>On<span style="color: red;">*</span></mat-label>
+                     <mat-select>
+                      <mat-option value="1">1st</mat-option>
+                      <mat-option value="2">2nd</mat-option>
+                      <mat-option value="3">3rd</mat-option>
+                      <mat-option value="4">4th</mat-option>
+                      <mat-option value="5">5th</mat-option>
+                      <mat-option value="6">6th</mat-option>
+                      <mat-option value="7">7th</mat-option>
+                      <mat-option value="8">8th</mat-option>
+                      <mat-option value="9">9th</mat-option>
+                      <mat-option value="10">10th</mat-option>
+                      <mat-option value="11">11th</mat-option>
+                      <mat-option value="12">12th</mat-option>
+                      <mat-option value="13">13th</mat-option>
+                      <mat-option value="14">14th</mat-option>
+                      <mat-option value="15">15th</mat-option>
+                      <mat-option value="16">16th</mat-option>
+                      <mat-option value="17">17th</mat-option>
+                      <mat-option value="18">18th</mat-option>
+                      <mat-option value="19">19th</mat-option>
+                      <mat-option value="20">20th</mat-option>
+                      <mat-option value="21">21st</mat-option>
+                      <mat-option value="22">22nd</mat-option>
+                      <mat-option value="23">23rd</mat-option>
+                      <mat-option value="24">24th</mat-option>
+                      <mat-option value="25">25th</mat-option>
+                      <mat-option value="26">26th</mat-option>
+                      <mat-option value="27">27th</mat-option>
+                      <mat-option value="28">28th</mat-option>
+                      <mat-option value="29">29th</mat-option>
+                      <mat-option value="30">30th</mat-option>
+                      <mat-option value="31">31st</mat-option>
+                      <mat-option value="32">PolicyDate</mat-option>
+                      <mat-option value="33">LastDay</mat-option>
+                      <mat-option value="34">Birthday</mat-option>
+                      <mat-option value="35">JoiningDate</mat-option>
+                     </mat-select>
+                   </mat-form-field>
+                 </div>
+               </div>
+               <div *ngIf="reset" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+              </div>
+               <div *ngIf="reset" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>Carry Froward<span style="color: red;">*</span></mat-label>
+                     <input matInput type="text" />
+                   </mat-form-field>
+                 </div>
+               </div>
+               <div *ngIf="reset" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Unit(s)<span style="color: red;">*</span></mat-label>
+                    <mat-select>
+                      <mat-option value="1">Units(s)</mat-option>
+                      <mat-option value="2">Percentages</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div *ngIf="reset" class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+              </div>
+               <div *ngIf="reset" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Encashment<span style="color: red;">*</span></mat-label>
+                    <input matInput type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div *ngIf="reset" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Unit(s)<span style="color: red;">*</span></mat-label>
+                    <mat-select>
+                      <mat-option value="1">Units(s)</mat-option>
+                      <mat-option value="2">Percentages</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                  <div class="form-group check_set">
+                    <mat-checkbox color="primary" (click)="creditLeave()" formControlName="credit_leave" >
+                      <span>Credit Leave</span></mat-checkbox>
+                  </div>
+                </div>
+ 
+                <div *ngIf="credit" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>On<span style="color: red;">*</span></mat-label>
+                     <input matInput type="text" />
+                   </mat-form-field>
+                 </div>
+               </div>
+               <div *ngIf="credit" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>Regular Working Days<span style="color: red;">*</span></mat-label>
+                     <input matInput type="text" />
+                   </mat-form-field>
+                 </div>
+               </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                  <div class="form-group check_set">
+                    <mat-checkbox color="primary" (click)="prorateLeave()" formControlName="prorate_leave">
+                      <span>Prorate Leave</span></mat-checkbox>
+                  </div>
+                </div>
+ 
+                <div *ngIf="prorate" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>If the joning is before<span style="color: red;">*</span></mat-label>
+                     <input matInput type="text" />
+                   </mat-form-field>
+                 </div>
+               </div>
+ 
+               <div *ngIf="prorate" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label>Month, then the leave Count for the month should Days<span style="color: red;">*</span></mat-label>
+                     <input matInput type="text" />
+                   </mat-form-field>
+                 </div>
+               </div>
+              </div>
+              <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                  <div class="form-group check_set">
+                    <mat-checkbox color="primary" (click)="openingBalance()" formControlName="opening_balance">
+                      <span>Opening Balance</span></mat-checkbox>
+                  </div>
+                </div>
+                <div *ngIf="openingBalanceState" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label><span style="color: red;">*</span></mat-label>
+                     <input matInput type="text" />
+                   </mat-form-field>
+                 </div>
+               </div>
+              </div>
+              <div class="row">
+                <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                  <div class="form-group check_set">
+                    <mat-checkbox color="primary" (click)="maximumBalance()" formControlName="maximum_balance">
+                      <span>Maximum Balance</span></mat-checkbox>
+                  </div>
+                </div>
+                <div *ngIf="maximumBalanceState" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                 <div class="form-group">
+                   <mat-form-field appearance="outline">
+                     <mat-label><span style="color: red;">*</span></mat-label>
+                     <input matInput type="text" />
+                   </mat-form-field>
+                 </div>
+               </div>
+              </div>
+
+              <div class="mt-3">
+                <button  mat-raised-button color="primary" class="mx-3" 
+                 >
+                   Submit 
+                </button>
+                <button mat-raised-button color="warn" >
+                  Cancel
+                </button>
+              </div>
+          </form>
+        </div>
+      </mat-card>
+    </div>
+  </section>

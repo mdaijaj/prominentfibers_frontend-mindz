@@ -1,0 +1,34 @@
+<h3 mat-dialog-title class="popHead">Upload Holiday</h3>
+
+<mat-dialog-content class="mat-typography">
+    <div class="cotain">
+        <form [formGroup]="fileForm">
+            <div class="col-xxl-6 col-lg-12 col-md-6 col-sm-6 col-12">
+                <div class="container">
+                    <div class="image">
+                        <a href="assets/icons/holidaysample.png" target="_blank"><img
+                                src="assets/icons/holidaysample.png" alt="Screenshot-67"
+                                download="sample-inventory-csv"></a>
+                        <span>example file</span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="file-input">
+                            <input type="file" id="file" class="file" accept=".xlsx, .xls, .csv"
+                                (change)="uploadCsv($event)" formControlName="upload">
+                            <label for="file">Choose file</label>
+                        </div>
+                        <p class="file-name"></p>
+                        <p class="file-name" *ngIf="!show">No file chosen</p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end" class="closeContainer">
+    <button mat-button mat-raised-button class="btn" (click)="submit()"><mat-spinner *ngIf="showLoader"
+            style="width: 26px; height:26px;"></mat-spinner><span *ngIf="!showLoader">Upload</span></button>
+</div>

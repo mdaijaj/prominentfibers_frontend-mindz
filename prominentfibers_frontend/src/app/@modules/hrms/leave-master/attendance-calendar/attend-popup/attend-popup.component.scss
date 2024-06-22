@@ -1,0 +1,41 @@
+.cotain{
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
+    
+}
+.detailsContainer{
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    background: rgb(202 201 201 / 28%);
+    border-radius: 5px;
+    padding: 10px 0px 0px 34px;
+    line-height: 13px;
+    position: relative;
+}
+.count{
+    position: absolute;
+    left: 6px;
+    top: 7px;
+    background: #ffffff;
+    padding: 4px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    color: #9f9fa0;
+    font-size: 12px;
+    text-align: center;
+}
+
+.ac{
+    position: relative;
+    top: 22px;
+}
+.notFond{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #d0d0d0;
+}
+

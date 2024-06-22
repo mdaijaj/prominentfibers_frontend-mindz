@@ -1,0 +1,17 @@
+<div class="section">
+    <section class="tab-bar" >
+        <div fxflex="100%">
+          <div class="row">
+            <div class="tab_menu">
+              <div class="tab-item">
+                <button class="main-button" color="primary"  [routerLink]="['initiate-rfp']" routerLinkActive="active"> Initiate RFP </button>
+                <button class="main-button" color="primary"  [routerLink]="['live-rfp']" routerLinkActive="active">Live RFP</button>
+                <button class="main-button" color="primary"  [routerLink]="['close-rfp']" routerLinkActive="active">Close RFP
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <router-outlet></router-outlet>

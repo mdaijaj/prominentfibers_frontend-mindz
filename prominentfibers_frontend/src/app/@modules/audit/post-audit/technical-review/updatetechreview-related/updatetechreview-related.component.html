@@ -1,0 +1,264 @@
+<div class="form_head">
+    <h3>Update Audit Related Documents</h3>
+  </div>
+  <div class="form-basic form_set">
+    <div class="row" [formGroup]="postAuditForm">
+      <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                  <p>CGCM Needed</p>
+                  <mat-form-field appearance="outline">
+                      <mat-select [formControlName]="'CGCMNeeded'">
+                          <mat-option value="Yes">Yes </mat-option>
+                          <mat-option value="No">No</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+          </div> -->
+  
+      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+          <p>Status</p>
+          <mat-form-field appearance="outline">
+            <mat-select [formControlName]="'status'" (selectionChange)="statusChangereview($event)">
+              <mat-option value="Send for Review">Approve</mat-option>
+              <mat-option value="reject">Reject</mat-option>
+            </mat-select>
+            <!-- <mat-error
+                      *ngIf="
+                      postAuditForm.controls['status'].hasError(
+                          'required'
+                        )
+                      "
+                    >
+                      This is an required field!
+                    </mat-error> -->
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!---Technical Review Start-->
+  <div class="my-4" *ngIf="reject==='reject'" [formGroup]="rejectionForm">
+    <table class="details_review">
+      <tr>
+        <td width="10%">&nbsp; Code</td>
+        <td width="80.5%">&nbsp; Review criteria and details</td>
+        <td width="9.5%">
+          Evaluation
+        </td>
+      </tr>
+    </table>
+  
+    <table class="customers1">
+      <tr>
+        <td width="10%">&nbsp; T .</td>
+        <td width="80.5%">&nbsp; Acceptance of Completeness Check</td>
+        <td width="9.5%">
+          <mat-checkbox value="11" (change)="checkBox($event)"></mat-checkbox>
+        </td>
+      </tr>
+    </table>
+  
+    <table id="customers" *ngIf="check==='11' && check_status==true">
+      <tr *ngFor="let data of techreviewData">
+        <td width="10%">{{data.TL1_code}}</td>
+        <td width="80%">{{data.discription}}</td>
+        <td width="10%"><mat-checkbox formControlName="tTenOne" [checked]="data.code_status" value="data.technical_review_id"
+            (change)="checktOne(data.technical_review_id, data)"></mat-checkbox>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="my-4" *ngIf="reject==='reject'" [formGroup]="rejectionForm">
+    <table class="details_review">
+      <tr>
+        <td>&nbsp; Conclusion of Technical Review (certificate decision)</td>
+      </tr>
+    </table>
+  
+    <table class="customers1">
+      <tr>
+        <td width="10%">&nbsp; 1<sup>st</sup></td>
+        <td width="80.5%">&nbsp; Technical Review</td>
+        <td width="9.5%">
+          <mat-checkbox value="16" (change)="checkBox($event)"></mat-checkbox>
+        </td>
+      </tr>
+    </table>
+  
+    <table id="customers" *ngIf="check==='16' && check_status==true" style="border: 1px solid #ddd;">
+      <tr>
+        <td></td>
+        <td>Approved report:</td>
+        <td><mat-checkbox formControlName="tFirstOne" value="true" (change)="checkTechnicalFirst($event,'approved_report')"></mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Rework/clarification required:</td>
+        <td><mat-checkbox formControlName="tFirstTwo" value="true" (change)="checkTechnicalFirst($event,'rework_clarification_required')"></mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Rejected:</td>
+        <td><mat-checkbox formControlName="tFirstThree" value="true"
+            (change)="checkTechnicalFirst($event,'rejected')"></mat-checkbox></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Certification decision:</td>
+        <td><input type="text" placeholder="Enter text" formControlName="tFirstFour"></td>
+      </tr>
+      <tr>
+        <td width="10%"></td>
+        <td width="60%">Further review required?</td>
+        <td width="30%"><mat-checkbox formControlName="tFirstFive" value="true"
+            (change)="checkTechnicalFirst($event,'further_review_required')"></mat-checkbox>Yes</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Comments:</td>
+        <td><input type="text" placeholder="Enter Comments" formControlName="tFirstSix"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Reviewer:</td>
+        <td><input type="text" placeholder="Enter text" formControlName="tFirstSeven"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>for standard(s):</td>
+        <td><input type="text" placeholder="Enter text" formControlName="tFirstEight"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Date:</td>
+        <td><input type="date" placeholder="Enter Date" formControlName="tFirstNine"></td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="my-4" *ngIf="reject==='reject'" [formGroup]="rejectionForm">
+    <table class="customers1">
+      <tr>
+        <td width="10%">&nbsp; 2<sup>nd</sup></td>
+        <td width="80.5%">&nbsp; Technical Review</td>
+        <td width="9.5%">
+          <mat-checkbox value="17" (change)="checkBox($event)"></mat-checkbox>
+        </td>
+      </tr>
+    </table>
+  
+    <table id="customers" *ngIf="check==='17' && check_status==true" style="border: 1px solid #ddd;">
+      <tr>
+        <td></td>
+        <td>Approved report:</td>
+        <td><mat-checkbox formControlName="tSecondOne" value="true"
+            (change)="checkTechnicalSecond($event)"></mat-checkbox></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Rework/clarification required:</td>
+        <td><mat-checkbox formControlName="tSecondTwo" value="true"
+            (change)="checkTechnicalSecond($event)"></mat-checkbox></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Rejected:</td>
+        <td><mat-checkbox formControlName="tSecondThree" value="true"
+            (change)="checkTechnicalSecond($event)"></mat-checkbox></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Certification decision:</td>
+        <td><input type="text" placeholder="Enter text"></td>
+      </tr>
+      <tr>
+        <td width="10%"></td>
+        <td width="60%">Further review required?</td>
+        <td width="30%"><mat-checkbox formControlName="tSecondFive" value="true"
+            (change)="checkTechnicalSecond($event)"></mat-checkbox>Yes</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Comments:</td>
+        <td><input type="text" placeholder="Enter Comments"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Reviewer:</td>
+        <td><input type="text" placeholder="Enter text"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>for standard(s):</td>
+        <td><input type="text" placeholder="Enter text"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Date:</td>
+        <td><input type="date" placeholder="Enter Date"></td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="my-4" *ngIf="reject==='reject'" [formGroup]="rejectionForm">
+    <table class="customers1">
+      <tr>
+        <td width="10%">&nbsp; Final</td>
+        <td width="80.5%">&nbsp; Technical Review</td>
+        <td width="9.5%">
+          <mat-checkbox value="18" (change)="checkBox($event)"></mat-checkbox>
+        </td>
+      </tr>
+    </table>
+  
+    <table id="customers" *ngIf="check==='18' && check_status==true" style="border: 1px solid #ddd;">
+      <tr>
+        <td width="10%"></td>
+        <td>Approved:</td>
+        <td><mat-checkbox formControlName="tFinalOne" value="true" (change)="checkTechnicalFinal($event)"></mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Rejected:</td>
+        <td><mat-checkbox formControlName="tFinalTwo" value="true" (change)="checkTechnicalFinal($event)"></mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Certification decision:</td>
+        <td><input type="text" placeholder="Enter text"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Justification:</td>
+        <td><input type="text" placeholder="Enter text"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Next steps:</td>
+        <td><input type="text" placeholder="Enter text"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Reviewer:</td>
+        <td><input type="text" placeholder="Enter text"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>for standard(s):</td>
+        <td><input type="text" placeholder="Enter text"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Date:</td>
+        <td><input type="date" placeholder="Enter Date"></td>
+      </tr>
+    </table>
+  </div>
+  <!---Technical Review End-->

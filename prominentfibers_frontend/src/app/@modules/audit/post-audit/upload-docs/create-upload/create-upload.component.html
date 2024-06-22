@@ -1,0 +1,600 @@
+<mat-card>
+  <div class="section">
+    <div class="main">
+      <div class="employee">
+        <!-- <p>HRMS</p> -->
+      </div>
+      <!-- <div class="msater-nav">
+        <a href="">Post Audit Module<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="../">Upload Certificate</a>
+      </div> -->
+      <div class="msater-nav">
+        <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a routerLink="/master/audit/post-audit">Post-Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <a [routerLink]="getCurrentRoute()">Upload Certificate</a>
+    </div>
+      <div class="updatetitle">{{leadUpdate==='updateUploadCertificate'? 'Update Upload Certificate':'Upload
+        Certificate'}}</div>
+
+      <form class="form_set" [formGroup]="leadForm">
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Customer Details</h3>
+              </div>
+
+              <div class="form_basic">
+
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <p>Associated Company</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                        <input matInput type="text" formControlName="associated_company" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>First Name</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <input matInput type="text" formControlName="first_name" />
+                        <mat-error *ngIf="leadForm.controls['first_name'].hasError('required')">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>BR No.</p>
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" #br_number formControlName="br_number" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Street Address</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Job Role</mat-label> -->
+                        <input matInput type="text" formControlName="street_address" />
+                        <mat-error *ngIf="leadForm.controls['street_address'].hasError('required')">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Address Line 2</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Application Date</mat-label> -->
+                        <input matInput type="text" formControlName="address2" />.
+                        <mat-error *ngIf="leadForm.controls['address2'].hasError('required')">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Country&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="country" (selectionChange)="getCountryID($event)">
+                          <mat-option *ngFor="let item of countryList" [value]="item.countryss_id">{{
+                            item.countryss_name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>State&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="state" (selectionChange)="getStateID($event)">
+                          <mat-option *ngFor="let item of stateList" [value]="item.states_id">{{ item.states_name
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>City&nbsp;<span class="form_required">*</span></p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="city" (selectionChange)="getPinCode($event)">
+                          <mat-option *ngFor="let item of cityList" [value]="item.city_id">{{ item.city_name
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group">
+                      <p>Postal Code</p>
+                      <mat-form-field appearance="outline"
+                        [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                        <!-- <mat-label>Department</mat-label> -->
+                        <input matInput type="text" formControlName="postal_code" />
+                        <mat-error *ngIf="leadForm.controls['postal_code'].hasError('required')">
+                          This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>SIC & Accredition Logo Details</h3>
+              </div>
+
+              <div class="form_basic">
+
+                <form class="form_set" [formGroup]="leadForm">
+                  <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Assessment Period</p>
+                        <mat-form-field appearance="outline"
+                          [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                          <mat-select formControlName="assessment_period">
+                            <mat-option value="Annual">Annual</mat-option>
+                            <mat-option value="Semi-Annual">Semi-Annual</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>EA Code</p>
+                        <mat-form-field appearance="outline"
+                          [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                          <input matInput type="text" formControlName="ea_code" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Accredition Logo Details</p>
+                        <mat-form-field appearance="outline"
+                          [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                          <input matInput type="text" formControlName="accredition_logo_details" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <div class="form-group">
+                        <p>Additional Certificates Copies</p>
+                        <mat-form-field appearance="outline"
+                          [ngClass]="leadUpdate==='UploadCertificate' ? 'readonly-wrapper' : ''">
+                          <input matInput type="text" formControlName="add_cert_copy" />
+
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <!-- Audit Planning Details -->
+        <div class="form_audit">
+
+
+          <div class="form_head ">
+            <h3>Audit Planning Details</h3>
+          </div>
+
+          <div class="form_basic form_set">
+            <div class="row">
+              <table class="table">
+                <thead style="text-align: center;">
+                  <tr>
+                    <th>Audit Start Date</th>
+                    <th>Audit End Date</th>
+                    <th>Audit Duration</th>
+                    <th>Planning Status</th>
+                    <th>Locked Status</th>
+                    <th>Audit Confirmed Date </th>
+                    <th>Remarks</th>
+
+                  </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                  <tr>
+                    <td>{{singleLeadData?.training_start_date}}</td>
+                    <td>{{singleLeadData?.training_end_date}}</td>
+                    <td>{{singleLeadData?.training_start_date}}</td>
+                    <td>{{singleLeadData?.planning_status}}</td>
+                    <td>{{singleLeadData?.locked_status}}</td>
+                    <td>{{singleLeadData?.training_confirm_date}}</td>
+                    <td>{{singleLeadData?.training_remarks}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Uploaded Certificates</h3>
+              </div>
+
+
+              <div class="div">
+                <ng-container formArrayName="tableRows" *ngFor="let control of f.tableRows['controls']; index as i" ?>
+                  <div class="row" [formGroup]="control">
+                    <div class="doc-body" *ngFor="let data of getByCertificateData">
+                      <div class="row">
+
+                        <div class="col-md-2 upload_color pt-2" style="padding: 5px ;">
+                          <P>Customer Name :-</P>
+                        </div>
+                        <div class="col-md-10 sideBar pt-2">
+                          <P>BR# {{singleLeadData?.br_number}}</P>
+                          <p>{{data?.select_customer}}</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-2 upload_color">
+                          <p>Program Name :-</p>
+                        </div>
+
+                        <div class="col-md-10 sideBar">
+                          <p>{{data?.select_program}}</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-2 upload_color">
+                          <p>Choose Logo :-</p>
+                        </div>
+                        <div class="col-md-10 sideBar">
+                          <p>{{data?.choose_logo
+                            }}</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-2 upload_color">
+                          <p>Scope :-</p>
+                        </div>
+                        <div class="col-md-10 sideBar">
+                          <p>{{data?.scope}}</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-2 upload_color">
+                          <p>Version :-</p>
+                        </div>
+                        <div class="col-md-10 sideBar">
+                          <p>V{{data?.certificate_count}}</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-2 upload_color">
+                          <p>Certificate ID :-</p>
+                        </div>
+                        <div class="col-md-10 sideBar">
+                          <p>IND0000{{data?.certificate_version}}</p>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-md-2 upload_color">
+                          <p>Upload Certificate :-</p>
+                        </div>
+                        <div class="col-md-10 sideBar">
+                          <a target="_blank" [href]="data?.upload_certificate">{{data?.upload_certificate}}</a>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 upload_color">
+                          <p>Status :-</p>
+                        </div>
+                        <div class="col-md-10 sideBar" 
+                        [ngStyle]="{'color': data.approvel_status =='APPROVED' ?'green':'red'}">
+                         {{data?.approvel_status}}
+                        </div>
+                        <div class="col-md-10 sideBar">
+                        <div style="display:flex; justify-content:flex-end">
+                            <button class="verify" style="margin-right:1%; margin-bottom:1%" [ngStyle]="{'background-color':verifyCertificate ?'gray':'#016c01'}" 
+                            (click)="Verify_Certificate(true, data)">Approved</button>
+                            <button class="verify"  [ngStyle]="{'background-color':notVerifyCertificate ? 'gray':'#db0000'}"
+                            (click)="NotVerify_Certificate(false, data)">Rejected</button>
+                         </div>
+
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+
+
+              <!-- not data found -->
+
+              <div class="row" *ngIf="tableView">
+                <div class="not_found">
+                  <p class="empty-tab">No document uploaded!</p>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+        <section class="job-nav">
+          <div class="section">
+            <mat-card>
+              <div class="row form_head">
+                <h3>Upload Certificates</h3>
+              </div>
+
+              <div class="form_basic">
+
+
+                <div class="row">
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <p>Select Customer</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <mat-select formControlName="select_customer">
+                          <mat-option value="Self">{{ this.singleLeadData?.br_number }}/
+                            {{
+                            this.singleLeadData?.associated_company +
+                            " - " +
+                            this.singleLeadData?.customer_category
+                            }}/{{ this.singleLeadData?.state_name }}</mat-option>
+                        </mat-select>
+                        <!-- <input matInput type="text" #br_number formControlName="select_customer" /> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <p>Select A Program *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <!-- <mat-select formControlName="select_program">
+                          <mat-option value="New Delhi">New Delhi</mat-option>
+                          <mat-option value="Mumbai">Mumbai</mat-option>
+                        </mat-select> -->
+                        <mat-select formControlName="select_program">
+                          <mat-select-filter [array]="variables" (filteredReturn)="fun1($event)"></mat-select-filter>
+                          <mat-option *ngFor="let item of checkData" [value]="item.product_master_name">{{
+                            item.product_master_name }}</mat-option>
+                        </mat-select>
+                        <!-- <input matInput type="text" formControlName="select_program" /> -->
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <p>Choose Logo *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <!-- <mat-label>Candidate Name</mat-label> -->
+                        <!-- <mat-select formControlName="choose_logo">
+                          <mat-option value="New Delhi">New Delhi</mat-option>
+                          <mat-option value="Mumbai">Mumbai</mat-option>
+                        </mat-select> -->
+                        <input matInput type="text" formControlName="choose_logo" />
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <p>Scope *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" readonly>
+                        <input matInput type="text" #br_number formControlName="scope" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <div class="form-group" *ngIf="!cutomerType">
+                      <p>Upload Certificate *</p>
+                    </div>
+                  </div>
+                  <div class="col-xxl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="form-group">
+                      <input formControlName="upload_certificate" id="file" type="file" multiple class="form-control"
+                        (change)="fileInputChange($event)" accept=".pdf">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="upload-btn">
+
+                  <button class="iploadBtnss"  (click)="addRow3()">Update</button>
+
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </section>
+
+
+
+        <div class="upload-btn">
+          <button *ngIf="leadUpdate==='UploadCertificate'" class="iploadBtn" (click)="submitForm()">Save</button>
+          <button *ngIf="leadUpdate==='updateUploadCertificate'" class="iploadBtn" (click)="updateForm()">Update
+            Save</button>
+          <!-- <button class="iploadBtn" (click)="pdfGenerate()">View Certificate</button> -->
+
+
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-card>
+
+<div class="pdf-content">
+  <mat-card>
+    <section>
+      <div class="container" id="dashboard" #dashboard>
+        <div class="row">
+          <div class="col-md-2 side_design">
+            <div class="logo1_certificate">
+              <img src="../../../../../../assets/icons/naukriIcon.png">
+            </div>
+            <div class="logo2_certificate">
+              <img src="../../../../../../assets/icons/naukriIcon.png">
+            </div>
+
+          </div>
+          <div class="col-md-10 main_design">
+            <div class="row certificate_data">
+              <div class="col-md-8">
+                <div class="header_cert">
+                  <p>CERTIFICATE</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="logo_certificate">
+                  <img src="../../../../../../assets/icons/DQS_logo.png">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <p style="padding: 42px 0px 0px 8px">This to Certify that</p>
+            </div>
+            <div class="row">
+              <div class="sub_head_cert" style="padding: 50px 0px 0px 10px">
+                <p class="company_name">VARROC ENGINEERING LIMITED VEL III</p>
+                <p>B-2f Midc Industrial area</p>
+                <p>chakan</p>
+                <p>city</p>
+                <p>state</p>
+                <p>country</p>
+              </div>
+            </div>
+            <div class="row customer_program">
+              <span>
+                has Implemented and maintaines an <span style="font-size: 16px; font-weight: 500;"> Electrostatic
+                  Discharge control program</span>
+              </span>
+            </div>
+            <div class="row">
+              <div class="data_certifcate">
+                <p>Scope:</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Minus cupiditate fuga, modi earum, nesciunt facilis facere,
+                  perspiciatis esse sit soluta laudantium id dolore beatae.
+                  Dolorem incidunt quod ad quam delectus!</p>
+              </div>
+            </div>
+            <div class="esd">
+              <div class="row esd_head">
+
+                <p>ANSI ESD S20.20-2014</p>
+              </div>
+
+
+              <div class="esd_data">
+                <div class="row">
+                  <div class="col-md-3">
+                    <p>Certificate Registration no.:</p>
+                    <p>Date Of Certification:</p>
+                    <p>Valid until:</p>
+                    <p>Lead Auditor:</p>
+                    <p>ESD Program Manager:</p>
+                    <p>Technical Reviewer:</p>
+                    <p>Certificate Registration no.:</p>
+
+                  </div>
+                  <div class="col-md-3">
+                    <p>2525254456</p>
+                    <p>20-02-2021</p>
+                    <p>12-2-2323</p>
+                    <p>joerage jhon</p>
+                    <p>pravin pawar</p>
+                    <p>carlton paterjon</p>
+                  </div>
+
+                  <div class="col-md-6">
+                    <img src="../../../../../../assets/icons/DQS_logo.png">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dqs_inc ">
+              <div class="row esd_head">
+                <p>DQS Inc</p>
+              </div>
+              <div class="row">
+                <p>Name</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </mat-card>
+</div>

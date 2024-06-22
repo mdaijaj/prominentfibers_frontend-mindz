@@ -1,0 +1,73 @@
+<h3 mat-dialog-title class="popHead">PR Record test</h3>
+<!-- <button mat-button mat-dialog-close>Cancel</button> -->
+
+<mat-dialog-content class="mat-typography">
+  <div class="cotain">
+    <div class="emp_key">
+      <p *ngIf="cellData?.procurement_id">Pr Id:</p>
+      <p *ngIf="cellData?.PR_code">Pr Code:</p>
+      <p *ngIf="cellData?.department">Department:</p>
+      <p *ngIf="createDate">Create Date:</p>
+      <p *ngIf="cellData?.approvel_status">Approval Status:</p>
+      <p *ngIf="cellData?.PR_category">PR Category:</p>
+      <p *ngIf="cellData?.delivery_address">Delivery Address:</p>
+      <ng-container *ngFor="let data of procurement_requests">
+        <hr/>
+        <!-- <p class="ms-5" *ngIf="data.service_category_id">Service Category : </p> -->
+        <p class="ms-5" *ngIf="data.service_quantity">Service Category : </p>
+
+        <p class="ms-5" *ngIf="data.service_quantity">Service Quantity : </p>
+
+        <p class="ms-5" *ngIf="data.asset_category_id">Asset Category : </p>
+        <p class="ms-5" *ngIf="data.asset_category_id">Item Name : </p>
+        <p class="ms-5" *ngIf="data.asset_category_id">Item Code : </p>
+        <p class="ms-5" *ngIf="data.item_quantity">Item Quantity : </p>
+        <p class="ms-5" *ngIf="data.priority">Priority : </p>
+        <p class="ms-5" *ngIf="data.mvp">MVP : </p>
+        <p class="ms-5" *ngIf="this.cellData?.PR_category === 'BOM PR'">Product Name : </p>
+        <p class="ms-5" *ngIf="this.cellData?.PR_category === 'BOM PR'">No Of BOM : </p>
+        <p class="ms-5" *ngIf="this.cellData?.PR_category === 'BOM PR'">Product Code : </p>
+        <p class="ms-5" *ngIf="this.cellData?.PR_category === 'BOM PR'">Total MVP : </p>
+        
+      </ng-container>
+    </div>
+
+    <div class="emp_value">
+      <p>{{ cellData?.procurement_id }}</p>
+      <p>{{ cellData?.PR_code}}</p>
+      <p>{{ cellData?.department}}</p>
+      <p>{{ createDate}}</p>
+      <p>{{ cellData?.approvel_status}}</p>
+      <p>{{ cellData?.PR_category}}</p>
+      <p>{{ cellData?.delivery_address}}</p>
+   
+     
+
+      <ng-container *ngFor="let data of procurement_requests">
+        <hr/>
+        <!-- <p *ngIf="data.service_category_id">{{data.service_category_id}}</p> -->
+        <p *ngIf="data.service_quantity">{{data?.tbl_servicemaster.ServicesCategory.service_category_name}}</p>
+
+        <p *ngIf="data.service_quantity">{{data.service_quantity}}</p>
+
+        <p *ngIf="data.asset_category_id">{{data.ItemMaster.asset_category.asset_category_name}}</p>
+        <p *ngIf="data.asset_category_id">{{data?.ItemMaster.item_name}}</p>
+        <p *ngIf="data.asset_category_id">{{data?.ItemMaster.item_code}}</p>
+        <p *ngIf="data.item_quantity">{{data.item_quantity}}</p>
+        <p *ngIf="data.priority">{{data.priority}}</p>
+        <p *ngIf="data.mvp">{{data.mvp}}</p>
+        <p *ngIf="this.cellData?.PR_category ==='BOM PR'">{{data.product_name}}</p>
+        <p *ngIf="this.cellData?.PR_category === 'BOM PR'">{{data.no_of_bom}}</p>
+        <p *ngIf="this.cellData?.PR_category ==='BOM PR'">{{data.ItemMaster?.item_code}}</p>
+        <p *ngIf="this.cellData?.PR_category === 'BOM PR'">{{data.mvp_product}}</p>
+
+      </ng-container>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-raised-button color="primary">
+    Close
+  </button>
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

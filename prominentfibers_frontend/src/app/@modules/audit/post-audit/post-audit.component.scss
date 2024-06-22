@@ -1,0 +1,26 @@
+.service-box {
+    width: 120px;
+    height: 120px;
+    margin: 0 16px 40px 64px;
+    cursor: pointer;
+
+
+    img {
+        margin-left: 16px;
+        width: 100%;
+        
+    }
+
+    .card-title {
+        text-align: center;
+        margin-top: 8px;
+        color: #000;
+    }
+    .card-title{
+        width: 125px;
+    }
+}
+.row {
+    padding: 16px 0 0 0;
+    margin: 0;
+}

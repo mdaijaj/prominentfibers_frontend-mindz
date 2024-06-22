@@ -1,0 +1,216 @@
+<div class="form_head">
+    <h3>Notification Form {{notification}} Team On CIF Collection</h3>
+</div>
+
+<div class="form_basic">
+
+    <form class="form_set" [formGroup]="form">
+        <div class="row">
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Certificate Id</mat-label>
+                        <input matInput type="text" formControlName="certificate_id" />
+                        <mat-error *ngIf="form.controls['certificate_id'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Business Relation Id</mat-label>
+                        <input matInput type="text" formControlName="BR_id" />
+                        <mat-error *ngIf="form.controls['BR_id'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Standard Id</mat-label>
+                        <input matInput type="text" formControlName="Stander_id" />
+                        <mat-error *ngIf="form.controls['Stander_id'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Other Standard Id</mat-label>
+                        <input matInput type="text" formControlName="other_standard_program_assement" />
+                        <mat-error *ngIf="form.controls['other_standard_program_assement'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Certificate Valid Until</mat-label>
+                        <input matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="Cer_valid_date" />
+                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                        <mat-datepicker #dp></mat-datepicker>
+                        <mat-error *ngIf="form.controls['Cer_valid_date'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>RA/TRA Date</mat-label>
+                        <input matInput [matDatepicker]="dp1" (click)="dp1.open()" formControlName="RA_TRA_date" />
+                        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                        <mat-datepicker #dp1></mat-datepicker>
+                        <mat-error *ngIf="form.controls['RA_TRA_date'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Notification Date CIF Collection</mat-label>
+                        <input matInput [matDatepicker]="dp2" (click)="dp2.open()" formControlName="Notification_CIF" />
+                        <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                        <mat-datepicker #dp2></mat-datepicker>
+                        <mat-error *ngIf="form.controls['Notification_CIF'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Industry Code Id</mat-label>
+                        <input matInput type="text" formControlName="industry_code" />
+                        <mat-error *ngIf="form.controls['industry_code'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Sort Name</mat-label>
+                        <input matInput type="text" formControlName="sort_name" />
+                        <mat-error *ngIf="form.controls['sort_name'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>E-Mail ID</mat-label>
+                        <input matInput type="text" formControlName="email_id" />
+                        <mat-error *ngIf="form.controls['email_id'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Reason</mat-label>
+                        <mat-select formControlName="reason">
+                            <mat-option value="dueDate">Due Date</mat-option>
+                            <mat-option value="mojorNC">Major NC</mat-option>
+                            <mat-option value="customerComplaints">Customer Complaints</mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="basicForm.controls['status'].hasError('required')">
+                      This field is required!
+                    </mat-error> -->
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="cspComment">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Comments(As per CSP Updated)</mat-label>
+                        <input matInput type="text" formControlName="commentAsPerCSP" />
+                        <mat-error *ngIf="form.controls['commentAsPerCSP'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="withdrawlAtt">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>If Rejected, Comment</mat-label>
+                        <input matInput type="text" formControlName="rejectComment" />
+                        <mat-error *ngIf="form.controls['rejectComment'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="withdrawlAtt">
+                <mat-label class="label">Withdrawal Letter Attachement</mat-label>
+                <div class="form-group">
+                    <input formControlName="withdrawalLetter" id="file" accept=".pdf,.docx,.jpeg,.jpg" type="file" class="form-control"
+                        (change)="contentVideo($event)">
+                </div>
+            </div>
+      
+            <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Offer Valid Till</mat-label>
+                        <input matInput [matDatepicker]="dp1" (click)="dp1.open()" formControlName="offerValidTill" />
+                        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                        <mat-datepicker #dp1></mat-datepicker>
+                        <mat-error *ngIf="form.controls['offerValidTill'].hasError('required')">
+                            This field is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div> -->
+        </div>
+
+        <div align="end">
+            <button mat-raised-button color="primary" class="mx-3" (click)="productSave(form)"
+            *ngIf="!withdrawlAtt">{{sendTo}}</button>
+            <button mat-raised-button color="primary" class="mx-3" (click)="sendTo_RBH(form)"
+                *ngIf="notifications=='widthdrwal' || notifications==!'rbh_approval'">{{sendTo}}</button>
+            <button mat-raised-button color="primary" class="mx-3" (click)="approve($event)"
+                *ngIf="notifications=='rbh_approval'">{{sendTo}}</button>
+            <button mat-raised-button mat-dialog-close color="warn"
+                *ngIf="notifications==!'rbh_approval'">Cancel</button>
+            <button mat-raised-button mat-dialog-close color="warn" *ngIf="notifications=='rbh_approval'"
+                (click)="reject($event)">Reject</button>
+
+        </div>
+    </form>
+</div>

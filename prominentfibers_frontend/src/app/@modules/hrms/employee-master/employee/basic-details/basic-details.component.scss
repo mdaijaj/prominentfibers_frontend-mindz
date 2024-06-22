@@ -1,0 +1,80 @@
+div .btn1 {
+    background-color: #207806;
+    font-weight: 400;
+    padding: 0px 35px
+}
+
+div .btn2 {
+    background-color: #a70818;
+    font-weight: 400;
+    padding: 0px 28px;
+}
+
+.btn_employ {
+    padding: 20px;
+}
+
+.imgEmp {
+    width: 41px;
+    height: 31px;
+    position: relative;
+    top: -35px;
+    left: 84%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file_delete {
+    width: 33px;
+    height: 27px;
+    position: relative;
+    top: -31.5px;
+    left: 259px;
+    border-radius: 5px;
+}
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    // top: 50%;
+    // left: 50%;
+    width: 20px;
+    height: 20px;
+    // margin-top: -10px;
+    // margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #8B817D;
+    animation: spinner .8s linear infinite;
+    margin: 0px 0px 0px 8px
+  }
+  .file_upload1{
+    font-size: 10px;
+    margin-left: 5px;
+    color: red;
+  }
+  
+  .file_upload{
+    font-size: 10px;
+    margin-left: 5px;
+
+  }
+  .readonly-wrapper {
+    pointer-events: none;
+}
+.form_heads2{
+  text-align: center;
+  background-color: #0a46a7;
+  color: white;
+  cursor: pointer;
+}
+.form_heads1{
+  text-align: center;
+  background-color: white;
+  color: #0a46a7;
+  cursor: pointer;
+  border: 1px solid #82b0fa;
+}

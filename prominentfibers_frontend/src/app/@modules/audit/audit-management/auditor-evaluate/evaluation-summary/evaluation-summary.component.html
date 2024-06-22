@@ -1,0 +1,263 @@
+<div class="section">
+
+    <div class="row py-1">
+        <div class="msater-nav">
+            <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="/master/audit/audit-management">Audit Management<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="/master/audit/audit-management/add-auditor">Audit Score Card</a>
+        </div>
+
+    </div>
+    <div class="employ_sube">
+        <div class="">
+            <div class="add_btn">
+                <!-- <button type="button" class="btn_add" routerLink="employee-create" *ngIf="assignAction?.Write">Add Employee</button> -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="employ_sube py-2">
+        <div class="">
+            <div class="employee_2" align="end">
+                <!--   
+          <input type="text" class="form-control" id="filter-text-box" placeholder="Search"
+            (input)="onFilterTextBoxChanged()"> -->
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form_head">
+        <h3>Audit Score Card</h3>
+    </div>
+ <div class="row">
+    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+    <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>Mr.Ravi Shankar</mat-card-title>
+            <mat-card-subtitle>Lead Auditor</mat-card-subtitle>
+            <img class="image" mat-card-lg-image src="\assets\auditor.png" >
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <!-- {{longText}} -->
+        </mat-card-content>
+      </mat-card>
+ </div>
+ <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+</div>
+
+    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+    </div>
+
+</div>
+
+
+    <div class="wrapper">
+        <table class="table-scores">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="label">Metric, Monthly</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="label">Audit Report submission TAT (in Days) </div>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>
+                        <div class="label">Certificate TAT ( in Days )</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label">First Pass Yield - L1 Audit report admin review</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label"># of utilized mandays</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label"># of utilized mandays</div>
+                    </td>
+                </tr> -->
+            </tbody>
+        </table>
+        <div class="table-data-wrapper">
+            <table class="table-data">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="label">Status</div>
+                        </th>
+                        <th *ngFor="let data of RequiredData">
+                            <div class="label">{{data.month}}</div>
+                        </th>
+                        <!-- <th>
+                            <div class="label">January 2023</div>
+                            <div class="date">09/01/2017, 07:34 AM PDT</div>
+                        </th>
+                        <th>
+                            <div class="label">February 2023</div>
+                            <div class="date">09/01/2017, 05:24 AM PDT</div>
+                        </th>
+                        <th>
+                            <div class="label">March 2023</div>
+                            <div class="date">08/10/2017, 11:59 AM PDT</div>
+                        </th>
+                        <th>
+                            <div class="label">April 2023</div>
+                            <div class="date">08/10/2017, 10:54 AM PDT</div>
+                        </th>
+                        <th>
+                            <div class="label">May 2023</div>
+                            <div class="date">07/26/2017, 07:32 AM PDT</div>
+                        </th>
+                        <th>
+                            <div class="label">June 2023</div>
+                            <div class="date">01/25/2017, 11:22 PM PST</div>
+                        </th>
+                        <th>
+                            <div class="label">July 2023</div>
+                            <div class="date">01/25/2017, 11:22 PM PST</div>
+                        </th>
+                        <th>
+                            <div class="label">August 2023</div>
+                            <div class="date">01/25/2017, 11:22 PM PST</div>
+                        </th>
+                        <th>
+                            <div class="label">September 2023</div>
+                            <div class="date">01/25/2017, 11:22 PM PST</div>
+                        </th>
+                        <th>
+                            <div class="label">October 2023</div>
+                            <div class="date">01/25/2017, 11:22 PM PST</div>
+                        </th>
+                        <th>
+                            <div class="label">November 2023</div>
+                            <div class="date">01/25/2017, 11:22 PM PST</div>
+                        </th>
+                        <th>
+                            <div class="label">December 2023</div>
+                            <div class="date">01/25/2017, 11:22 PM PST</div>
+                        </th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td *ngFor="let data of RequiredData">
+                            <div class="score-value score-value--{{data.Status}}">{{data.percentage}}</div>
+                        </td>
+                
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            <div class="score-value score-value--bad">45.3</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--good">-45.221</div>
+                        </td>
+                        <td>
+                            <div class="score-value">-</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-good">-45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--normal">45.345</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--bad">45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-good">-245.45</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="score-value score-value--very-bad">-45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-bad">45.345</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--good">45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-bad">45.3</div>
+                        </td>
+                        <td>
+                            <div class="score-value">-</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-bad">-245.45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--normal">-45.221</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="score-value score-value--very-bad">-45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-bad">45.345</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--good">45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-bad">45.3</div>
+                        </td>
+                        <td>
+                            <div class="score-value">-</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-bad">-245.45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--normal">-45.221</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="score-value score-value--very-bad">-45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-bad">45.345</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--good">45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-bad">45.3</div>
+                        </td>
+                        <td>
+                            <div class="score-value">-</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--very-bad">-245.45</div>
+                        </td>
+                        <td>
+                            <div class="score-value score-value--normal">-45.221</div>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</div>

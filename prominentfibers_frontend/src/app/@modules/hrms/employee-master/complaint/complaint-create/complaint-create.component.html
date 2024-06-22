@@ -1,0 +1,176 @@
+<div class="heading_top">
+  <div class="page-title">
+    <h1>HRMS</h1>
+    <p>Employee Master <i class="fa fa-angle-right" aria-hidden="true" style="color:#8B817D">
+    </i><span> {{complaintId?'Update Complaint':'Add Complaint'}} </span></p>
+  </div>
+  <div class="add_button">
+    <button routerLink="../complaint-list" type="button">List</button>
+    <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+  </div>
+</div>
+
+  <div class="achieveFormArea">
+  
+    <div class="form_basic">
+      <form class="form_set" [formGroup]="createComplaint">
+      <div class="row m-3">
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline" readonly>
+              <mat-label>Complaint Form</mat-label>
+              <mat-select formControlName="complaint_from">
+                <mat-option selected *ngFor="let val of allComplaint"
+                  [value]="val.first_name">{{val.first_name}}</mat-option>
+
+              </mat-select>
+              <mat-error *ngIf="createComplaint.controls['complaint_from'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Complaint Name</mat-label>
+              <input matInput type="text" formControlName="complaint_name" />
+              <mat-error *ngIf="createComplaint.controls['complaint_name'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline" readonly>
+              <mat-label>Complaint Against</mat-label>
+              <mat-select formControlName="complaint_against">
+                <mat-option *ngFor="let val of propertyManager" [value]="val">{{val}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="createComplaint.controls['complaint_against'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div *ngIf="mainId !== 'undefined'" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Reporting Manager</mat-label>
+              <mat-select formControlName="reporting_manager">
+                <mat-option *ngFor="let val of reportingManagerList" [value]="val">{{ val }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="
+              createComplaint.controls['reporting_manager'].hasError(
+                    'required'
+                  )
+                ">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div  *ngIf="mainId == 'undefined'" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Reporting manager</mat-label>
+              <input matInput type="text" formControlName="reporting_manager" />
+              <mat-error
+              *ngIf="createComplaint.controls['reporting_manager'].hasError('required')"
+            >
+              This field is required!
+            </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Complaint Date</mat-label>
+              <input matInput [matDatepicker]="dqs" (click)="dqs.open()" formControlName="complaint_date" />
+
+              <mat-datepicker-toggle matSuffix [for]="dqs"></mat-datepicker-toggle>
+              <mat-datepicker #dqs></mat-datepicker>
+              <mat-error *ngIf="createComplaint.controls['complaint_date'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Complaint Description</mat-label>
+              <input matInput type="text" formControlName="complaint_description" />
+              <mat-error *ngIf="createComplaint.controls['complaint_description'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Notes</mat-label>
+              <input matInput type="text" formControlName="notes" />
+              <mat-error *ngIf="createComplaint.controls['notes'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline" readonly>
+              <mat-label>Record Added By</mat-label>
+              <mat-select formControlName="record_added_by">
+                <mat-option *ngFor="let val of propertyManager" [value]="val">{{val}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="createComplaint.controls['record_added_by'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Record Added On</mat-label>
+              <input matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="record_added_on" />
+
+              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp></mat-datepicker>
+              <mat-error *ngIf="createComplaint.controls['record_added_on'].hasError('required')">
+                This field is required!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+   
+      <div class="common_button_sub">
+      <div class="my-3">
+        <button *ngIf="!complaintId"  (click)="onSubmitForm()" class="mx-3">
+          Submit
+        </button>
+
+        <button *ngIf="complaintId" (click)="updateForm($event)"  class="mx-3">
+          Update
+        </button>
+
+        <button class="cancel_button_y" (click)="reLoad()">Cancel</button>
+      </div>
+      </div>
+    </form>
+  </div>
+</div>

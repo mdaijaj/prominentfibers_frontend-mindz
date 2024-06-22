@@ -1,0 +1,47 @@
+<mat-card class="m-card">
+    <div class="section">
+        <div class="row head">
+            <!-- <p>HRMS</p> -->
+        </div>
+    
+        
+    
+        <div class="employ_sube">
+            <div class="msater-nav">
+                <a> S & M <mat-icon>keyboard_arrow_right</mat-icon></a>
+                <a routerLink="../">  Lead Management <mat-icon>keyboard_arrow_right</mat-icon></a>
+                <a routerLink="/master/lead/lead-management/generate-lead"> Lead Validation List</a>
+              </div>
+            <div class="employee_2" align="end">
+                <label>Search: </label>
+                <input type="text" id="filter-text-box" (input)="onFilterTextBoxChanged()" />
+              </div>
+        </div>
+        
+    
+    
+        <div class="employ_sube">
+            <div class="apply-btn">
+                <!-- <a routerLink="../create-lead" type="button">Create Contact</a> -->
+            </div>
+            <div class="updatetitle">Lead Validation List</div>
+            <div class="profile-count">
+                <p style="margin: 20px 5px;">Total No. Of Leads &nbsp;<span class="text" style="padding:5px 15px;">{{rowData?.length>0?rowData?.length:2}}</span></p>
+              </div>
+        </div>
+       
+    
+        <mat-card>
+            <div class="row form_head">
+                <h3>Lead Validation List</h3>
+            </div>
+            <div class="ag_grid">
+                <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style=" width:100%; height:400px;"
+                    [rowData]="rowData" [columnDefs]="columnDefs" (cellClicked)='onCellClicked($event)' [pagination]=true [paginationPageSize]=10
+                    (gridReady)="onGridReady($event)">
+                </ag-grid-angular>
+            </div>
+        </mat-card>
+    
+    </div>
+</mat-card>

@@ -1,0 +1,12 @@
+<div class="">
+    <mat-icon (click)="downloadFile($event)">cloud_download</mat-icon>
+
+    <!-- <input type="checkbox"    name="quotation" id="quotation"  
+      (change)="quotationChange($event)"/> -->
+
+      <ng-container *ngIf="checkboxShow">
+        <mat-checkbox [(ngModel)]="isChecked" [disabled]="cellValue.data.is_disabled" (change)="selectQuotation($event,isChecked)"></mat-checkbox>
+      </ng-container>
+
+    
+</div>

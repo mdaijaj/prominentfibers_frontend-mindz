@@ -1,0 +1,135 @@
+<section class="job-nav">
+
+  <div>
+    <div class="row">
+
+      <!-- <div class="btns">
+        <button type="button" routerLink="../">Back</button>
+      </div> -->
+    </div>
+    <mat-card>
+      <div class="form_head">
+        <h3>Role Functionality Assign Menu</h3>
+        <!-- <button class="backBtn" routerLink="../"><i class="fa fa-arrow-circle-left"></i> Back</button> -->
+      </div>
+
+      <div class="form_basic">
+        <div class="form_set">
+          <div [formGroup]="roleAssignForm">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mb-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Functional Admin</mat-label>
+                    <mat-select formControlName="role_master_id">
+                      <mat-option *ngFor="let role of roleGet" [value]="role.role_master_id"
+                        (click)="roleIdData(role.role_master_id)">{{role.role_master_name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12 mb-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <mat-select formControlName="employee_id">
+                      <mat-option *ngFor="let role of roleGetByemployee"
+                        (click)="roleMenuAccessIdData(role.employee_id)" [value]="role.employee_id">{{role.first_name+"
+                        "+role.last_name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="empty-screen" *ngIf="!selectFunctiona">
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <img class="empty-img" src="../../../../../../assets/icons/icon_DQS/role-access-image.webp">
+                <p>Please Select The Functional Admin</p>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </div>
+
+          <div class="menu-list" *ngIf="selectFunctiona">
+            <h4 class="text-primary">MENU LIST</h4>
+            <hr>
+
+            <cdk-accordion class="example-accordion">
+              <cdk-accordion-item *ngFor="let role of mdata; let index = index;" #accordionItem="cdkAccordionItem"
+                class="example-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
+                [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
+                <section class="example-section">
+
+                  <div class="example-accordion-item-header">
+
+                    <span class="example-accordion-item-description">
+                      <!-- Click to {{ accordionItem.expanded ? ' open' : 'close' }} -->
+                    </span>
+                  </div>
+                  <p class="example-list-section mainModule"
+                    [ngStyle]="{'background-color':role?.role_module_master_completed?'#FF4081':'#2dcecc'}">
+
+                    <span class="m_count">{{index+1}}</span>
+                    <mat-checkbox class="example-margin" color="primary" [name]="role?.menu_masters"
+                      [checked]="role?.role_module_master_completed"
+                      (change)="changeRoleModule($event,index,role,role.menu_masters,role.role_module_master_id, role.role_module_master_name)">
+                      <p style="font-size:14px; padding-top: 12px; font-weight: 500;"
+                        [ngStyle]="{'color':role?.role_module_master_completed?'white':'black'}">
+                        {{role.role_module_master_name}}</p>
+                    </mat-checkbox>
+                    <span class="upIcon example-accordion-item-header" (click)="accordionItem.toggle()">
+                      <mat-icon>keyboard_arrow_down</mat-icon>
+                    </span>
+                  </p><br>
+                  <span> </span>
+                  <div class="example-accordion-item-body" role="region"
+                    [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index"
+                    [attr.aria-labelledby]="'accordion-header-' + index">
+                    <span class="example-list-section parentMenu" *ngFor="let menu of role.menu_masters ,index as i">
+                      <mat-checkbox
+                        (change)="changeMenuAndSetAll($event,role, menu, menu.submenu_masters, menu.menu_master_id,i,role.role_module_master_id,menu.menu_master_name)"
+                        [name]="menu?.menu_master_name" [checked]="menu?.menu_completed">
+                        <span style="font-size:14px; padding-top: 12px; font-weight: 500;">{{menu.menu_master_name}}
+                        </span>
+                      </mat-checkbox><br>
+                      <div class="chiledPart" *ngIf="role.menu_masters[i].submenu_masters?.length > 0">
+                        <span class="example-list-section childMenu"
+                          *ngFor="let subMenu of role.menu_masters[i].submenu_masters,index as j">
+                          <mat-checkbox color="primary" [checked]="subMenu?.submenu_completed"
+                            [name]="subMenu?.submenu_master_name"
+                            (change)="changeSubModule($event,role,menu,menu.submenu_masters, subMenu?.submenu_master_id,menu.menu_master_id,j,i,role.role_module_master_id,subMenu?.submenu_master_name)">
+                            <span
+                              style="font-size:14px; padding-top: 12px; font-weight: 500;">{{subMenu.submenu_master_name}}
+                            </span>
+                          </mat-checkbox>
+                        </span>
+                      </div>
+                      <br>
+                    </span>
+
+                  </div>
+                  <!-- <div [(ngModel)]="menu.menu_title" #menu_title="ngModel" name="menu_title">{{menu.menu_title}}</div> -->
+                </section>
+              </cdk-accordion-item>
+            </cdk-accordion>
+
+            <div class="save-style" *ngIf="btnActive">
+              <div class="mt-3">
+                <button mat-raised-button color="primary" class="mx-3" (click)="updateRoleAssign()">
+                  Save
+                </button>
+                <button mat-raised-button color="warn" class="mx-3" (click)="refresh()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</section>

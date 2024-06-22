@@ -1,0 +1,286 @@
+<div class="form_head">
+  <h3>Update Audit Related Documents</h3>
+</div>
+<div class="form-basic form_set">
+  <div class="row" [formGroup]="postAuditForm">
+    <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+                <p>CGCM Needed</p>
+                <mat-form-field appearance="outline">
+                    <mat-select [formControlName]="'CGCMNeeded'">
+                        <mat-option value="Yes">Yes </mat-option>
+                        <mat-option value="No">No</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div> -->
+
+    <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+      <div class="form-group">
+        <p>Status</p>
+        <mat-form-field appearance="outline">
+          <mat-select [formControlName]="'status'" (selectionChange)="statusChange($event)">
+            <mat-option value="Send for Review">Approve</mat-option>
+            <mat-option value="reject">Reject</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<!--Completeness Check Start-->
+
+
+<div class="menu-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th class="text-center" colspan="2"> Check criteria and details</th>
+        <th>Evaluation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let parent of completeData">
+        <tr class="parent-row fw-bold">
+          <td>{{parent.l1_code}}</td>
+          <td class="text-center" colspan="2">{{parent.discription}}</td>
+          <td>
+            <input type="checkbox" [checked]="parent.code_status" (change)="onParentMenuChecked(parent)">
+          </td>
+        </tr>
+        <ng-container *ngIf="parent.code_status == true">
+          <tr *ngFor="let subMenu of parent.sub_menu" class="submenu-row">
+            <td></td>
+            <td>{{ subMenu.code }}</td>
+            <td>{{ subMenu.description }}</td>
+            <td>
+              <input type="checkbox" [checked]="subMenu.checked" (change)="onSubMenuChecked(parent, subMenu)">
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<!-- <div   [formGroup]="rejectionForm">
+  <table class="details_review">
+    <tr>
+      <td width="10%">&nbsp; Code</td>
+      <td width="80.5%">&nbsp; Check criteria and details </td>
+      <td width="9.5%">
+        Evaluation
+      </td>
+    </tr>
+  </table>
+
+  <table class="customers1">
+    <tr>
+      <td width="10%">&nbsp; C .</td>
+      <td width="80.5%">&nbsp; General cross-check of audit data</td>
+      <td width="9.5%">
+        <mat-checkbox value="1" (change)="checkBox($event)"></mat-checkbox>
+      </td>
+    </tr>
+  </table>
+
+
+  <table id="customers" *ngIf="check==='1' && check_status==true">
+    <tr *ngFor="let data of completeData">
+      <td width="10%">{{data.l1_code}}</td>
+      <td width="80%">{{data.discription}}</td>
+      <td width="10%"><mat-checkbox formControlName="cTenOne" [checked]="data.code_status" value="data.l1review_id"
+          (change)="checkOne(data.l1review_id, data)"></mat-checkbox>
+      </td>
+    </tr>
+  </table>
+</div> -->
+
+<div class="my-4"   [formGroup]="rejectionForm">
+  <table class="details_review">
+    <tr>
+      <td>&nbsp; Conclusion of Completeness Check</td>
+    </tr>
+  </table>
+
+  <table class="customers1">
+    <tr>
+      <td width="10%">&nbsp; 1<sup>st</sup></td>
+      <td width="80.5%">&nbsp; Completeness Check</td>
+      <td width="9.5%">
+        <mat-checkbox value="8" (change)="checkBox($event)"></mat-checkbox>
+      </td>
+    </tr>
+  </table>
+
+  <table id="customers" *ngIf="check==='8' && check_status==true" style="border: 1px solid #ddd;">
+    <tr>
+      <td></td>
+      <td>Approved (and ready for TR):</td>
+      <td><mat-checkbox value="true" formControlName="cFirstOne"
+          (change)="checkCompletenessFirst($event,'approved')"></mat-checkbox></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Approved with conditions (and forwarded to TR):</td>
+      <td><mat-checkbox value="true" formControlName="cFirstTwo"
+          (change)="checkCompletenessFirst($event,'approved_with_conditions')"></mat-checkbox></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Required correction(s):</td>
+      <td><input type="text" placeholder="Enter text" formControlName="cFirstThree"></td>
+    </tr>
+    <tr>
+      <td width="10%"></td>
+      <td width="60%">Follow-up audit required?</td>
+      <td width="30%"><mat-checkbox value="true" formControlName="cFirstFour"
+          (change)="checkCompletenessFirst($event,'follow_up_audit_required')"></mat-checkbox>Yes</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Rejected (not approved):</td>
+      <td><mat-checkbox value="true" formControlName="cFirstFive"
+          (change)="checkCompletenessFirst($event,'rejected')"></mat-checkbox></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Comments:</td>
+      <td><input type="text" placeholder="Enter Comments" formControlName="cFirstSix"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Name:</td>
+      <td><input type="text" placeholder="Enter Name" formControlName="cFirstSeven"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Date:</td>
+      <td><input type="date" placeholder="Enter Date" formControlName="cFirstEight"></td>
+    </tr>
+  </table>
+</div>
+
+<div class="my-4"   [formGroup]="rejectionForm">
+  <table class="customers1">
+    <tr>
+      <td width="10%">&nbsp; 2<sup>nd</sup></td>
+      <td width="80.5%">&nbsp; Completeness Check</td>
+      <td width="9.5%">
+        <mat-checkbox value="9" (change)="checkBox($event)"></mat-checkbox>
+      </td>
+    </tr>
+  </table>
+
+  <table id="customers" *ngIf="check==='9' && check_status==true" style="border: 1px solid #ddd;">
+    <tr>
+      <td></td>
+      <td>Approved (and ready for TR):</td>
+      <td><mat-checkbox formControlName="cSecondOne" value="true"
+          (change)="checkCompletenessSecond($event)"></mat-checkbox></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Approved with conditions (and forwarded to TR):</td>
+      <td><mat-checkbox formControlName="cSecondTwo" value="true"
+          (change)="checkCompletenessSecond($event)"></mat-checkbox></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Required correction(s):</td>
+      <td><input type="text" placeholder="Enter text"></td>
+    </tr>
+    <tr>
+      <td width="10%"></td>
+      <td width="60%">Follow-up audit required?</td>
+      <td width="30%"><mat-checkbox formControlName="cSecondThree" value="true"
+          (change)="checkCompletenessSecond($event)"></mat-checkbox>Yes</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Rejected (not approved):</td>
+      <td><mat-checkbox formControlName="cSecondFive" value="true"
+          (change)="checkCompletenessSecond($event)"></mat-checkbox></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Comments:</td>
+      <td><input type="text" placeholder="Enter Comments"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Name:</td>
+      <td><input type="text" placeholder="Enter Name"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Date:</td>
+      <td><input type="date" placeholder="Enter Date"></td>
+    </tr>
+  </table>
+</div>
+
+<div class="my-4"   [formGroup]="rejectionForm">
+  <table class="customers1">
+    <tr>
+      <td width="10%">&nbsp; Last</td>
+      <td width="80.5%">&nbsp; Completeness Check</td>
+      <td width="9.5%">
+        <mat-checkbox value="10" (change)="checkBox($event)"></mat-checkbox>
+      </td>
+    </tr>
+  </table>
+
+  <table id="customers" *ngIf="check==='10' && check_status==true" style="border: 1px solid #ddd;">
+    <tr>
+      <td></td>
+      <td>Approved (and ready for TR):</td>
+      <td><mat-checkbox formControlName="cLastOne" value="true" (change)="checkCompletenessLast($event)"></mat-checkbox>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Approved with conditions (and forwarded to TR):</td>
+      <td><mat-checkbox formControlName="cLastTwo" value="true" (change)="checkCompletenessLast($event)"></mat-checkbox>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Required correction(s):</td>
+      <td><input type="text" placeholder="Enter text"></td>
+    </tr>
+    <tr>
+      <td width="10%"></td>
+      <td width="60%">Follow-up audit required?</td>
+      <td width="30%"><mat-checkbox formControlName="cLastThree" value="true"
+          (change)="checkCompletenessLast($event)"></mat-checkbox>Yes</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Rejected (not approved):</td>
+      <td><mat-checkbox formControlName="cLastFive" value="true"
+          (change)="checkCompletenessLast($event)"></mat-checkbox></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Comments:</td>
+      <td><input type="text" placeholder="Enter Comments"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Name:</td>
+      <td><input type="text" placeholder="Enter Name"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Date:</td>
+      <td><input type="date" placeholder="Enter Date"></td>
+    </tr>
+  </table>
+</div>
+<!--Completeness Check End-->

@@ -1,0 +1,16 @@
+.flex_row{
+    flex-direction : row;
+}
+.openButton{
+    width : 80px;
+    height : 30px;
+    background-color: #8B817D;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text{
+    color:white
+}

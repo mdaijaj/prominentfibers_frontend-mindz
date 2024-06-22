@@ -1,0 +1,556 @@
+<section class="section">
+    <!-- <div class="row head">
+        <p routerLink="../">Post Audit</p>
+    </div> -->
+
+    <div class="row">
+        <!-- <div class="employee_top my-1">
+            Post Audit Module
+            <span class="employee_2"><i class="fa fa-angle-right" aria-hidden="true" style="color: #8B817D"></i>
+                Verify DQS Data</span>
+        </div> -->
+        <div class="msater-nav">
+            <a>Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a routerLink="/master/audit/post-audit">Post-Audit<mat-icon>keyboard_arrow_right</mat-icon></a>
+            <a [routerLink]="getCurrentRoute()">Verify DQS Data</a>
+        </div>
+    </div>
+    <div class="updatetitle">{{leadUpdate==='updateVerifyDQSData'? 'Update Verify DQS Data':'Verify DQS Data'}}</div>
+    <div class="employ_sube">
+        <div class="add_btn">
+          <button type="button" class="btn_add" (click)="openDialog()">
+            File Upload
+            <img
+              src="/assets/icons/exc3.png"
+              alt=""
+              height="20px"
+              width="25px"
+            />
+          </button>
+        </div>
+      </div>
+    <mat-card>
+        <form class="form_set" [formGroup]="postAuditForm">
+            <div class="form_head">
+                <h3>Customer Details</h3>
+            </div>
+            <div class="form_basic form_set">
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Associated Comapany</p>
+
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Associated Comapany </mat-label> -->
+                                <input matInput type="text" formControlName="associated_company" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>First Name</p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>First Name</mat-label> -->
+                                <input matInput type="text" formControlName="first_name" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>BR Number </p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>BR Number </mat-label> -->
+                                <input matInput type="text" formControlName="br_number" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Street Address </p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Street Address </mat-label> -->
+                                <input matInput type="text" formControlName="street_address" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Address Line 2</p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Address Line 2</mat-label> -->
+                                <input matInput type="text" formControlName="address2" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>Country&nbsp;<span class="form_required">*</span></p>
+                          <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                            <!-- <mat-label>Candidate Name</mat-label> -->
+                            <mat-select formControlName="country" (selectionChange)="getCountryID($event)">
+                              <mat-option
+                                *ngFor="let item of countryList"
+                                [value]="item.countryss_id"
+                                >{{ item.countryss_name }}</mat-option> 
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>State&nbsp;<span class="form_required">*</span></p>
+                          <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                            <!-- <mat-label>Candidate Name</mat-label> -->
+                            <mat-select formControlName="state" (selectionChange)="getStateID($event)">
+                              <mat-option
+                                *ngFor="let item of stateList"
+                                [value]="item.states_id"
+                                >{{ item.states_name }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <p>City&nbsp;<span class="form_required">*</span></p>
+                          <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                            <!-- <mat-label>Candidate Name</mat-label> -->
+                            <mat-select formControlName="city" (selectionChange)="getPinCode($event)">
+                              <mat-option
+                                *ngFor="let item of cityList"
+                                [value]="item.city_id"
+                                >{{ item.city_name }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Postal Code</p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <!-- <mat-label>Postal Code</mat-label> -->
+                                <input matInput type="number" formControlName="postal_code" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIC & Accredition Logo Details -->
+            <div class="form_head">
+                <h3>Customer Details</h3>
+            </div>
+            <div class="form_basic form_set">
+                <div class="row">
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Product Request</p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="product_request" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Opportunity Type</p>
+                            <mat-form-field appearance="outline" readonly>
+                              <mat-select formControlName="opportunity_type" required>
+                                <mat-option value="Certification - New Audit (RA)">Certification - New Audit (RA)</mat-option>
+                                <mat-option value="Certification - Audit (TRA)">Certification - Audit (TRA)</mat-option>
+                                <mat-option value="KSC - Facilitation">KSC - Facilitation</mat-option>
+                                <mat-option value="KSC - GAP Assessment">KSC - GAP Assessment</mat-option>
+                                <mat-option value="KSC - Special Assessment">KSC - Special Assessment</mat-option>
+                                <mat-option value="KSC - Training">KSC - Training</mat-option>
+                                <mat-option value="Certification - Inter Company">Certification - Inter Company</mat-option>
+                                <mat-option value="Existing Opportunity - Migration">Existing Opportunity - Migration</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Assessment Period</p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <mat-select formControlName="assessment_period">
+                                    <mat-option value="Annual">Annual</mat-option>
+                                    <mat-option value="Semi-Annual">Semi-Annual</mat-option>
+                                </mat-select>
+                                <!-- <input matInput type="text" formControlName="assessment_period" /> -->
+
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>EA Code</p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="ea_code"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Accredition Logo Details</p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="accredition_logo_details"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                            <p>Additional Certificates Copies</p>
+                            <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                <input matInput type="text" formControlName="add_cert_copy" />
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_audit">
+
+
+                <div class="form_head ">
+                    <h3>Audit Planning Details</h3>
+                </div>
+
+                <div class="form_basic form_set">
+                    <div class="row">
+                        <table class="table">
+                            <thead style="text-align: center;">
+                                <tr>
+                                    <th>Audit Start Date</th>
+                                    <th>Audit End Date</th>
+                                    <th>Audit Duration</th>
+                                    <th>Planning Status</th>
+                                    <th>Locked Status</th>
+                                    <th>Audit Confirmed Date </th>
+                                    <th>Remarks</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center;">
+                                <tr>
+                                    <td>{{singleLeadData?.training_start_date}}</td>
+                                    <td>{{singleLeadData?.training_end_date}}</td>
+                                    <td>{{singleLeadData?.training_start_date}}</td>
+                                    <td>{{singleLeadData?.planning_status}}</td>
+                                    <td>{{singleLeadData?.locked_status}}</td>
+                                    <td>{{singleLeadData?.training_confirm_date}}</td>
+                                    <td>{{singleLeadData?.training_remarks}}</td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_head">
+                <h3>Auditor Eligible SIC Code Details</h3>
+            </div>
+
+            <div class="form_basic form_set">
+                <div class="row">
+
+                    
+                    <div class="row" >
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <p>Auditor Type</p>
+                                <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                    <input matInput type="text" formControlName="auditorType2" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <p>Auditor Name</p>
+                                <mat-form-field appearance="outline">
+                                    <input matInput type="text" formControlName="auditor_name2" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <p>EA Code</p>
+                                <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                    <input matInput type="text" formControlName="eaCode2" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container formArrayName="tableRows" *ngFor="let control of CF_1.tableRows['controls']; index as i" ?>
+                        <div class="row" [formGroup]="control">
+                            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <p>Auditor Type</p>
+                                    <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                        <input matInput type="text" formControlName="auditorType" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <p>Auditor Name</p>
+                                    <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                        <input matInput type="text" formControlName="auditor_name" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <p>EA Code</p>
+                                    <mat-form-field appearance="outline" [ngClass]="leadUpdate==='VerifyDQSData' ? 'readonly-wrapper' : ''">
+                                        <input matInput type="text" formControlName="eaCode" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                      </ng-container>
+ </div>
+            </div>
+
+            <div class="form_head">
+                <h3>Certificate Details</h3>
+            </div>
+            <div class="form_basic form_set">
+<div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Certificate ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="certificate_id" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Business Relation ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="business_relation_id" />
+            </mat-form-field>
+        </div>
+    </div><div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Standard ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="standard_id" />
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Other Standard ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="other_standard_id" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Industry Code ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="industry_code_id" />
+            </mat-form-field>
+        </div>
+    </div>
+   
+</div>
+<div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Date of Issue</p>
+
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="dp1" (click)="dp1.open()"
+              formControlName="date_of_issue" [max]="maxDate" [min]="minDate"/>
+
+            <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+            <mat-datepicker #dp1></mat-datepicker>
+
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Valid Until </p>
+
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="dp2" (click)="dp2.open()"
+              formControlName="valid_until" />
+
+            <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+            <mat-datepicker #dp2></mat-datepicker>
+
+          </mat-form-field>
+        </div>
+      </div>
+</div>
+
+<div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Sort Name</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="sort_name" />
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Date Of First Issue</p>
+
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="dp3" (click)="dp3.open()"
+              formControlName="date_of_first_issue" [max]="maxDate" [min]="minDate"/>
+
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3></mat-datepicker>
+
+          </mat-form-field>
+        </div>
+      </div>
+</div>
+
+<div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Main Certificate ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="main_certificate_id" />
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Owner Business Relation ID</p>
+
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="owner_business_relation_id" />
+            </mat-form-field>
+        </div>
+      </div>
+</div>
+
+<div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Publishing Enabled</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="publishing_enable" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Is Excerpt </p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="is_excerpt" />
+            </mat-form-field>
+        </div>
+    </div><div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Is Main Certificate</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="is_main_certificate" />
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Status ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="status_id" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>PDF Download </p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="pdf_download" />
+            </mat-form-field>
+        </div>
+    </div><div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>IATF Number</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="iaif_number" />
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Unit ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="unit_id" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Accreditation ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="accredition_id" />
+            </mat-form-field>
+        </div>
+    </div><div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Registration ID</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="registration_id" />
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+        <div class="form-group">
+            <p>Data Varified</p>
+            <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="date_varified" />
+            </mat-form-field>
+        </div>
+    </div>
+    
+</div>
+
+            </div>
+
+            <div class="upload-btn">
+                <!-- <button class="cancel-btn" (click)="reject()">
+                    Convert to Lead Lost
+                  </button> -->
+                <button *ngIf="leadUpdate==='VerifyDQSData'" class="iploadBtn" (click)="submitForm()">Save</button>
+                <button *ngIf="leadUpdate==='updateVerifyDQSData'" class="iploadBtn" (click)="updateForm()">Update Save</button>
+      
+              </div>
+        </form>
+    </mat-card>
+</section>

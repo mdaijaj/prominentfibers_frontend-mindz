@@ -1,0 +1,48 @@
+<div class="section"> 
+    <div class="main-form">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- <button class="example-form-field2 mx-3" mat-raised-button color="primary">
+                    Self
+                  </button> -->
+              </div>
+
+          <div class="col-md-5">
+            <h3 style="text-align: center;">Employee Attendence</h3>
+            <mat-form-field appearance="outline" class="example-form-field">
+              <mat-label>Select Employee</mat-label>
+              <mat-select (selectionChange) ="getCalenderById($event.value)" >
+                <input class="searchBox" [(ngModel)]="searchVal" type="text" placeholder="Search Employee">
+                <mat-option *ngFor="let empList of EmpListData | employeefilter:searchVal" [value]="empList.employee_id">{{empList.first_name}} {{empList?.last_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4" align="end">
+            <button mat-raised-button class="mr-2"
+            color="primary" routerLink="../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+          </div>
+        </div>
+    </div>
+    </div>
+
+<div [ngSwitch]="view" class="section">
+  <div class="row mb-2">
+    <div align="end">
+      <button mat-raised-button color="primary" class="exslBtn" (click)="onBtnExportDataAsExcel()" *ngIf="assignAction?.Read"><mat-icon>filter_list</mat-icon>Export All <img src="assets/icons/exc3.png" class="btnImg" alt=""></button>
+    </div>
+</div>
+    
+  <div class="row">
+    <div class='demo-app'>
+        <div class='demo-app-main'>
+          <full-calendar #calendar [options]='calendarOptions' [events]="eventsPromise">
+            <ng-template #eventContent let-arg>
+              <b>{{ arg.timeText }}</b>
+              <i>{{ arg.event.title }}</i>
+            </ng-template>
+          </full-calendar>
+        </div>
+      </div>
+</div>
+</div>

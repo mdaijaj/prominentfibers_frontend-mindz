@@ -1,0 +1,292 @@
+.main {
+
+    // width: 1071.4px;
+
+    .employee{
+        color: #8B817D;
+        font-weight: 400;
+        font-size: 16px;
+    }
+    .main-table{
+        
+         border: 1px solid rgb(168, 168, 168);
+          border-radius: 4px;
+          table {
+            width: 100%;
+            padding: 32px;
+
+            th {
+                font-weight: 900;
+                font-size: 11px;
+                border-bottom: 1px solid #dadada;
+                background-color: rgb(119, 119, 119);
+                color: #fff;
+                font-weight: 400;
+            }
+            td {
+                font-weight: 900;
+                font-size: 14px;
+                border: 1px solid #dadada;
+                font-weight: 400;
+                font-size: 10px;
+                a{
+                    margin: 0 8px 0 0;
+                    color: #8B817D;
+                    cursor: pointer;
+                }
+            }
+            
+    
+        }
+        .add-leave{
+            background: #8B817D;
+            color: #fff;
+            h3{
+                padding: 8px 12px;
+                font-weight: 300;
+            }
+        }
+        .paddin-box{
+            padding: 16px 32px 32px 32px;
+        }
+    }
+    
+
+
+    .apply-btn {
+        display: flex;
+        justify-content: space-between;
+
+        a {
+            text-decoration: none;
+            background: #8B817D;
+            color: #fff;
+            margin: 8px 0;
+            padding: 4px 16px;
+            border-radius: 4px;
+            font-weight: 300;
+            font-size: 12px;
+        }
+
+        mat-icon {
+            margin: 0;
+        }
+
+    }
+    .serch-pegination{
+        display: flex;
+        width: 32%;
+        margin: 0 4%;
+        float: right;
+        justify-content: space-between;
+        .pegination{
+            width: 40%;
+        }
+    }
+
+}
+:host::ng-deep.mat-mdc-paginator-container {
+    display: -webkit-inline-box;
+}
+:host::ng-deep.mat-sort-header-content {
+    text-align: initial;
+}
+:host::ng-deep.mdc-data-table__cell, .mdc-data-table__header-cell {
+    padding: 0 10px 0 10px;
+}
+.job-nav {
+    padding: 4% 2%;
+}
+button.mx-3.mdc-button.mdc-button--raised.mat-mdc-raised-button.mat-primary.mat-mdc-button-base {
+    float: right;
+    margin: 0% 5% 4%;
+    font-size: 11px;
+}
+button.iploadBtn {
+    float: right;
+    margin: 2% 5%;
+    color: #fff;
+    background: #212a5e;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+button.iploadBtnss{
+    float: right;
+    margin: 2% 0%;
+    color: #fff;
+    background: #212a5e;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+:host::ng-deep.mat-mdc-text-field-wrapper {
+    width: 100%;
+    // box-shadow: 1px 1px 4px 1px grey;
+    border-radius: 5px;
+}
+.mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+    /* font-size: 16px; */
+    display: none !important;
+}
+
+form.radio-check.ng-untouched.ng-pristine.ng-valid {
+    margin: 2%;
+}
+input.drop-style {
+    width: 100%;
+    height: 42px;
+    border-radius: 4px;
+    border: 1px solid gray;
+}
+mat-icon.drop-icon {
+    float: right;
+    position: absolute;
+    margin: 9px -30px;
+    color: gray;
+    z-index: 1;
+}
+.form_basic {
+    padding: 20px;
+}
+.updatetitle{
+    text-align: center;
+    color: #8B817D;
+    font-size: 18px;
+    font-weight: 450;
+}
+//upload certificate css
+
+.certificate_data{
+    width: 100%;
+    /* padding: 12px 0px; */
+    // margin: 35px 5px;
+}
+.header_cert{
+    width: 100%;
+    position: absolute;
+    font-size: 48px;
+    font-weight: 500;
+    padding: 28px 0px;
+}
+.logo_certificate img{
+    width: 49%;
+}
+.sub_head_cert .company_name{
+    font-size: 19px;
+    font-weight: 500;
+}
+.customer_program span{
+    padding: 55px 10px;
+}
+.esd_head p{
+    width: 100%;
+    font-size: 19px;
+    font-weight: 500;
+    padding: 28px 0px;
+}
+.row .side_design{
+    background-color: #8B817D;
+}
+.side_design .logo1_certificate{
+    width: 100%;
+    position: relative;
+}
+.side_design .logo2_certificate{
+    width: 100%;
+    position: relative;
+}
+
+.side_design .logo1_certificate img{
+    width: 100%;
+   
+}
+.side_design .logo2_certificate img{
+    width: 100%;
+   
+}
+.row .main_design{
+    padding: 30px 25px;
+}
+.pdf-content {
+    position: fixed;
+}
+.table thead tr th {
+    font-weight: 400;
+    font-size: 14px;
+    background-color: #8b8b8b;
+    color: #fff;
+}
+.upload_color{
+    background-color: #8b8b8b;
+    color: #fff;
+}
+.doc-body.ng-star-inserted {
+    padding: 0 2.4% 2.4%;
+}
+.col-md-10.sideBar {
+    background: #e5edef
+}
+.empty-tab {
+    width: 100%;
+    text-align: center;
+    background: aliceblue;
+    font-size: 20px;
+    padding: 10%;
+    font-weight: 600;
+    letter-spacing: 2px;
+   
+    word-spacing: 4px;
+}
+.readonly-wrapper {
+    pointer-events: none;
+}
+.offering{
+    span{
+        background: #249218;
+        color: #fff;
+        padding: 8px 32px;
+        cursor: pointer;
+        border-radius: 16px;
+    }
+    
+}
+
+.verify {
+    color: #fff !important;
+    width: 13%;
+    height: 35px;
+    border-radius: 5px;
+    font-size: 10px;
+    position: relative;
+    border: none;
+    margin-top: 2px !important;
+    letter-spacing: 0.2px !important;
+  }
+.cancel-offering{
+    span{
+        background: #ce170a;
+        color: #fff;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 16px;
+    }
+}
+
+.msater-nav {
+    a {
+        margin: 0 24px 0 0;
+    }
+    :nth-child(1) {
+        color: black;
+      }
+      :nth-child(2) {
+        color: black;
+      }
+    :nth-child(3) {
+        color: #0d6efd;
+      }
+    mat-icon {
+        position: absolute;
+        margin-top: -4px;
+        margin-left: 1px !important;
+    }
+}

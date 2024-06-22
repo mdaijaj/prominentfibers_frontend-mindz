@@ -1,0 +1,75 @@
+<!-- <div class="row">
+  <div class="service-box">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/add-employee.jpg" routerLink="add-employee" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Add Employee In Payroll</p>
+    </div>
+  </div>
+
+  <div class="service-box">
+    <div class="service-img" routerLink='Payroll-component'>
+      <img src="assets//icons/icon_DQS/payrol.webp" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Payroll Component</p>
+    </div>
+  </div>
+
+  <div class="service-box">
+    <div class="service-img" routerLink='employee-salary'>
+      <img src="assets//icons/icon_DQS/emp-salary.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Employee Salary</p>
+    </div>
+  </div>
+
+  <div class="service-box">
+    <div class="service-img" routerLink='salary-process'>
+      <img src="assets//icons/icon_DQS/salary_emp.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Salary Process</p>
+    </div>
+  </div>
+
+  <div class="service-box">
+    <div class="service-img" routerLink='advance-payment'>
+      <img src="assets//icons/icon_DQS/cashadvances.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Advance Payment</p>
+    </div>
+  </div>
+
+  <div class="service-box">
+    <div class="service-img" routerLink='bonus'>
+      <img src="assets//icons/icon_DQS/bonus.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Bonus</p>
+    </div>
+  </div>
+  <div class="service-box">
+    <div class="service-img" routerLink='itr-deduction'>
+      <img src="assets//icons/icon_DQS/itr1.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>ITR</p>
+    </div>
+  </div>
+</div> -->
+<div class="row">
+  <ng-container *ngFor="let module of subModules">
+    <div class="service-box">
+      <div class="service-img" [routerLink]="module.menuLink"  (click)="goInToPage(module)">
+        <img [src]="module.menuIcon" alt="" />
+      </div>
+      <div class="card-title">
+        <p>{{module.menuName}}</p>
+      </div>
+    </div>
+  </ng-container>
+</div>

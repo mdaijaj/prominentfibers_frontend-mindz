@@ -1,0 +1,288 @@
+<div class="heading_top">
+  <div class="page-title">
+    <h1>Dashboard</h1>
+
+  </div>
+  <div class="add_button">
+
+  </div>
+</div>
+
+
+<div class="top_data">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="contain_panel">
+        <div class="panel_text">
+          <div class="panel_H">
+            <h1>TODAY'S CHECK-INS</h1>
+          </div>
+
+          <div class="detail_percentage">
+            <h2>10 %</h2>
+
+            <figure><img src="../../../assets/dash-1.png"></figure>
+
+          </div>
+
+        </div>
+        <div class="for_next next_blue">
+          <p class="pull-left">For Next 7 Days</p>
+          <p class="percent_text">10</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="contain_panel">
+        <div class="panel_text">
+          <div class="panel_H">
+            <h1>OCCUPANCY SHARE</h1>
+          </div>
+
+          <div class="detail_percentage">
+            <h2>30 %</h2>
+
+            <figure><img src="../../../assets/dash-2.png"></figure>
+          </div>
+
+        </div>
+        <div class="for_next next_orange">
+          <p class="pull-left">For Next 7 Days</p>
+          <p class="percent_text">10</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="contain_panel">
+        <div class="panel_text">
+          <div class="panel_H">
+            <h1>TODAY’S REVENUE</h1>
+          </div>
+
+          <div class="detail_percentage">
+            <h2>10 %</h2>
+
+            <figure><img src="../../../assets/dash-3.png"></figure>
+          </div>
+
+        </div>
+        <div class="for_next next_red">
+          <p class="pull-left">For Next 7 Days</p>
+          <p class="percent_text">10</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="contain_panel">
+        <div class="panel_text">
+          <div class="panel_H">
+            <h1>TODAY'S AVERAGE RATE</h1>
+          </div>
+
+          <div class="detail_percentage">
+            <h2>20 %</h2>
+
+            <figure><img src="../../../assets/dash-4.png"></figure>
+          </div>
+
+        </div>
+        <div class="for_next next_green">
+          <p class="pull-left">For Next 7 Days</p>
+          <p class="percent_text">10</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Chart start -->
+<div class="graph_data">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header heading">
+          <h5 class="margin_0"> Sales And Profit History</h5>
+        </div>
+        <div class="card-body">
+          <canvas #barChart></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header heading">
+          <h5 class="margin_0"> Monthly Growth Rate</h5>
+        </div>
+        <div class="card-body">
+          <canvas #pieChart></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Chart end -->
+
+
+<!-- <div class="graph_data">
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="graph_data_inner">
+        <div class="graph_head">
+                Garph 01
+        </div>
+        <div class="graph_data_all">
+hello
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6">
+
+      <div class="graph_data_inner">
+        <div class="graph_head">
+                Garph 02
+        </div>
+        <div class="graph_data_all">
+hello
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="graph_data_inner">
+        <div class="graph_head">
+                Garph 03
+        </div>
+        <div class="graph_data_all">
+hello
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6">
+
+      <div class="graph_data_inner">
+        <div class="graph_head">
+                Garph 04
+        </div>
+        <div class="graph_data_all">
+hello
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div> -->
+
+
+<!-- Pending task start -->
+<div class="graph_data">
+  <!-- <div class="ag_grid">
+    <div class="ag-border">
+        <div class="ag_grid1">
+            <p class="header-head">My Pending Task</p>
+            <ag-grid-angular [rowClass]="rowClass" class="ag-theme-alpine" style="width:100%; height:420px;"
+                [rowData]="rowData" [columnDefs]="columnDefs" [pagination]=true [paginationPageSize]=10
+                (gridReady)="onGridReady($event)">
+            </ag-grid-angular>
+        </div>
+    </div>
+</div> -->
+  <!-- (cellClicked)='onCellClicked($event)'  -->
+  <!-- ************************************************************************** -->
+  <div class="section">
+    <div class="row">
+      <!--Content And Learning start-->
+      <!-- <div class="col-sm-6 col-md-6 col-lg-6 col-12 course">
+      <div class="loginpage">
+        <mat-card>
+      
+          <div>
+            <app-advance-planning></app-advance-planning>
+
+          </div>
+        </mat-card>
+      </div>
+    </div> -->
+      <div class="col-sm-6 col-md-6 col-lg-6 col-12 course">
+        <div class="loginpage">
+          <mat-card>
+
+            <div>
+              <app-hr-management></app-hr-management>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6 col-12 course">
+        <div class="loginpage">
+          <mat-card>
+
+            <div>
+              <app-procurement-budget-approval></app-procurement-budget-approval>
+
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6 col-12 course">
+        <div class="loginpage">
+          <mat-card>
+            <!-- <div class="row form_head">
+            <h3>Content And Learning</h3>
+          </div> -->
+            <div>
+              <app-lms></app-lms>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6 col-12 course">
+        <div class="loginpage">
+          <mat-card>
+            <!-- <div class="row form_head">
+            <h3>Content And Learning</h3>
+          </div> -->
+            <div>
+              <app-admin></app-admin>
+
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6 col-12 course">
+        <div class="loginpage">
+          <mat-card>
+            <!-- <div class="row form_head">
+            <h3>Content And Learning</h3>
+          </div> -->
+            <div>
+              <app-it-ticketing></app-it-ticketing>
+
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Pending task end -->

@@ -1,0 +1,17 @@
+<div class="section">
+    <section class="tab-bar" >
+        <div fxflex="100%">
+          <div class="row">
+            <div class="tab_menu">
+              <div class="tab-item">
+                <button class="main-button" color="primary"  [routerLink]="['all-pr-list']" routerLinkActive="active">All PR</button>
+                <button class="main-button" color="primary"  [routerLink]="['to-be-approved']" routerLinkActive="active">To Be Approved</button>
+                <button class="main-button" color="primary"  [routerLink]="['approved-pr']" routerLinkActive="active">Approved PR</button>
+                <button class="main-button" color="primary"  [routerLink]="['rejected-pr']" routerLinkActive="active">Rejected PR</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <router-outlet></router-outlet>

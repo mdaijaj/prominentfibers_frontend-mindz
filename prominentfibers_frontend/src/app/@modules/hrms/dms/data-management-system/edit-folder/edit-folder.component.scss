@@ -1,0 +1,352 @@
+mat-card{
+    margin-top: 60px;
+}
+.employee_2 {
+    font-size: 16px;
+    color: #8B817D;
+}
+.btn_add {
+    color: #fff;
+    background-color: #8B817D;
+    font-size: 14px;
+    border-color: #8B817D;
+    border-radius: 4px;
+    border: 1px solid #8B817D;
+    padding: 2px 12px;
+}
+.employ_sube{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 4px 0;
+    .pag_size{
+        color: #8B817D;
+        margin-right: 12px;
+        font-size: 12px;
+    }
+}
+.example-header select {
+    height: 32px;
+    color: #9ea0a5;
+    border: 1px solid gray;
+}
+.example-header span {
+    padding: 0px 0px 0px 10px;
+    color: #9d9ea0;
+}
+.employee_2 label {
+    padding: 0px 12px;
+}
+.form-new-name {
+    position: absolute;
+    margin: 0% 4% 0;
+    background: #0b3a87;
+    color: #fff;
+    width: 11%;
+    font-size: 11px;
+    padding-top: 11px;
+    height: 40px;
+    text-align: center;
+    border-radius: 5px;
+}
+.form-new {
+    display: flex;
+    width: 45%;
+    float: right;
+}
+:host::ng-deep.mat-mdc-text-field-wrapper {
+    width: 74%;
+    height: 40px !important;
+    box-shadow: 1px 1px 4px 1px grey;
+    border-radius: 5px;
+}
+.card-info {
+    display: flow-root;
+  
+  
+}
+#card-info{
+    background-color: rgb(231, 231, 231);
+    margin: 10px;
+}
+.hr-profile {
+    width: 25%;
+    margin: 5% 36%;
+}
+.cardHr {
+    background: #8080802e;
+    margin: 30px 15px;
+}
+.round-info {
+    border: 1px solid rgb(199, 195, 195);
+    margin: 3px;
+    text-align: center;
+    margin-top: 8px;
+    padding: 5px 20px;
+}
+
+.block{
+        display: flex;
+    }
+
+
+.card{
+ 
+    padding: 15px;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+th{
+    font-weight: unset;
+}
+.field{
+
+    border: 1px solid rgb(199, 195, 195);
+    margin: 3px;
+    text-align: center;
+
+}
+.btn_add {  
+    color: #fff;
+    background-color: #8B817D;
+    font-size: 14px;
+    border-color: #8B817D;
+    border-radius: 4px;
+    border: 1px solid #8B817D;
+    padding: 5px 40px;
+  }
+
+  
+  .field{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .employee_2 {
+    font-size: 16px;
+    color: #8B817D;
+}
+
+.employ_sube {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 4px 0;
+
+}
+.name {
+    background: #8B817D;
+    color: #fff;
+    text-align: center;
+    padding: 8px 5px;
+    border-radius: 4px;
+    height: 38px;
+ 
+}
+
+
+.service-container {
+    margin: 0 auto;
+    // background: beige;
+    margin: 16px;
+  
+    .bottam_btn{
+        display: flex;
+        text-align: center;
+        border-color: gray;
+    }
+
+    .name1 {
+        background: #2c803e;
+        color: #fff;
+        text-align: center;
+        padding: 8px 5px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .name2 {
+        background: #d12222;
+        color: #fff;
+        text-align: center;
+        padding: 8px 5px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .service-box {
+
+        align-items: center;
+        padding: 16px;
+    }
+}
+
+.row {
+    padding: 10px;
+
+}
+
+.center {
+    margin: 10px;
+}
+
+.img {
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+
+    img {
+        width: 100%;
+    }
+}
+
+.verify {
+    background: green !important;
+    color: #fff !important;
+    width: 45%;
+    font-size: 10px;
+}
+
+.not-verify {
+    color: #fff !important;
+    background: #bd1818 !important;
+    width: 45%;
+    margin-left: 10px;
+    font-size: 10px;
+}
+
+input[type="file"] {
+    border: 1px solid #212a5e87;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    color: rgba(89, 78, 95, 0.6);
+    width: 100%;
+}
+
+button.iploadBtn {
+    float: right;
+    margin: 2% 5%;
+    color: #fff;
+    background: #212a5e;
+    border-radius: 5px;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.custom-file-input::before {
+    content: "Upload";
+    display: inline-block;
+    background: #ddd;
+    border-radius: 3px;
+    // padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 9pt;
+}
+
+.custom-file-input:hover::before {
+    border-color: black;
+}
+
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.errorMsg {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+}
+
+i.fa.fa-plus-circle {
+    font-size: 22px;
+    margin: 10px -10px;
+}
+
+.verify:disabled {
+    background: gray !important;
+}
+
+.not-verify:disabled {
+    background: gray !important;
+}
+
+.bottam {
+    display: flex;
+    margin: 0% auto;
+}
+
+.btn {
+    background-color: #8B817D;
+    color: #ddd;
+    padding: 3px;
+}
+
+.btns {
+    background-color: #8B817D;
+    border-radius: 3px;
+    color: #ddd;
+    justify-content: center;
+    margin: 0px 10px;
+    width: 220px;
+    height: 40px;
+}
+
+.formPage {
+    margin: 5% 20%;
+}
+
+.inner{
+  background-color: gray;
+  margin: 0px 25%;
+}
+
+.formPage input {
+    height: 40px;
+    width: 220px;
+    margin: 0px 10px;
+}
+
+    .centers{
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+  
+      }
+      #saveBtn{
+        background-color: rgb(59, 145, 59);
+      }
+      #cancelBtn{
+        background-color: rgb(207, 46, 46);
+      }
+      .form-group{
+        display: flex;
+      }
+      #save{
+        background-color: #34bb51;
+      }
+      .content{
+        background-color: rgb(248, 246, 246);
+        justify-content: center;
+        text-align: center;
+      }
+      .files{
+        color: rgb(47, 4, 235);
+      }
+      .message{
+        color: red;
+      }
+      input.ng-invalid.ng-touched{
+        border-color: rgb(241, 133, 133);
+        overflow: auto;
+      }
+

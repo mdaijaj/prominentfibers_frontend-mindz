@@ -1,0 +1,276 @@
+<mat-card class="m-card blank_css">
+    <div class="section">
+        <div class="row head">
+            <!-- <p>HRMS</p> -->
+        </div>
+       
+        <div class="employ_sube">
+            <div class="employee_top" matTooltip="Back" (click)="backClick()"><p>Expenses Management</p>
+                
+            </div>
+            
+            <div class="employee_2" align="end">
+              <div class="form-group">
+                <!-- <label>Search: </label> -->
+                <input type="text" placeholder="Search" matInput class="form-control"  [(ngModel)]="searchExpensed"/>
+              </div>
+               
+              </div>
+        </div>
+    
+        
+        <!-- <div class="apply-btn">
+            <button (click)="openCreate()" type="button" class="btn_add">Create Open House Training</button>
+        </div> -->
+        <div class="employ_sube">
+            <div class="apply-btn">
+                <button (click)="openCreate()" type="button" class="btn_add">Create Expense</button>
+              <button style="margin: 0 10px;" (click)="openApprovelist()" type="button" class="btn_add">Approved List</button>
+              <button style="margin: 0 10px;" (click)="openDraftlist()" type="button" class="btn_add">Expense Draft List</button>
+
+            </div>
+           
+            <div class="updatetitle"><u>My Expenses</u></div>
+            <div class="profile-count">
+                <p style="margin: 20px 5px;">Total Requests &nbsp;<span class="text" style="padding:5px 15px;">{{getExpenseData?.length>0?getExpenseData?.length:0}}</span></p>
+              </div>
+        </div>
+        <br>
+        <div class="main_body">
+<div class="row" [formGroup]="myExpenceForm">
+  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+    <div class="form-group">
+      <p>From Date</p>
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          [matDatepicker]="dp2"
+          (click)="dp2.open()"
+          formControlName="start_date"
+         type="text"
+          (dateChange)="date1($event)"
+          (dateInput)="fromDateChange('input', $event)"
+          [min]="minFromDate" [max]="maxFromDate"
+        />
+
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dp2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dp2></mat-datepicker>
+
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+    <div class="form-group">
+      <p>To Date</p>
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          [matDatepicker]="dp3"
+          (click)="dp3.open()"
+          formControlName="end_date"
+          [min]="minToDate" [max]="maxToDate"
+         type="text"
+          (dateChange)="date2($event)"
+          (dateInput)="toDateChange('input', $event)"
+        />
+
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dp3"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dp3></mat-datepicker>
+
+      </mat-form-field>
+    </div>
+    
+  </div>
+  <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12" style="margin: 40px 0 0 0;">
+    <div class="apply-btn">
+      <a (click)="searchticket()" >Search</a>
+    </div>
+</div>
+
+  <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+    <div class="form-group">
+      <p>Expense Type</p>
+      <mat-form-field appearance="outline" readonly >
+        <!-- <input matInput type="text" formControlName="expenseforCopy"/> -->
+        <mat-select formControlName="select_type" (selectionChange)="changeType($event)">
+          <!-- <mat-option >item.expenseforCopy_name}</mat-option> -->
+          <mat-option value="Billable">Billable</mat-option>
+          <mat-option value="Non-Billable">Non-Billable</mat-option>
+          <!-- <mat-option value="D">D</mat-option> -->
+
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+            <div class="row">
+              <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngFor="let item of getExpenseData | myExpence:searchExpensed">
+                <div class="box expense-card">
+                  <div class="border_in">
+
+                    <div class="row">
+                      <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding: 0 25px 0 0;">
+                        <mat-icon class="edit_request" (click)="editExpense(item.myexpense_id,item)">create</mat-icon>
+                        <mat-icon class="edit_request" (click)="viewClick(item.myexpense_id)">visibility</mat-icon>
+                      </div>
+                      
+                    </div>
+                    
+                    <div class="row expense_data">
+                      <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                        <p class="request_head" >ERN:{{item.expense_report_no}}</p>
+                      </div>
+                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <h5 class="head_request">{{item.expense_type}}</h5>
+                      </div>
+                      <div class="col-xxl-5 col-lg-5 col-md-5 col-sm-5 col-12">
+                        <h6 class="date_request">{{item.createdAt|date}}</h6>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                          <h6 class="request_desc">
+                            {{ (item.expense_desc?.length>30)? (item.expense_desc | slice:0:30)+'...':(item.expense_desc) }}
+                          </h6>
+                        </div>
+                      </div>
+                     <div class="row">
+                      <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <h6 class="request_price">{{item.expense_advance}}</h6>
+                      </div>
+                      <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="padding: 0 35px 0 0;">
+                        <span class="expense_status">{{item.status}}</span>
+                      </div>
+                 
+                     
+                    </div>
+                  </div>
+                  <div class="scoop scoop1"></div>
+                  <div class="scoop scoop2"></div>
+                  <div class="scoop scoop3"></div>
+                  <div class="scoop scoop4"></div>
+                </div>
+              </div>
+            </div>
+            <mat-card *ngIf="openEdit" >
+              <div class="row form_head mt-5" >
+                <h3>My Expense Update</h3>
+              </div>
+              
+              <div class="row">
+                <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="expense-card">
+                        <div class="row">
+                            <div class="col-xxl-11 col-lg-11 col-md-11 col-sm-11 col-12"></div>
+                            <div class="col-xxl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                                <!-- <mat-icon class="edit_request">create</mat-icon>
+                                <mat-icon class="edit_request">visibility</mat-icon> -->
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form_basic">
+                            <form class="form_set" [formGroup]="leadForm">
+                                <div class="row">
+                                    <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <div class="form-group">
+                                          <p>Expense Report No:</p>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                          <mat-form-field appearance="outline" readonly>
+                                            <input matInput type="text" formControlName="expense_report_no" readonly/>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <div class="form-group">
+                                          <p>Expense Type:</p>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                          <mat-form-field appearance="outline">
+                                            <input matInput type="text" formControlName="expense_type" readonly/>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <div class="form-group">
+                                          <p>Expense Description:</p>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-10 col-lg-10 col-md-10 col-sm-10 col-12">
+                                        <div class="form-group">
+                                          <mat-form-field appearance="outline">
+                                            <input matInput type="text" formControlName="expense_desc"/>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <div class="form-group">
+                                          <p>Expense Amount:</p>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                          <mat-form-field appearance="outline" readonly>
+                                            <input matInput type="text" formControlName="expense_advance"/>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <div class="form-group">
+                                          <p>Expense Status:</p>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-group">
+                                          <mat-form-field appearance="outline" >
+                                            <input matInput type="text" formControlName="expense_status" readonly/>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                                        <div class="form-group">
+                                          <p>Expense Date</p>
+                                        </div>
+                                      </div>
+                                      <div class="col-xxl-10 col-lg-10 col-md-10 col-sm-10 col-12">
+                                        <div class="form-group">
+                                          <mat-form-field appearance="outline">
+                                            <input matInput type="text" formControlName="exp_start_date" readonly/>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="upload-btn">
+                                        <button class="cancel-btn" (click)="cancel()">
+                                          Cancel
+                                        </button>
+                                        <button class="favorite styled"  (click)="submitForm($event)">Update</button>
+                                       </div>
+                                </div>
+                               
+                            </form>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+            </mat-card>
+            <!-- <div class="upload-btn">
+              <button class="cancel-btn">
+                Cancel
+              </button>
+              <button class="favorite styled" (click)="submitForm($event)">Submit</button>
+            </div> -->
+        </div>
+    </div>
+</mat-card>

@@ -1,0 +1,401 @@
+<div class="section">
+  <div>
+    <mat-card>
+      <div class="row form_head">
+        <h3>BASIC DETAILS</h3>
+      </div>
+      <div class="form_basic">
+        <form class="form_set" [formGroup]="basicForm">
+          <div class="row">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Type of vendor</mat-label>
+                  <mat-select formControlName="type_of_vendor"  >
+                    <mat-option *ngFor="let vendor of vendorTypeList" [value]="vendor.type_of_vendor_name" >{{vendor.type_of_vendor_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Sub type</mat-label>
+                  <mat-select formControlName="sub_type">
+                    <mat-option *ngFor="let subtype of subTypeList" [value]="subtype.sub_type_name">{{subtype.sub_type_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Vendor Name </mat-label>
+                  <input matInput type="text" formControlName="vendor_name" [readonly]="true">
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>VENDOR CODE</mat-label>
+                  <input matInput type="text" formControlName="vendor_code" />
+                </mat-form-field>
+              </div>
+            </div> -->
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>ADDRESS </mat-label>
+                  <input matInput type="text" formControlName="address" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Country</mat-label>
+                  <mat-select
+                    (selectionChange)="countryChange($event)"
+                    formControlName="country_id"
+                  >
+                    <mat-option
+                      *ngFor="let country of countryList"
+                      [value]="country.countryss_id"
+                      >{{ country.countryss_name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>State</mat-label>
+                  <mat-select
+                    (selectionChange)="stateChange($event)"
+                    formControlName="state_id"
+                  >
+                    <mat-option
+                      *ngFor="let state of stateList"
+                      [value]="state.states_id"
+                      >{{ state.states_name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>DISTRICT</mat-label>
+                  <input matInput formControlName="district" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>City</mat-label>
+                  <mat-select formControlName="city_id" (selectionChange)="cityChange($event)">
+                    <mat-option
+                      *ngFor="let city of cityList"
+                      [value]="city.city_id"
+                      >{{ city.city_name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>PIN</mat-label>
+                  <input matInput type="text" formControlName="pin" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>CONTACT NO</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="contact_number"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>ALTERNATIVE NO.</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="alternative_number"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>EMAIL</mat-label>
+                  <input matInput type="text" formControlName="email" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>WEB</mat-label>
+                  <input matInput type="text" formControlName="web" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fax</mat-label>
+                  <input matInput type="text" formControlName="fax"/>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Region </mat-label>
+                  <mat-select formControlName="region">
+                    <mat-option
+                      *ngFor="let region of regionlist"
+                      [value]="region.new_region_name"
+                      >{{ region.new_region_name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Contact Person</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="contact_person"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>State Code </mat-label>
+                  <input matInput type="text" formControlName="state_code"/>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div
+                class="form-group"
+                style="display: flex; flex-flow: row; align-items: center"
+              >
+                <div class="main-heading">Category:</div>
+                <mat-radio-group
+                  name="category"
+                  color="primary"
+                  formControlName="category"
+                  (change)="categoryValue($event)"
+                >
+                  <mat-radio-button
+                    style="padding-left: 5px"
+                    value="International"
+                    >International</mat-radio-button
+                  >
+                  <mat-radio-button style="padding-left: 5px" value="Domestic"
+                  [checked]="true"
+                  >
+                    Domestic</mat-radio-button
+                  >
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div *ngIf="!cat" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div
+                class="form-group"
+                style="display: flex; flex-flow: row; align-items: center"
+              >
+                <div class="main-heading">Under GST:</div>
+                <mat-radio-group
+                  name="Duration"
+                  color="primary"
+                  formControlName="under_gst"
+                  (change)="gstGetValue($event)"
+                >
+                  <mat-radio-button
+                    style="padding-left: 5px"
+                    value="yes"
+                    >Yes</mat-radio-button
+                  >
+                  <mat-radio-button style="padding-left: 5px" value="no"
+                    >No</mat-radio-button
+                  >
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="cat">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Currency</mat-label>
+                  <input matInput type="text" formControlName="currency" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Foreign Uniqe ID</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="foreign_unique_Id"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Remark</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="remarks"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="gst && !cat">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Department</mat-label>
+                  <input matInput type="text" formControlName="department" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>PAN</mat-label>
+                  <input matInput type="text" formControlName="pan" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Provisional ID</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="provisional_id"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>GST IN</mat-label>
+                  <input matInput type="text" formControlName="gst_in"/>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Description Of Goods</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="description_of_goods"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>MSME</mat-label>
+                  <input matInput type="text" formControlName="msme" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Currency</mat-label>
+                  <input matInput type="text" formControlName="currency" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>T&C</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="term_and_conditions"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <button *ngIf="!vendor_id"
+              mat-raised-button
+              color="primary"
+              class="mx-3"
+              (click)="onSubmit()"
+            >
+              Save & Next
+            </button>
+            <button *ngIf="vendor_id && !this.status"
+              mat-raised-button
+              color="primary"
+              class="mx-3"
+              (click)="onUpdate()"
+            >
+              Update & Next
+            </button>
+            <button *ngIf="this.status"
+            mat-raised-button
+            color="primary"
+            class="mx-3"
+            (click)="accountApprove()"
+          >
+            Next
+          </button>
+            <button mat-raised-button color="warn" (click)="onCancel('/master/vendor/vendor-management/vendor-list')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </mat-card>
+  </div>
+</div>

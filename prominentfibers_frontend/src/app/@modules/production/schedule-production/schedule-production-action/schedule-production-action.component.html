@@ -1,0 +1,10 @@
+<div class="edd-del ">
+    <mat-icon matTooltip="Stop" (click)="stop($event)" *ngIf="currentStatus.data.status!=='HOLD'">stop</mat-icon>
+    <mat-icon matTooltip="Pause" (click)="pause($event)" *ngIf="currentStatus.data.status!=='In-Progress'">pause</mat-icon>
+    <mat-icon matTooltip="Start" (click)="start($event)" *ngIf="currentStatus.data.status!=='START'">play_arrow</mat-icon>
+</div>
+ 
+
+
+
+

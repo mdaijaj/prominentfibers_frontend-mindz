@@ -1,0 +1,50 @@
+<div class="row">
+  
+    <ng-container *ngFor="let module of subModules">
+      <div class="service-box">
+        <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+          <img [src]="module.menuIcon" alt="" />
+        </div>
+        <div class="card-title">
+          <p>{{module.menuName}}</p>
+        </div>
+      </div>
+    </ng-container>
+  
+    <div class="service-box" routerLink="block-auditor">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/banned.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Block Auditor</p>
+      </div>
+    </div>
+
+
+    <div class="service-box" routerLink="auditor-evalvator">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/illustrator.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Auditor Evalvator</p>
+      </div>
+    </div>
+
+    <div class="service-box" routerLink="rejected-audit-report">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/reject.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Rejected Audit Report</p>
+      </div>
+    </div>
+
+    <div class="service-box" routerLink="sales-request">
+      <div class="service-img" >
+        <img src="assets//icons/icon_DQS/reject.png" alt="" />
+      </div>
+      <div class="card-title">
+        <p>Sales Requesr List</p>
+      </div>
+    </div>
+</div>

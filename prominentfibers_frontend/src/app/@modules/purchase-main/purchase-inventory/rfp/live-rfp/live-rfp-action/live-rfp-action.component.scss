@@ -1,0 +1,23 @@
+.edd-del{
+    mat-icon{
+        cursor: pointer;
+        position: relative;
+        top: 8px;
+        color: #063178;
+    }:nth-child(2){
+        margin: 0 16px;
+    } 
+
+    .custom_button{
+    background-color: #0057d8;
+    text-decoration: none;
+    color: #fff;
+    padding: 0px 16px;
+    border-radius: 4px;
+    font-weight: 300;
+    font-size: 12px;
+    margin-bottom: 10px;
+    border: none;
+    bottom: 4px;
+    }
+}

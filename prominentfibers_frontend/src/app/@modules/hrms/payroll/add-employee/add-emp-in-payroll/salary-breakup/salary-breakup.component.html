@@ -1,0 +1,216 @@
+<mat-card>
+  <div class="form_head">
+    <h3>SALARY BREAKUP</h3>
+    <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+  </div>
+  <mat-card>
+    <div class="form_basic">
+      <form class="form_set">
+        <div class="mat-inner">
+          <div class="row">
+            <div class="col-lg-4">
+              <p class="head"><strong>Employee Id : </strong>{{employeeId}}</p>
+            </div>
+            <div class="col-lg-4">
+              <p class="head"><strong>Employee Name : </strong>{{employeeName}}</p>
+            </div>
+            <div class="col-lg-4">
+              <p class="head"><strong>Department : </strong>{{department}}</p>
+            </div>
+            <div class="col-lg-4">
+              <p class="head"><strong>Designation : </strong>{{designation}}</p>
+            </div>
+            <div class="col-lg-4">
+              <p class="head"><strong>Reporting Manager : </strong>{{reportingManager}}</p>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </mat-card>
+  <div class="form_basic">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form_set">
+      <div class="row">
+        <!-- <div class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+          <br>
+          <div class="font">Employee Name</div>
+          <div class="font">Designation</div>
+          <div class="font">Department</div>
+          <div class="font">Reporting Manager</div>
+        </div>
+        <div class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+          <br> -->
+          <!-- <div class="font">{{payrollData_emp}}</div> -->
+          <!-- <div class="font">Angular Developer</div>
+          <div class="font">Developer</div>
+          <div class="font">Krishna</div>
+        </div> -->
+        <div class="ag_grid">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>S No.</th>
+                <th>Component Code</th>
+                <th>Formula</th>
+                <th>Amount</th>
+                <!-- <th>Other Allowance</th>
+                <th>Leave Travel Allowance</th> -->
+                <!-- <th>Gross Earnings</th>
+                <th>PF</th>
+                <th>Gratuity</th>
+                <th>Variable CTC(Performance Incentive)</th> -->
+                <!-- <th>ManualCheck</th> -->
+              </tr>
+            </thead>
+            <tbody >
+              <tr>
+                <th>Basic</th>
+                <td><input type="text" formControlName="basic" placeholder="Component Amount" class="d"></td>
+                <td><input type="text" formControlName="hra" placeholder="Formula" class="d"></td>
+                <td><input type="text" formControlName="foodCoupons" placeholder="Amount" class="d"/></td>
+                <!-- <td><input type="text" formControlName="otherAllowance" /></td>
+                <td><input type="text" formControlName="leaveTravelAllowance" /></td> -->
+                <!-- <td><input type="text" formControlName="grossEarnings" /></td>
+                <td><input type="text" formControlName="pf" /></td>
+                <td><input type="text" formControlName="gratuity" /></td>
+                <td><input matInput type="text" formControlName="variable_ctc" /></td> -->
+                <!-- <td> <input type="checkbox" ></td> -->
+              </tr>
+              <tr>
+                <th>HRA</th>
+                <td><input type="text" formControlName="basic" placeholder="Component Amount" class="d"></td>
+                <td><input type="text" formControlName="hra" placeholder="Formula" class="d"></td>
+                <td><input type="text" formControlName="foodCoupons" placeholder="Amount" class="d"/></td>
+              </tr>
+              <tr>
+                <th>Food Coupons</th>
+                <td><input type="text" formControlName="basic" placeholder="Component Amount" class="d"></td>
+                <td><input type="text" formControlName="hra" placeholder="Formula" class="d"></td>
+                <td><input type="text" formControlName="foodCoupons" placeholder="Amount" class="d"/></td>
+              </tr>
+              <tr>
+                <th>Other Allowance</th>
+                <td><input type="text" formControlName="basic" placeholder="Component Amount" class="d"></td>
+                <td><input type="text" formControlName="hra" placeholder="Formula" class="d"></td>
+                <td><input type="text" formControlName="foodCoupons" placeholder="Amount" class="d"/></td>
+              </tr>
+              <tr>
+                <th>Leave Travel Allowance</th>
+                <td><input type="text" formControlName="basic" placeholder="Component Amount" class="d"></td>
+                <td><input type="text" formControlName="hra" placeholder="Formula" class="d"></td>
+                <td><input type="text" formControlName="foodCoupons" placeholder="Amount" class="d"/></td>
+              </tr>
+              <tr>
+                <th>Gross Earnings</th>
+                <td><input type="text" formControlName="basic" placeholder="Component Amount" class="d"></td>
+                <td><input type="text" formControlName="hra" placeholder="Formula" class="d"></td>
+                <td><input type="text" formControlName="foodCoupons" placeholder="Amount" class="d"/></td>
+              </tr>
+              <tr>
+                <th>PF</th>
+                <td><input type="text" formControlName="basic" placeholder="Component Amount" class="d"></td>
+                <td><input type="text" formControlName="hra" placeholder="Formula" class="d"></td>
+                <td><input type="text" formControlName="foodCoupons" placeholder="Amount" class="d"/></td>
+              </tr>
+              <tr>
+                <th>Gratuity</th>
+                <td><input type="text" formControlName="basic" placeholder="Component Amount" class="d"></td>
+                <td><input type="text" formControlName="hra" placeholder="Formula" class="d"></td>
+                <td><input type="text" formControlName="foodCoupons" placeholder="Amount" class="d"/></td>
+              </tr>
+              <tr>
+                <th>Variable CTC(Performance Incentive)</th>
+                <td><input type="text" formControlName="basic" placeholder="Component Amount" class="d"></td>
+                <td><input type="text" formControlName="hra" placeholder="Formula" class="d"></td>
+                <td><input type="text" formControlName="foodCoupons" placeholder="Amount" class="d"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Basic</mat-label>
+              <input matInput type="text" formControlName="basic" />
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>HRA</mat-label>
+              <input matInput type="text" formControlName="hra" />
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Food Coupons</mat-label>
+              <input matInput type="text" formControlName="foodCoupons" />
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Other Allowance</mat-label>
+              <input matInput type="text" formControlName="otherAllowance" />
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Leave Travel Allowance</mat-label>
+              <input matInput type="text" formControlName="leaveTravelAllowance" />
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Gross Earnings</mat-label>
+              <input matInput type="text" formControlName="grossEarnings" />
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>PF</mat-label>
+              <input matInput type="text" formControlName="pf" />
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Gratuity</mat-label>
+              <input matInput type="text" formControlName="gratuity" />
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Variable CTC(Performance Incentive)</mat-label>
+              <input matInput type="text" formControlName="variable_ctc" />
+            </mat-form-field>
+          </div>
+        </div> -->
+      </div>
+    
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+  </div>
+</mat-card>

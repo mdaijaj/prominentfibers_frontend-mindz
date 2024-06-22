@@ -1,0 +1,306 @@
+<div class="section">
+  <div>
+    <mat-card>
+      <div class="row form_head">
+        <h3>Courier Acceptance / Rejection</h3>
+      </div>
+      <div class="form_basic">
+        <form class="form_set" [formGroup]="create_inward_Form">
+          <div class="row">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Addressed to Whom</mat-label>
+                  <mat-select formControlName="whom" aria-readonly="true">
+                    <mat-option
+                      *ngFor="let emp of empdata"
+                      [value]="emp.employee_id"
+                      >{{ emp.fullName }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Department</mat-label>
+                  <input matInput type="text" formControlName="department" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Receiver Mail</mat-label>
+                  <input matInput type="text" formControlName="email" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Senders Name</mat-label>
+                  <input matInput type="text" formControlName="senders_name" />
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- </div> -->
+            <!-- <div class="row"> -->
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Senders Address</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="senders_address"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Courier Contains</mat-label>
+                  <mat-select formControlName="courier_contain">
+                    <mat-option *ngFor="let contains of containsData" [value]="contains.courier_contains_name"> {{contains.courier_contains_name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- </div> -->
+
+            <!-- <div class="row"> -->
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Courier Service Name</mat-label>
+                  <mat-select formControlName="courier_service_name">
+                    <mat-option *ngFor="let service of serviceData" [value]="service.courier_Service_name">{{service.courier_Service_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Consignment Number</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="consignment_number"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Received By</mat-label>
+                  <mat-select formControlName="received_By">
+                    <mat-option
+                      *ngFor="let emp of empdata"
+                      [value]="emp.fullName"
+                      >{{ emp.fullName }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Received Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="rd"
+                    (click)="rd.open()"
+                    formControlName="received_date"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="rd"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #rd></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Status</mat-label>
+                  <mat-select
+                    formControlName="inward_status"
+                    (selectionChange)="changeStatus($event)"
+                  >
+                    <mat-option [value]="st.name" *ngFor="let st of status">{{
+                      st.name
+                    }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- <div *ngIf="inward_id" class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Handover To Whom</mat-label>
+                      <input matInput type="text" formControlName="handover_to_whom" />
+                    </mat-form-field>
+                  </div>
+                </div> -->
+
+            <div
+              *ngIf="remaks"
+              class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+            >
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Accepted Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="ad"
+                    (click)="ad.open()"
+                    formControlName="accepted_date"
+                    [max]="maxDate"
+                    [min]="minDate"
+                    (dateChange)="fromDate($event)"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="ad"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #ad></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div
+              *ngIf="reject"
+              class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+            >
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Rejected Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="ad"
+                    (click)="ad.open()"
+                    formControlName="rejected_date"
+                    [max]="maxDate"
+                    [min]="minDate"
+                    (dateChange)="fromDate($event)"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="ad"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #ad></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div
+              *ngIf="reject"
+              class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+            >
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Remarks</mat-label>
+                  <input matInput type="text" formControlName="remark" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div
+              *ngIf="redirect"
+              class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+            >
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Redirected Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="ad"
+                    (click)="ad.open()"
+                    formControlName="redirect_date"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="ad"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #ad></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div
+              *ngIf="redirect"
+              class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+            >
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Redirected to Whom</mat-label>
+                  <mat-select
+                    formControlName="redirected_whom"
+                    (selectionChange)="selectRedirectedToWhom($event)"
+                  >
+                    <mat-option
+                      *ngFor="let emp of empdata"
+                      [value]="emp.fullName"
+                      >{{ emp.fullName }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div
+              *ngIf="redirect"
+              class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+            >
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Redirected Email ID</mat-label>
+                  <input matInput formControlName="redirected_email" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div
+              *ngIf="redirect"
+              class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+            >
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Redirected Remark</mat-label>
+                  <input matInput formControlName="remark" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3" align="end">
+            <button
+              mat-raised-button
+              color="primary"
+              class="mx-3"
+              (click)="updateInward()"
+            >
+              Submit
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              class="mx-3"
+              routerLink="/master/admin-support/courier-inward"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </mat-card>
+  </div>
+</div>

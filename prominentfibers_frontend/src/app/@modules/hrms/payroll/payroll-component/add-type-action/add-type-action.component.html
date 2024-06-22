@@ -1,0 +1,82 @@
+<div class="edd-del">
+    <mat-icon #tooltip="matTooltip" matTooltip="Edit"
+    matTooltipPosition="above" matTooltipHideDelay="100" (click)="edit($event)">edit</mat-icon>
+    <!-- <mat-icon #tooltip="matTooltip" matTooltip="View"
+    matTooltipPosition="above"
+    matTooltipHideDelay="100">visibility</mat-icon> -->
+
+    <mat-icon #tooltip="matTooltip" matTooltip="Add/Edit Formula"
+    matTooltipPosition="above"
+    matTooltipHideDelay="100" (click)="open_dialog($event)">add_circle</mat-icon>
+    <mat-icon #tooltip="matTooltip" matTooltip="Add Formule"
+    matTooltipPosition="above"
+    matTooltipHideDelay="100" (click)="delete($event)">delete</mat-icon>
+</div>
+
+
+<!-- <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+    <input  name ="answer"  type="text" formControlName="condition" placeholder="Condition" class="form-control" (click)="getCondiValue(i)" data-toggle="modal" data-target="#condtionModal"/>
+    <div class="modal fade" id="condtionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div >
+            <h3 style="padding: 8px;" mat-dialog-title class="popHead">Condition PF</h3>
+          </div>
+          <div class="modal-body">
+            <div class= "formstyle">
+              <input id="calinput" type = "button" value = "   CTC   " (click)="getCondtion('$CTC$')" >
+              <input id="calinput" type = "button" value = "  Basic_Salary  " (click)="getCondtion('$Basic_Salary$')" >
+              <input id="calinput" type = "button" value = "  House  " (click)="getCondtion('$House$') " >
+              <input id="calinput" type = "button" value = "   House_Rent_Allowance   " (click)="getCondtion('$House_Rent_Allowance$')">
+              <input id="calinput" type = "button" value = "Employee" (click)="getCondtion('$Employee_PF$')">
+              <input id="calinput" type = "button" value = "Employee." (click)="getCondtion('$Employee_ESI$')">
+              <input id="calinput" type = "button" value = "Employee." (click)="getCondtion('$Employee_LWF$')">
+              <input id="calinput" type = "button" value = "Gross_ Salary." (click)="getCondtion('$Gross_Salary$')">
+              <input id="calinput" type = "button" value = "_Petrol_" (click)="getCondtion('$Petrol$')">           
+              <input id="calinput" type = "button" value = "Special" (click)="getCondtion('$Special$')">
+              <input id="calinput" type = "button" value = "ProfessionalTax" (click)="getCondtion('$Professional_Tax$')">
+              <input id="calinput" type = "button" value = "Income" (click)="getCondtion('$Income_Tax$')">
+              <input id="calinput" type = "button" value = "Book" (click)="getCondtion('$Books_and_Periodicals$')">
+              <input id="calinput" type = "button" value = "Other" (click)="getCondtion('$Other_Allowance$')">
+              <input id="calinput" type = "button" value = "Other" (click)="getCondtion('$Other_Deduction$')">
+              <br>
+              <input id="calinput" type = "button" value = "Employer_PF. " (click)="getCondtion('$Employer_PF&')">
+              <input id="calinput" type = "button" value = "Employer " (click)="getCondtion('$Employer_ESI$')">
+              <input id="calinput" type = "button" value = "Employer. " (click)="getCondtion('$Employer_LWF$')">
+              <input id="calinput" type = "button" value = "Mobile. " (click)="getCondtion('$Mobile_Reim$')">
+              <input id="calinput" type = "button" value = "Variable_  " (click)="getCondtion('$Variable$')">
+              <input id="calinput" type = "button" value = "   _Diesel_  " (click)="getCondtion('$Diesel_$')">
+              <input id="calinput" type = "button" value = " 1 " (click)="getCondtion('1')" >
+              <input id="calinput" type = "button" value = " 2 " (click)="getCondtion('2')" >
+              <input id="calinput" type = "button" value = " 3 " (click)="getCondtion('3')" >
+              <input id="calinput" type = "button" value = " 4 " (click)="getCondtion('4')" >
+              <input id="calinput" type = "button" value = " 5 " (click)="getCondtion('5')" >
+              <input id="calinput" type = "button" value = " 6 " (click)="getCondtion('6')" >
+              <input id="calinput" type = "button" value = " 7 " (click)="getCondtion('7')" >
+              <input id="calinput" type = "button" value = " 8 " (click)="getCondtion('8')" >
+              <input id="calinput" type = "button" value = " 9 " (click)="getCondtion('9')" >
+              <input id="calinput" type = "button" value = " 0 " (click)="getCondtion('0')" >
+              <input id="calinput" type = "button" value = " -- " (click)="getCondtion('-')">
+              <input id="calinput" type = "button" value = " + " (click)="getCondtion('+')" >
+              <input id="calinput" type = "button" value = " = " (click)="getCondtion('=')" >
+              <input id="calinput" type = "button" value = " * " (click)="getCondtion('*')" >
+              <input id="calinput" type = "button" value = " / " (click)="getCondtion('/')" >
+              <input id="calinput" type = "button" value = " % " (click)="getCondtion('%')" >
+              <input id="calinput" type = "button" value = " ( " (click)="getCondtion('(')">
+              <input id="calinput" type = "button" value = " ) " (click)="getCondtion(')')">
+              <input id="calinput" type = "button" value = " <  " (click)="getCondtion('<')">
+              <input id="calinput" type = "button" value = " > " (click)="getCondtion('>')">
+              <input id="clear" type = "button" value = " Clear " data-dismiss="modal" (click)="clearCondAll(condIndex)">
+              <br>              
+          <br>              
+        </div>   
+        <div align="end">
+          <button class="mr-2" mat-raised-button color="primary" data-dismiss="modal" (click)="getCondiPopValue(condIndex)">Ok</button>
+          <button mat-raised-button color="warn" data-dismiss="modal">Close</button>              
+         </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </td> -->
+

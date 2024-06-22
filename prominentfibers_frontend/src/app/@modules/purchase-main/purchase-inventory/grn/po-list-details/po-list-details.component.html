@@ -1,0 +1,152 @@
+ 
+<section class="section">
+  <form [formGroup]="POformGroup">  
+  
+  <div class="form_head mt-2">
+        <h3>PO List Detail</h3>
+        <button class="backBtn" (click)="goBack()">
+          <i class="fa fa-arrow-circle -left"></i> Back
+        </button>
+      </div>
+
+    <div class="row mt-2 p-2">
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="inp_disable">
+            <mat-form-field appearance="outline" class="mt-1">
+              <mat-label>PO Number</mat-label>
+              <input type="text" matInput formControlName="po_number" />
+              
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group inp_disable">
+
+            <mat-form-field appearance="outline" class="mt-1">
+              <mat-label>PO Date</mat-label>
+              <input type="text" matInput  formControlName="po_date"  />
+           
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group inp_disable">
+           
+            <mat-form-field appearance="outline" class="mt-1">
+              <mat-label>PO Type</mat-label>
+              <input type="text" matInput  formControlName="po_type"  />
+              
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-2 p-2">
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="">
+            <mat-form-field appearance="outline" class="mt-1">
+              <mat-label>Invoice No</mat-label>
+              <input type="text" matInput formControlName="invoice_no"  />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+           
+              <div class="form-group"> 
+                <mat-form-field appearance="outline" class="mt-1">
+                  <mat-label>Invoice Date</mat-label>
+                  <input matInput [matDatepicker]="picker" format="DD-MM-YY"   formControlName="invoice_date"/>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                   
+                </mat-form-field>
+              </div>
+           
+        </div>
+        <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+          <div class="form-group mt-1 ">
+              <input type="file" class="form-control" formControlName="image" (change)="onChange($event)"  />
+          </div>
+        </div>
+      </div> 
+      <div class="mt-2 px-2 mb-5">
+        <table class="table table-bordered mb-5">
+            <thead class="tHead">
+                <tr class="text-center py-2">
+                    <th scope="col">S.No</th>
+                    <th scope="col">Asset Category</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col" *ngIf="submitBtn">Managed By</th>
+                    <th scope="col">Item Code</th>
+                    <th scope="col">PO QTY</th>
+                    <th scope="col">RCVD QTY</th>
+                    <th scope="col">Reject QTY</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody formArrayName="grnItem">
+                <tr class="text-center" *ngFor="let grnItem of GrnDataItem.controls; let i = index"
+                [formGroupName]="i">
+                    <td scope="col">{{i+1}}</td>
+                    <td scope="col" class="inp_disable">
+                          <input type="text" matInput class="form-control" formControlName="item_cat"  />
+                    </td>
+                    <td scope="col" class="inp_disable">
+                          <input type="text" matInput class="form-control" formControlName="item_name"  />
+                    </td>
+                    <td scope="col" class="inp_disable" *ngIf="submitBtn">
+                          <input type="text" matInput class="form-control" formControlName="manage_by"  />
+                    </td>
+                    <td scope="col"  class="inp_disable">
+                          <input type="text" matInput class="form-control" formControlName="item_code"  />
+                          
+                    </td>
+                    <td scope="col" class="inp_disable">
+                          <input type="text" matInput formControlName="po_qty" class="form-control"  />
+                          
+                    </td>
+                    <td scope="col">
+                      <input type="text" matInput class="form-control" formControlName="rcvd_qty"   />
+
+                     
+                </td>
+                <td scope="col">
+                      <input type="text" matInput class="form-control" formControlName="reject_qty" [ngClass]="grnItem.get('manage_by')?.value == 'S.No. Only'?'disableClass':''"  [readonly]="grnItem.get('manage_by')?.value == 'S.No. Only'"   />
+
+                </td>
+                    <td scope="col" class="edd-del d-flex" >
+                      <ng-container *ngIf="!submitBtn">
+                        <mat-icon matTooltip="Create" (click)="openPopUp(grnItem,$event)"   >fast_forward</mat-icon>
+                      </ng-container>
+                            <ng-container *ngIf="submitBtn">
+                        <mat-icon matTooltip="Create" (click)="openPopUp(grnItem,$event)">edit</mat-icon>
+
+                            </ng-container>                       
+                    </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-end mb-5" *ngIf="submitBtn" >
+         
+          <button mat-raised-button color="primary"   (click)="onsubmitData(POformGroup.value)"  
+           class="mt-2" >
+             Submit
+          </button>
+          <button mat-raised-button color="primary" style="margin: 0px 10px;"  (click)="onsubmitPartial(POformGroup.value)"  
+          class="mt-2" >
+            Partial Submit
+          </button>
+          <mat-dialog-actions>
+            <button mat-button mat-dialog-close mat-raised-button color="warn" (click)="close()"  >Close</button>
+          </mat-dialog-actions>
+       
+      </div>
+   
+
+    </form>
+</section>

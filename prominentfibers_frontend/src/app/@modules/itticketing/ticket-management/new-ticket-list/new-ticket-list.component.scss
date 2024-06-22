@@ -1,0 +1,49 @@
+.employee{
+    color: #8B817D;
+    font-weight: 400;
+    font-size: 16px;
+    p{
+        margin: 0;
+    }
+}
+.msater-nav {
+    a {
+        margin: 0 24px 0 0;
+    }
+
+    :first-child {
+        color: #c0c0c0;
+    }
+
+    :last-child {
+        color: #8B817D;
+    }
+
+    mat-icon {
+        position: absolute;
+        margin-top: -4px;
+    }
+}
+
+.main-table{
+    margin-top: 32px;
+}
+.imgEmp {
+    width: 41px;
+    height: 31px;
+    position: relative;
+    top: -35px;
+    left: 81%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+::ng-deep .form-control[type=file]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+    line-height: 28px;
+}
+
+
+
+
+
+

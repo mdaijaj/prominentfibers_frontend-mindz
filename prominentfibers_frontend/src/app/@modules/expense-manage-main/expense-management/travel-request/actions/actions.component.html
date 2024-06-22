@@ -1,0 +1,46 @@
+<div class="edd-del">
+    <mat-icon matTooltip="Suggest" *ngIf="enableSubmit" (click)="edit()">done</mat-icon>
+    <!-- <mat-icon matTooltip="Confirm" *ngIf="enableSuggest" (click)="edit()">done_all</mat-icon> -->
+    <mat-icon matTooltip="Confirm" *ngIf="enableSuggestTwo" (click)="editConfirm()">done_all</mat-icon>
+
+    <mat-icon matTooltip="Book Tickets" *ngIf="enableConfirm" (click)="editBook()">done_outline</mat-icon>
+    <mat-icon matTooltip="Approve Expense" *ngIf="enableBooked" (click)="bookedFunc()">beenhere</mat-icon>
+    <mat-icon matTooltip="User Approved" *ngIf="enableApprove" (click)="enableApproved($event)">all_out</mat-icon>
+    <!-- <i (click)="edit($event)" class='fas fa-edit'></i> -->
+    <!-- <mat-icon matTooltip="zip File" *ngIf="enableApprove" (click)="downloadFile()">dashboard</mat-icon> -->
+    
+    <mat-icon  *ngIf="enableSuggest" (click)="view($event)" >visibility</mat-icon>
+    <mat-icon  *ngIf="enableSuggest" (click)="updateConfirm($event)" >edit</mat-icon>
+
+    <!-- <mat-icon  *ngIf="expense_detailId" (click)="expenceDetailsView($event)" >visibility</mat-icon> -->
+    <mat-icon *ngIf="expense_detailId" matTooltip="expense details" (click)="expenseDetailEdit($event)">edit</mat-icon>
+    <mat-icon matTooltip="Travel Details" *ngIf="confirmIcon" (click)="confirmClick($event)"> pause_presentation</mat-icon>
+    <mat-icon  matTooltip="Cancel Ticket" *ngIf="bookTicket" (click)="cancelTicket($event)"> cancel_presentation</mat-icon>
+    <mat-icon matTooltip="Cancel Ticket Approved" *ngIf="cancelRequest" (click)="cancelTicketReuest($event)"> phonelink_erase</mat-icon>
+    <mat-icon matTooltip="Confirm Cancel Ticket  " *ngIf="cancelRequestApproved" (click)="confirmCancelTicket($event)">clear</mat-icon>
+    <!-- <mat-icon matTooltip="Confirm Cancel Ticket  " *ngIf="cancelStatus" (click)="cancelStatusPopup($event)">visibility</mat-icon> -->
+    <mat-icon  matTooltip="Upload Borading Pass" *ngIf="bookTicket" (click)="uploadOnbording($event)">donut_small</mat-icon>
+    <mat-icon matTooltip="posted Expense" *ngIf="enableProcessing && !nonBillableStatus" (click)="postedExpense($event)">eject</mat-icon>
+    <mat-icon matTooltip="Manage Expense" *ngIf="nonBillableStatus && enableProcessing" (click)="mangeExpense($event)" >loyalty</mat-icon>
+
+    <mat-icon matTooltip="Make Payment" *ngIf="enablePosted" (click)="postStatus()">event_seat</mat-icon>
+    <mat-icon matTooltip="Zoho" *ngIf="enablePosted" (click)="zohoIntegrat($event)">trending_up</mat-icon>
+
+    <mat-icon matTooltip="Maneger Expense " *ngIf="enableManageApprovel" (click)="manageExpenseStatus($event)">dns</mat-icon>
+    <mat-icon matTooltip="Processing create" *ngIf="enableOpen" (click)="processingStatus($event)">done_outline</mat-icon>
+    <mat-icon matTooltip="Download Ticket" *ngIf="downloadTicket" (click)="downloadTickets($event)">move_to_inbox</mat-icon>
+    <mat-icon *ngIf="expense_detailId" matTooltip="Delete details" (click)="expenseDetailDelete($event)">delete</mat-icon>
+    <mat-icon matTooltip="Update" *ngIf="expenseDraft" (click)="draftUpdate($event)"> next_week</mat-icon>
+
+
+</div>
+
+<div class="add-del" *ngIf="ec">
+    <mat-icon matTooltip="Create Expense"  *ngIf="taskLeadId" (click)="createTask()">bookmark</mat-icon>
+   
+</div>
+<div class="add-del" *ngIf="tr">
+    <mat-icon matTooltip="Create Travel Request"  *ngIf="taskLeadId" (click)="createTravel()">bookmark_border</mat-icon>
+</div>
+
+

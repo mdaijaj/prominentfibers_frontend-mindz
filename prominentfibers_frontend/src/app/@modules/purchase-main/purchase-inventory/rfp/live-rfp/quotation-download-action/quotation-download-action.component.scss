@@ -1,0 +1,13 @@
+mat-icon{
+    cursor: pointer;
+    position: relative;
+    color: #063178;
+    top: 7px;
+}
+
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+background-color: #063178 !important;
+
+}

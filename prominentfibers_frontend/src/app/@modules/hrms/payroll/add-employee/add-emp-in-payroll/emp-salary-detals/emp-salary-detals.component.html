@@ -1,0 +1,84 @@
+<section>
+  <div class="conatiner">
+    <mat-card>
+      <div class="form_head">
+        <h3>SALARY DETAILS</h3>
+        <button class="backBtn" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i> Back</button>
+      </div>
+      <div class="form_basic">
+        <form class="form_set" [formGroup]="salaryForm">
+          <div class="row">
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" readonly>
+                  <mat-label>Total CTC</mat-label>
+                  <input matInput type="text" formControlName="tatal_ctc" />
+                  <!-- <mat-error>
+                    <span *ngIf="salaryForm.controls['tatal_ctc'].hasError('required') "> This field is required!</span>
+                    <span *ngIf="(salaryForm.controls['tatal_ctc'].hasError('pattern') && salaryForm.controls['tatal_ctc'].hasError('minlength')) || (salaryForm.controls['tatal_ctc'].hasError('pattern') && salaryForm.controls['tatal_ctc'].hasError('maxlength')) || salaryForm.controls['tatal_ctc'].hasError('pattern')">Enter only numbers!</span>
+                    <span *ngIf="salaryForm.controls['tatal_ctc'].hasError('minlength') "> Minimum 3 numbers required!</span>
+                    <span *ngIf="salaryForm.controls['tatal_ctc'].hasError('maxlength') "> Maximum 10 numbers accepts!</span>
+                  </mat-error> -->
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fixed CTC</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="fixed_ctc"
+                  />
+                  <!-- <mat-error>
+                    <span *ngIf="salaryForm.controls['fixed_ctc'].hasError('required') "> This field is required!</span>
+                    <span *ngIf="(salaryForm.controls['fixed_ctc'].hasError('pattern') && salaryForm.controls['fixed_ctc'].hasError('minlength')) || (salaryForm.controls['fixed_ctc'].hasError('pattern') && salaryForm.controls['fixed_ctc'].hasError('maxlength')) || salaryForm.controls['fixed_ctc'].hasError('pattern')">Enter only numbers!</span>
+                    <span *ngIf="salaryForm.controls['fixed_ctc'].hasError('minlength') "> Minimum 3 numbers required!</span>
+                    <span *ngIf="salaryForm.controls['fixed_ctc'].hasError('maxlength') "> Maximum 10 numbers accepts!</span>
+                  </mat-error> -->
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Variable CTC(Performance Incentive)</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="variable_ctc"
+                  />
+                  <!-- <mat-error>
+                    <span *ngIf="salaryForm.controls['variable_ctc'].hasError('required') "> This field is required!</span>
+                    <span *ngIf="(salaryForm.controls['variable_ctc'].hasError('pattern') && salaryForm.controls['variable_ctc'].hasError('minlength')) || (salaryForm.controls['variable_ctc'].hasError('pattern') && salaryForm.controls['variable_ctc'].hasError('maxlength')) || salaryForm.controls['variable_ctc'].hasError('pattern')">Enter only numbers!</span>
+                    <span *ngIf="salaryForm.controls['variable_ctc'].hasError('minlength') "> Minimum 3 numbers required!</span>
+                    <span *ngIf="salaryForm.controls['variable_ctc'].hasError('maxlength') "> Maximum 10 numbers accepts!</span>
+                  </mat-error> -->
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <button
+              mat-raised-button
+              color="primary"
+              class="mx-3"
+              (click)="onSubmitForm()"
+            >
+              {{ salaryId ? "Update" : "Submit" }}
+            </button>
+            <button mat-raised-button color="warn" (click)="Skip()">
+              Skip
+            </button>
+          </div>
+        </form>
+      </div>
+    </mat-card>
+
+    <!-- <div align="start"  class="btn_employ">
+            <button mat-raised-button class="btn1" color="primary" (click)="onSubmitForm()">Save</button>
+            <button mat-raised-button class="btn2 mx-2" color="warn">Cancel</button>
+        </div> -->
+  </div>
+</section>

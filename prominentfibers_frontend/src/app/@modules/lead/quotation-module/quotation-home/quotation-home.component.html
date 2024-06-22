@@ -1,0 +1,146 @@
+<div class="row">
+
+  <ng-container *ngFor="let module of subModules">
+    <div class="service-box">
+      <div class="service-img" [routerLink]="module.menuLink" (click)="goInToPage(module)">
+        <img [src]="module.menuIcon" alt="" />
+      </div>
+      <div class="card-title">
+        <p>{{module.menuName}}</p>
+      </div>
+    </div>
+  </ng-container>
+<!-- 
+  <div class="service-box" routerLink="S&M-head-Approval">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/stamp.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>S&M Head Approval</p>
+    </div>
+  </div> -->
+  <!-- <div class="service-box" routerLink="digital-signed-document">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/upload_signed_icon.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Upload Signed Documents</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="verify-signed-document">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/verify_documents_icon.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Verify Signed Documents</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="snm-head-approver">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/snm_head_icon.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>S&M Head Approver</p>
+    </div>
+  </div> -->
+
+  <!-- <div class="service-box" routerLink="quotation-list">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/asses.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Prepare Quotation</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="quotation-list">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/qt1.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Quotation List</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="send-quotation">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/checklist.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Send Quotation</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="update-quotation">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/l2.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Update Quotation</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="send-for-s&m">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/double.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>S&M Approval</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="s&m-approved">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/approve.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>S&M Approved</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="approved">
+    <div class="service-img">
+      <img src="assets//icons/configuration/quote-request.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Quote Accepted</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="perform-invoice">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/invoice1.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Proforma Invoice</p>
+    </div>
+  </div>
+
+  <div class="service-box" routerLink="perform-invoice">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/up.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Update P.I. & Docs</p>
+    </div>
+  </div> -->
+  <!-- <div class="service-box" routerLink="fea-approvel">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/fea-approval.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>FEA Approvel</p>
+    </div>
+  </div> 
+
+  <div class="service-box" routerLink="order-booking">
+    <div class="service-img">
+      <img src="assets//icons/icon_DQS/order-booking.png" alt="" />
+    </div>
+    <div class="card-title">
+      <p>Order Booking</p>
+    </div>
+  </div>  -->
+</div>

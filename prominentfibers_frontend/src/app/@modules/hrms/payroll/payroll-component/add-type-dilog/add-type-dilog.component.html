@@ -1,0 +1,37 @@
+<div class="modal-body">
+    <div class="formstyle">
+        <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <br>
+            <div class="form-group">
+                <mat-form-field appearance="outline" class="aa" >
+
+                    <mat-label>Make Formula</mat-label>
+                    <input  matInput type="text" [value]="showFormula" readonly />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="cal-cantainer">
+            <div class="withComp cal-container-child1">
+
+                <!-- <input id="calinput"  type = "button" value ="{{data.component_code}}" (click)="getCondtion($event)" > -->
+                <button class="hover1" id="calinput" value="{{data.component_code}}" *ngFor="let data of rowData"
+                    (click)="getCondtion($event,'$'+data.component_code+'$',data.component_code)">{{data.component_name}}</button>
+
+            </div>
+            <div class="withNum cal-container-child2">
+
+                <!-- <input id="calinput"  type = "button" value ="{{data.component_code}}" (click)="getCondtion($event)" > -->
+                <button class="hover1" id="num" value="{{data.component_code}}" *ngFor="let data of rowData2"
+                    (click)="getCondtion($event,data.component_code,data.component_code)">{{data.component_name}}</button>
+                <button class="hover1" id="num" (click)="clear()">Clear</button>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+    <div align="end" class="bottom-btn">
+        <button class="mr-2" mat-raised-button color="primary" data-dismiss="modal"
+            (click)="getCondiPopValue(condIndex)" mat-dialog-close>Create</button>
+        <button mat-raised-button color="warn" data-dismiss="modal" mat-dialog-close>Close</button>
+    </div>
+</div>

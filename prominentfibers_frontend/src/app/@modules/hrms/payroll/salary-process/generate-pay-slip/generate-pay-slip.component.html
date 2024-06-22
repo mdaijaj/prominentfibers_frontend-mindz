@@ -1,0 +1,61 @@
+<div class="section">
+<mat-card>
+    <!-- <div class="form_head">
+        <h3>Salary Process</h3>
+        <button class="backBtn" routerLink="../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+      </div> -->
+
+  <div class="section">
+    <div class="form_basic">
+      <form class="form_set" [formGroup]="paySlipForm">
+        <div class="row">
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline" readonly>
+                <mat-label>Fiscal year</mat-label>
+                <mat-select formControlName="fiscal_year">
+                  <mat-option value="2022">2022</mat-option>
+                  <mat-option value="2023">2023</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Pay Period</mat-label>
+                <mat-select formControlName="pay_period" >
+                    <mat-option value>Select</mat-option>
+                    <mat-option *ngFor="let monthList of month" [value]="monthList.value">{{monthList.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+         <div class="col-xxl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Employee</mat-label>
+                <mat-select formControlName="employee" (selectionChange)=" 
+                onCellClicked($event)">
+                    <mat-option *ngFor="let emp of EmpListData" [value]="emp.employee_id">{{emp.first_name}} {{emp.last_name}}</mat-option>        
+                </mat-select>        
+              </mat-form-field>
+            </div>
+          </div>
+        </div>  
+        <!-- <div class="mt-3">
+          <button mat-raised-button color="primary" class="mx-3"
+         
+           >
+             Submit 
+          </button>
+          <button mat-raised-button color="warn" (click)="onCancel('/master/hrms/payroll/payroll-master')">
+            Cancel
+          </button>
+        </div> -->
+      </form>
+    </div>
+  </div>
+</mat-card>
+</div>
+<router-outlet></router-outlet>

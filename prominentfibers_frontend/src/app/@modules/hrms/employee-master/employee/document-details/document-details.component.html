@@ -1,0 +1,83 @@
+<section>
+  <div class="conatiner">
+    <mat-card>
+      <div class="form_head">
+        <h3>DOCUMENTS DETAILS</h3>
+        <button class="backBtn" routerLink="../../"><i class="fa fa-arrow-circle-left"></i> Back</button>
+      </div>
+      <div class="form_basic">
+        <form class="form_set" [formGroup]="documentForm">
+          <div class="table px-3">
+            <thead>
+              <tr class="row">
+                <th class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                  Attachment
+                </th>
+                <th class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                  Document Type
+                </th>
+                <th class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                  Document Name
+                </th>
+                <th class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                  Description/Comment
+                </th>
+                <th class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12 py-2">
+                  <button mat-raised-button color="warn" (click)="addRow()">
+                    Add
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <ng-container formArrayName="tableRows" *ngFor="let control of CF_1.tableRows['controls']; index as i" ?>
+                <tr class="row" [formGroup]="control">
+                  <td class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12" style="position: relative;">
+                    <input type="file" (change)="onChange($event, i)"
+                      formControlName="document_file" style="padding-right: 38px;" />
+                    <img class="selctedImg" *ngIf="control.imagePath || control.value.fileImage" [src]="control.imagePath || control.value.fileImage" (click)="seeDocuments(control.value.ExsitDocument_file, control)" alt="">
+                    <!-- <img class="selctedImg" *ngIf="control.value.fileImage" [src]="control.value.fileImage" alt=""> -->
+                  </td>
+                  <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <select class="form-select" aria-label=".form-select-lg example" formControlName="document_type">
+                      <option value="PDF">PDF</option>
+                      <option value="JPEG">JPEG</option>
+                      <option value="JPG">JPG</option>
+                      <option value="DOC">DOC</option>
+                      <option value="DOCX">DOCX</option>
+                      <option value="PNG">PNG</option>
+                      <option value="GIF">GIF</option>
+
+                    </select>
+                  </td>
+                  <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12">
+                    <input type="text" formControlName="document_name" class="form-control" />
+                  </td>
+                  <td class="col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                    <input type="text" formControlName="description" class="form-control" />
+                  </td>
+                  <td class="col-xxl-2 col-lg-2 col-md-2 col-sm-2 col-12" style="text-align: center; color: #8B817D;">
+                    <div class="I-center">
+                      <button class="sendBtn" [disabled]="control.isSend" [ngStyle]="{'background-color':control.isSend ? '#207806':'#8B817D'}" (click)="sendAndUpdate(i, control)"><mat-spinner *ngIf="control.showLoader" style="width: 18px; height:18px;"></mat-spinner><span *ngIf="!control.showLoader && !control.value.emp_document_id "> {{control.isSend ?"Saved": "Save"}}</span><span *ngIf="!control.showLoader && control.value.emp_document_id "> {{control.isSend ?"Updated": "Update"}}</span> </button>
+                      <i class="material-icons" (click)="deleteSingleDoc(i, control)"
+                        style="cursor: pointer;" *ngIf="!control.isSend || control.value.emp_document_id ">delete</i>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </div>
+          <div class="mt-3">
+            <button mat-raised-button color="primary" class="mx-3" (click)="onSubmitForm()">Submit</button>
+            <!-- <button mat-raised-button color="warn" (click)="Skip()">Skip</button> -->
+          </div>
+        </form>
+      </div>
+    </mat-card>
+    <!-- <div align="start"  class="btn_employ">
+            <button mat-raised-button class="btn1" color="primary" (click)="onSubmitForm()">Save</button>
+            <button mat-raised-button class="btn2 mx-2" color="warn">Cancel</button>
+        </div> -->
+  </div>
+</section>
